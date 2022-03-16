@@ -131,7 +131,7 @@ public class GuiTest extends JFrame {
 		
 		// Register
 		registerbtn2.addActionListener(e -> {
-			new AccountManagerImpl().Register(usr.getText(), psw.getText(), eta.getText());
+			new AccountManagerImpl().Register(usr2.getText(), psw2.getText(), eta.getText());
 		});
 		
 		// Register (switch layout)

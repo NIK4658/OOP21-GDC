@@ -16,7 +16,7 @@ public class AccountManagerImpl implements AccountManager {
 	@Override
 	public boolean Logger(String usr, String psw) {
 		try {
-			JSONObject jo = (JSONObject) new JSONParser().parse(new FileReader("users/" + usr + ".json"));
+			JSONObject jo = (JSONObject) new JSONParser().parse(new FileReader("res/json/users/" + usr + ".json"));
 			String name = jo.get("Username").toString();
 			String password = jo.get("Password").toString();
 			String saldo = jo.get("Saldo").toString();
@@ -80,7 +80,7 @@ public class AccountManagerImpl implements AccountManager {
 
 	@Override
 	public boolean CheckExisting(String usr) {
-		File f = new File("users/" + usr + ".json");
+		File f = new File("res/json/users/" + usr + ".json");
 		if (f.exists() && !f.isDirectory()) {
 			return true;
 		} else {
