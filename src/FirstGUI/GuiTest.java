@@ -28,9 +28,9 @@ public class GuiTest extends JFrame {
 		
 		// Zona di destra
 		JPanel east = new JPanel(new FlowLayout(FlowLayout.CENTER, 0, 0));
-		//ImageModifier imgMod = new ImageModifier();
-		//Image imgi = imgMod.scaleFullScreen((new ImageIcon(this.getClass().getClassLoader().getResource("HQcasinoCroppedWithTitle.gif"))).getImage(),new Dimension(2 * DIMX / 3, DIMY));
-		//east.add(new JLabel(new ImageIcon(imgi), SwingConstants.CENTER));
+		ImageModifier imgMod = new ImageModifier();
+		Image imgi = imgMod.scaleFullScreen((new ImageIcon("res/img/backgrounds/HQcasinoCroppedWithTitle.gif").getImage()),new Dimension(2 * DIMX / 3, DIMY));
+		east.add(new JLabel(new ImageIcon(imgi), SwingConstants.CENTER));
 		east.setPreferredSize(new Dimension(2 * DIMX / 3, DIMY));
 
 		// Zona di sinistra
