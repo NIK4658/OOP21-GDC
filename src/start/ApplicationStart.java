@@ -1,12 +1,12 @@
 package start;
 
-import view.access.GuiTest;
+import view.access.AccessMenu;
 
 /**
  * Starts the application.
  */
 public final class ApplicationStart {
 	public static void main(String[] args){
-		new GuiTest();
+		new AccessMenu();
 	}
 }

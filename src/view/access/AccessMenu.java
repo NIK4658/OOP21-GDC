@@ -8,7 +8,7 @@ import view.access.AccessPanel.AccessType;
 import java.awt.*;
 
 //DA SISTEMARE I MAGIC NUMBERS
-public class GuiTest extends JFrame {
+public class AccessMenu extends JFrame {
 
 	private final Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 	private final int dimX = (int) screenSize.getWidth() / 2;
@@ -16,7 +16,7 @@ public class GuiTest extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 
-	public GuiTest() {
+	public AccessMenu() {
 
 		// Default
 		setDefaultCloseOperation(EXIT_ON_CLOSE); 																// chiude processo finestra
