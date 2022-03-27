@@ -19,8 +19,14 @@ public class GuiTest extends JFrame {
 		setDefaultCloseOperation(EXIT_ON_CLOSE); 																// chiude processo finestra
 		setResizable(false); 																					// non può essere allargata
 		// GraphicsDevice device = GraphicsEnvironment.getLocalGraphicsEnvironment().getScreenDevices()[0]; 	//definisce schermo principale
-		//setLocation((DIMX / 2) - (getSize().width / 2), (DIMY / 2) - (getSize().height / 2)); 				// spawn al centro		//~FEDE valore di getSize().width = getSize().height = 0??																			//~FEDE spawn al centro
-		setLocation(DIMX / 2 , DIMY / 2); 																	//~FEDE spawn al centro, da togliere magic numbers(2)
+		
+		
+		//setLocation((DIMX / 2) - (getSize().width / 2), (DIMY / 2) - (getSize().height / 2)); 				// spawn al centro
+		//~FEDE valore di getSize().width = getSize().height = 0??	
+		//~FEDE comunque sostituito da setLocationRelativeTo(null);	
+		//~FEDE "setLocationRelativeTo(null) is commonly used to center the gui on the screen. Much better than getting screen size then adding a formula for setLocation(int,int)" fonte: https://coderanch.com/t/343686/java/setLocationRelativeTo
+		
+		
 		// setUndecorated(true); 																				//toglie la barra in alto
 		// device.setFullScreenWindow(this); 																	//set full screen
 
@@ -146,8 +152,8 @@ public class GuiTest extends JFrame {
 		});
 
 		pack();
-		
 //		setSize(DIMX, DIMY);				//~FEDE superfluo, già pack() che setta la dimensione
+		setLocationRelativeTo(null);		//~FEDE setta al centro la finestra automaticamente
 		setVisible(true);
 	}
 
