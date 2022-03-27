@@ -1,4 +1,4 @@
-package FirstGUI;
+package view;
 
 import java.awt.*;
 

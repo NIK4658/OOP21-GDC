@@ -1,6 +1,6 @@
 package start;
 
-import FirstGUI.GuiTest;
+import view.access.GuiTest;
 
 /**
  * Starts the application.
