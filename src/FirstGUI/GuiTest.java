@@ -19,7 +19,8 @@ public class GuiTest extends JFrame {
 		setDefaultCloseOperation(EXIT_ON_CLOSE); 																// chiude processo finestra
 		setResizable(false); 																					// non può essere allargata
 		// GraphicsDevice device = GraphicsEnvironment.getLocalGraphicsEnvironment().getScreenDevices()[0]; 	//definisce schermo principale
-		setLocation((DIMX / 2) - (getSize().width / 2), (DIMY / 2) - (getSize().height / 2)); 					// spawn al centro
+		//setLocation((DIMX / 2) - (getSize().width / 2), (DIMY / 2) - (getSize().height / 2)); 				// spawn al centro		//~FEDE valore di getSize().width = getSize().height = 0??																			//~FEDE spawn al centro
+		setLocation(DIMX / 2 , DIMY / 2); 																	//~FEDE spawn al centro, da togliere magic numbers(2)
 		// setUndecorated(true); 																				//toglie la barra in alto
 		// device.setFullScreenWindow(this); 																	//set full screen
 
@@ -28,9 +29,9 @@ public class GuiTest extends JFrame {
 		ImageModifier imgMod = new ImageModifier();
 		Image imgi = imgMod.scaleFullScreen(
 				(new ImageIcon("res/img/backgrounds/HQcasinoCroppedWithTitle.gif").getImage()),
-				new Dimension(2 * DIMX / 3, DIMY));
+				new Dimension(2 * DIMX / 3, DIMY));																//~FEDE da togliere magic numbers(2,3)
 		east.add(new JLabel(new ImageIcon(imgi), SwingConstants.CENTER));
-		east.setPreferredSize(new Dimension(2 * DIMX / 3, DIMY));
+		east.setPreferredSize(new Dimension(2 * DIMX / 3, DIMY));												//~FEDE da togliere magic numbers(2,3)
 
 		// Zona di sinistra
 		JPanel login = new JPanel();
@@ -39,12 +40,12 @@ public class GuiTest extends JFrame {
 		register.setBackground(new Color(68, 87, 96));					 	// blu bello
 		//register.setBackground(new Color(44, 107, 14)); 					//verde tavolo
 		register.setLayout(new GridBagLayout());
-		register.setPreferredSize(new Dimension(DIMX / 3, DIMY));
+		register.setPreferredSize(new Dimension(DIMX / 3, DIMY));			//~FEDE da togliere magic numbers(3)
 
 		login.setBackground(new Color(68, 87, 96)); 						// blu bello
 		//login.setBackground(new Color(44, 107, 14)); 						//verde tavolo
 		login.setLayout(new GridBagLayout());
-		login.setPreferredSize(new Dimension(DIMX / 3, DIMY));
+		login.setPreferredSize(new Dimension(DIMX / 3, DIMY));				//~FEDE da togliere magic numbers(3)
 
 		// Componenti JPanel west (login)
 		JLabel title = new JLabel("LOGIN", SwingConstants.CENTER); 			// Titolo Login
@@ -145,7 +146,8 @@ public class GuiTest extends JFrame {
 		});
 
 		pack();
-		setSize(DIMX, DIMY);
+		
+//		setSize(DIMX, DIMY);				//~FEDE superfluo, già pack() che setta la dimensione
 		setVisible(true);
 	}
 
