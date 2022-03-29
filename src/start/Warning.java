@@ -6,7 +6,7 @@ public class Warning {
     public static void main(String args[]) {
 
         //Creating the Frame
-        JFrame frame = new JFrame("WARNING");
+    	final JFrame frame = new JFrame("WARNING");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(400, 400);
         Color colore = Color.RED;
@@ -15,9 +15,7 @@ public class Warning {
         
         
          
-        JTextField t1;  
-        
-        t1=new JTextField("IL GIOCO CREA DIPENDENZA STAI ATTENTO");
+        final JTextField t1 = new JTextField("IL GIOCO CREA DIPENDENZA STAI ATTENTO");
          
         
         t1.setBackground(colore);
@@ -34,10 +32,10 @@ public class Warning {
         
 
         //Creating the panel at bottom and adding components
-        JPanel panel = new JPanel(); // the panel is not visible in output
+        final JPanel panel = new JPanel(); // the panel is not visible in output
         //JLabel label = new JLabel("Enter Text");
-        JCheckBox tf = new JCheckBox("Sono consapevole"); // accepts upto 10 characters
-        JButton send = new JButton("Avanti");
+        final JCheckBox tf = new JCheckBox("Sono consapevole"); // accepts upto 10 characters
+        final JButton send = new JButton("Avanti");
         //JButton reset = new JButton("Reset");
         //panel.add(label); // Components Added using Flow Layout
         panel.add(tf);

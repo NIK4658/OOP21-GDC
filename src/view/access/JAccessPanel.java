@@ -36,7 +36,7 @@ public class JAccessPanel extends JPanel implements AccessPanel{
 		loginbtn = new JButton("Login"); 								// Tasto Login
 		registerbtn = new JButton("Registrati"); 						// Tasto Registrati
 
-		ArrayList<JComponent> list = new ArrayList<>();
+		final ArrayList<JComponent> list = new ArrayList<>();
 		list.add(usr);
 		list.add(psw);
 		if(access.equals(AccessType.REGISTER)) {
@@ -64,7 +64,7 @@ public class JAccessPanel extends JPanel implements AccessPanel{
 		
 		// Modifiche generali
 		int i = 1;
-		for (JComponent jc : list) {
+		for (final JComponent jc : list) {
 			jc.setPreferredSize(new Dimension(dimX / 3 - (dimX / 3 / 2), dimY / 20));
 			jc.setFont(new Font("Arial", Font.PLAIN, dimX / 50));
 			add(jc, setDimensionObj(0, i, 5));
@@ -99,7 +99,7 @@ public class JAccessPanel extends JPanel implements AccessPanel{
 	}
 	
 	private GridBagConstraints setDimensionObj(final int gridx, final int gridy, final int space) {
-		GridBagConstraints c = new GridBagConstraints();
+		final GridBagConstraints c = new GridBagConstraints();
 		c.anchor = GridBagConstraints.PAGE_END;
 		c.insets = new Insets(0, 0, space, 0); // terzo parametro definisce la distanza verticale (verso il basso) tra i vari oggetti della gui
 		c.gridx = gridx;

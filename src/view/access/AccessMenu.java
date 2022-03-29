@@ -26,8 +26,8 @@ public class AccessMenu extends JFrame {
 		// device.setFullScreenWindow(this); 																	//set full screen
 
 		// Zona di destra
-		JPanel east = new JPanel(new FlowLayout(FlowLayout.CENTER, 0, 0));
-		Image imgi = new ImageModifier().scaleFullScreen(
+		final JPanel east = new JPanel(new FlowLayout(FlowLayout.CENTER, 0, 0));
+		final Image imgi = new ImageModifier().scaleFullScreen(
 				new ImageIcon("res/img/backgrounds/HQcasinoCroppedWithTitle.gif").getImage(),
 				new Dimension(2 * dimX / 3, dimY));																
 		east.add(new JLabel(new ImageIcon(imgi), SwingConstants.CENTER));
@@ -35,11 +35,11 @@ public class AccessMenu extends JFrame {
 
 		// Zona di sinistra
 		//JPanel contenitore
-		CardLayout cl = new CardLayout();
-		JPanel west = new JPanel(cl);
+		final CardLayout cl = new CardLayout();
+		final JPanel west = new JPanel(cl);
 		
-		JAccessPanel login = new JAccessPanel(AccessType.LOGIN, dimX, dimY);
-		JAccessPanel register = new JAccessPanel(AccessType.REGISTER, dimX, dimY);
+		final JAccessPanel login = new JAccessPanel(AccessType.LOGIN, dimX, dimY);
+		final JAccessPanel register = new JAccessPanel(AccessType.REGISTER, dimX, dimY);
 		login.setActionListenerRegisterButton(e -> {
 			cl.show(west, AccessType.REGISTER.toString());
 		});

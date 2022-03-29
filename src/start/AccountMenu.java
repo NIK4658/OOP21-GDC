@@ -38,34 +38,34 @@ public class AccountMenu extends JFrame {
 		setResizable(false);
 		
 		
-		JPanel panel2 = new JPanel(new GridBagLayout());
+		final JPanel panel2 = new JPanel(new GridBagLayout());
 		panel2.setBackground(new Color(68, 87, 96));
 		panel2.setPreferredSize(new Dimension(dimX, dimY));
-		JButton btJDialog = new JButton("JDialog");
+		final JButton btJDialog = new JButton("JDialog");
 		panel2.add(btJDialog, setDimensionObj(0, 0, 40));
 		
-		JPanel panel = new JPanel(new GridBagLayout());
+		final JPanel panel = new JPanel(new GridBagLayout());
 		panel.setBackground(new Color(68, 87, 96));
 		panel.setPreferredSize(new Dimension(dimX / 2, dimY));
 		
-		JLabel title = new JLabel("ACCOUNT", SwingConstants.CENTER);
+		final JLabel title = new JLabel("ACCOUNT", SwingConstants.CENTER);
 		title.setForeground(Color.WHITE);
 //		title.setPreferredSize(new Dimension(dimX / 4, dimY / 20));
 		title.setFont(new Font("Arial", Font.BOLD, dimX / 20));
 		panel.add(title, setDimensionObj(0, i++, 40));
 		
-		JButton ricarica = new JButton("RICARICA");
-		JButton preleva = new JButton("PRELEVA");
-		JButton dettaglioSaldo = new JButton("DETTAGLIO SALDO");
-		JButton cambiaPassword = new JButton("CAMBIA PASSWORD");
-		JButton eliminaAccount = new JButton("ELIMINA ACCOUNT");
-		List<JButton> list = new LinkedList<>();
+		final JButton ricarica = new JButton("RICARICA");
+		final JButton preleva = new JButton("PRELEVA");
+		final JButton dettaglioSaldo = new JButton("DETTAGLIO SALDO");
+		final JButton cambiaPassword = new JButton("CAMBIA PASSWORD");
+		final JButton eliminaAccount = new JButton("ELIMINA ACCOUNT");
+		final List<JButton> list = new LinkedList<>();
 		list.add(ricarica);
 		list.add(preleva);
 		list.add(dettaglioSaldo);
 		list.add(cambiaPassword);
 		list.add(eliminaAccount);
-		for (JButton jb : list) {
+		for (final JButton jb : list) {
 //		jb.setOpaque(false);
 //		jb.setContentAreaFilled(false);
 //		jb.setBorderPainted(false);
@@ -97,7 +97,7 @@ public class AccountMenu extends JFrame {
 		
 		btJDialog.addActionListener(e -> {
 			System.out.println("va");
-			JDialog dialog = new JDialog(this, true);
+			final JDialog dialog = new JDialog(this, true);
 			dialog.setContentPane(panel);
 			dialog.pack();
 			dialog.setLocationRelativeTo(null);
@@ -112,7 +112,7 @@ public class AccountMenu extends JFrame {
 	
 	/* Ripetizione da sistemare poi */
 	private GridBagConstraints setDimensionObj(final int gridx, final int gridy, final int space) {
-		GridBagConstraints c = new GridBagConstraints();
+		final GridBagConstraints c = new GridBagConstraints();
 		c.anchor = GridBagConstraints.PAGE_END;
 		c.insets = new Insets(0, 0, space, 0); // terzo parametro definisce la distanza verticale (verso il basso) tra i vari oggetti della gui
 		c.gridx = gridx;
