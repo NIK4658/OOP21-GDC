@@ -50,12 +50,14 @@ public class AccountMenu extends JFrame {
         final JButton ricarica = new JButton("RICARICA");
         final JButton preleva = new JButton("PRELEVA");
         final JButton dettaglioSaldo = new JButton("DETTAGLIO SALDO");
+        final JButton cambiaUsername = new JButton("CAMBIA USERNAME");
         final JButton cambiaPassword = new JButton("CAMBIA PASSWORD");
         final JButton eliminaAccount = new JButton("ELIMINA ACCOUNT");
         final List<JButton> list = new LinkedList<>();
         list.add(ricarica);
         list.add(preleva);
         list.add(dettaglioSaldo);
+        list.add(cambiaUsername);
         list.add(cambiaPassword);
         list.add(eliminaAccount);
         for (final JButton jb : list) {
@@ -75,7 +77,11 @@ public class AccountMenu extends JFrame {
         dettaglioSaldo.addActionListener(e -> {
             System.out.println("Ciao");
         });
-        
+
+        cambiaUsername.addActionListener(e -> {
+            System.out.println("Ciao");
+        });        
+
         cambiaPassword.addActionListener(e -> {
             System.out.println("Ciao");
         });
