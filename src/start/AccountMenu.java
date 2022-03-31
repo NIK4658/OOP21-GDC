@@ -27,7 +27,6 @@ public class AccountMenu extends JFrame {
     private final Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
     private final int dimX = (int) screenSize.getWidth() / 2;
     private final int dimY = (int) screenSize.getHeight() / 2;
-    private int index = 0;
     
     public AccountMenu() {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -45,6 +44,7 @@ public class AccountMenu extends JFrame {
         final JLabel title = new JLabel("ACCOUNT", SwingConstants.CENTER);
         title.setForeground(Color.WHITE);
         title.setFont(new Font("Arial", Font.BOLD, dimX / 20));
+        int index = 0;
         panel.add(title, setDimensionObj(0, index++, 40));
       
         final JButton ricarica = new JButton("RICARICA");

@@ -24,25 +24,21 @@ public class JAccessPanel extends JPanel implements AccessPanel{
      * 
      */
     private static final long serialVersionUID = 1L;
-    private final JLabel title;
-    private final JTextField usr;
-    private final JTextField psw;
-    private final JTextField eta;
     private final JButton loginbtn;
     private final JButton registerbtn;
 
     public JAccessPanel(final AccessType access, final int dimX, final int dimY) {
         
         setLayout(new GridBagLayout());
-        setBackground(new Color(68, 87, 96));                                   // blu bello
-        //west.setBackground(new Color(44, 107, 14));                             //verde tavolo
+        setBackground(new Color(68, 87, 96));           // blu bello
+        //west.setBackground(new Color(44, 107, 14      //verde tavolo
         setPreferredSize(new Dimension(dimX / 3, dimY));
-        title = new JLabel(access.toString(), SwingConstants.CENTER);           // Titolo Login
-        usr = new JTextField("Username");                                       // Username
-        psw = new JTextField("Password");                                       // Password
-        eta = new JTextField("Età");                                            // Età
-        loginbtn = new JButton("Login");                                        // Tasto Login
-        registerbtn = new JButton("Registrati");                                // Tasto Registrati
+        final JLabel title = new JLabel(access.toString(), SwingConstants.CENTER); // Titolo Login
+        final JTextField usr = new JTextField("Username");                         // Username
+        final JTextField psw = new JTextField("Password");                         // Password
+        final JTextField eta = new JTextField("Età");                              // Età
+        loginbtn = new JButton("Login");                                           // Tasto Login
+        registerbtn = new JButton("Registrati");                                   // Tasto Registrati
 
         final ArrayList<JComponent> list = new ArrayList<>();
         list.add(usr);

@@ -4,7 +4,7 @@ import java.awt.event.ActionListener;
 
 //Serve l'interfaccia?? Eventualmente spostare enum in JAccessPanel
 public interface AccessPanel {
-    public enum AccessType {
+    enum AccessType {
     LOGIN, REGISTER
     }
 
