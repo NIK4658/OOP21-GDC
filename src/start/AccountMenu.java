@@ -96,6 +96,7 @@ public class AccountMenu extends JFrame {
             dialog.setContentPane(panel);
             dialog.pack();
             dialog.setLocationRelativeTo(null);
+            dialog.setResizable(false);
             dialog.setVisible(true);
         });
         
