@@ -6,16 +6,16 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Before;
 import org.junit.Test;
 
-import roulette.gui.Roulette;
+import roulette.Table;
 
 
 public class RouletteTest {
     
-    private Roulette roulette;
+    private Table roulette;
     
     @Before
     public void initRoulette() {
-        roulette = new Roulette();
+        roulette = new Table();
     }
     
     //testa se giocato numero compreso tra 0 e 36

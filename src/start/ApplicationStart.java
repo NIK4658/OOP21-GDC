@@ -1,6 +1,6 @@
 package start;
 
-import roulette.gui.Roulette;
+import roulette.Table;
 
 /**
  * Starts the application.
@@ -8,7 +8,7 @@ import roulette.gui.Roulette;
 public final class ApplicationStart {
     
     public static void main(final String[] args) {
-        new Roulette();
+        new Table();
 //        //
 //        final int numberPlayed = roulette.numberPlayed();
 //        final int numberCameOut = roulette.numberCameOut();
