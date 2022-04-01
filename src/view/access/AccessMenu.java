@@ -11,17 +11,20 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
+
+import utility.Pair;
 import view.ImageModifier;
+import view.Resizer;
 import view.access.AccessPanel.AccessType;
 
 
 //DA SISTEMARE I MAGIC NUMBERS
 public class AccessMenu extends JFrame {
-    private final Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-    private final int dimX = (int) screenSize.getWidth() / 2;
-    private final int dimY = (int) screenSize.getHeight() / 2;
+
+	private final Pair<Integer, Integer> dim = new Resizer().Resize(1.25);
     private static final long serialVersionUID = 1L;
 
+    
     public AccessMenu() {
         // Default
         setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -34,16 +37,16 @@ public class AccessMenu extends JFrame {
         final JPanel east = new JPanel(new FlowLayout(FlowLayout.CENTER, 0, 0));
         final Image imgi = new ImageModifier().scaleFullScreen(
                 new ImageIcon("res/img/backgrounds/HQcasinoCroppedWithTitle.gif").getImage(),
-                new Dimension(2 * dimX / 3, dimY));
+                new Dimension(2 * dim.get1() / 3, dim.get2()));
         east.add(new JLabel(new ImageIcon(imgi), SwingConstants.CENTER));
-        east.setPreferredSize(new Dimension(2 * dimX / 3, dimY));
+        east.setPreferredSize(new Dimension(2 * dim.get1() / 3, dim.get2()));
         
         // Zona di sinistra
         //JPanel contenitore
         final CardLayout cl = new CardLayout();
         final JPanel west = new JPanel(cl);
-        final JAccessPanel login = new JAccessPanel(AccessType.LOGIN, dimX, dimY);
-        final JAccessPanel register = new JAccessPanel(AccessType.REGISTER, dimX, dimY);
+        final JAccessPanel login = new JAccessPanel(AccessType.LOGIN, dim.get1(), dim.get2());
+        final JAccessPanel register = new JAccessPanel(AccessType.REGISTER, dim.get1(), dim.get2());
         login.setActionListenerRegisterButton(e -> {
             cl.show(west, AccessType.REGISTER.toString());
         });
