@@ -1,6 +1,5 @@
 package view.access;
 
-import Account.AccountManagerImpl;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -15,6 +14,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
+
+import account.AccountManagerImpl;
 
 
 //DA SISTEMARE I MAGIC NUMBERS
@@ -74,11 +75,11 @@ public class JAccessPanel extends JPanel implements AccessPanel{
 
         if (access.equals(AccessType.LOGIN)) {
             loginbtn.addActionListener(e -> {
-                new AccountManagerImpl().Logger(usr.getText(), psw.getText());
+                new AccountManagerImpl().logger(usr.getText(), psw.getText());
             });
         } else if (access.equals(AccessType.REGISTER)) {
             registerbtn.addActionListener(e -> {
-                new AccountManagerImpl().Register(usr.getText(), psw.getText(), eta.getText());
+                new AccountManagerImpl().register(usr.getText(), psw.getText(), eta.getText());
             });
         }
     }
