@@ -19,8 +19,8 @@ import view.access.AccessPanel.AccessType;
 //DA SISTEMARE I MAGIC NUMBERS
 public class AccessMenu extends JFrame {
 
-	private final Pair<Integer, Integer> dim = new Resizer().Resize(2);
-	//private final Pair<Integer, Integer> dim = new Pair<>(3440/2,1440/2); //test 21:9
+    private final Pair<Integer, Integer> dim = new Resizer().Resize(2);
+    //private final Pair<Integer, Integer> dim = new Pair<>(3440/2,1440/2); //test 21:9
 	
     private static final long serialVersionUID = 1L;
 

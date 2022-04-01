@@ -13,8 +13,8 @@ import view.Resizer;
 
 public class NotifyGUI extends JDialog implements ActionListener{
 
-	private final Pair<Integer, Integer> dim = new Resizer().Resize(5);
-	private static final long serialVersionUID = 1L;
+    private final Pair<Integer, Integer> dim = new Resizer().Resize(5);
+    private static final long serialVersionUID = 1L;
 
 	public NotifyGUI(final String text) {
 		this.setTitle("Attenzione"); 																		//Titolo finestra
@@ -37,9 +37,9 @@ public class NotifyGUI extends JDialog implements ActionListener{
 		//pack(); 		// !?!?	
 		setVisible(true);
 	}
-	
-	private GridBagConstraints setDimensionObj(final int gridx, final int gridy, final int space) {
-		final GridBagConstraints c = new GridBagConstraints();
+
+    private GridBagConstraints setDimensionObj(final int gridx, final int gridy, final int space) {
+    	final GridBagConstraints c = new GridBagConstraints();
 		c.anchor = GridBagConstraints.PAGE_END;
 		c.insets = new Insets(10, 0, space, 0); 							// terzo parametro definisce la distanza verticale tra i vari oggetti della gui
 		c.gridx = gridx;

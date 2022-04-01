@@ -1,5 +1,6 @@
 package view.access;
 
+import account.AccountManagerImpl;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -15,7 +16,6 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
-import account.AccountManagerImpl;
 
 
 //DA SISTEMARE I MAGIC NUMBERS

@@ -2,22 +2,22 @@ package account;
 
 public interface AccountManager {
 
-	boolean logger(String usr, String psw);
+    boolean logger(String usr, String psw);
 	
-	boolean register(String usr, String psw, String eta);
+    boolean register(String usr, String psw, String eta);
 	
-	boolean deposit(int amount, String usr);
+    boolean deposit(int amount, String usr);
 	
-	boolean withdraw(int amount, String usr, String psw);
+    boolean withdraw(int amount, String usr, String psw);
 	
-	int balanceAmount(String usr);
+    int balanceAmount(String usr);
 	
-	boolean changeUsr(String usr, String usrnew);
+    boolean changeUsr(String usr, String usrnew);
 	
-	boolean changePass(String usr, String psw);
+    boolean changePass(String usr, String psw);
 	
-	boolean deleteAcc(String usr);
+    boolean deleteAcc(String usr);
 	
-	boolean checkExisting(String usr);
+    boolean checkExisting(String usr);
 	
 }
