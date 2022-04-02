@@ -10,26 +10,29 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
-import utility.Pair;
 import view.ImageModifier;
 import view.Resizer;
 import view.access.AccessPanel.AccessType;
 
-
-//DA SISTEMARE I MAGIC NUMBERS
+/**
+ * //DA SISTEMARE I MAGIC NUMBERS.
+ */
 public class AccessMenu extends JFrame {
 
-    private final Pair<Integer, Integer> dim = new Resizer().Resize(2);
+    private final Dimension dim = new Resizer().resize(2);
     //private final Pair<Integer, Integer> dim = new Pair<>(3440/2,1440/2); //test 21:9
-	
+
     private static final long serialVersionUID = 1L;
 
-    
+    /**
+     * //DA SISTEMARE I MAGIC NUMBERS.
+     */
     public AccessMenu() {
         // Default
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setResizable(false);
-	// GraphicsDevice device = GraphicsEnvironment.getLocalGraphicsEnvironment().getScreenDevices()[0]; 	//definisce schermo principale
+        // GraphicsDevice device = GraphicsEnvironment.getLocalGraphicsEnvironment().
+        // getScreenDevices()[0];    //definisce schermo principale
         // setUndecorated(true);                //toglie la barra in alto
         // device.setFullScreenWindow(this);    //set full screen
         
@@ -37,16 +40,17 @@ public class AccessMenu extends JFrame {
         final JPanel east = new JPanel(new FlowLayout(FlowLayout.CENTER, 0, 0));
         final Image imgi = new ImageModifier().scaleFullScreen(
                 new ImageIcon("res/img/backgrounds/HQcasinoCroppedWithTitle.gif").getImage(),
-                new Dimension(2 * dim.get1() / 3, dim.get2()));
+                new Dimension((int) (2 * dim.getWidth() / 3), (int) dim.getHeight()));
         east.add(new JLabel(new ImageIcon(imgi), SwingConstants.CENTER));
-        east.setPreferredSize(new Dimension(2 * dim.get1() / 3, dim.get2()));
+        east.setPreferredSize(new Dimension((int) (2 * dim.getWidth() / 3), (int) dim.getHeight()));
         
         // Zona di sinistra
         //JPanel contenitore
         final CardLayout cl = new CardLayout();
         final JPanel west = new JPanel(cl);
-        final JAccessPanel login = new JAccessPanel(AccessType.LOGIN, dim.get1(), dim.get2());
-        final JAccessPanel register = new JAccessPanel(AccessType.REGISTER, dim.get1(), dim.get2());
+        final JaccessPanel login = new JaccessPanel(AccessType.LOGIN, (int) dim.getWidth(), (int) dim.getHeight());
+        final JaccessPanel register = new JaccessPanel(AccessType.REGISTER,
+                (int) dim.getWidth(), (int) dim.getHeight());
         login.setActionListenerRegisterButton(e -> {
             cl.show(west, AccessType.REGISTER.toString());
         });
