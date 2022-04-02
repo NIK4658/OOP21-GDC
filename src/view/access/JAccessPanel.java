@@ -17,18 +17,20 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
 
+/**
+ * //DA SISTEMARE I MAGIC NUMBERS.
+ */
+public class JaccessPanel extends JPanel implements AccessPanel {
 
-//DA SISTEMARE I MAGIC NUMBERS
-public class JAccessPanel extends JPanel implements AccessPanel{
-
-    /**
-     * 
-     */
+    
     private static final long serialVersionUID = 1L;
     private final JButton loginbtn;
     private final JButton registerbtn;
 
-    public JAccessPanel(final AccessType access, final int dimX, final int dimY) {
+    /**
+     * Main function.
+     */
+    public JaccessPanel(final AccessType access, final int dimX, final int dimY) {
         
         setLayout(new GridBagLayout());
         setBackground(new Color(68, 87, 96));           // blu bello
@@ -84,15 +86,23 @@ public class JAccessPanel extends JPanel implements AccessPanel{
         }
     }
 
+    /**
+     * Actionlistener del login.
+     */
     public void setActionListenerLoginButton(final ActionListener al) {
-        if (loginbtn.getActionListeners().length != 0) {//forse da togliere dopo il testing o da gestire l'eccezione nella GuiTest?
+        if (loginbtn.getActionListeners().length != 0) { 
+            //forse da togliere dopo il testing o da gestire l'eccezione nella GuiTest?
             throw new UnsupportedOperationException();
         }
         loginbtn.addActionListener(al);
     }
 
+    /**
+     * Actionlistener del register.
+     */
     public void setActionListenerRegisterButton(final ActionListener al) {
-        if (registerbtn.getActionListeners().length != 0) {//forse da togliere dopo il testing o da gestire l'eccezione nella GuiTest?
+        if (registerbtn.getActionListeners().length != 0) { 
+            //forse da togliere dopo il testing o da gestire l'eccezione nella GuiTest?
             throw new UnsupportedOperationException();
         }
         registerbtn.addActionListener(al);
@@ -101,7 +111,8 @@ public class JAccessPanel extends JPanel implements AccessPanel{
     private GridBagConstraints setDimensionObj(final int gridx, final int gridy, final int space) {
         final GridBagConstraints c = new GridBagConstraints();
         c.anchor = GridBagConstraints.PAGE_END;
-        c.insets = new Insets(0, 0, space, 0); // terzo parametro definisce la distanza verticale (verso il basso) tra i vari oggetti della gui
+        c.insets = new Insets(0, 0, space, 0); // terzo parametro definisce la distanza verticale
+        //(verso il basso) tra i vari oggetti della gui
         c.gridx = gridx;
         c.gridy = gridy;
         return c;
