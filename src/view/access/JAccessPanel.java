@@ -26,6 +26,8 @@ public class JaccessPanel extends JPanel implements AccessPanel {
     private static final long serialVersionUID = 1L;
     private final JButton loginbtn;
     private final JButton registerbtn;
+    private final JButton loginbtn2;
+    private final JButton registerbtn2;
 
     /**
      * Main function.
@@ -42,6 +44,8 @@ public class JaccessPanel extends JPanel implements AccessPanel {
         final JTextField eta = new JTextField("Età");                              // Età
         loginbtn = new JButton("Login");                                           // Tasto Login
         registerbtn = new JButton("Registrati");                                   // Tasto Registrati
+        loginbtn2 = new JButton("Hai già un account? Esegui il login");            // Tasto Login2
+        registerbtn2 = new JButton("Non hai un Account? Registrati!");
 
         final ArrayList<JComponent> list = new ArrayList<>();
         list.add(usr);
@@ -49,10 +53,10 @@ public class JaccessPanel extends JPanel implements AccessPanel {
         if (access.equals(AccessType.REGISTER)) {
             list.add(eta);
             list.add(registerbtn);
-            list.add(loginbtn);
+            list.add(loginbtn2);
         } else {
             list.add(loginbtn);
-            list.add(registerbtn);
+            list.add(registerbtn2);
         }
         
         // Modifiche solo per titolo, SI PUO' MIGLIORARE
