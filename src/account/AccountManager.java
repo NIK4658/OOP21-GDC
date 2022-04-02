@@ -18,6 +18,8 @@ public interface AccountManager {
     boolean changeUsr(String usr, String usrnew);
 
     boolean changePass(String usr, String psw);
+    
+    boolean changeBalance(String usr, int balancenew);
 
     boolean deleteAcc(String usr);
 
