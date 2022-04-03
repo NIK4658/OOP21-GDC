@@ -12,6 +12,7 @@ import java.awt.Toolkit;
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
+import java.util.Currency;
 import java.util.LinkedList;
 import java.util.List;
 import javax.swing.JButton;
@@ -22,7 +23,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
-import view.access.AccessPanel.AccessType;
 
 public class AccountMenu extends JPanel {
 
@@ -35,6 +35,8 @@ public class AccountMenu extends JPanel {
     private final int dimX = (int) screenSize.getWidth() / 2;
     private final int dimY = (int) screenSize.getHeight() / 2;
     private final JDialog dialog;
+    //da sistemare
+    private final JFormattedTextField fieldAmount;
     
     
     /* TESTING, togliere poi */
@@ -59,7 +61,7 @@ public class AccountMenu extends JPanel {
     
     public AccountMenu(final JFrame frame) {
         
-        //pannello MENU
+//pannello MENU
         this.setLayout(new GridBagLayout());
         this.setBackground(new Color(68, 87, 96));
         this.setPreferredSize(new Dimension(dimX / 2, dimY));
@@ -70,16 +72,12 @@ public class AccountMenu extends JPanel {
         int index = 0;
         this.add(title, setDimensionObj(0, index++, 40));
       
-        final JButton ricarica = new JButton("RICARICA");
-        final JButton preleva = new JButton("PRELEVA");
-        final JButton dettaglioSaldo = new JButton("DETTAGLIO SALDO");
+        final JButton balanceManagement = new JButton("BALANCE");
         final JButton cambiaUsername = new JButton("CAMBIA USERNAME");
         final JButton cambiaPassword = new JButton("CAMBIA PASSWORD");
         final JButton eliminaAccount = new JButton("ELIMINA ACCOUNT");
         final List<JButton> list = new LinkedList<>();
-        list.add(ricarica);
-        list.add(preleva);
-        list.add(dettaglioSaldo);
+        list.add(balanceManagement);
         list.add(cambiaUsername);
         list.add(cambiaPassword);
         list.add(eliminaAccount);
@@ -89,21 +87,68 @@ public class AccountMenu extends JPanel {
             this.add(jb, setDimensionObj(0, index++, 5));
         }
         
-        //pannello RICARICA
-        final JPanel panelRicarica = new JPanel(new GridBagLayout());
-        panelRicarica.setBackground(new Color(68, 87, 96));
-        panelRicarica.setPreferredSize(new Dimension(dimX / 2, dimY));
-        JLabel labelRicarica = new JLabel("Ricarica:");
-        panelRicarica.add(labelRicarica);
+//pannello GESTIONE SALDO, sistemare ripetizioni
+        final String currencySymbol = Currency.getInstance(getLocale()).getSymbol();
+        
+        final JPanel panelBalance = new JPanel(new GridBagLayout());
+        panelBalance.setBackground(new Color(68, 87, 96));
+        panelBalance.setPreferredSize(new Dimension(dimX / 2, dimY));
+        
+        final JLabel labelDeposit = new JLabel(currencySymbol);
+        final JLabel labelWithdraw = new JLabel(currencySymbol);
+        final JLabel labelAmount = new JLabel("Amount: ");
 
-        NumberFormat format = DecimalFormat.getInstance();
+        final NumberFormat format = DecimalFormat.getInstance();
+        format.setMaximumIntegerDigits(6);
         format.setMinimumFractionDigits(2);
         format.setMaximumFractionDigits(2);
         format.setRoundingMode(RoundingMode.HALF_UP);
-        JFormattedTextField myTwoDecimalTextfield = new JFormattedTextField(format);
-        panelRicarica.add(myTwoDecimalTextfield);
-//        paymentField.setColumns(10);
-//        paymentField.setEditable(false);
+        final JFormattedTextField fieldDeposit = new JFormattedTextField(format);
+        final JFormattedTextField fieldWithdraw = new JFormattedTextField(format);
+        final NumberFormat formatAmount = DecimalFormat.getCurrencyInstance();
+        format.setMaximumIntegerDigits(6);
+        format.setMinimumFractionDigits(2);
+        format.setMaximumFractionDigits(2);
+        format.setRoundingMode(RoundingMode.HALF_UP);
+        fieldAmount = new JFormattedTextField(formatAmount);
+        fieldDeposit.setColumns(10);
+        fieldDeposit.setValue(0);
+        fieldWithdraw.setColumns(10);
+        fieldWithdraw.setValue(0);
+        fieldAmount.setColumns(10);
+        //NICO
+        fieldAmount.setValue(100.89);
+
+        
+        final JButton buttonDeposit = new JButton("Deposit");
+        buttonDeposit.addActionListener(e -> {
+            String s = fieldDeposit.getText();
+            s = s.replace(".", "").replace(",", ".");
+            final double d = Double.parseDouble(s);
+            System.out.println(d);
+            //NICO
+        });
+        final JButton buttonWithdraw = new JButton("Withdraw");
+        buttonWithdraw.addActionListener(e -> {
+            String s = fieldWithdraw.getText();
+            s = s.replace(".", "").replace(",", ".");
+            final double d = Double.parseDouble(s);
+            System.out.println(d);
+            //NICO
+        });
+
+
+        panelBalance.add(labelDeposit);
+        panelBalance.add(fieldDeposit);
+        panelBalance.add(buttonDeposit);
+        panelBalance.add(labelWithdraw, setDimensionObj(0, 1, 0));
+        panelBalance.add(fieldWithdraw, setDimensionObj(1, 1, 0));
+        panelBalance.add(buttonWithdraw, setDimensionObj(2, 1, 0));
+        panelBalance.add(labelAmount, setDimensionObj(0, 2, 0));
+        panelBalance.add(fieldAmount, setDimensionObj(1, 2, 0));
+        
+        
+        
         
         
         
@@ -112,7 +157,7 @@ public class AccountMenu extends JPanel {
         final JPanel panel = new JPanel(cl);
         
         panel.add(this, "1");
-        panel.add(panelRicarica, "2");
+        panel.add(panelBalance, "2");
 //        panel.add(panelPreleva, "3");
 //        panel.add(panelDettaglioSaldo, "4");
 //        panel.add(panelCambiaUsername, "5");
@@ -121,17 +166,8 @@ public class AccountMenu extends JPanel {
         
         cl.show(panel, "1");
         
-        ricarica.addActionListener(e -> {
-            System.out.println("ricarica");
+        balanceManagement.addActionListener(e -> {
             cl.show(panel, "2");
-        });
-        
-        preleva.addActionListener(e -> {
-            System.out.println("preleva");
-        });
-        
-        dettaglioSaldo.addActionListener(e -> {
-            System.out.println("dettaglioSaldo");
         });
 
         cambiaUsername.addActionListener(e -> {
@@ -153,6 +189,11 @@ public class AccountMenu extends JPanel {
         this.dialog.setResizable(false);
     }
     
+    //NICO
+    public void setAmount(final double amount) {
+        this.fieldAmount.setValue(amount);
+    }
+    
     public JDialog getDialog() {
         return this.dialog;
     }
@@ -166,5 +207,13 @@ public class AccountMenu extends JPanel {
         c.gridy = gridy;
         return c;
     }
+    
+/*Appunti*/
+//  final NumberFormat format = NumberFormat.getNumberInstance();
+//  final NumberFormat format = NumberFormat.getCurrencyInstance();
+//  final NumberFormat format = DecimalFormat.getCurrencyInstance();
+//  fieldRicarica.setName("Ricarica");
+//  fieldRicarica.setEditable(false); 
+//  labelRicarica.setLabelFor(fieldRicarica);
 
 }
