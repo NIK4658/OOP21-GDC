@@ -21,6 +21,7 @@ import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
 
@@ -31,25 +32,22 @@ public class AccountMenu extends JPanel {
      **/
     private static final long serialVersionUID = 1L;
     /* Togliere poi */
-    private final Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-    private final int dimX = (int) screenSize.getWidth() / 2;
-    private final int dimY = (int) screenSize.getHeight() / 2;
+    private final static Dimension SCREENSIZE = Toolkit.getDefaultToolkit().getScreenSize();
+    private final static int DIMX = (int) SCREENSIZE.getWidth() / 2;
+    private final static int DIMY = (int) SCREENSIZE.getHeight() / 2;
     private final JDialog dialog;
-    //da sistemare
-    private final JFormattedTextField fieldAmount;
     
     
     /* TESTING, togliere poi */
     public static void main(final String[] args) {
         final JFrame frame = new JFrame();
-        final AccountMenu accountPanel = new AccountMenu(frame);
         final JPanel panel = new JPanel(new GridBagLayout());
         panel.setBackground(new Color(68, 87, 96));
-        panel.setPreferredSize(new Dimension(accountPanel.dimX, accountPanel.dimY));
+        panel.setPreferredSize(new Dimension(DIMX, DIMY));
         final JButton btDialog = new JButton("JDialog");
-        panel.add(btDialog, accountPanel.setDimensionObj(0, 0, 40));
+        panel.add(btDialog, setDimensionObj(0, 0, 40));
         btDialog.addActionListener(e -> {
-            accountPanel.getDialog().setVisible(true);
+            new AccountMenu(frame).getDialog().setVisible(true);
         });
         frame.add(panel, BorderLayout.CENTER);
         frame.pack();
@@ -64,26 +62,26 @@ public class AccountMenu extends JPanel {
 //pannello MENU
         this.setLayout(new GridBagLayout());
         this.setBackground(new Color(68, 87, 96));
-        this.setPreferredSize(new Dimension(dimX / 2, dimY));
+        this.setPreferredSize(new Dimension(DIMX / 2, DIMY));
         
         final JLabel title = new JLabel("ACCOUNT", SwingConstants.CENTER);
         title.setForeground(Color.WHITE);
-        title.setFont(new Font("Arial", Font.BOLD, dimX / 20));
+        title.setFont(new Font("Arial", Font.BOLD, DIMX / 20));
         int index = 0;
         this.add(title, setDimensionObj(0, index++, 40));
       
         final JButton balanceManagement = new JButton("BALANCE");
-        final JButton cambiaUsername = new JButton("CAMBIA USERNAME");
-        final JButton cambiaPassword = new JButton("CAMBIA PASSWORD");
-        final JButton eliminaAccount = new JButton("ELIMINA ACCOUNT");
+        final JButton changeUsername = new JButton("CHANGE USERNAME");
+        final JButton changePassword = new JButton("CHANGE PASSWORD");
+        final JButton deleteAccount = new JButton("DELETE ACCOUNT");
         final List<JButton> list = new LinkedList<>();
         list.add(balanceManagement);
-        list.add(cambiaUsername);
-        list.add(cambiaPassword);
-        list.add(eliminaAccount);
+        list.add(changeUsername);
+        list.add(changePassword);
+        list.add(deleteAccount);
         for (final JButton jb : list) {
-            jb.setPreferredSize(new Dimension(dimX / 4, dimY / 20));
-            jb.setFont(new Font("Arial", Font.PLAIN, dimX / 50));
+            jb.setPreferredSize(new Dimension(DIMX / 4, DIMY / 20));
+            jb.setFont(new Font("Arial", Font.PLAIN, DIMX / 50));
             this.add(jb, setDimensionObj(0, index++, 5));
         }
         
@@ -92,7 +90,7 @@ public class AccountMenu extends JPanel {
         
         final JPanel panelBalance = new JPanel(new GridBagLayout());
         panelBalance.setBackground(new Color(68, 87, 96));
-        panelBalance.setPreferredSize(new Dimension(dimX / 2, dimY));
+        panelBalance.setPreferredSize(new Dimension(DIMX / 2, DIMY));
         
         final JLabel labelDeposit = new JLabel(currencySymbol);
         final JLabel labelWithdraw = new JLabel(currencySymbol);
@@ -110,33 +108,33 @@ public class AccountMenu extends JPanel {
         format.setMinimumFractionDigits(2);
         format.setMaximumFractionDigits(2);
         format.setRoundingMode(RoundingMode.HALF_UP);
-        fieldAmount = new JFormattedTextField(formatAmount);
+        final JFormattedTextField fieldAmount = new JFormattedTextField(formatAmount);
         fieldDeposit.setColumns(10);
         fieldDeposit.setValue(0);
         fieldWithdraw.setColumns(10);
         fieldWithdraw.setValue(0);
         fieldAmount.setColumns(10);
-        //NICO
-        fieldAmount.setValue(100.89);
-
+        fieldAmount.setEditable(false);
+        fieldAmount.setValue(69.69);   //NICO
         
         final JButton buttonDeposit = new JButton("Deposit");
         buttonDeposit.addActionListener(e -> {
             String s = fieldDeposit.getText();
             s = s.replace(".", "").replace(",", ".");
             final double d = Double.parseDouble(s);
-            System.out.println(d);
             //NICO
+            System.out.println(d);
+            fieldAmount.setValue(1234); //da impostare saldo
         });
         final JButton buttonWithdraw = new JButton("Withdraw");
         buttonWithdraw.addActionListener(e -> {
             String s = fieldWithdraw.getText();
             s = s.replace(".", "").replace(",", ".");
             final double d = Double.parseDouble(s);
-            System.out.println(d);
             //NICO
+            System.out.println(d);
+            fieldAmount.setValue(1234); //da impostare saldo
         });
-
 
         panelBalance.add(labelDeposit);
         panelBalance.add(fieldDeposit);
@@ -148,21 +146,60 @@ public class AccountMenu extends JPanel {
         panelBalance.add(fieldAmount, setDimensionObj(1, 2, 0));
         
         
+//pannello CAMBIO USERNAME, sistemare ripetizioni
+        final JPanel panelUsername = new JPanel(new GridBagLayout());
+        panelUsername.setBackground(new Color(68, 87, 96));
+        panelUsername.setPreferredSize(new Dimension(DIMX / 2, DIMY));
+        
+        final JLabel labelUsername = new JLabel("Username: ");
+        final JLabel labelNewUsername = new JLabel("New Username: ");
+        final JTextField fieldUsername = new JTextField("Massimo Bossetti", 10);        //NICO
+        fieldUsername.setEditable(false);
+        final JTextField fieldNewUsername = new JTextField(10);
+        final JButton buttonUsername = new JButton("Change");
+        buttonUsername.addActionListener(e -> {//aggiungere richiesta psw
+            final String newUsername = fieldNewUsername.getText();
+            fieldUsername.setText(newUsername);
+            //NICO
+            System.out.println(newUsername);
+        });
+        panelUsername.add(labelUsername, setDimensionObj(0, 0, 0));
+        panelUsername.add(fieldUsername, setDimensionObj(1, 0, 0));
+        panelUsername.add(labelNewUsername, setDimensionObj(0, 1, 0));
+        panelUsername.add(fieldNewUsername, setDimensionObj(1, 1, 0));
+        panelUsername.add(buttonUsername, setDimensionObj(2, 2, 0));
         
         
+//pannello CAMBIO PASSWORD, sistemare ripetizioni
+        final JPanel panelPassword = new JPanel(new GridBagLayout());
+        panelPassword.setBackground(new Color(68, 87, 96));
+        panelPassword.setPreferredSize(new Dimension(DIMX / 2, DIMY));
         
+        final JLabel labelPassword = new JLabel("New Password: ");
+        final JLabel labelNewPassword = new JLabel("Confirm Password: ");
+        final JTextField fieldPassword = new JTextField(10);        //NICO
+        fieldPassword.setEditable(false);//momentaneamente disabilitato, bisogna implementare una JLabel 
+        final JTextField fieldNewPassword = new JTextField(10);
+        final JButton buttonPassword = new JButton("Change");
+        buttonPassword.addActionListener(e -> {//aggiungere richiesta psw
+            final String newPassword = fieldNewPassword.getText();
+            //NICO
+            System.out.println(newPassword);
+        });
+        panelPassword.add(labelPassword, setDimensionObj(0, 0, 0));
+        panelPassword.add(fieldPassword, setDimensionObj(1, 0, 0));
+        panelPassword.add(labelNewPassword, setDimensionObj(0, 1, 0));
+        panelPassword.add(fieldNewPassword, setDimensionObj(1, 1, 0));
+        panelPassword.add(buttonPassword, setDimensionObj(2, 2, 0));
         
-        
+
         final CardLayout cl = new CardLayout();
         final JPanel panel = new JPanel(cl);
         
         panel.add(this, "1");
         panel.add(panelBalance, "2");
-//        panel.add(panelPreleva, "3");
-//        panel.add(panelDettaglioSaldo, "4");
-//        panel.add(panelCambiaUsername, "5");
-//        panel.add(panelCambiaPassword, "6");
-//        panel.add(panelEliminaAccount, "7");
+        panel.add(panelUsername, "3");
+        panel.add(panelPassword, "4");
         
         cl.show(panel, "1");
         
@@ -170,16 +207,19 @@ public class AccountMenu extends JPanel {
             cl.show(panel, "2");
         });
 
-        cambiaUsername.addActionListener(e -> {
-            System.out.println("cambiaUsername");
+        changeUsername.addActionListener(e -> {
+            cl.show(panel, "3");
         });        
 
-        cambiaPassword.addActionListener(e -> {
-            System.out.println("cambiaPassword");
+        changePassword.addActionListener(e -> {
+            cl.show(panel, "4");
         });
         
-        eliminaAccount.addActionListener(e -> {
-            System.out.println("eliminaAccount");
+        deleteAccount.addActionListener(e -> {
+            //aggiungere JLabel "sicuro di elimiare account? Inserisci la psw:"
+            //aggiungere una volta eliminato account tornare menu d'accesso.
+            //NICO
+            System.out.println("Account deleted");
         });
         
         this.dialog = new JDialog(frame, true);
@@ -189,17 +229,12 @@ public class AccountMenu extends JPanel {
         this.dialog.setResizable(false);
     }
     
-    //NICO
-    public void setAmount(final double amount) {
-        this.fieldAmount.setValue(amount);
-    }
-    
     public JDialog getDialog() {
         return this.dialog;
     }
    
     /* Da sostituire con la mia versione */
-    private GridBagConstraints setDimensionObj(final int gridx, final int gridy, final int verticalSpace) {
+    private static GridBagConstraints setDimensionObj(final int gridx, final int gridy, final int verticalSpace) {
         final GridBagConstraints c = new GridBagConstraints();
         c.anchor = GridBagConstraints.PAGE_END;
         c.insets = new Insets(0, 0, verticalSpace, 0);
