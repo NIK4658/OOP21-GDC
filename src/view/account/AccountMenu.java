@@ -24,12 +24,6 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
-import start.BalancePanel;
-import start.ConfirmPassword;
-import start.PasswordPanel;
-import start.UpdatePanel;
-import start.UsernamePanel;
-
 
 public class AccountMenu extends JPanel {
 
