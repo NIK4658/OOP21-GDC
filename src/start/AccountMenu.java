@@ -36,7 +36,8 @@ public class AccountMenu extends JPanel {
     private final static int DIMX = (int) SCREENSIZE.getWidth() / 2;
     private final static int DIMY = (int) SCREENSIZE.getHeight() / 2;
     private final JDialog dialog;
-    
+    private final CardLayout cl;
+    private final JPanel panel;
     
     /* TESTING, togliere poi */
     public static void main(final String[] args) {
@@ -58,6 +59,9 @@ public class AccountMenu extends JPanel {
     }
     
     public AccountMenu(final JFrame frame) {
+        //sistemare
+        this.dialog = new JDialog(frame, true);
+        
         
 //pannello MENU
         this.setLayout(new GridBagLayout());
@@ -85,116 +89,14 @@ public class AccountMenu extends JPanel {
             this.add(jb, setDimensionObj(0, index++, 5));
         }
         
-//pannello GESTIONE SALDO, sistemare ripetizioni
-        final String currencySymbol = Currency.getInstance(getLocale()).getSymbol();
         
-        final JPanel panelBalance = new JPanel(new GridBagLayout());
-        panelBalance.setBackground(new Color(68, 87, 96));
-        panelBalance.setPreferredSize(new Dimension(DIMX / 2, DIMY));
-        
-        final JLabel labelDeposit = new JLabel(currencySymbol);
-        final JLabel labelWithdraw = new JLabel(currencySymbol);
-        final JLabel labelAmount = new JLabel("Amount: ");
-
-        final NumberFormat format = DecimalFormat.getInstance();
-        format.setMaximumIntegerDigits(6);
-        format.setMinimumFractionDigits(2);
-        format.setMaximumFractionDigits(2);
-        format.setRoundingMode(RoundingMode.HALF_UP);
-        final JFormattedTextField fieldDeposit = new JFormattedTextField(format);
-        final JFormattedTextField fieldWithdraw = new JFormattedTextField(format);
-        final NumberFormat formatAmount = DecimalFormat.getCurrencyInstance();
-        format.setMaximumIntegerDigits(6);
-        format.setMinimumFractionDigits(2);
-        format.setMaximumFractionDigits(2);
-        format.setRoundingMode(RoundingMode.HALF_UP);
-        final JFormattedTextField fieldAmount = new JFormattedTextField(formatAmount);
-        fieldDeposit.setColumns(10);
-        fieldDeposit.setValue(0);
-        fieldWithdraw.setColumns(10);
-        fieldWithdraw.setValue(0);
-        fieldAmount.setColumns(10);
-        fieldAmount.setEditable(false);
-        fieldAmount.setValue(69.69);   //NICO
-        
-        final JButton buttonDeposit = new JButton("Deposit");
-        buttonDeposit.addActionListener(e -> {
-            String s = fieldDeposit.getText();
-            s = s.replace(".", "").replace(",", ".");
-            final double d = Double.parseDouble(s);
-            //NICO
-            System.out.println(d);
-            fieldAmount.setValue(1234); //da impostare saldo
-        });
-        final JButton buttonWithdraw = new JButton("Withdraw");
-        buttonWithdraw.addActionListener(e -> {
-            String s = fieldWithdraw.getText();
-            s = s.replace(".", "").replace(",", ".");
-            final double d = Double.parseDouble(s);
-            //NICO
-            System.out.println(d);
-            fieldAmount.setValue(1234); //da impostare saldo
-        });
-
-        panelBalance.add(labelDeposit);
-        panelBalance.add(fieldDeposit);
-        panelBalance.add(buttonDeposit);
-        panelBalance.add(labelWithdraw, setDimensionObj(0, 1, 0));
-        panelBalance.add(fieldWithdraw, setDimensionObj(1, 1, 0));
-        panelBalance.add(buttonWithdraw, setDimensionObj(2, 1, 0));
-        panelBalance.add(labelAmount, setDimensionObj(0, 2, 0));
-        panelBalance.add(fieldAmount, setDimensionObj(1, 2, 0));
-        
-        
-//pannello CAMBIO USERNAME, sistemare ripetizioni
-        final JPanel panelUsername = new JPanel(new GridBagLayout());
-        panelUsername.setBackground(new Color(68, 87, 96));
-        panelUsername.setPreferredSize(new Dimension(DIMX / 2, DIMY));
-        
-        final JLabel labelUsername = new JLabel("Username: ");
-        final JLabel labelNewUsername = new JLabel("New Username: ");
-        final JTextField fieldUsername = new JTextField("Massimo Bossetti", 10);        //NICO
-        fieldUsername.setEditable(false);
-        final JTextField fieldNewUsername = new JTextField(10);
-        final JButton buttonUsername = new JButton("Change");
-        buttonUsername.addActionListener(e -> {//aggiungere richiesta psw
-            final String newUsername = fieldNewUsername.getText();
-            fieldUsername.setText(newUsername);
-            //NICO
-            System.out.println(newUsername);
-        });
-        panelUsername.add(labelUsername, setDimensionObj(0, 0, 0));
-        panelUsername.add(fieldUsername, setDimensionObj(1, 0, 0));
-        panelUsername.add(labelNewUsername, setDimensionObj(0, 1, 0));
-        panelUsername.add(fieldNewUsername, setDimensionObj(1, 1, 0));
-        panelUsername.add(buttonUsername, setDimensionObj(2, 2, 0));
-        
-        
-//pannello CAMBIO PASSWORD, sistemare ripetizioni
-        final JPanel panelPassword = new JPanel(new GridBagLayout());
-        panelPassword.setBackground(new Color(68, 87, 96));
-        panelPassword.setPreferredSize(new Dimension(DIMX / 2, DIMY));
-        
-        final JLabel labelPassword = new JLabel("New Password: ");
-        final JLabel labelNewPassword = new JLabel("Confirm Password: ");
-        final JTextField fieldPassword = new JTextField(10);        //NICO
-        fieldPassword.setEditable(false);//momentaneamente disabilitato, bisogna implementare una JLabel 
-        final JTextField fieldNewPassword = new JTextField(10);
-        final JButton buttonPassword = new JButton("Change");
-        buttonPassword.addActionListener(e -> {//aggiungere richiesta psw
-            final String newPassword = fieldNewPassword.getText();
-            //NICO
-            System.out.println(newPassword);
-        });
-        panelPassword.add(labelPassword, setDimensionObj(0, 0, 0));
-        panelPassword.add(fieldPassword, setDimensionObj(1, 0, 0));
-        panelPassword.add(labelNewPassword, setDimensionObj(0, 1, 0));
-        panelPassword.add(fieldNewPassword, setDimensionObj(1, 1, 0));
-        panelPassword.add(buttonPassword, setDimensionObj(2, 2, 0));
+        final BalancePanel panelBalance = new BalancePanel(DIMX, DIMY);
+        final UsernamePanel panelUsername = new UsernamePanel(dialog, DIMX, DIMY);
+        final PasswordPanel panelPassword = new PasswordPanel(dialog, DIMX, DIMY);
         
 
-        final CardLayout cl = new CardLayout();
-        final JPanel panel = new JPanel(cl);
+        cl = new CardLayout();
+        panel = new JPanel(cl);
         
         panel.add(this, "1");
         panel.add(panelBalance, "2");
@@ -216,13 +118,20 @@ public class AccountMenu extends JPanel {
         });
         
         deleteAccount.addActionListener(e -> {
-            //aggiungere JLabel "sicuro di elimiare account? Inserisci la psw:"
             //aggiungere una volta eliminato account tornare menu d'accesso.
-            //NICO
-            System.out.println("Account deleted");
+            
+            final UpdatePanel p = new UpdatePanel() {
+                @Override
+                public void update() {
+                    System.out.println("AccountDeleted");
+                  //NICO 
+                }
+            };
+            new ConfirmPassword(dialog, p, 3, DIMX / 2, DIMY);
         });
         
-        this.dialog = new JDialog(frame, true);
+        
+        
         this.dialog.setContentPane(panel);
         this.dialog.pack();
         this.dialog.setLocationRelativeTo(null);
