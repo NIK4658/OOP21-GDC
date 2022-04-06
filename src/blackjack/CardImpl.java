@@ -17,26 +17,23 @@ public class CardImpl implements Card {
     
     //Genera carta random
     public CardImpl() {
-        this.card = new Pair<>(getRandomSuit(), getRandomValue());
-        setImg();
+        this(getRandomSuit(), getRandomValue());
     }
     
     //Genera carta random con seme preciso
     public CardImpl(final Suits s) {
-        this.card = new Pair<>(s, getRandomValue());
-        setImg();
+        this(s, getRandomValue());
     }
     
     //Genera carta random con valore preciso
     public CardImpl(final int value) {
-        this.card = new Pair<>(getRandomSuit(), value);
-        setImg();
+        this(getRandomSuit(), value);
     }
     
     //Genera carta precisa
     public CardImpl(final Suits s, final int value) {
         this.card = new Pair<>(s, value);
-        setImg();
+        this.img = new ImageIcon("res/img/cards/" + this.card.get1() + "/" + this.card.get2() + ".png").getImage();
     }
     
     @Override
@@ -50,21 +47,15 @@ public class CardImpl implements Card {
     }
     
     @Override
-    public void setImg() {
-        this.img = new ImageIcon("res/img/cards/" + getSuit() + "/" + getValue() + ".png").getImage();
-    }
-    
-    @Override
     public Image getImg() {
         return this.img;
     }
     
-    
-    private Suits getRandomSuit() {
+    private static Suits getRandomSuit() {
         return Suits.values()[new Random().nextInt(Suits.values().length)];
     }
     
-    private int getRandomValue() {
+    private static int getRandomValue() {
         return new Random().nextInt(13) + 1;
     }
     
@@ -72,8 +63,12 @@ public class CardImpl implements Card {
      * Testing. Da eliminare in seguito.
      */
     public static void main(final String[] args) {      
-        new DeckImpl().showAllCards(); 
+        //new DeckImpl().showPreciseValue(5); 
+        //new DeckImpl().showPreciseSuit(Suits.DIAMONDS);
+        //new DeckImpl().showPreciseCard(new CardImpl());
+        new DeckImpl().showAllCards();
     }
+
 }
 
 
