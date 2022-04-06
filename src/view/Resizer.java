@@ -8,39 +8,36 @@ import java.awt.Toolkit;
  */
 public class Resizer {
 
-    private final Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+    private int width;
+    private int height;
 
     /**
      * Main function.
      */
-    public Dimension resize(final double factor) {
-        int width = 0;
-        int height = 0;
-
+    public Dimension resize(final float factor) {
+        final Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        width = screenSize.width;
+        height = screenSize.height;
+        
         if (checkVertical()) {
             System.out.println("verticale");
-            width = (int) (screenSize.getWidth() / factor);
-            height = (int) ((screenSize.getWidth() * 16 / 9) / factor);
-        } else {
-            System.out.println("orizzontale");
-            if (checkRatio()) {
-                System.out.println("RatioCorretto 16/9");
-                width = (int) (screenSize.getWidth() / factor);
-                height = (int) (screenSize.getHeight() / factor);
-            } else {
-                System.out.println("RatioSbagliato != 16/9");  
-                width = (int) ((screenSize.getHeight() * 16 / 9) / factor);
-                height = (int) (screenSize.getHeight() / factor);
-            }
+            return new Dimension(Math.round(width / factor), Math.round(width * 16 / 9 / factor));
         }
-        return new Dimension(width, height);
+        System.out.println("orizzontale");
+        if (checkRatio()) {
+            System.out.println("RatioCorretto 16/9");
+            return new Dimension(Math.round(width / factor), Math.round(height / factor));
+        } else {
+            System.out.println("RatioSbagliato != 16/9");  
+            return new Dimension(Math.round(height * 16 / 9 / factor), Math.round(height / factor));
+        }
     }
 
     private boolean checkRatio() {
-        return (((screenSize.getHeight() * 16) / 9) == screenSize.getWidth());
+        return (height * 16 / 9) == width;
     }
 
     private boolean checkVertical() {
-        return (screenSize.getWidth() < screenSize.getHeight());
+        return width < height;
     }
 }
