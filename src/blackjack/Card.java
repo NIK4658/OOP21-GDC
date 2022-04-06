@@ -18,8 +18,6 @@ public interface Card {
     
     int getValue();
     
-    void setImg();
-    
     Image getImg();
     
 }
