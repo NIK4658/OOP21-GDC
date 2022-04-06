@@ -4,8 +4,8 @@ import blackjack.Card.Suits;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -19,12 +19,12 @@ import javax.swing.SwingConstants;
  */
 public class DeckImpl implements Deck {
     
-    private final Set<Card> deck = new HashSet<>();
+    private final List<Card> deck = new ArrayList<>(); //da rimuovere final?
     
     /**
-     * Genera mazzo.
+     * Genera mazzo standard (scala) (ogni valore 1-13*4semi).
      */
-    public DeckImpl() {
+    public DeckImpl() {   
         for (final Suits s : Suits.values()) {
             if (s != Suits.JOKER) {
                 for (int i = 1; i <= 13; i++) {
@@ -34,13 +34,10 @@ public class DeckImpl implements Deck {
         }
     }
 
-    /**
-     * Testing.
-     */
-    @Override
-    public void showAllCards() { 
+    
+    private void showCards(final List<Card> cards) {
         int i = 1;
-        for (final Card c : this.deck) {
+        for (final Card c : cards) {
             final JFrame jf = new JFrame();
             jf.setResizable(true);
             final JPanel jpanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 0, 0));
@@ -53,6 +50,48 @@ public class DeckImpl implements Deck {
             jf.add(text, BorderLayout.SOUTH);
             jf.setVisible(true); 
             i++;
-        }     
-    }  
+        }   
+    }
+    
+    @Override
+    public void showAllCards() { 
+        showCards(this.deck);
+    }
+
+    @Override
+    public void showPreciseCard(final Card card) {
+        final List<Card> s = new ArrayList<>();
+        s.add(card);
+        showCards(s);
+    }
+
+    @Override
+    public void showPreciseSuit(final Suits s) {      
+        for (final Card c : this.deck) {
+            if (c.getSuit() == s) {
+                showPreciseCard(c);
+            }
+        }    
+    }
+
+    @Override
+    public void showPreciseValue(final int value) {
+        for (final Card c : this.deck) {
+            if (c.getValue() == value) {
+                showPreciseCard(c);
+            }
+        } 
+    }
+
+    @Override
+    public boolean removePreciseCard(final Card card) {
+        //NON FUNZIONA
+        return (this.deck.remove(card));
+    }
+
+    @Override
+    public boolean removeRandomCard() {
+        //NON FUNZIONA
+        return (this.deck.remove(new CardImpl()));
+    }
 }
