@@ -1,4 +1,4 @@
-package view.access;
+package ex;
 
 import java.awt.event.ActionListener;
 
@@ -6,7 +6,7 @@ import java.awt.event.ActionListener;
 /**
  * Interfaccia.
  */
-public interface AccessPanel {
+public interface ExAccessPanel {
     
     /**
      * Enum.

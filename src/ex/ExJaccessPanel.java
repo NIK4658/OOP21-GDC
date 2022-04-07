@@ -1,4 +1,4 @@
-package view.access;
+package ex;
 
 import account.AccountManagerImpl;
 import java.awt.Color;
@@ -20,7 +20,7 @@ import javax.swing.SwingConstants;
 /**
  * //DA SISTEMARE I MAGIC NUMBERS.
  */
-public class JaccessPanel extends JPanel {
+public class ExJaccessPanel extends JPanel implements ExAccessPanel {
 
     
     private static final long serialVersionUID = 1L;
@@ -28,15 +28,11 @@ public class JaccessPanel extends JPanel {
     private final JButton registerbtn;
     private final JButton loginbtn2;
     private final JButton registerbtn2;
-    
-    enum AccessType { 
-        LOGIN, REGISTER 
-    }        
 
     /**
      * Main function.
      */
-    public JaccessPanel(final AccessType access, final int dimX, final int dimY) {
+    public ExJaccessPanel(final AccessType access, final int dimX, final int dimY) {
         
         setLayout(new GridBagLayout());
         setBackground(new Color(68, 87, 96));           // blu bello
@@ -123,7 +119,7 @@ public class JaccessPanel extends JPanel {
         }
         registerbtn2.addActionListener(al);
     }
-    
+
     private GridBagConstraints setDimensionObj(final int gridx, final int gridy, final int space) {
         final GridBagConstraints c = new GridBagConstraints();
         c.anchor = GridBagConstraints.PAGE_END;
