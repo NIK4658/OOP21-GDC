@@ -25,12 +25,16 @@ public class FedeProva {
         panel.setBackground(new Color(68, 87, 96));
         panel.setPreferredSize(frame.getSize());
         
-//        var label = new JLabel("Login");
+        var label = new JLabel("Login");
 //        addComponent(panel, label, 0, 0, 0, 0, GridBagConstraints.CENTER, GridBagConstraints.BOTH);
+        panel.add(label, new GridBagConstraints(0, 0, 1, 1, 1.0, 1.0, GridBagConstraints.CENTER, GridBagConstraints.BOTH,
+                new Insets(0, 0, 0, 0), 0, 0));
         
-        var button = new JButton("Button");
-        button.setPreferredSize(new Dimension(40, 40));
-        addComponent(panel, button, 0, 0, 0, 0, GridBagConstraints.CENTER, GridBagConstraints.BOTH);
+        
+        
+//        var button = new JButton("Button");
+//        button.setPreferredSize(new Dimension(40, 40));
+//        addComponent(panel, button, 0, 0, 0, 0, GridBagConstraints.CENTER, GridBagConstraints.BOTH);
         
         
         frame.setContentPane(panel);
