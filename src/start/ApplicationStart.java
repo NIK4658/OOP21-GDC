@@ -1,10 +1,15 @@
 package start;
 
+import view.gui.Gui;
+
+//import ex.ExMasterGui;
+
 /**
  * Starts the application.
  */
 public final class ApplicationStart {
     public static void main(final String[] args) {
-        new MainGui();
+        //new FedeProva();
+        new Gui();
     }
 }
