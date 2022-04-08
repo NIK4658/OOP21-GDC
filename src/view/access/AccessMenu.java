@@ -1,5 +1,6 @@
 package view.access;
 
+import account.AccountManager;
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.Dimension;
@@ -7,22 +8,23 @@ import java.awt.Image;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import start.MainGui;
 import view.ImageModifier;
-import view.access.JaccessPanel.AccessType;
+import view.gui.MainGui;
+
 
 /**
  * //DA SISTEMARE I MAGIC NUMBERS.
  */
-public class AccessMenu extends JPanel {
+public class AccessMenu extends JPanel implements Access {
 
     private static final long serialVersionUID = 1L;
-
+    private final MainGui frame;
+    
     /**
      * //DA SISTEMARE I MAGIC NUMBERS.
      */
     public AccessMenu(final MainGui frame) {
-        
+        this.frame = frame;
         this.setLayout(new BorderLayout());
         
         // Zona di destra
@@ -34,36 +36,19 @@ public class AccessMenu extends JPanel {
         // Zona di sinistra
         final CardLayout cl = new CardLayout();
         final JPanel west = new JPanel(cl);
-        final JaccessPanel login = new JaccessPanel(AccessType.LOGIN, frame.getWidth(), frame.getHeight());
-        final JaccessPanel register = new JaccessPanel(AccessType.REGISTER, frame.getWidth(), frame.getHeight());
-        login.setActionListenerRegisterButton(e -> {
-            cl.show(west, AccessType.REGISTER.toString());
-        });
-        register.setActionListenerLoginButton(e -> {
-            cl.show(west, AccessType.LOGIN.toString());
-        });
+        final Dimension dimAccessPanel = new Dimension(frame.getWidth() * 1 / 3, frame.getHeight());
+        final AccessPanel login = new AccessPanel(this, dimAccessPanel, AccessType.LOGIN,
+                e -> cl.show(west, AccessType.REGISTER.toString()));
+        final AccessPanel register = new AccessPanel(this, dimAccessPanel, AccessType.REGISTER, 
+                e -> cl.show(west, AccessType.LOGIN.toString()));
         west.add(login, AccessType.LOGIN.toString());
         west.add(register, AccessType.REGISTER.toString());
         cl.show(west, AccessType.LOGIN.toString());
-        
         this.add(west, BorderLayout.WEST);
-        frame.updateContentPanel(this);
+        frame.updateMenu(this);
+    }
+    
+    public void successfullyAccessed(final AccountManager account) {
+        frame.setMainMenu(account);
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
