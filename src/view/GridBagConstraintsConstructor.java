@@ -5,7 +5,7 @@ import java.awt.Insets;
 
 public class GridBagConstraintsConstructor {
     
-    public static GridBagConstraints getGridBagConstraints(final int gridx, final int gridy, final int space) {
+    public static GridBagConstraints get(final int gridx, final int gridy, final int space) {
         final GridBagConstraints c = new GridBagConstraints();
         c.anchor = GridBagConstraints.CENTER;
         c.insets = new Insets(0, 0, space, 0);
@@ -14,7 +14,7 @@ public class GridBagConstraintsConstructor {
         return c;
     }
 
-    public static GridBagConstraints getGridBagConstraints(final int gridx, final int gridy, final int spacedown,
+    public static GridBagConstraints get(final int gridx, final int gridy, final int spacedown,
             final int spaceleft, final int spaceright) {
         final GridBagConstraints c = new GridBagConstraints();
         c.anchor = GridBagConstraints.PAGE_END;

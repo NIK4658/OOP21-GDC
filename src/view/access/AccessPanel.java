@@ -67,14 +67,14 @@ public class AccessPanel extends JPanel {
             title.setPreferredSize(new Dimension(dimX * 3 / 2 - (dimX / 2), dimY / 10));
             title.setFont(new Font("Arial", Font.BOLD | Font.ITALIC, dimX * 3 / 25));
         }
-        this.add(title, GridBagConstraintsConstructor.getGridBagConstraints(0, 0, 60));
+        this.add(title, GridBagConstraintsConstructor.get(0, 0, 60));
         
         // Modifiche generali
         int i = 1;
         for (final JComponent jc : list) {
             jc.setPreferredSize(new Dimension(dimX - (dimX / 2), dimY / 20));
             jc.setFont(new Font("Arial", Font.PLAIN, dimX * 3 / 50));
-            this.add(jc, GridBagConstraintsConstructor.getGridBagConstraints(0, i, 5));
+            this.add(jc, GridBagConstraintsConstructor.get(0, i, 5));
             i++;
         }
         

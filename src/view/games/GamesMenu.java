@@ -82,7 +82,7 @@ public class GamesMenu extends JPanel {
         for (final JComponent jc : list) {
             jc.setPreferredSize(new Dimension(width / 5, height / 3));
             jc.setFont(new Font("Arial", Font.PLAIN, width / 50));
-            center.add(jc, GridBagConstraintsConstructor.getGridBagConstraints(i, 0, 0, 50, 50));
+            center.add(jc, GridBagConstraintsConstructor.get(i, 0, 0, 50, 50));
             i++;
         }
         

@@ -49,6 +49,6 @@ public class AccessMenu extends JPanel implements Access {
     }
     
     public void successfullyAccessed(final AccountManager account) {
-        frame.setMainMenu(account);
+        frame.setGamesMenu(account);
     }
 }
