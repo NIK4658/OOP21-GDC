@@ -17,11 +17,11 @@ import javax.swing.JPanel;
 //pannello GESTIONE SALDO, sistemare ripetizioni
 public class BalancePanel extends JPanel {
     
-    public BalancePanel(final int DIMX, final int DIMY) {//togliere dim
+    public BalancePanel() {
         final String currencySymbol = Currency.getInstance(getLocale()).getSymbol();
         this.setLayout(new GridBagLayout());
         this.setBackground(new Color(68, 87, 96));
-        this.setPreferredSize(new Dimension(DIMX / 2, DIMY));
+//        this.setPreferredSize(new Dimension(DIMX / 2, DIMY));
         
         final JLabel labelDeposit = new JLabel(currencySymbol);
         final JLabel labelWithdraw = new JLabel(currencySymbol);

@@ -1,7 +1,7 @@
 package view.account;
 
 import java.awt.Color;
-import java.awt.Dialog;
+import java.awt.Frame;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -11,15 +11,16 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import view.GridBagConstraintsConstructor;
+
 //pannello CAMBIO USERNAME, sistemare ripetizioni
 public class UsernamePanel extends JPanel implements UpdatePanel {
     private final JTextField fieldNewUsername;
     
-    public UsernamePanel(final Dialog dialog, final int DIMX, final int DIMY) {
+    public UsernamePanel(final Frame frame) {
       
         this.setLayout(new GridBagLayout());
         this.setBackground(new Color(68, 87, 96));
-        this.setPreferredSize(new Dimension(DIMX / 2, DIMY));
         
         final JLabel labelUsername = new JLabel("Username: ");
         final JLabel labelNewUsername = new JLabel("New Username: ");
@@ -28,29 +29,19 @@ public class UsernamePanel extends JPanel implements UpdatePanel {
         fieldNewUsername = new JTextField(10);
         final JButton buttonUsername = new JButton("Change");
         buttonUsername.addActionListener(e -> {//aggiungere richiesta psw
-            new ConfirmPassword(dialog, this, 1, DIMX / 2, DIMY);
+            new ConfirmPassword(frame, this, 1);
             
         });
-        this.add(labelUsername, setDimensionObj(0, 0, 0));
-        this.add(fieldUsername, setDimensionObj(1, 0, 0));
-        this.add(labelNewUsername, setDimensionObj(0, 1, 0));
-        this.add(fieldNewUsername, setDimensionObj(1, 1, 0));
-        this.add(buttonUsername, setDimensionObj(2, 2, 0));
+        this.add(labelUsername, GridBagConstraintsConstructor.get(0, 0, 0));
+        this.add(fieldUsername, GridBagConstraintsConstructor.get(1, 0, 0));
+        this.add(labelNewUsername, GridBagConstraintsConstructor.get(0, 1, 0));
+        this.add(fieldNewUsername, GridBagConstraintsConstructor.get(1, 1, 0));
+        this.add(buttonUsername, GridBagConstraintsConstructor.get(2, 2, 0));
     }
     
     @Override
     public void update() {
         fieldNewUsername.getText();//NICO
-    }
-    
-    /* Da sostituire con la mia versione */
-    private static GridBagConstraints setDimensionObj(final int gridx, final int gridy, final int verticalSpace) {
-        final GridBagConstraints c = new GridBagConstraints();
-        c.anchor = GridBagConstraints.PAGE_END;
-        c.insets = new Insets(0, 0, verticalSpace, 0);
-        c.gridx = gridx;
-        c.gridy = gridy;
-        return c;
     }
 
 
