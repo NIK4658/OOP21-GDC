@@ -1,4 +1,4 @@
-package view.games;
+package view.menu;
 
 import account.AccountManager;
 import java.awt.BorderLayout;
@@ -14,25 +14,25 @@ import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
-import view.ImageModifier;
 import view.GridBagConstraintsConstructor;
-import view.gui.MainGui;
+import view.ImageModifier;
+import view.gui.MenuManager;
 
 /**
  * Menu principale.
  */
-public class GamesMenu extends JPanel {
+public class GamesMenu extends JPanel implements Menu {
 
     private static final long serialVersionUID = 1L;
 
     /**
      * Costruttore.
      */
-    public GamesMenu(final MainGui frame, final AccountManager account) {
+    public GamesMenu(final MenuManager frame, final AccountManager account) {
         this.setLayout(new BorderLayout());
-        this.setPreferredSize(frame.getSize());
-        final int width = frame.getWidth();
-        final int height = frame.getHeight();
+        this.setPreferredSize(frame.getSizeMenu());
+        final int width = frame.getWidthMenu();
+        final int height = frame.getHeightMenu();
         final JPanel north = new JPanel(new GridBagLayout());
         final JPanel center = new JPanel(new GridBagLayout());
         north.setBackground(new Color(44, 107, 14));
@@ -42,7 +42,7 @@ public class GamesMenu extends JPanel {
         //DA IMPOSTARE L'IMMAGINE DELLO SFONDO
         final ImageModifier imgMod = new ImageModifier();
         Image imgi = imgMod.scaleFullScreen(
-                (new ImageIcon("res/img/backgrounds/tavolo.jpg").getImage()), frame.getSize());
+                (new ImageIcon("res/img/backgrounds/tavolo.jpg").getImage()), frame.getSizeMenu());
         final JLabel bg = new JLabel();
         bg.setIcon(new ImageIcon(imgi));
         //
@@ -88,8 +88,11 @@ public class GamesMenu extends JPanel {
         
         this.add(north, BorderLayout.NORTH);
         this.add(center, BorderLayout.CENTER);
-        frame.updateMenu(this);
     }
 
-
+    @Override
+    public JPanel getMenu() {
+        return this;
+    }
+    
 }

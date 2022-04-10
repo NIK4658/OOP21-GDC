@@ -1,6 +1,6 @@
 package start;
 
-import view.gui.Gui;
+import view.gui.MainGui;
 
 //import ex.ExMasterGui;
 
@@ -10,6 +10,6 @@ import view.gui.Gui;
 public final class ApplicationStart {
     public static void main(final String[] args) {
         //new FedeProva();
-        new Gui();
+        new MainGui();
     }
 }

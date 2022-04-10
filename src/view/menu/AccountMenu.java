@@ -1,4 +1,4 @@
-package view.account;
+package view.menu;
 
 import account.AccountManager;
 import java.awt.BorderLayout;
@@ -14,15 +14,19 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import view.GridBagConstraintsConstructor;
-import view.gui.MainGui;
+import view.account.BalancePanel;
+import view.account.PasswordPanel;
+import view.account.UpdatePanel;
+import view.account.UsernamePanel;
+import view.gui.MenuManager;
 
-public class AccountMenu {
+public class AccountMenu implements Menu {
 
     /**
      * 
      **/
     private static final long serialVersionUID = 1L;
-    private final MainGui frame;
+    private final MenuManager frame;
     private final AccountManager account;
     private final JPanel panel;
     private final JPanel panelAccount;
@@ -30,11 +34,11 @@ public class AccountMenu {
     private final ActionListener alBackMenu;
     private ActionListener alBackPanel;
     
-    public AccountMenu(final MainGui frame, final AccountManager account) {
+    public AccountMenu(final MenuManager frame, final AccountManager account) {
         this.frame = frame;
         this.account = account;
         this.panel = new JPanel(new BorderLayout());
-        this.panel.setPreferredSize(this.frame.getSize());
+        this.panel.setPreferredSize(this.frame.getSizeMenu());
         this.buttonBack = new JButton("EXIT");
         this.alBackMenu = this.getActionListenerBackGamesMenu();
         this.buttonBack.addActionListener(alBackMenu);
@@ -43,11 +47,11 @@ public class AccountMenu {
 //pannello PRINCIPALE
         this.panelAccount = new JPanel(new GridBagLayout());
         this.panelAccount.setBackground(new Color(68, 87, 96));
-        this.panelAccount.setPreferredSize(frame.getSize());
+        this.panelAccount.setPreferredSize(frame.getSizeMenu());
         this.panel.add(panelAccount);
         final JLabel title = new JLabel("ACCOUNT", SwingConstants.CENTER);
         title.setForeground(Color.WHITE);
-        title.setFont(new Font("Arial", Font.BOLD, frame.getWidth() / 20));
+        title.setFont(new Font("Arial", Font.BOLD, frame.getWidthMenu() / 20));
         int index = 0;
         this.panelAccount.add(title, GridBagConstraintsConstructor.get(0, index++, 40));
         final JButton balanceManagement = new JButton("BALANCE");
@@ -60,14 +64,14 @@ public class AccountMenu {
         list.add(changePassword);
         list.add(deleteAccount);
         for (final JButton jb : list) {
-            jb.setPreferredSize(new Dimension(frame.getWidth() / 4, frame.getHeight() / 20));
-            jb.setFont(new Font("Arial", Font.PLAIN, frame.getWidth() / 50));
+            jb.setPreferredSize(new Dimension(frame.getWidthMenu() / 4, frame.getHeightMenu() / 20));
+            jb.setFont(new Font("Arial", Font.PLAIN, frame.getWidthMenu() / 50));
             panelAccount.add(jb, GridBagConstraintsConstructor.get(0, index++, 5));
         }
         
         final BalancePanel panelBalance = new BalancePanel();
         final UsernamePanel panelUsername = new UsernamePanel(this.frame.getFrame());
-        final PasswordPanel panelPassword = new PasswordPanel(this.frame.getFrame(), frame.getWidth(), frame.getHeight());
+        final PasswordPanel panelPassword = new PasswordPanel(this.frame.getFrame(), frame.getWidthMenu(), frame.getHeightMenu());
 
         balanceManagement.addActionListener(e -> {
             updatePanel(panelBalance);
@@ -94,8 +98,6 @@ public class AccountMenu {
 //            new ConfirmPassword(dialog, p, 3, frame.getWidth() / 2, frame.getHeight());
         });
         
-        
-        frame.updateMenu(panel);
     }
     
     private void updatePanel(final JPanel panelToAdd) {
@@ -125,6 +127,11 @@ public class AccountMenu {
     
     private ActionListener getActionListenerBackGamesMenu() {
         return e -> frame.setGamesMenu(account);
+    }
+
+    @Override
+    public JPanel getMenu() {
+        return this.panel;
     }
     
 }
