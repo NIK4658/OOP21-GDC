@@ -64,8 +64,10 @@ public class GamesMenu extends JPanel implements Menu {
         final JButton roulette = new JButton();
         final JButton bacarat = new JButton();
         roulette.addActionListener(e -> frame.setRouletteMenu(account));
+        bacarat.addActionListener(e -> frame.setAccountMenu(account));
+        
+        //meglio creare una funzione
         final Dimension dimButton = new Dimension(width / 5, height / 3);
-
         imgi = imgMod.scaleFullScreen(
                 (new ImageIcon("res/img/buttons/blackjack.PNG").getImage()), dimButton);
         blackjack.setIcon(new ImageIcon((imgi)));
