@@ -11,16 +11,16 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import account.AccountManager;
 import view.GridBagConstraintsConstructor;
 
 //pannello CAMBIO PASSWORD, sistemare ripetizioni
-public class PasswordPanel extends JPanel implements UpdatePanel {
+public class PasswordPanel extends JPanel {
 
-    public PasswordPanel(final Frame frame, final int DIMX, final int DIMY) {
+    public PasswordPanel(final Frame frame, final AccountManager account) {
       
         this.setLayout(new GridBagLayout());
         this.setBackground(new Color(68, 87, 96));
-        this.setPreferredSize(new Dimension(DIMX / 2, DIMY));
         
         final JLabel labelPassword = new JLabel("New Password: ");
         final JLabel labelNewPassword = new JLabel("Confirm Password: ");
@@ -28,11 +28,10 @@ public class PasswordPanel extends JPanel implements UpdatePanel {
         fieldPassword.setEditable(false);//momentaneamente disabilitato, bisogna implementare una JDialog 
         final JTextField fieldNewPassword = new JTextField(10);
         final JButton buttonPassword = new JButton("Change");
-        buttonPassword.addActionListener(e -> {
-            new ConfirmPassword(frame, this, 2);
-            final String newPassword = fieldNewPassword.getText();
-            //NICO
-            System.out.println(newPassword);
+        buttonPassword.addActionListener(e -> {//aggiungere password non valida
+            if (new ConfirmPassword(frame, account, " to change Password").isPasswordConfirmed()) {
+                this.setPassword(fieldNewPassword.getText());
+            }
         });
         this.add(labelPassword, GridBagConstraintsConstructor.get(0, 0, 0));
         this.add(fieldPassword, GridBagConstraintsConstructor.get(1, 0, 0));
@@ -41,10 +40,8 @@ public class PasswordPanel extends JPanel implements UpdatePanel {
         this.add(buttonPassword, GridBagConstraintsConstructor.get(2, 2, 0));
     }
 
-    @Override
-    public void update() {
-        // TODO Auto-generated method stub
-        
+    private void setPassword(final String password) {
+//      account.?        NICO
     }
-
+    
 }

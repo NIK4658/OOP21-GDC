@@ -14,15 +14,21 @@ import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import account.AccountManager;
+import view.GridBagConstraintsConstructor;
+
 //pannello GESTIONE SALDO, sistemare ripetizioni
 public class BalancePanel extends JPanel {
     
-    public BalancePanel() {
+    private final AccountManager account;
+    
+    public BalancePanel(final AccountManager account) {
+        this.account = account;
         final String currencySymbol = Currency.getInstance(getLocale()).getSymbol();
         this.setLayout(new GridBagLayout());
         this.setBackground(new Color(68, 87, 96));
-//        this.setPreferredSize(new Dimension(DIMX / 2, DIMY));
         
+        //aggiungere "titolo" BALANCE
         final JLabel labelDeposit = new JLabel(currencySymbol);
         final JLabel labelWithdraw = new JLabel(currencySymbol);
         final JLabel labelAmount = new JLabel("Amount: ");
@@ -42,47 +48,44 @@ public class BalancePanel extends JPanel {
         fieldWithdraw.setValue(0);
         fieldAmount.setColumns(10);
         fieldAmount.setEditable(false);
-        fieldAmount.setValue(69.69);   //NICO
+        fieldAmount.setValue(this.getAmount());
         
-        final JButton buttonDeposit = new JButton("Deposit");//eliminare rep con altro bottone(es. crea funzione)
+        //Eliminare rep con altro bottone(es. crea funzione)
+        final JButton buttonDeposit = new JButton("Deposit");
         buttonDeposit.addActionListener(e -> {
-            String s = fieldDeposit.getText();
-            s = s.replace(".", "").replace(",", ".");
-            final double d = Double.parseDouble(s);
-            //NICO
-            System.out.println(d);
-            fieldAmount.setValue(1234); //da impostare saldo
+            final String deposit = fieldDeposit.getText().replace(".", "").replace(",", ".");
+            this.setDeposit(Double.parseDouble(deposit));
+            fieldAmount.setValue(this.getAmount());
         });
         final JButton buttonWithdraw = new JButton("Withdraw");
         buttonWithdraw.addActionListener(e -> {
-            String s = fieldWithdraw.getText();
-            s = s.replace(".", "").replace(",", ".");
-            final double d = Double.parseDouble(s);
-            //NICO
-            System.out.println(d);
-            fieldAmount.setValue(1234); //da impostare saldo
+            final String withdraw = fieldWithdraw.getText().replace(".", "").replace(",", ".");
+            this.setWithdraw(Double.parseDouble(withdraw));
+            fieldAmount.setValue(this.getAmount());
         });
     
         this.add(labelDeposit);
         this.add(fieldDeposit);
         this.add(buttonDeposit);
-        this.add(labelWithdraw, setDimensionObj(0, 1, 0));
-        this.add(fieldWithdraw, setDimensionObj(1, 1, 0));
-        this.add(buttonWithdraw, setDimensionObj(2, 1, 0));
-        this.add(labelAmount, setDimensionObj(0, 2, 0));
-        this.add(fieldAmount, setDimensionObj(1, 2, 0));
+        this.add(labelWithdraw, GridBagConstraintsConstructor.get(0, 1, 0));
+        this.add(fieldWithdraw, GridBagConstraintsConstructor.get(1, 1, 0));
+        this.add(buttonWithdraw, GridBagConstraintsConstructor.get(2, 1, 0));
+        this.add(labelAmount, GridBagConstraintsConstructor.get(0, 2, 0));
+        this.add(fieldAmount, GridBagConstraintsConstructor.get(1, 2, 0));
+    }
+
+    private double getAmount() {
+        return 69.69;
+//      return this.account.?   NICO
     }
     
-    /* Da sostituire con la mia versione */
-    private static GridBagConstraints setDimensionObj(final int gridx, final int gridy, final int verticalSpace) {
-        final GridBagConstraints c = new GridBagConstraints();
-        c.anchor = GridBagConstraints.PAGE_END;
-        c.insets = new Insets(0, 0, verticalSpace, 0);
-        c.gridx = gridx;
-        c.gridy = gridy;
-        return c;
+    private void setDeposit(final double deposit) {
+//      this.account.?          NICO
     }
     
     
+    private void setWithdraw(final double withdraw) {
+//      this.account.?          NICO
+    }
 
 }

@@ -13,32 +13,34 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.Timer;
 
+import account.AccountManager;
 import view.GridBagConstraintsConstructor;
 
-public class ConfirmPassword {
+public class ConfirmPassword implements PasswordConfirmed {
+    
+    private static final int CLOSING_DELAY = 2000;
+    private boolean isTrue;
     
     //cambiare var con enumerazione e sistemare ripetizione "Inserisci password per "
-    public ConfirmPassword(final Frame frame, final UpdatePanel updatePanel, final int var) {//da eliminare dim
+    public ConfirmPassword(final Frame frame, final AccountManager account, final String operation) {//da eliminare dim
         final JDialog confirmDialog = new JDialog(frame, true);
         final JPanel confirmPanel = new JPanel(new GridBagLayout());//creare un qualche metodo che ritorna un pannello già settato
         confirmPanel.setBackground(new Color(68, 87, 96));//
         confirmPanel.setPreferredSize(new Dimension(frame.getWidth() / 2, frame.getHeight() / 2));//
-        final JLabel confirmLabel = typeLabel(var);
+        final JLabel confirmLabel = new JLabel("Enter password" + operation);
         final JLabel passwordLabel = new JLabel("Password: ");
         final JTextField passwordField = new JTextField(10);
         final JLabel validLabel = new JLabel();
-        
         final ActionListener closeDialog = e -> confirmDialog.dispose();
+        
         passwordField.addActionListener(e -> {
-            if (true) {//NICO passwordField.getText()==
-                System.out.println("Password confermata");
+            if (true) {//passwordField.getText() == account.?        NICO
+                this.isTrue = true;
                 validLabel.setText("Password confermata");
-                updatePanel.update();
-                int delay = 2000;
-                new Timer(delay, closeDialog).start();
+                new Timer(CLOSING_DELAY, closeDialog).start();
             } else {
-                System.out.println("Password non valida");
-                validLabel.setText("Password non valida");
+                this.isTrue = false;
+                validLabel.setText("Password errata");
             }
         });
         
@@ -48,18 +50,14 @@ public class ConfirmPassword {
         confirmPanel.add(validLabel, GridBagConstraintsConstructor.get(1, 2, 0));
         confirmDialog.setContentPane(confirmPanel);
         confirmDialog.pack();
-        confirmDialog.setLocationRelativeTo(null);
+        confirmDialog.setLocationRelativeTo(frame);
         confirmDialog.setResizable(false);
         confirmDialog.setVisible(true);
     }
     
-    private JLabel typeLabel(final int var) {
-        switch (var) {
-            case 1: return new JLabel("Inserisci password per cambiare Username");
-            case 2: return new JLabel("Inserisci password per cambiare Password");
-            case 3: return new JLabel("Inserisci password per eliminare Account");
-            default: return new JLabel("Error");
-        }
+    @Override
+    public boolean isPasswordConfirmed() {
+        return this.isTrue;
     }
     
 }

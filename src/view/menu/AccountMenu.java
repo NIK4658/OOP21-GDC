@@ -15,8 +15,8 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import view.GridBagConstraintsConstructor;
 import view.account.BalancePanel;
+import view.account.ConfirmPassword;
 import view.account.PasswordPanel;
-import view.account.UpdatePanel;
 import view.account.UsernamePanel;
 import view.gui.MenuManager;
 
@@ -39,8 +39,8 @@ public class AccountMenu implements Menu {
         this.account = account;
         this.panel = new JPanel(new BorderLayout());
         this.panel.setPreferredSize(this.frame.getSizeMenu());
-        this.buttonBack = new JButton("EXIT");
-        this.alBackMenu = this.getActionListenerBackGamesMenu();
+        this.buttonBack = new JButton("BACK");
+        this.alBackMenu = this.getActionListenerBackMenu();
         this.buttonBack.addActionListener(alBackMenu);
         this.panel.add(buttonBack, BorderLayout.SOUTH);
         
@@ -54,48 +54,41 @@ public class AccountMenu implements Menu {
         title.setFont(new Font("Arial", Font.BOLD, frame.getWidthMenu() / 20));
         int index = 0;
         this.panelAccount.add(title, GridBagConstraintsConstructor.get(0, index++, 40));
-        final JButton balanceManagement = new JButton("BALANCE");
-        final JButton changeUsername = new JButton("CHANGE USERNAME");
-        final JButton changePassword = new JButton("CHANGE PASSWORD");
-        final JButton deleteAccount = new JButton("DELETE ACCOUNT");
+        final JButton buttonBalance = new JButton("BALANCE");
+        final JButton buttonUsername = new JButton("CHANGE USERNAME");
+        final JButton buttonPassword = new JButton("CHANGE PASSWORD");
+        final JButton buttonAccount = new JButton("DELETE ACCOUNT");
         final List<JButton> list = new LinkedList<>();
-        list.add(balanceManagement);
-        list.add(changeUsername);
-        list.add(changePassword);
-        list.add(deleteAccount);
+        list.add(buttonBalance);
+        list.add(buttonUsername);
+        list.add(buttonPassword);
+        list.add(buttonAccount);
         for (final JButton jb : list) {
             jb.setPreferredSize(new Dimension(frame.getWidthMenu() / 4, frame.getHeightMenu() / 20));
             jb.setFont(new Font("Arial", Font.PLAIN, frame.getWidthMenu() / 50));
             panelAccount.add(jb, GridBagConstraintsConstructor.get(0, index++, 5));
         }
         
-        final BalancePanel panelBalance = new BalancePanel();
-        final UsernamePanel panelUsername = new UsernamePanel(this.frame.getFrame());
-        final PasswordPanel panelPassword = new PasswordPanel(this.frame.getFrame(), frame.getWidthMenu(), frame.getHeightMenu());
+        final BalancePanel panelBalance = new BalancePanel(this.account);
+        final UsernamePanel panelUsername = new UsernamePanel(this.frame.getFrame(), this.account);
+        final PasswordPanel panelPassword = new PasswordPanel(this.frame.getFrame(), this.account);
 
-        balanceManagement.addActionListener(e -> {
-            updatePanel(panelBalance);
+        buttonBalance.addActionListener(e -> {
+            this.updatePanel(panelBalance);
         });
 
-        changeUsername.addActionListener(e -> {
-            updatePanel(panelUsername);
+        buttonUsername.addActionListener(e -> {
+            this.updatePanel(panelUsername);
         });        
 
-        changePassword.addActionListener(e -> {
-            updatePanel(panelPassword);
+        buttonPassword.addActionListener(e -> {
+            this.updatePanel(panelPassword);
         });
         
-        deleteAccount.addActionListener(e -> {
-            //aggiungere una volta eliminato account tornare menu d'accesso.
-            
-            final UpdatePanel p = new UpdatePanel() {
-                @Override
-                public void update() {
-                    System.out.println("AccountDeleted");
-                  //NICO 
-                }
-            };
-//            new ConfirmPassword(dialog, p, 3, frame.getWidth() / 2, frame.getHeight());
+        buttonAccount.addActionListener(e -> {
+            if (new ConfirmPassword(frame.getFrame(), account, " to delete Account").isPasswordConfirmed()) {
+                this.frame.setAccessMenu();
+            }
         });
         
     }
@@ -125,7 +118,7 @@ public class AccountMenu implements Menu {
         this.buttonBack.removeActionListener(alToRemove);
     }
     
-    private ActionListener getActionListenerBackGamesMenu() {
+    private ActionListener getActionListenerBackMenu() {
         return e -> frame.setGamesMenu(account);
     }
 
