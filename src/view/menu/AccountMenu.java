@@ -19,7 +19,8 @@ import view.account.ConfirmPassword;
 import view.account.PasswordPanel;
 import view.account.UsernamePanel;
 import view.gui.MenuManager;
-
+//vedere se possibile sostituire panel con estensione della classe con JPanel
+//e se possibile creare un'altra classe per panelAccount.
 public class AccountMenu implements Menu {
 
     /**
@@ -94,7 +95,7 @@ public class AccountMenu implements Menu {
     }
     
     private void updatePanel(final JPanel panelToAdd) {
-        changePanel(panelToAdd, this.panelAccount);
+        this.changePanel(panelToAdd, this.panelAccount);
         this.alBackPanel = getActionListenerBackPanel(panelToAdd);
         changeActionListenerButtonBack(this.alBackPanel, this.alBackMenu);
     }

@@ -2,8 +2,6 @@ package start;
 
 import view.gui.MainGui;
 
-//import ex.ExMasterGui;
-
 /**
  * Starts the application.
  */
