@@ -6,17 +6,14 @@ import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
 
-public class RouletteNumbers {
-    
-    private final List<RouletteNumber> numbers;
+public class RouletteNumbers extends ArrayList<RouletteNumber> {
     
     public RouletteNumbers() {
-        this.numbers = new ArrayList<>();
         this.setNumbers();
     }
     
     private void setNumbers() {
-        this.numbers.add(new RouletteNumber(0, Color.GREEN));
+        this.add(new RouletteNumber(0, Color.GREEN));
         this.setBlackRedNumbers();
     }
     
@@ -29,10 +26,10 @@ public class RouletteNumbers {
                     change = !change;
                 }
                 if (change) {
-                    this.numbers.add(new RouletteNumber(i, Color.BLACK));
+                    this.add(new RouletteNumber(i, Color.BLACK));
                 }
                 else {
-                    this.numbers.add(new RouletteNumber(i, Color.RED));
+                    this.add(new RouletteNumber(i, Color.RED));
                 }
                 change = !change;
             }
@@ -41,7 +38,7 @@ public class RouletteNumbers {
     }
     
     public List<RouletteNumber> getNumbers(){
-        return this.numbers;
+        return this;
     }
 
 }
