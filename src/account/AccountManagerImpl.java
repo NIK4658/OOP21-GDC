@@ -17,6 +17,9 @@ import org.json.simple.parser.ParseException;
  */
 public class AccountManagerImpl implements AccountManager {
 
+    private String Username;
+    
+    
     @Override
     public boolean logger(final String usr, final String psw) {
         try {
@@ -25,6 +28,7 @@ public class AccountManagerImpl implements AccountManager {
             final String password = jo.get("Password").toString();
             final String saldo = jo.get("Saldo").toString();
             final String eta = jo.get("Eta").toString();
+            this.Username=name;
 
             if (usr.equals(name) && psw.equals(password)) {
                 new NotifyGui(("<html>Bentornato: " + name + ". La tua password è: " + password
