@@ -1,4 +1,4 @@
-package start;
+package ex;
 
 
 import java.awt.BorderLayout;
@@ -24,7 +24,7 @@ import view.Resizer;
 /**
  * Menu principale.
  */
-public class MasterGui extends JFrame {
+public class ExMasterGui extends JFrame {
 
     private static final Dimension DIM = new Resizer().resize(2);
     private static final int DIMX = (int) DIM.getWidth();
@@ -35,7 +35,7 @@ public class MasterGui extends JFrame {
     /**
      * Costruttore.
      */
-    public MasterGui() {
+    public ExMasterGui() {
         // Default
         setDefaultCloseOperation(EXIT_ON_CLOSE); // chiude processo finestra
         setResizable(false); // non può essere allargata

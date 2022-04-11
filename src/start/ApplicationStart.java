@@ -1,12 +1,15 @@
 package start;
 
-import view.access.AccessMenu;
+import view.gui.MainGui;
+
+//import ex.ExMasterGui;
 
 /**
  * Starts the application.
  */
 public final class ApplicationStart {
     public static void main(final String[] args) {
-        new AccessMenu();
+        //new FedeProva();
+        new MainGui();
     }
 }

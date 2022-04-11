@@ -1,4 +1,4 @@
-package view.access;
+package ex;
 
 import account.AccountManagerImpl;
 import java.awt.Color;
@@ -20,7 +20,7 @@ import javax.swing.SwingConstants;
 /**
  * //DA SISTEMARE I MAGIC NUMBERS.
  */
-public class JaccessPanel extends JPanel implements AccessPanel {
+public class ExJaccessPanel extends JPanel implements ExAccessPanel {
 
     
     private static final long serialVersionUID = 1L;
@@ -32,7 +32,7 @@ public class JaccessPanel extends JPanel implements AccessPanel {
     /**
      * Main function.
      */
-    public JaccessPanel(final AccessType access, final int dimX, final int dimY) {
+    public ExJaccessPanel(final AccessType access, final int dimX, final int dimY) {
         
         setLayout(new GridBagLayout());
         setBackground(new Color(68, 87, 96));           // blu bello
@@ -44,8 +44,8 @@ public class JaccessPanel extends JPanel implements AccessPanel {
         final JTextField eta = new JTextField("Età");                              // Età
         loginbtn = new JButton("Login");                                           // Tasto Login
         registerbtn = new JButton("Registrati");                                   // Tasto Registrati
-        loginbtn2 = new JButton("Hai già un account? Esegui il login");            // Tasto Login2
-        registerbtn2 = new JButton("Non hai un Account? Registrati!");
+        loginbtn2 = new JButton("<html>Hai già un account? <br/>Esegui il Login</html>");            // Tasto Login2
+        registerbtn2 = new JButton("<html>Non hai un Account? <br/>Registrati!<html>");
 
         final ArrayList<JComponent> list = new ArrayList<>();
         list.add(usr);
@@ -78,6 +78,14 @@ public class JaccessPanel extends JPanel implements AccessPanel {
             add(jc, setDimensionObj(0, i, 5));
             i++;
         }
+        
+        
+        registerbtn2.setPreferredSize(new Dimension(dimX / 3 - (dimX / 3 / 2), dimY / 7));
+        registerbtn2.setFont(new Font("Arial", Font.PLAIN, dimX / 50));
+        
+        loginbtn2.setPreferredSize(new Dimension(dimX / 3 - (dimX / 3 / 2), dimY / 7));
+        loginbtn2.setFont(new Font("Arial", Font.PLAIN, dimX / 50));
+        
 
         if (access.equals(AccessType.LOGIN)) {
             loginbtn.addActionListener(e -> {
@@ -94,22 +102,22 @@ public class JaccessPanel extends JPanel implements AccessPanel {
      * Actionlistener del login.
      */
     public void setActionListenerLoginButton(final ActionListener al) {
-        if (loginbtn.getActionListeners().length != 0) { 
+        if (loginbtn2.getActionListeners().length != 0) { 
             //forse da togliere dopo il testing o da gestire l'eccezione nella GuiTest?
             throw new UnsupportedOperationException();
         }
-        loginbtn.addActionListener(al);
+        loginbtn2.addActionListener(al);
     }
 
     /**
      * Actionlistener del register.
      */
     public void setActionListenerRegisterButton(final ActionListener al) {
-        if (registerbtn.getActionListeners().length != 0) { 
+        if (registerbtn2.getActionListeners().length != 0) { 
             //forse da togliere dopo il testing o da gestire l'eccezione nella GuiTest?
             throw new UnsupportedOperationException();
         }
-        registerbtn.addActionListener(al);
+        registerbtn2.addActionListener(al);
     }
 
     private GridBagConstraints setDimensionObj(final int gridx, final int gridy, final int space) {

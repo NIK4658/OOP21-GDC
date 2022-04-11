@@ -1,33 +1,33 @@
 package account;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.Map;
 import notify.gui.NotifyGui;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
 
 /**
  * Classe principale gestione account.
  */
 public class AccountManagerImpl implements AccountManager {
 
+    private String username;
+    
+    
     @Override
     public boolean logger(final String usr, final String psw) {
         try {
             final JSONObject jo = (JSONObject) new JSONParser().parse(new FileReader(getPath(usr)));
-            final String name = jo.get("Username").toString();
+            this.username = jo.get("Username").toString();
             final String password = jo.get("Password").toString();
             final String saldo = jo.get("Saldo").toString();
             final String eta = jo.get("Eta").toString();
 
-            if (usr.equals(name) && psw.equals(password)) {
-                new NotifyGui(("<html>Bentornato: " + name + ". La tua password è: " + password
+            if (usr.equals(this.username) && psw.equals(password)) {
+                new NotifyGui(("<html>Bentornato: " + this.username + ". La tua password è: " + password
                         + "<br/>Il tuo saldo è: " + saldo + ". Hai: " + eta + " anni</html>"));
                 return true;
             } else {
@@ -106,18 +106,18 @@ public class AccountManagerImpl implements AccountManager {
 
 
     @Override
-    public boolean deposit(final int amount, final String usr) {
-        final JSONObject jo = getJsonObject(usr);
+    public boolean deposit(final int amount) {
+        final JSONObject jo = getJsonObject(this.username);
         jo.replace("Saldo", amount);
-        writeOnFile(usr, jo);
+        writeOnFile(this.username, jo);
         return true;
     }
 
     @Override
-    public boolean withdraw(final int amount, final String usr, final String psw) {
-        final int newbalance = balanceAmount(usr) - amount;
+    public boolean withdraw(final int amount, final String psw) {
+        final int newbalance = balanceAmount() - amount;
         if (newbalance >= 0) {
-            changeBalance(usr, newbalance);
+            changeBalance(newbalance);
             return true;
         } else {
             //Impossibile ritirare "amount", non si dispone di tale cifra;
@@ -126,40 +126,39 @@ public class AccountManagerImpl implements AccountManager {
     }
 
     @Override
-    public int balanceAmount(final String usr) {   
-        return (int) (getJsonObject(usr)).get("Saldo");
+    public int balanceAmount() {   
+        return (int) (getJsonObject(this.username)).get("Saldo");
     }
 
     @Override
-    public boolean changeUsr(final String usr, final String usrnew) {
-        final JSONObject jo = getJsonObject(usr);
+    public boolean changeUsr(final String usrnew) {
+        final JSONObject jo = getJsonObject(this.username);
         jo.replace("Username", usrnew);
-        writeOnFile(usr, jo);
+        writeOnFile(this.username, jo);
         return true;
     }
 
     @Override
-    public boolean changePass(final String usr, final String psw) {
-        final JSONObject jo = getJsonObject(usr);
+    public boolean changePass(final String psw) {
+        final JSONObject jo = getJsonObject(this.username);
         jo.replace("Password", psw);
         
-        writeOnFile(usr, jo);
+        writeOnFile(this.username, jo);
         return true;
     }
     
     @Override
-    public boolean changeBalance(final String usr, final int balancenew) {
-        final JSONObject jo = getJsonObject(usr);
+    public boolean changeBalance(final int balancenew) {
+        final JSONObject jo = getJsonObject(this.username);
         jo.replace("Saldo", balancenew);
-        writeOnFile(usr, jo);
+        writeOnFile(this.username, jo);
         return true;
     }
 
     @Override
-    public boolean deleteAcc(final String usr) {
-        final File f = new File(getPath(usr));
-        f.delete();
-        return true;
+    public boolean deleteAcc() {
+        final File f = new File(getPath(this.username));
+        return f.delete();
     }
 
     private static boolean writeOnFile(final String usr, final JSONObject jo) {

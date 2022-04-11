@@ -1,5 +1,7 @@
-package view.access;
+package ex;
 
+import ex.ExAccessPanel.AccessType;
+import ex.ExJaccessPanel;
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.Dimension;
@@ -12,12 +14,11 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import view.ImageModifier;
 import view.Resizer;
-import view.access.AccessPanel.AccessType;
 
 /**
  * //DA SISTEMARE I MAGIC NUMBERS.
  */
-public class AccessMenu extends JFrame {
+public class ExAccessMenu extends JFrame {
 
     private final Dimension dim = new Resizer().resize(2);
     //private final Pair<Integer, Integer> dim = new Pair<>(3440/2,1440/2); //test 21:9
@@ -27,29 +28,24 @@ public class AccessMenu extends JFrame {
     /**
      * //DA SISTEMARE I MAGIC NUMBERS.
      */
-    public AccessMenu() {
-        // Default
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setResizable(false);
-        // GraphicsDevice device = GraphicsEnvironment.getLocalGraphicsEnvironment().
-        // getScreenDevices()[0];    //definisce schermo principale
-        // setUndecorated(true);                //toglie la barra in alto
-        // device.setFullScreenWindow(this);    //set full screen
+    public ExAccessMenu() {
+        this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+        this.setResizable(false);
         
         // Zona di destra
         final JPanel east = new JPanel(new FlowLayout(FlowLayout.CENTER, 0, 0));
         final Image imgi = new ImageModifier().scaleFullScreen(
                 new ImageIcon("res/img/backgrounds/HQcasinoCroppedWithTitle.gif").getImage(),
-                new Dimension((int) (2 * dim.getWidth() / 3), (int) dim.getHeight()));
+                new Dimension((int) (this.dim.getWidth() * 2 / 3), (int) this.dim.getHeight()));
         east.add(new JLabel(new ImageIcon(imgi), SwingConstants.CENTER));
-        east.setPreferredSize(new Dimension((int) (2 * dim.getWidth() / 3), (int) dim.getHeight()));
+        east.setPreferredSize(new Dimension((int) (this.dim.getWidth() * 2 / 3), (int) this.dim.getHeight()));
         
         // Zona di sinistra
-        //JPanel contenitore
         final CardLayout cl = new CardLayout();
         final JPanel west = new JPanel(cl);
-        final JaccessPanel login = new JaccessPanel(AccessType.LOGIN, (int) dim.getWidth(), (int) dim.getHeight());
-        final JaccessPanel register = new JaccessPanel(AccessType.REGISTER,
+        final ExJaccessPanel login = new ExJaccessPanel(AccessType.LOGIN, 
+                (int) this.dim.getWidth(), (int) this.dim.getHeight());
+        final ExJaccessPanel register = new ExJaccessPanel(AccessType.REGISTER,
                 (int) dim.getWidth(), (int) dim.getHeight());
         login.setActionListenerRegisterButton(e -> {
             cl.show(west, AccessType.REGISTER.toString());
@@ -74,3 +70,9 @@ public class AccessMenu extends JFrame {
         setVisible(true);
     }
 }
+
+/* APPUNTI */
+// GraphicsDevice device = GraphicsEnvironment.getLocalGraphicsEnvironment().
+// getScreenDevices()[0];    //definisce schermo principale
+// setUndecorated(true);                //toglie la barra in alto
+// device.setFullScreenWindow(this);    //set full screen
