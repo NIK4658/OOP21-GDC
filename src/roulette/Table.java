@@ -16,23 +16,16 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-public class Table extends JFrame {
+public class Table extends JPanel {
     
     /**
      * 
      */
-    private static final long serialVersionUID = -6291936551503579076L;
-//    private final Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-//    private final int dimX = (int) screenSize.getWidth() / 2;
-//    private final int dimY = (int) screenSize.getHeight() / 2;
     private final Random random = new Random();
-    private final JPanel table;
     private final List<RouletteNumber> rouletteNumbers;
     
     public Table() {
-        this.setDefaultCloseOperation(EXIT_ON_CLOSE);
-        
-        this.table = new JPanel(new GridBagLayout());
+        this.setLayout(new GridBagLayout());
         this.rouletteNumbers = new RouletteNumbers().getNumbers();
         
         this.addNumbers();
@@ -43,10 +36,6 @@ public class Table extends JFrame {
         this.addRedBlack();
         
         
-        this.add(table);
-        this.pack();
-        this.setLocationRelativeTo(null);
-        this.setVisible(true);
     }
     
     private void addNumbers() {
@@ -58,10 +47,10 @@ public class Table extends JFrame {
             button.setForeground(n.getColor());
             if (value == 0) {
                 button.setPreferredSize(new Dimension(40, 40));
-                this.addComponent(table, button, 0, 0, 1, 3, GridBagConstraints.CENTER, GridBagConstraints.BOTH);
+                this.addComponent(this, button, 0, 0, 1, 3, GridBagConstraints.CENTER, GridBagConstraints.BOTH);
             }
             else {
-                this.addComponent(table, button, x, y, 1, 1, GridBagConstraints.CENTER, GridBagConstraints.BOTH);
+                this.addComponent(this, button, x, y, 1, 1, GridBagConstraints.CENTER, GridBagConstraints.BOTH);
                 y--;
                 if (y == -1) {
                     y = 2;
@@ -74,24 +63,24 @@ public class Table extends JFrame {
     
     private void addRows() {
         for (int y = 2; y > -1; y--) {
-            addComponent(table, new JButton("2to1"), 13, y, 4, 1, GridBagConstraints.CENTER, GridBagConstraints.BOTH);
-            addComponent(table, new JButton("19-36"), 11, 4, 2, 1, GridBagConstraints.CENTER, GridBagConstraints.BOTH);
+            addComponent(this, new JButton("2to1"), 13, y, 4, 1, GridBagConstraints.CENTER, GridBagConstraints.BOTH);
+            addComponent(this, new JButton("19-36"), 11, 4, 2, 1, GridBagConstraints.CENTER, GridBagConstraints.BOTH);
         }
     }
     
     private void addColumns() {
-        addComponent(table, new JButton("1st 12"), 1, 3, 4, 1, GridBagConstraints.CENTER, GridBagConstraints.BOTH);
-        addComponent(table, new JButton("2nd 12"), 5, 3, 4, 1, GridBagConstraints.CENTER, GridBagConstraints.BOTH);
-        addComponent(table, new JButton("3rd 12"), 9, 3, 4, 1, GridBagConstraints.CENTER, GridBagConstraints.BOTH);
+        addComponent(this, new JButton("1st 12"), 1, 3, 4, 1, GridBagConstraints.CENTER, GridBagConstraints.BOTH);
+        addComponent(this, new JButton("2nd 12"), 5, 3, 4, 1, GridBagConstraints.CENTER, GridBagConstraints.BOTH);
+        addComponent(this, new JButton("3rd 12"), 9, 3, 4, 1, GridBagConstraints.CENTER, GridBagConstraints.BOTH);
     }
 
     private void addNumbersIncluded() {
-        addComponent(table, new JButton("1-18"), 1, 4, 2, 1, GridBagConstraints.CENTER, GridBagConstraints.BOTH);
+        addComponent(this, new JButton("1-18"), 1, 4, 2, 1, GridBagConstraints.CENTER, GridBagConstraints.BOTH);
     }
     
     private void addEvenOdd() {
-        addComponent(table, new JButton("PARI"), 3, 4, 2, 1, GridBagConstraints.CENTER, GridBagConstraints.BOTH);
-        addComponent(table, new JButton("DISPARI"), 9, 4, 2, 1, GridBagConstraints.CENTER, GridBagConstraints.BOTH);
+        addComponent(this, new JButton("PARI"), 3, 4, 2, 1, GridBagConstraints.CENTER, GridBagConstraints.BOTH);
+        addComponent(this, new JButton("DISPARI"), 9, 4, 2, 1, GridBagConstraints.CENTER, GridBagConstraints.BOTH);
     }
     
     private void addRedBlack() {
@@ -99,12 +88,12 @@ public class Table extends JFrame {
         button.setBackground(Color.RED);
         button.setOpaque(true);
         button.setBorderPainted(false);
-        addComponent(table, button, 5, 4, 2, 1, GridBagConstraints.CENTER, GridBagConstraints.BOTH);
+        addComponent(this, button, 5, 4, 2, 1, GridBagConstraints.CENTER, GridBagConstraints.BOTH);
         button = new JButton();
         button.setBackground(Color.BLACK);
         button.setOpaque(true);
         button.setBorderPainted(false);
-        addComponent(table, button, 7, 4, 2, 1, GridBagConstraints.CENTER, GridBagConstraints.BOTH);
+        addComponent(this, button, 7, 4, 2, 1, GridBagConstraints.CENTER, GridBagConstraints.BOTH);
     }
     
     private void addComponent(final Container container, final Component component, final int gridx, final int gridy,

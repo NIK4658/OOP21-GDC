@@ -12,6 +12,8 @@ public interface MenuManager {
     
     void setAccountMenu(AccountManager account);
     
+    void setRouletteMenu(final AccountManager account);
+    
     Frame getFrame();
  
     int getWidthMenu();
