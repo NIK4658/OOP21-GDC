@@ -59,15 +59,7 @@ public class CardImpl implements Card {
         return new Random().nextInt(13) + 1;
     }
     
-    /**
-     * Testing. Da eliminare in seguito.
-     */
-    public static void main(final String[] args) {      
-        //new DeckImpl().showPreciseValue(5); 
-        //new DeckImpl().showPreciseSuit(Suits.DIAMONDS);
-        //new DeckImpl().showPreciseCard(new CardImpl());
-        new DeckImpl().showAllCards();
-    }
+    
 
 }
 
