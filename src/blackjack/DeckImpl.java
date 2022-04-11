@@ -26,11 +26,11 @@ public class DeckImpl implements Deck {
      */
     public DeckImpl() {   
         for (final Suits s : Suits.values()) {
-            if (s != Suits.JOKER) {
+            //if (s != Suits.JOKER) {
                 for (int i = 1; i <= 13; i++) {
                     deck.add(new CardImpl(s, i));
                 }
-            }   
+            //}   
         }
     }
 

@@ -11,7 +11,7 @@ public interface Card {
      * Enum.
      */
     enum Suits {
-    CLUBS, DIAMONDS, HEARTS, SPADES, JOKER
+    CLUBS, DIAMONDS, HEARTS, SPADES
     }
 
     Suits getSuit();
