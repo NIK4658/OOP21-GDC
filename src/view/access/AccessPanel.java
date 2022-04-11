@@ -24,8 +24,17 @@ import view.access.Access.AccessType;
 public class AccessPanel extends JPanel {
 
     private static final long serialVersionUID = 1L;
-          
-
+    private static final int RATIOTITLEFONT=6;
+    private static final int RATIOTITLEAREAY=10;
+    private static final int RATIOBTNACCESSAREAX=2;
+    private static final int RATIOBTNACCESSAREAY=7;
+    private static final int RATIOBTNAREAX=2;
+    private static final int RATIOBTNAREAY=20;
+    private static final int RATIOBTNFONT=17;
+    private static final int SPACINGTITLE=60;
+    private static final int SPACINGBTN=5;
+    
+    
     /**
      * Main function.
      */
@@ -58,29 +67,25 @@ public class AccessPanel extends JPanel {
         
         final int dimX = dim.width;
         final int dimY = dim.height;
-        // Modifiche solo per titolo, SI PUO' MIGLIORARE
+
         title.setForeground(Color.WHITE);
-        if (accessType.equals(AccessType.LOGIN)) {
-            title.setPreferredSize(new Dimension(dimX - (dimX / 2), dimY / 10));
-            title.setFont(new Font("Arial", Font.BOLD | Font.ITALIC, dimX * 3 / 20));
-        } else {
-            title.setPreferredSize(new Dimension(dimX * 3 / 2 - (dimX / 2), dimY / 10));
-            title.setFont(new Font("Arial", Font.BOLD | Font.ITALIC, dimX * 3 / 25));
-        }
-        this.add(title, GridBagConstraintsConstructor.get(0, 0, 60));
+        title.setPreferredSize(new Dimension(dimX, dimY / RATIOTITLEAREAY));
+        title.setFont(new Font("Arial", Font.BOLD | Font.ITALIC, dimX / RATIOTITLEFONT));
+
+        this.add(title, GridBagConstraintsConstructor.get(0, 0, SPACINGTITLE));
         
         // Modifiche generali
         int i = 1;
         for (final JComponent jc : list) {
-            jc.setPreferredSize(new Dimension(dimX - (dimX / 2), dimY / 20));
-            jc.setFont(new Font("Arial", Font.PLAIN, dimX * 3 / 50));
-            this.add(jc, GridBagConstraintsConstructor.get(0, i, 5));
+            jc.setPreferredSize(new Dimension(dimX / RATIOBTNAREAX, dimY / RATIOBTNAREAY));
+            jc.setFont(new Font("Arial", Font.PLAIN, dimX/RATIOBTNFONT));
+            this.add(jc, GridBagConstraintsConstructor.get(0, i, SPACINGBTN));
             i++;
         }
         
         if (accessType.equals(AccessType.LOGIN)) {
             registerButton.addActionListener(al);
-            registerButton.setPreferredSize(new Dimension(dimX - (dimX / 2), dimY / 7));
+            registerButton.setPreferredSize(new Dimension(dimX / RATIOBTNACCESSAREAX, dimY / RATIOBTNACCESSAREAY));
             
             loginButton.addActionListener(e -> {
                 final AccountManager account = new AccountManagerImpl();
@@ -93,7 +98,7 @@ public class AccessPanel extends JPanel {
             
         } else {
             loginButton.addActionListener(al);
-            loginButton.setPreferredSize(new Dimension(dimX - (dimX / 2), dimY / 7));
+            loginButton.setPreferredSize(new Dimension(dimX / RATIOBTNACCESSAREAX, dimY / RATIOBTNACCESSAREAY));
             
             registerButton.addActionListener(e -> {
                 if (new AccountManagerImpl().register(username.getText(), password.getText(), age.getText())) {
