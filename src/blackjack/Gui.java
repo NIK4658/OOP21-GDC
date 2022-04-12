@@ -20,154 +20,162 @@ public class Gui extends JFrame{
 
     private static final long serialVersionUID = 1L;
     
-    private int value;
-    private int dealer;
-    private boolean rotatefirstcard=false;
+    private int playerValue;
+    private int dealerValue;
+    private boolean rotatefirstcard = false;
     private int i = 0;
     private int k = 0;
     
     Gui(final Dimension dim) {
         setResizable(false);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
+        //JPanel con immagine di sfondo
         final BackgroundPanel bgpanel = new BackgroundPanel(
                 new ImageIcon("res/img/backgrounds/blackjacktable.jpg").getImage(), BackgroundPanel.SCALED, 0.0f, 0.0f);
-        final JPanel jl = new JPanel(new GridBagLayout());
-        jl.setPreferredSize(new Dimension(150, 150));
+        
+        //Area Pulsanti in fondo SUD
+        final JPanel buttonsArea = new JPanel(new GridBagLayout());
+        buttonsArea.setPreferredSize(new Dimension(150, 150));
+        
+        //codice ripetuto
         final JButton draw = new JButton("Draw"); 
         final JButton stay = new JButton("Stay"); 
         draw.setPreferredSize(new Dimension(100, 100));
-        stay.setPreferredSize(new Dimension(100, 100));
-        jl.add(draw, setDimensionObj(0, 0, 0, 10, 10));
-        jl.add(stay, setDimensionObj(1, 0, 0, 10, 10));
-        bgpanel.add(jl, BorderLayout.SOUTH);
+        stay.setPreferredSize(new Dimension(100, 100)); 
+        buttonsArea.add(draw, setDimensionObj(0, 0, 0, 10, 10));
+        buttonsArea.add(stay, setDimensionObj(1, 0, 0, 10, 10));
+        
+        //aggiungo il jpanel dei pulsanti al jpanel generale
+        bgpanel.add(buttonsArea, BorderLayout.SOUTH);
 
-        final JLayeredPane jpan = new JLayeredPane();
-        jpan.setLayout(null);
-        //jpan.setPreferredSize(new Dimension(150, 250));
-        final List<JLabel> imgs = new LinkedList();
-        imgs.add(new JLabel());
-        imgs.get(i).setBounds(575 + (this.i * 20), 80 - (this.i * 15), 150, 150);  
-        final Card c = new CardImpl(); 
-        imgs.get(i).setIcon(new ImageIcon(new ImageModifier().scale(c.getImg(), new Dimension(150, 150))));
-        //img.setPreferredSize(new Dimension(150, 150));
-        //jpan.setPreferredSize(new Dimension(150, 150));
-        jpan.add(imgs.get(i), 1);
-        this.value += c.getValue();    
+        
+        //JPanel a layer che mostra le carte del giocatore CENTER
+        final JLayeredPane playerCardsPanel = new JLayeredPane();
+        playerCardsPanel.setLayout(null); //da rivedere
+        final List<JLabel> pCards = new LinkedList<>(); //lista di JLabel, ciascuna sarà una carta del giocatore
+        pCards.add(new JLabel());
+        pCards.get(i).setBounds(575 + (this.i * 20), 80 - (this.i * 15), 150, 150);  //setbounds temporaneo?
+        
+        //istanza prima carta giocatore (variabile non final per poterla riusare(?))
+        Card c = new CardImpl(); 
+        //setta al JLabel di index i l'immagine della nuova carta.
+        pCards.get(i).setIcon(new ImageIcon(new ImageModifier().scale(c.getImg(), new Dimension(150, 150))));
+        //aggiunge la carta al pannello al layer 1
+        playerCardsPanel.add(pCards.get(i), 1);
+        
+        //punteggio temporaneo giocatore
+        this.playerValue += c.getValue();    
         this.i++;
         
-        imgs.add(new JLabel());
-        imgs.get(i).setBounds(575 + (this.i * 20), 80 - (this.i * 15), 150, 150);  
-        final Card c7 = new CardImpl(); 
-        imgs.get(i).setIcon(new ImageIcon(new ImageModifier().scale(c7.getImg(), new Dimension(150, 150))));
-        jpan.add(imgs.get(i), 0);
-        this.value += c7.getValue();    
+        //Creo nuovo Jlabel e lo metto un po' piu spostato
+        pCards.add(new JLabel());
+        pCards.get(i).setBounds(575 + (this.i * 20), 80 - (this.i * 15), 150, 150);  
+        //riutilizzo la variabile
+        c = new CardImpl(); 
+        //assegno l'immagine e aggiungo al panel nel layer 0
+        pCards.get(i).setIcon(new ImageIcon(new ImageModifier().scale(c.getImg(), new Dimension(150, 150))));
+        playerCardsPanel.add(pCards.get(i), 0);
         
-        bgpanel.add(jpan, BorderLayout.CENTER); 
+        //aggiunto il pannello con tutte le carte del player al pannello generale
+        bgpanel.add(playerCardsPanel, BorderLayout.CENTER);
         
-        //final JPanel jpanel = new JPanel();
-        //jpanel.setPreferredSize(new Dimension(150, 350));
-        //final JButton draww = new JButton("Draw"); 
-        //jpanel.add(draww);
-        //bgpanel.add(jpanel, BorderLayout.NORTH); 
+        //aumento punteggio giocatore
+        this.playerValue += c.getValue(); 
         this.i++;
-       
-        //System.out.println(this.value);
-        //img.setText(String.valueOf(this.value));   
         
-        final JLayeredPane jpan2 = new JLayeredPane();
+        //JPanel a layer che mostra le carte del dealer NORTH
+        final JLayeredPane dealerCardsPanel = new JLayeredPane();
+        dealerCardsPanel.setLayout(null); //da rivedere
+        dealerCardsPanel.setPreferredSize(new Dimension(300, 300));
         
-        jpan2.setLayout(null);
-        jpan2.setPreferredSize(new Dimension(300, 300));
+        //Lista delle carte del dealer
+        final List<JLabel> dCards = new LinkedList<>();
         
-        final JLabel jtxt = new JLabel();
-        //jtxt.setPreferredSize(new Dimension(100, 100));
-        jtxt.setForeground(Color.WHITE);
-        jtxt.setFont(new Font("Arial", Font.BOLD | Font.ITALIC, 50));
-        //jtxt.setBounds(575, 380, 150, 150);
-        jtxt.setText(String.valueOf(this.value));
-        jpan2.add(jtxt);
+        //prima carta scoperta
+        dCards.add(new JLabel());
+        c = new CardImpl(); 
+        dCards.get(k).setIcon(new ImageIcon(new ImageModifier().scale(c.getImg(), new Dimension(150, 150))));
+        dCards.get(k).setBounds(575 + (this.k * 35), 80 + (this.k * 10), 150, 150);
+        dealerCardsPanel.add(dCards.get(k), 1);
         
-        final List<JLabel> imgsdealer = new LinkedList();
-        final JLabel carddealer = new JLabel();
-        final Card c4 = new CardImpl(); 
-        carddealer.setIcon(new ImageIcon(new ImageModifier().scale(c4.getImg(), new Dimension(150, 150))));
-        carddealer.setBounds(575, 80, 150, 150);
+        this.dealerValue += c.getValue(); 
+        k++;
         
-        this.dealer += c4.getValue();  
+        //seconda carta coperta
+        dCards.add(new JLabel());
+        c = new CardImpl(false); //carta coperta 
+        dCards.get(k).setIcon(new ImageIcon(new ImageModifier().scale(c.getImg(), new Dimension(150, 150))));
+        dCards.get(k).setBounds(575 + (this.k * 35), 80 + (this.k * 10), 150, 150);
+        dealerCardsPanel.add(dCards.get(k), 0);    
         
-        final JLabel backdealer = new JLabel();
-        backdealer.setIcon(new ImageIcon(new ImageModifier().scale(new CardImpl(false).getImg(),
-                new Dimension(150, 150))));
-        backdealer.setBounds(610, 90, 150, 150);
-        
-        
-        jpan2.add(backdealer);
-        jpan2.add(carddealer);
-        bgpanel.add(jpan2, BorderLayout.NORTH);
-        
-        //jl.add(jtxt, setDimensionObj(2, 1, 20, 15));
-        //jl.add(jll, setDimensionObj(1, 1, 20, 15));
-        //jll.setPreferredSize(new Dimension(150, 150));
+  
+        //aggiungo le carte del dealer al pannello generale NORTH
+        bgpanel.add(dealerCardsPanel, BorderLayout.NORTH);
      
+        
+        
         setPreferredSize(dim); 
         add(bgpanel);    
         pack();                                 
         setLocationRelativeTo(null); 
         setVisible(true); 
        
-        
-        
-        
+
+        //da fare refactoring
         draw.addActionListener(e -> {   
-            if (this.value < 21) {
-                imgs.add(new JLabel());
-                imgs.get(i).setBounds(575 + (this.i * 20), 80 - (this.i * 15), 150, 150);        
+            if (this.playerValue < 21) {
+                pCards.add(new JLabel());
+                pCards.get(i).setBounds(575 + (this.i * 20), 80 - (this.i * 15), 150, 150);        
                 final Card c2 = new CardImpl(); 
-                imgs.get(i).setIcon(new ImageIcon(new ImageModifier().scale(c2.getImg(), new Dimension(150, 150))));
-                jpan.add(imgs.get(i), 0);
-                this.value += c2.getValue();    
+                pCards.get(i).setIcon(new ImageIcon(new ImageModifier().scale(c2.getImg(), new Dimension(150, 150))));
+                playerCardsPanel.add(pCards.get(i), 0);
+                this.playerValue += c2.getValue();    
                 //System.out.println(this.value);
                 //jtxt.setText(String.valueOf(this.value));
                 this.i++;
             } 
             
             
-            if (this.value >= 21) {
+            if (this.playerValue >= 21) {
                 stay.doClick();
             }
             
         });
         
+        //codice ripetuto
         stay.addActionListener(e -> {   
-            while (this.dealer < 17) {
+            while (this.dealerValue < 17) {
                 if (!this.rotatefirstcard) {
+                    //ruota la prima carta prima di aggiungerne altre
                     this.rotatefirstcard = true;
-                    final Card c3 = new CardImpl(); 
-                    backdealer.setIcon(new ImageIcon(new ImageModifier().scale(c3.getImg(),
+                    final Card c1 = new CardImpl(); 
+                    dCards.get(k).setIcon(new ImageIcon(new ImageModifier().scale(c1.getImg(),
                             new Dimension(150, 150))));
-                    this.dealer += c3.getValue();   
+                    this.dealerValue += c1.getValue(); 
+                    k++;
                 } else {
-                    imgsdealer.add(new JLabel());
-                    imgsdealer.get(k).setBounds(640 + (this.k * 35), 100 + (this.k * 10), 150, 150);        
-                    final Card c2 = new CardImpl(); 
-                    imgsdealer.get(k).setIcon(new ImageIcon(new ImageModifier().scale(c2.getImg(),
+                    //aggiunge altre carte nel caso non basti la prima
+                    final Card c2 = new CardImpl();   
+                    dCards.add(new JLabel());
+                    dCards.get(k).setIcon(new ImageIcon(new ImageModifier().scale(c2.getImg(),
                             new Dimension(150, 150))));
-                    jpan2.add(imgsdealer.get(k), 0);
-                    this.dealer += c2.getValue();    
-                    //System.out.println(this.dealer);
-                    //jtxt.setText(String.valueOf(this.value));
+                    dCards.get(k).setBounds(575 + (this.k * 35), 80 + (this.k * 10), 150, 150);
+                    dealerCardsPanel.add(dCards.get(k), 0);   
+                    this.dealerValue += c2.getValue(); 
                     this.k++;
                 }
             }
             
-            System.out.println(checkWin(this.value, this.dealer));
+            //dice chi ha vinto e i punteggi
+            System.out.println(checkWin(this.playerValue, this.dealerValue));
             
+            //disattiva i pulsanti
             draw.setEnabled(false);
             stay.setEnabled(false);
             
         });
         
-        
+        //NOTE NICO: FARE UNA FUNZIONE PRIVATA PER AGGIUNGERE CARTE A UNA LISTA DI JPANEL
         
         
     }
@@ -181,15 +189,15 @@ public class Gui extends JFrame{
         System.out.println("Il tuo punteggio: " + uservalue);
         System.out.println("Il punteggio del dealer: " + dealervalue);
    
-        if(uservalue>21) {
+        if (uservalue > 21) {
             return "hai perso";
         }
         
-        if(dealervalue>21) {
+        if (dealervalue > 21) {
             return "hai vinto";
         }
         
-        if(uservalue==dealervalue) {
+        if (uservalue == dealervalue) {
             return "patta";
         }
         if (uservalue > dealervalue) {
@@ -199,7 +207,8 @@ public class Gui extends JFrame{
         }  
     }
     
-    private GridBagConstraints setDimensionObj(final int gridx, final int gridy, final int spacedown, final int spaceright, final int spaceleft) {
+    private GridBagConstraints setDimensionObj(final int gridx, final int gridy,
+            final int spacedown, final int spaceright, final int spaceleft) {
         final GridBagConstraints c = new GridBagConstraints();
         c.anchor = GridBagConstraints.PAGE_END;
         c.insets = new Insets(0, spaceleft, spacedown, spaceright); // terzo parametro definisce la distanza verticale
