@@ -30,11 +30,24 @@ public class CardImpl implements Card {
         this(getRandomSuit(), value);
     }
     
+    //Genera carta girata nera o rossa
+    public CardImpl(boolean color) {
+        this(getRandomSuit(), getRandomValue());      
+        if(color) {
+            this.img = new ImageIcon("res/img/cards/back/black.png").getImage();
+        } else {
+            this.img = new ImageIcon("res/img/cards/back/red.png").getImage();
+        }    
+    }
+    
     //Genera carta precisa
     public CardImpl(final Suits s, final int value) {
         this.card = new Pair<>(s, value);
         this.img = new ImageIcon("res/img/cards/" + this.card.get1() + "/" + this.card.get2() + ".png").getImage();
     }
+    
+    
+    
     
     @Override
     public Suits getSuit() {
