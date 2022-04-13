@@ -94,4 +94,18 @@ public class DeckImpl implements Deck {
         //NON FUNZIONA
         return (this.deck.remove(new CardImpl()));
     }
+
+
+    @Override
+    public Card drawPreciseCard(Card card) {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+
+    @Override
+    public Card drawRandomCard() {
+        // TODO Auto-generated method stub
+        return null;
+    }
 }
