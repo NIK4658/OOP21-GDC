@@ -45,10 +45,12 @@ public class Gui extends JFrame{
         stay.setPreferredSize(new Dimension(100, 100)); 
         buttonsArea.add(draw, setDimensionObj(0, 0, 0, 10, 10));
         buttonsArea.add(stay, setDimensionObj(1, 0, 0, 10, 10));
-        
         //aggiungo il jpanel dei pulsanti al jpanel generale
         bgpanel.add(buttonsArea, BorderLayout.SOUTH);
 
+        final Game g = new GameImpl();
+        
+        
         //JPanel a layer che mostra le carte del giocatore CENTER
         final JLayeredPane playerCardsPanel = new JLayeredPane();
         playerCardsPanel.setLayout(null); //da rivedere
