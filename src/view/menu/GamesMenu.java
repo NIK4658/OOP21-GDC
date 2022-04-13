@@ -4,6 +4,8 @@ import account.AccountManager;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.Font;
 import java.awt.GridBagLayout;
 import java.awt.Image;
@@ -24,11 +26,15 @@ import view.gui.MenuManager;
 public class GamesMenu extends JPanel implements Menu {
 
     private static final long serialVersionUID = 1L;
+//    private final MenuManager frame;
+//    private final AccountManager account;
 
     /**
      * Costruttore.
      */
     public GamesMenu(final MenuManager frame, final AccountManager account) {
+//        this.frame = frame;
+//        this.account = account;
         this.setLayout(new BorderLayout());
         this.setPreferredSize(frame.getSizeMenu());
         final int width = frame.getWidthMenu();
@@ -53,18 +59,22 @@ public class GamesMenu extends JPanel implements Menu {
         title.setFont(new Font("Arial", Font.BOLD | Font.ITALIC, width / 20));
         north.add(title);
         
-        final JButton roulette = new JButton();
+        
         final JButton blackjack = new JButton();
+        final JButton roulette = new JButton();
         final JButton bacarat = new JButton();
+        roulette.addActionListener(e -> frame.setRouletteMenu(account));
+        bacarat.addActionListener(e -> frame.setAccountMenu(account));
+        
+        //meglio creare una funzione
         final Dimension dimButton = new Dimension(width / 5, height / 3);
-
-        imgi = imgMod.scaleFullScreen(
-                (new ImageIcon("res/img/buttons/roulette.jpeg").getImage()), dimButton);
-        roulette.setIcon(new ImageIcon((imgi)));
-
         imgi = imgMod.scaleFullScreen(
                 (new ImageIcon("res/img/buttons/blackjack.PNG").getImage()), dimButton);
         blackjack.setIcon(new ImageIcon((imgi)));
+        
+        imgi = imgMod.scaleFullScreen(
+                (new ImageIcon("res/img/buttons/roulette.jpeg").getImage()), dimButton);
+        roulette.setIcon(new ImageIcon((imgi)));
 
         imgi = imgMod.scaleFullScreen(
                 (new ImageIcon("res/img/buttons/baccarat.jpg").getImage()), dimButton);
@@ -73,10 +83,10 @@ public class GamesMenu extends JPanel implements Menu {
         //roulette.setBorder(null);
         //roulette.setBorderPainted(false);
 
-
+        //la lista non serve, basta usare una funzione
         final ArrayList<JComponent> list = new ArrayList<>();
-        list.add(roulette);
         list.add(blackjack);
+        list.add(roulette);
         list.add(bacarat);
         int i = 0;
         for (final JComponent jc : list) {

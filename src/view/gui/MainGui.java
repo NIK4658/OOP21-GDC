@@ -12,7 +12,9 @@ import javax.swing.JPanel;
 import view.menu.AccessMenu;
 import view.menu.AccountMenu;
 import view.menu.GamesMenu;
+import view.menu.RouletteMenu;
 
+//forse meglio usare un unico metodo setMenu(Menu menu, AccountManager account);
 public class MainGui implements MenuManager {
     
 //    private static final int SCALE = 2 / 3;
@@ -33,6 +35,7 @@ public class MainGui implements MenuManager {
         this.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
         this.setAccessMenu();
+//        this.setRouletteMenu(new AccountManagerImpl());
 //        this.setAccountMenu(new AccountManagerImpl());
         
         this.frame.setLocationRelativeTo(null);
@@ -62,6 +65,12 @@ public class MainGui implements MenuManager {
     public void setAccountMenu(final AccountManager account) {
         System.out.println("setAccountMenu: " + this.getSizeMenu());
         this.updateMenu(new AccountMenu(this, account).getMenu());
+    }
+    
+    @Override
+    public void setRouletteMenu(final AccountManager account) {
+        System.out.println("setRouletteMenu: " + this.getSizeMenu());
+        this.updateMenu(new RouletteMenu(this, account).getMenu());
     }
 
     @Override

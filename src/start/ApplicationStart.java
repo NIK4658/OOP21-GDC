@@ -2,8 +2,6 @@ package start;
 
 import view.gui.MainGui;
 
-//import ex.ExMasterGui;
-
 /**
  * Starts the application.
  */
@@ -12,4 +10,5 @@ public final class ApplicationStart {
         //new FedeProva();
         new MainGui();
     }
+    
 }
