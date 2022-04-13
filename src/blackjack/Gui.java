@@ -31,7 +31,8 @@ public class Gui extends JFrame{
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         //JPanel con immagine di sfondo
         final BackgroundPanel bgpanel = new BackgroundPanel(
-                new ImageIcon("res/img/backgrounds/blackjacktable.jpg").getImage(), BackgroundPanel.SCALED, 0.0f, 0.0f);
+                new ImageIcon("res/img/backgrounds/blackjacktableHD.png").getImage(),
+                BackgroundPanel.SCALED, 0.0f, 0.0f);
         
         //Area Pulsanti in fondo SUD
         final JPanel buttonsArea = new JPanel(new GridBagLayout());
