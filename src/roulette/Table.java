@@ -18,16 +18,13 @@ import javax.swing.JPanel;
 
 public class Table extends JPanel {
     
-    /**
-     * 
-     */
     private final Random random = new Random();
     private final List<RouletteNumber> rouletteNumbers;
     
     public Table() {
         this.setLayout(new GridBagLayout());
-        this.rouletteNumbers = new RouletteNumbers().getNumbers();
-        
+        this.setBackground(new Color(35654));//da cambiare, magari da togliere con in background un'immagine.
+        this.rouletteNumbers = new RouletteNumbers(37, 1);//sostituire numeri in modo da avere più tipi di roulette
         this.addNumbers();
         this.addRows();
         this.addColumns();
@@ -35,18 +32,17 @@ public class Table extends JPanel {
         this.addEvenOdd();
         this.addRedBlack();
         
-        
     }
     
+    //fare in modo da avere più tipi di roulette
     private void addNumbers() {
         int x = 1;
         int y = 2;
         for (final RouletteNumber n : rouletteNumbers) {
             final int value = n.getNumber();
-            final JButton button = new JButton(Integer.toString(value));
+            final JButton button = new JButton(String.valueOf(value));
             button.setForeground(n.getColor());
             if (value == 0) {
-                button.setPreferredSize(new Dimension(40, 40));
                 this.addComponent(this, button, 0, 0, 1, 3, GridBagConstraints.CENTER, GridBagConstraints.BOTH);
             }
             else {
@@ -101,15 +97,6 @@ public class Table extends JPanel {
         final GridBagConstraints gbc = new GridBagConstraints(gridx, gridy, gridwidth, gridheight, 1.0, 1.0,
                 anchor, fill, new Insets(0, 0, 0, 0), 0, 0);
         container.add(component, gbc);
-    }
-    
-    public int numberPlayed() {
-        return random.nextInt(38);
-    }
-    
-
-    public int numberCameOut() {
-        return random.nextInt(37);
     }
 
 }
