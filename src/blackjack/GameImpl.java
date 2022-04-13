@@ -6,30 +6,32 @@ import java.util.List;
 public class GameImpl implements Game {
     
     
-    private final List<Card> player = new LinkedList<>();
-    private final List<Card> dealer = new LinkedList<>();
+    private final List<Card> player = new LinkedList<>(); //creare classe hand? usare classe deck?
+    private final List<Card> dealer = new LinkedList<>(); //creare classe hand? usare classe deck?
     private final Deck deck;
 
 
     
-    GameImpl(){
+    GameImpl() {
         this.deck = new DeckImpl();
         
+        this.player.add(new CardImpl());
+        this.player.add(new CardImpl());
         
+        this.dealer.add(new CardImpl());
+        this.dealer.add(new CardImpl(false)); 
     }
     
     
     
     @Override
     public void askCard() {
-        // TODO Auto-generated method stub
-        
+        this.player.add(new CardImpl()); 
     }
 
     @Override
     public void stay() {
-        // TODO Auto-generated method stub
-        
+        nextDealerMove();
     }
 
     @Override
@@ -40,8 +42,9 @@ public class GameImpl implements Game {
 
     @Override
     public void askDouble() {
-        // TODO Auto-generated method stub
-        
+        //raddoppio puntata
+        askCard();
+        stay();
     }
 
     @Override
@@ -51,33 +54,63 @@ public class GameImpl implements Game {
     }
 
     @Override
-    public void checkWin() {
-        // TODO Auto-generated method stub
+    public boolean checkWin() { 
+        if (calculatePoints(this.player) > 21) {
+            return false;
+        }
         
+        if (calculatePoints(this.dealer) > 21) {
+            return true;
+        }
+
+        return (calculatePoints(this.player) > calculatePoints(this.dealer));
     }
 
     @Override
     public void dealerDraw() {
-        // TODO Auto-generated method stub
-        
+        this.dealer.add(new CardImpl());
     }
 
     @Override
     public void dealerStay() {
-        // TODO Auto-generated method stub
-        
+        checkWin();
     }
 
     @Override
-    public void checkDealerMove() {
-        // TODO Auto-generated method stub
-        
+    public void nextDealerMove() {
+        if (calculatePoints(this.dealer) < 17) {
+            dealerDraw();
+            //nextDealerMove();
+        } else {
+            dealerStay();
+        }
     }
 
     @Override
-    public int calculatePoints(List<Card> cards) {
-        // TODO Auto-generated method stub
-        return 0;
+    public int calculatePoints(final List<Card> cards) {
+        int points = 0;
+        for (final Card c : cards) {
+            System.out.println(c.getValue());
+            points += c.getValue();
+            
+            //new DeckImpl().showPreciseCard(c);
+        }
+        System.out.println(points);
+        return points;
+    }
+
+
+
+    @Override
+    public List<Card> getPlayerHand() {
+        return this.player;
+    }
+
+
+
+    @Override
+    public List<Card> getDealerHand() {
+        return this.dealer;
     }
 
 }
