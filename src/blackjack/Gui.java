@@ -48,40 +48,18 @@ public class Gui extends JFrame{
         //aggiungo il jpanel dei pulsanti al jpanel generale
         bgpanel.add(buttonsArea, BorderLayout.SOUTH);
 
-        
         //JPanel a layer che mostra le carte del giocatore CENTER
         final JLayeredPane playerCardsPanel = new JLayeredPane();
         playerCardsPanel.setLayout(null); //da rivedere
+        
         final List<JLabel> pCards = new LinkedList<>(); //lista di JLabel, ciascuna sarà una carta del giocatore
-        pCards.add(new JLabel());
-        pCards.get(i).setBounds(575 + (this.i * 20), 80 - (this.i * 15), 150, 150);  //setbounds temporaneo?
         
-        //istanza prima carta giocatore (variabile non final per poterla riusare(?))
-        Card c = new CardImpl(); 
-        //setta al JLabel di index i l'immagine della nuova carta.
-        pCards.get(i).setIcon(new ImageIcon(new ImageModifier().scale(c.getImg(), new Dimension(150, 150))));
-        //aggiunge la carta al pannello al layer 1
-        playerCardsPanel.add(pCards.get(i), 1);
-        
-        //punteggio temporaneo giocatore
-        this.playerValue += c.getValue();    
-        this.i++;
-        
-        //Creo nuovo Jlabel e lo metto un po' piu spostato
-        pCards.add(new JLabel());
-        pCards.get(i).setBounds(575 + (this.i * 20), 80 - (this.i * 15), 150, 150);  
-        //riutilizzo la variabile
-        c = new CardImpl(); 
-        //assegno l'immagine e aggiungo al panel nel layer 0
-        pCards.get(i).setIcon(new ImageIcon(new ImageModifier().scale(c.getImg(), new Dimension(150, 150))));
-        playerCardsPanel.add(pCards.get(i), 0);
+        addCard(pCards, new CardImpl(), playerCardsPanel, this.i);
+        addCard(pCards, new CardImpl(), playerCardsPanel, this.i);
         
         //aggiunto il pannello con tutte le carte del player al pannello generale
         bgpanel.add(playerCardsPanel, BorderLayout.CENTER);
         
-        //aumento punteggio giocatore
-        this.playerValue += c.getValue(); 
-        this.i++;
         
         //JPanel a layer che mostra le carte del dealer NORTH
         final JLayeredPane dealerCardsPanel = new JLayeredPane();
@@ -91,29 +69,13 @@ public class Gui extends JFrame{
         //Lista delle carte del dealer
         final List<JLabel> dCards = new LinkedList<>();
         
-        //prima carta scoperta
-        dCards.add(new JLabel());
-        c = new CardImpl(); 
-        dCards.get(k).setIcon(new ImageIcon(new ImageModifier().scale(c.getImg(), new Dimension(150, 150))));
-        dCards.get(k).setBounds(575 + (this.k * 35), 80 + (this.k * 10), 150, 150);
-        dealerCardsPanel.add(dCards.get(k), 1);
+        //prima carta scoperta, seconda coperta
+        addCardDealer(dCards, new CardImpl(), dealerCardsPanel, this.k);
+        addCardDealer(dCards, new CardImpl(false), dealerCardsPanel, this.k);
         
-        this.dealerValue += c.getValue(); 
-        k++;
-        
-        //seconda carta coperta
-        dCards.add(new JLabel());
-        c = new CardImpl(false); //carta coperta 
-        dCards.get(k).setIcon(new ImageIcon(new ImageModifier().scale(c.getImg(), new Dimension(150, 150))));
-        dCards.get(k).setBounds(575 + (this.k * 35), 80 + (this.k * 10), 150, 150);
-        dealerCardsPanel.add(dCards.get(k), 0);    
-        
-  
         //aggiungo le carte del dealer al pannello generale NORTH
         bgpanel.add(dealerCardsPanel, BorderLayout.NORTH);
-     
-        
-        
+  
         setPreferredSize(dim); 
         add(bgpanel);    
         pack();                                 
@@ -124,45 +86,32 @@ public class Gui extends JFrame{
         //da fare refactoring
         draw.addActionListener(e -> {   
             if (this.playerValue < 21) {
-                pCards.add(new JLabel());
-                pCards.get(i).setBounds(575 + (this.i * 20), 80 - (this.i * 15), 150, 150);        
-                final Card c2 = new CardImpl(); 
-                pCards.get(i).setIcon(new ImageIcon(new ImageModifier().scale(c2.getImg(), new Dimension(150, 150))));
-                playerCardsPanel.add(pCards.get(i), 0);
-                this.playerValue += c2.getValue();    
-                //System.out.println(this.value);
-                //jtxt.setText(String.valueOf(this.value));
-                this.i++;
+                addCard(pCards, new CardImpl(), playerCardsPanel, this.i);
             } 
-            
-            
+      
             if (this.playerValue >= 21) {
                 stay.doClick();
             }
-            
         });
         
         //codice ripetuto
         stay.addActionListener(e -> {   
             while (this.dealerValue < 17) {
                 if (!this.rotatefirstcard) {
+                    this.k--;
+                    System.out.println(this.k);
                     //ruota la prima carta prima di aggiungerne altre
                     this.rotatefirstcard = true;
                     final Card c1 = new CardImpl(); 
                     dCards.get(k).setIcon(new ImageIcon(new ImageModifier().scale(c1.getImg(),
                             new Dimension(150, 150))));
                     this.dealerValue += c1.getValue(); 
-                    k++;
+                    this.k++;
                 } else {
                     //aggiunge altre carte nel caso non basti la prima
-                    final Card c2 = new CardImpl();   
-                    dCards.add(new JLabel());
-                    dCards.get(k).setIcon(new ImageIcon(new ImageModifier().scale(c2.getImg(),
-                            new Dimension(150, 150))));
-                    dCards.get(k).setBounds(575 + (this.k * 35), 80 + (this.k * 10), 150, 150);
-                    dealerCardsPanel.add(dCards.get(k), 0);   
-                    this.dealerValue += c2.getValue(); 
-                    this.k++;
+                    final Card c2 = new CardImpl(); 
+                    addCardDealer(dCards, c2, dealerCardsPanel, this.k);
+                    this.dealerValue += c2.getValue();
                 }
             }
             
@@ -178,6 +127,34 @@ public class Gui extends JFrame{
         //NOTE NICO: FARE UNA FUNZIONE PRIVATA PER AGGIUNGERE CARTE A UNA LISTA DI JPANEL
         
         
+    }
+    
+    
+    private void addCard(final List<JLabel> cards, final Card c, final JLayeredPane p, final int counter) {
+        cards.add(new JLabel());
+        cards.get(i).setBounds(575 + (counter * 20), 80 - (counter * 15), 150, 150);  //setbounds temporaneo?
+        //setta al JLabel di index i l'immagine della nuova carta.
+        cards.get(i).setIcon(new ImageIcon(new ImageModifier().scale(c.getImg(), new Dimension(150, 150))));
+        //aggiunge la carta al pannello al layer 1
+        p.add(cards.get(i), 0);
+        //punteggio temporaneo giocatore
+        this.playerValue += c.getValue();    
+        this.i++;
+    }
+    
+    //da eliminare
+    private void addCardDealer(final List<JLabel> cards, final Card c, final JLayeredPane p, final int counter) {
+        cards.add(new JLabel());
+        cards.get(k).setBounds(575 + (counter * 35), 80 + (counter * 10), 150, 150);  //setbounds temporaneo?
+        //setta al JLabel di index i l'immagine della nuova carta.
+        cards.get(k).setIcon(new ImageIcon(new ImageModifier().scale(c.getImg(), new Dimension(150, 150))));
+        //aggiunge la carta al pannello al layer 1
+        p.add(cards.get(k), 0);
+        //punteggio temporaneo giocatore 
+        if (cards.size() == 1) {
+            this.dealerValue += c.getValue();
+        }
+        this.k++;
     }
     
     
