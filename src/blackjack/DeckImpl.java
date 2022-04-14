@@ -17,9 +17,9 @@ import javax.swing.SwingConstants;
 /**
  * Classe principale gestione mazzi.
  */
-public class DeckImpl implements Deck {
+public class DeckImpl extends ArrayList<Card> implements Deck {
     
-    private final List<Card> deck = new ArrayList<>(); //da rimuovere final?
+    //private final List<Card> deck = new ArrayList<>(); //da rimuovere final?
     
     /**
      * Genera mazzo standard (scala) (ogni valore 1-13*4semi).
@@ -28,7 +28,7 @@ public class DeckImpl implements Deck {
         for (final Suits s : Suits.values()) {
             //if (s != Suits.JOKER) {
                 for (int i = 1; i <= 13; i++) {
-                    deck.add(new CardImpl(s, i));
+                    this.add(new CardImpl(s, i));
                 }
             //}   
         }
@@ -55,7 +55,7 @@ public class DeckImpl implements Deck {
     
     @Override
     public void showAllCards() { 
-        showCards(this.deck);
+        showCards(this);
     }
 
     @Override
@@ -67,7 +67,7 @@ public class DeckImpl implements Deck {
 
     @Override
     public void showPreciseSuit(final Suits s) {      
-        for (final Card c : this.deck) {
+        for (final Card c : this) {
             if (c.getSuit() == s) {
                 showPreciseCard(c);
             }
@@ -76,7 +76,7 @@ public class DeckImpl implements Deck {
 
     @Override
     public void showPreciseValue(final int value) {
-        for (final Card c : this.deck) {
+        for (final Card c : this) {
             if (c.getValue() == value) {
                 showPreciseCard(c);
             }
@@ -86,13 +86,13 @@ public class DeckImpl implements Deck {
     @Override
     public boolean removePreciseCard(final Card card) {
         //NON FUNZIONA
-        return (this.deck.remove(card));
+        return (this.remove(card));
     }
 
     @Override
     public boolean removeRandomCard() {
         //NON FUNZIONA
-        return (this.deck.remove(new CardImpl()));
+        return (this.remove(new CardImpl()));
     }
 
 
