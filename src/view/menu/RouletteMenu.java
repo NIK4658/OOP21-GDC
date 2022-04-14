@@ -1,8 +1,8 @@
 package view.menu;
 
 import javax.swing.JPanel;
-
 import account.AccountManager;
+import roulette.Roulette;
 import roulette.Table;
 import view.gui.MenuManager;
 import java.awt.BorderLayout;
@@ -14,7 +14,9 @@ public class RouletteMenu extends JPanel implements Menu {
         this.setLayout(new BorderLayout());
         this.setBackground(new Color(68, 87, 96));
         this.setPreferredSize(frame.getSizeMenu());
+        final Roulette roulette = new Roulette();
         this.add(new Table());
+        roulette.start();
     }
 
     @Override
