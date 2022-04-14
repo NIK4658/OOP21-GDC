@@ -22,6 +22,8 @@ public class Gui extends JFrame{
     
     private int playerValue;
     private int dealerValue;
+    private int saldo = 10;
+    private int puntata = 0;
     private boolean rotatefirstcard = false;
     private final Game g = new GameImpl();
     
@@ -31,52 +33,89 @@ public class Gui extends JFrame{
         //JPanel con immagine di sfondo
         final BackgroundPanel bgpanel = new BackgroundPanel(
                 new ImageIcon("res/img/backgrounds/blackjacktableHD.png").getImage(),
-                BackgroundPanel.SCALED, 0.0f, 0.0f);
-        
+                BackgroundPanel.SCALED, 0.0f, 0.0f);  
         //Area Pulsanti in fondo SUD
         final JPanel buttonsArea = new JPanel(new GridBagLayout());
         buttonsArea.setPreferredSize(new Dimension(150, 150));
-        
+
         //codice ripetuto
         final JButton draw = new JButton("Draw"); 
-        final JButton stay = new JButton("Stay"); 
-        draw.setPreferredSize(new Dimension(100, 100));
-        stay.setPreferredSize(new Dimension(100, 100)); 
-        buttonsArea.add(draw, setDimensionObj(0, 0, 0, 10, 10));
-        buttonsArea.add(stay, setDimensionObj(1, 0, 0, 10, 10));
+        final JButton stay = new JButton("Stay");
+        final JButton Double = new JButton("Double");
+        final JButton reset = new JButton("Reset");      
+        final List<JButton> l = new ArrayList<>();
+        l.add(draw);
+        l.add(stay);
+        l.add(Double);
+        l.add(reset);       
+        int i = 0;
+        for (final JButton jb : l) { 
+            jb.setPreferredSize(new Dimension(130, 100));
+            jb.setForeground(Color.BLACK);
+            jb.setFont(new Font("Arial", Font.BOLD | Font.ITALIC, 20));
+            buttonsArea.add(jb, setDimensionObj(i, 0, 0, 10, 10));
+            i++;
+        }
+        
         //aggiungo il jpanel dei pulsanti al jpanel generale
         bgpanel.add(buttonsArea, BorderLayout.SOUTH);
 
         
         
-        
+
         //JPanel a layer che mostra le carte del giocatore CENTER
         final JLayeredPane playerCardsPanel = new JLayeredPane();
-        playerCardsPanel.setLayout(null); //da rivedere
-        
+        //playerCardsPanel.setLayout(null); //da rivedere
         final List<JLabel> pCards = new LinkedList<>(); //lista di JLabel, ciascuna sarà una carta del giocatore
-        
         addCard(pCards, g.getPlayerHand().get(0), playerCardsPanel);
         addCard(pCards, g.getPlayerHand().get(1), playerCardsPanel);
-        
+        //Punteggio player
+        final JLabel playerpoints = new JLabel();
+        playerpoints.setForeground(Color.WHITE);
+        playerpoints.setBounds(530, 20, 150, 150);
+        playerpoints.setFont(new Font("Arial", Font.BOLD | Font.ITALIC, 20));
+        playerCardsPanel.add(playerpoints, 0);
         //aggiunto il pannello con tutte le carte del player al pannello generale
         bgpanel.add(playerCardsPanel, BorderLayout.CENTER);
         
         
+        
+ 
         //JPanel a layer che mostra le carte del dealer NORTH
         final JLayeredPane dealerCardsPanel = new JLayeredPane();
-        dealerCardsPanel.setLayout(null); //da rivedere
+        //dealerCardsPanel.setLayout(null); //da rivedere
         dealerCardsPanel.setPreferredSize(new Dimension(300, 300));
-        
         //Lista delle carte del dealer
         final List<JLabel> dCards = new LinkedList<>();
-        
+        final JLabel dpoints = new JLabel();
+        dpoints.setForeground(Color.WHITE);
+        dpoints.setBounds(530, 20, 150, 150);
+        dpoints.setFont(new Font("Arial", Font.BOLD | Font.ITALIC, 20));
         //prima carta scoperta, seconda coperta
-        addCardDealer(dCards, new CardImpl(), dealerCardsPanel);
-        addCardDealer(dCards, new CardImpl(false), dealerCardsPanel);
+        addCardDealer(dCards, g.getDealerHand().get(0), dealerCardsPanel);
+        addCardDealer(dCards, g.getDealerHand().get(1), dealerCardsPanel);
+        dealerCardsPanel.add(dpoints, 0);
+        
+        
+        final JLabel saldo = new JLabel("Saldo: " + this.saldo);
+        final JLabel puntata = new JLabel("Puntata: " + this.puntata);
+        saldo.setForeground(Color.WHITE);
+        saldo.setBounds(100, 80, 150, 150);
+        saldo.setFont(new Font("Arial", Font.BOLD | Font.ITALIC, 20));
+        
+        puntata.setForeground(Color.WHITE);
+        puntata.setBounds(100, 110, 150, 150);
+        puntata.setFont(new Font("Arial", Font.BOLD | Font.ITALIC, 20));
+        
+        dealerCardsPanel.add(saldo);
+        dealerCardsPanel.add(puntata);
         
         //aggiungo le carte del dealer al pannello generale NORTH
         bgpanel.add(dealerCardsPanel, BorderLayout.NORTH);
+        
+        
+        dpoints.setText(String.valueOf(g.getDealerHand().get(0).getValue()));
+        playerpoints.setText(String.valueOf(g.calculatePoints(g.getPlayerHand())));
   
         setPreferredSize(dim); 
         add(bgpanel);    
@@ -90,6 +129,7 @@ public class Gui extends JFrame{
             if (this.playerValue < 21) {
                 g.askCard();
                 addCard(pCards, g.getPlayerHand().get(g.getPlayerHand().size() - 1), playerCardsPanel);
+                playerpoints.setText(String.valueOf(g.calculatePoints(g.getPlayerHand())));
             } 
       
             if (this.playerValue >= 21) {
@@ -106,7 +146,7 @@ public class Gui extends JFrame{
                             g.getDealerHand().get(1).getValue()).getImg(),
                             new Dimension(150, 150))));
             
-            
+            dpoints.setText(String.valueOf(g.calculatePoints(g.getDealerHand())));
             
             this.dealerValue = g.calculatePoints(g.getDealerHand());
             System.out.println("ciao");
@@ -116,7 +156,7 @@ public class Gui extends JFrame{
                 System.out.println(g.getDealerHand() + "ciao");
                 addCardDealer(dCards, g.getDealerHand().get(g.getDealerHand().size() - 1), dealerCardsPanel);
                 this.dealerValue = g.calculatePoints(g.getDealerHand());
-                
+                dpoints.setText(String.valueOf(g.calculatePoints(g.getDealerHand())));
             }
             
             //dice chi ha vinto e i punteggi
@@ -128,6 +168,21 @@ public class Gui extends JFrame{
             stay.setEnabled(false);
             
         });
+        
+        
+        reset.addActionListener(e -> {  
+            
+            for (JLabel j : dCards) {
+                dCards.remove(j);
+            }
+           
+            for (JLabel j : pCards) {
+                pCards.remove(j);
+            }
+           
+        });
+        
+        
         
         //NOTE NICO: FARE UNA FUNZIONE PRIVATA PER AGGIUNGERE CARTE A UNA LISTA DI JPANEL
         
