@@ -2,9 +2,11 @@ package roulette;
 
 import java.awt.Color;
 import java.util.ArrayList;
+import java.util.TreeMap;
 
 //posso decidere quanti numeri totali della roulette avere e quanti di questi essere 0
-public class RouletteNumbers extends ArrayList<RouletteNumber> {
+//creare la classe statica?
+public class RouletteNumbers extends TreeMap<Integer, Color> {
     private final int rouletteNumbers;
     private final int greenNumbers;
     
@@ -17,7 +19,7 @@ public class RouletteNumbers extends ArrayList<RouletteNumber> {
     
     private void addGreenNumbers() {
         for (int i = 0; i > -this.greenNumbers; i--) {
-            this.add(new RouletteNumber(i, Color.GREEN));
+            this.put(i, Color.GREEN);
         }
     }
     
@@ -30,10 +32,10 @@ public class RouletteNumbers extends ArrayList<RouletteNumber> {
                     isRed = !isRed;
                 }
                 if (isRed) {
-                    this.add(new RouletteNumber(i, Color.RED));
+                    this.put(i, Color.RED);
                 }
                 else {
-                    this.add(new RouletteNumber(i, Color.BLACK));
+                    this.put(i, Color.BLACK);
                 }
                 isRed = !isRed;
             }

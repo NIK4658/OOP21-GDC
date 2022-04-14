@@ -10,9 +10,9 @@ public class RouletteNumber {
     private final int value;
     private final Color color;
     
-    public RouletteNumber(final int value, final Color color) {
+    public RouletteNumber(final int value) {
         this.value = value;
-        this.color = color;
+        this.color = new RouletteNumbers(37, 1).get(value); //da risolvere
     }
 
     public int getNumber() {
@@ -21,6 +21,11 @@ public class RouletteNumber {
 
     public Color getColor() {
         return color;
+    }
+
+    @Override
+    public String toString() {
+        return "RouletteNumber [value=" + value + ", color=" + color + "]";
     }
     
 }
