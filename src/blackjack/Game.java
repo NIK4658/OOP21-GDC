@@ -26,6 +26,11 @@ public interface Game {
     
     int calculatePoints(List<Card> cards);
     
+    int getPlayerPoints();
+    
+    int getDealerPoints();
+    
+    
     void nextDealerMove();
 
 }

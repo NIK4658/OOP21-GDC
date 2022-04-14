@@ -89,17 +89,27 @@ public class GameImpl implements Game {
     @Override
     public int calculatePoints(final List<Card> cards) {
         int points = 0;
+        boolean ace = false;
+        boolean converted = false;
+        
         for (final Card c : cards) {
-            System.out.println(c.getValue());
-            points += c.getValue();
+            if (c.getValue() == 1 && !ace) {
+                points += (c.getValue() + 10);
+                ace = true;
+            } else {
+                points += c.getValue();
+            }
             
-            //new DeckImpl().showPreciseCard(c);
+            if (points > 21 && ace && !converted) {
+                points -= 10;
+                converted = true;
+            }  
         }
-        System.out.println(points);
         return points;
     }
 
 
+    
 
     @Override
     public List<Card> getPlayerHand() {
@@ -111,6 +121,20 @@ public class GameImpl implements Game {
     @Override
     public List<Card> getDealerHand() {
         return this.dealer;
+    }
+
+
+
+    @Override
+    public int getPlayerPoints() {
+        return calculatePoints(this.player);
+    }
+
+
+
+    @Override
+    public int getDealerPoints() {
+        return calculatePoints(this.dealer);
     }
 
 }
