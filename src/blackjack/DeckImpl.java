@@ -6,6 +6,8 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
+
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -85,27 +87,28 @@ public class DeckImpl extends ArrayList<Card> implements Deck {
 
     @Override
     public boolean removePreciseCard(final Card card) {
-        //NON FUNZIONA
         return (this.remove(card));
     }
 
     @Override
     public boolean removeRandomCard() {
-        //NON FUNZIONA
         return (this.remove(new CardImpl()));
     }
 
 
     @Override
-    public Card drawPreciseCard(Card card) {
-        // TODO Auto-generated method stub
-        return null;
+    public Card drawPreciseCard(final Card card) {
+        this.remove(card);
+        return card;
     }
 
 
     @Override
     public Card drawRandomCard() {
-        // TODO Auto-generated method stub
-        return null;
+        System.out.println(this.size());
+        final Card c = this.get(new Random().ints(0, this.size()).findFirst().getAsInt());
+        this.remove(c);
+        System.out.println(this.size());
+        return c;
     }
 }

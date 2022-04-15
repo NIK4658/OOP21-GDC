@@ -15,18 +15,19 @@ public class GameImpl implements Game {
     GameImpl() {
         this.deck = new DeckImpl();
         
-        this.player.add(new CardImpl());
-        this.player.add(new CardImpl());
+        this.player.add(this.deck.drawRandomCard());
+        this.player.add(this.deck.drawRandomCard());
         
-        this.dealer.add(new CardImpl());
-        this.dealer.add(new CardImpl(false)); 
+        this.dealer.add(this.deck.drawRandomCard());
+        this.dealer.add(this.deck.drawRandomCard()); 
+        //System.out.println(this.deck);
     }
     
     
     
     @Override
     public void askCard() {
-        this.player.add(new CardImpl()); 
+        this.player.add(this.deck.drawRandomCard()); 
     }
 
     @Override
@@ -68,7 +69,7 @@ public class GameImpl implements Game {
 
     @Override
     public void dealerDraw() {
-        this.dealer.add(new CardImpl());
+        this.dealer.add(this.deck.drawRandomCard());
     }
 
     @Override
