@@ -33,8 +33,8 @@ public class MainGui implements MenuManager {
         this.frame.setResizable(false);
         this.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
-//        this.setAccessMenu();
-        this.setRouletteMenu(new AccountManagerImpl());
+        this.setAccessMenu();
+//        this.setRouletteMenu(new AccountManagerImpl());
 //        this.setAccountMenu(new AccountManagerImpl());
         
         this.frame.setLocationRelativeTo(null);
