@@ -9,17 +9,17 @@ public interface AccountManager {
 
     boolean register(String usr, String psw, String eta);
 
-    boolean deposit(int amount);
+    boolean deposit(double amount);
 
-    boolean withdraw(int amount, String psw);
+    boolean withdraw(double amount, String psw);
 
-    int balanceAmount();
+    double balanceAmount();
 
     boolean changeUsr(String usrnew);
 
     boolean changePass(String psw);
     
-    boolean changeBalance(int balancenew);
+    boolean changeBalance(double balancenew);
 
     boolean deleteAcc();
 

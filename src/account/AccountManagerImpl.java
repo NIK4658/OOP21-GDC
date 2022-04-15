@@ -106,7 +106,7 @@ public class AccountManagerImpl implements AccountManager {
 
 
     @Override
-    public boolean deposit(final int amount) {
+    public boolean deposit(final double amount) {
         final JSONObject jo = getJsonObject(this.username);
         jo.replace("Saldo", amount);
         writeOnFile(this.username, jo);
@@ -114,8 +114,8 @@ public class AccountManagerImpl implements AccountManager {
     }
 
     @Override
-    public boolean withdraw(final int amount, final String psw) {
-        final int newbalance = balanceAmount() - amount;
+    public boolean withdraw(final double amount, final String psw) {
+        final double newbalance = balanceAmount() - amount;
         if (newbalance >= 0) {
             changeBalance(newbalance);
             return true;
@@ -126,8 +126,8 @@ public class AccountManagerImpl implements AccountManager {
     }
 
     @Override
-    public int balanceAmount() {   
-        return (int) (getJsonObject(this.username)).get("Saldo");
+    public double balanceAmount() {   
+        return (double) (getJsonObject(this.username)).get("Saldo");
     }
 
     @Override
@@ -148,7 +148,7 @@ public class AccountManagerImpl implements AccountManager {
     }
     
     @Override
-    public boolean changeBalance(final int balancenew) {
+    public boolean changeBalance(final double balancenew) {
         final JSONObject jo = getJsonObject(this.username);
         jo.replace("Saldo", balancenew);
         writeOnFile(this.username, jo);
