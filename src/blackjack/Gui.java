@@ -39,8 +39,8 @@ public class Gui extends JFrame{
         buttonsArea.setPreferredSize(new Dimension(150, 150));
 
         //codice ripetuto
-        final JButton draw = new JButton("Draw"); 
-        final JButton stay = new JButton("Stay");
+        final JButton draw = new JButton("Hit"); 
+        final JButton stay = new JButton("Stand");
         final JButton Double = new JButton("Double");
         final JButton reset = new JButton("Reset");      
         final List<JButton> l = new ArrayList<>();
@@ -67,16 +67,38 @@ public class Gui extends JFrame{
         final JLayeredPane playerCardsPanel = new JLayeredPane();
         //playerCardsPanel.setLayout(null); //da rivedere
         final List<JLabel> pCards = new LinkedList<>(); //lista di JLabel, ciascuna sarà una carta del giocatore
-        addCard(pCards, g.getPlayerHand().get(0), playerCardsPanel);
-        addCard(pCards, g.getPlayerHand().get(1), playerCardsPanel);
+        
         //Punteggio player
         final JLabel playerpoints = new JLabel();
         playerpoints.setForeground(Color.WHITE);
         playerpoints.setBounds(530, 20, 150, 150);
         playerpoints.setFont(new Font("Arial", Font.BOLD | Font.ITALIC, 20));
         playerCardsPanel.add(playerpoints, 0);
+        
+        final JLabel puntata2 = new JLabel("0 €");
+        puntata2.setForeground(Color.WHITE);
+        puntata2.setBounds(350, 20, 150, 150);
+        puntata2.setFont(new Font("Arial", Font.BOLD | Font.ITALIC, 30));
+        playerCardsPanel.add(puntata2, 0);
+        
+        
+        final JButton soldi = new JButton("Punta 1€");
+        soldi.setBounds(350, 120, 90, 30);
+        playerCardsPanel.add(soldi, 0);
+        
+        final JButton resetta = new JButton("Resetta");
+        resetta.setBounds(350, 155, 90, 30);
+        playerCardsPanel.add(resetta, 0);
+        
+        final JButton conferma = new JButton("Conferma");
+        conferma.setBounds(350, 190, 90, 30);
+        playerCardsPanel.add(conferma, 0);
+        
+        
         //aggiunto il pannello con tutte le carte del player al pannello generale
         bgpanel.add(playerCardsPanel, BorderLayout.CENTER);
+        
+        
         
         
         
@@ -91,9 +113,7 @@ public class Gui extends JFrame{
         dpoints.setForeground(Color.WHITE);
         dpoints.setBounds(530, 20, 150, 150);
         dpoints.setFont(new Font("Arial", Font.BOLD | Font.ITALIC, 20));
-        //prima carta scoperta, seconda coperta
-        addCardDealer(dCards, g.getDealerHand().get(0), dealerCardsPanel);
-        addCardDealer(dCards, g.getDealerHand().get(1), dealerCardsPanel);
+        
         dealerCardsPanel.add(dpoints, 0);
         
         
@@ -114,8 +134,14 @@ public class Gui extends JFrame{
         bgpanel.add(dealerCardsPanel, BorderLayout.NORTH);
         
         
-        dpoints.setText(String.valueOf(g.getDealerHand().get(0).getValue()));
-        playerpoints.setText(String.valueOf(g.calculatePoints(g.getPlayerHand())));
+        dpoints.setText("");
+        playerpoints.setText("");
+        
+        
+        draw.setEnabled(false);
+        stay.setEnabled(false);
+        reset.setEnabled(false);
+        Double.setEnabled(false);
   
         setPreferredSize(dim); 
         add(bgpanel);    
@@ -161,27 +187,57 @@ public class Gui extends JFrame{
             
             //dice chi ha vinto e i punteggi
             //System.out.println(checkWin(this.playerValue, this.dealerValue));
-            System.out.println(g.checkWin());
+            if (g.checkWin()) {
+                this.saldo += this.puntata;
+            } else {
+                this.saldo -= this.puntata;
+            }
+            
+            saldo.setText("Saldo: " + this.saldo);
             
             //disattiva i pulsanti
             draw.setEnabled(false);
             stay.setEnabled(false);
+            reset.setEnabled(true);
+            Double.setEnabled(false);
+            
             
         });
         
         
-        reset.addActionListener(e -> {  
-            
-            for (JLabel j : dCards) {
-                dCards.remove(j);
-            }
-           
-            for (JLabel j : pCards) {
-                pCards.remove(j);
-            }
-           
+        
+        soldi.addActionListener(e -> {  
+            this.puntata++;
+            puntata2.setText(this.puntata + " €");
         });
         
+        resetta.addActionListener(e -> {  
+            this.puntata = 0;
+            puntata2.setText(this.puntata + " €");
+        });
+        
+        conferma.addActionListener(e -> {  
+            resetta.setEnabled(false);
+            soldi.setEnabled(false);
+            conferma.setEnabled(false);
+            
+            draw.setEnabled(true);
+            stay.setEnabled(true);
+            reset.setEnabled(true);
+            Double.setEnabled(true);
+            
+            
+            //prima carta scoperta, seconda coperta
+            addCardDealer(dCards, g.getDealerHand().get(0), dealerCardsPanel);
+            addCardDealer(dCards, g.getDealerHand().get(1), dealerCardsPanel);
+
+            addCard(pCards, g.getPlayerHand().get(0), playerCardsPanel);
+            addCard(pCards, g.getPlayerHand().get(1), playerCardsPanel);
+            
+            puntata.setText("Puntata: " + this.puntata);
+            dpoints.setText(String.valueOf(g.getDealerHand().get(0).getValue()));
+            playerpoints.setText(String.valueOf(g.calculatePoints(g.getPlayerHand())));
+        });
         
         
         //NOTE NICO: FARE UNA FUNZIONE PRIVATA PER AGGIUNGERE CARTE A UNA LISTA DI JPANEL
