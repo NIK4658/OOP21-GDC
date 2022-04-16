@@ -1,4 +1,4 @@
-package roulette;
+package view.roulette;
 
 
 import java.awt.Component;
@@ -16,6 +16,8 @@ import java.util.Random;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+
+import roulette.RouletteNumbers;
 
 public class Table extends JPanel {
     

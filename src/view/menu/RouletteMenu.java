@@ -3,8 +3,9 @@ package view.menu;
 import javax.swing.JPanel;
 import account.AccountManager;
 import roulette.Roulette;
-import roulette.Table;
 import view.gui.MenuManager;
+import view.roulette.Table;
+
 import java.awt.BorderLayout;
 import java.awt.Color;
 
