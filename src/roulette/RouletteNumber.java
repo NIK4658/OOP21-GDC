@@ -15,7 +15,7 @@ public class RouletteNumber {
         this.color = new RouletteNumbers(37, 1).get(value); //da risolvere
     }
 
-    public int getNumber() {
+    public int getValue() {
         return value;
     }
 

@@ -4,6 +4,7 @@ import javax.swing.JPanel;
 import account.AccountManager;
 import roulette.Roulette;
 import view.gui.MenuManager;
+import view.roulette.DisplayWinningNumbers;
 import view.roulette.Table;
 
 import java.awt.BorderLayout;
@@ -15,8 +16,11 @@ public class RouletteMenu extends JPanel implements Menu {
         this.setLayout(new BorderLayout());
         this.setBackground(new Color(68, 87, 96));
         this.setPreferredSize(frame.getSizeMenu());
-        final Roulette roulette = new Roulette();
+        final DisplayWinningNumbers l = new DisplayWinningNumbers();
+        final Roulette roulette = new Roulette(l);
         this.add(new Table());
+        
+        this.add(l, BorderLayout.NORTH);
         roulette.start();
     }
 
