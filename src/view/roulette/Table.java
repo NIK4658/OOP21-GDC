@@ -1,4 +1,4 @@
-package roulette;
+package view.roulette;
 
 
 import java.awt.Component;
@@ -9,6 +9,7 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.util.List;
+import java.util.Map;
 //import java.awt.Toolkit;
 import java.util.Random;
 
@@ -16,10 +17,11 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import roulette.RouletteNumbers;
+
 public class Table extends JPanel {
     
-    private final Random random = new Random();
-    private final List<RouletteNumber> rouletteNumbers;
+    private final Map<Integer, Color> rouletteNumbers;
     
     public Table() {
         this.setLayout(new GridBagLayout());
@@ -38,10 +40,10 @@ public class Table extends JPanel {
     private void addNumbers() {
         int x = 1;
         int y = 2;
-        for (final RouletteNumber n : rouletteNumbers) {
-            final int value = n.getNumber();
-            final JButton button = new JButton(String.valueOf(value));
-            button.setForeground(n.getColor());
+        for (final Integer n : rouletteNumbers.keySet()) {
+            final int value = n;
+            final JButton button = new JButton(n.toString());
+            button.setForeground(rouletteNumbers.get(n));
             if (value == 0) {
                 this.addComponent(this, button, 0, 0, 1, 3, GridBagConstraints.CENTER, GridBagConstraints.BOTH);
             }
