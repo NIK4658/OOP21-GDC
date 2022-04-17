@@ -9,9 +9,9 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import view.ImageModifier;
-import view.access.Access;
-import view.access.AccessPanel;
 import view.gui.MenuManager;
+import view.menu.access.Access;
+import view.menu.access.AccessPanel;
 
 /**
  * //DA SISTEMARE I MAGIC NUMBERS.

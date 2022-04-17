@@ -6,7 +6,7 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Before;
 import org.junit.Test;
 
-import view.roulette.Table;
+import view.menu.games.roulette.Table;
 
 
 public class RouletteTest {

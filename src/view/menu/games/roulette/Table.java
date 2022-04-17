@@ -1,4 +1,4 @@
-package view.roulette;
+package view.menu.games.roulette;
 
 
 import java.awt.Component;

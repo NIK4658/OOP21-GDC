@@ -4,8 +4,8 @@ import javax.swing.JPanel;
 import account.AccountManager;
 import roulette.Roulette;
 import view.gui.MenuManager;
-import view.roulette.DisplayWinningNumbers;
-import view.roulette.Table;
+import view.menu.games.roulette.DisplayWinningNumbers;
+import view.menu.games.roulette.Table;
 
 import java.awt.BorderLayout;
 import java.awt.Color;

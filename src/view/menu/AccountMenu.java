@@ -14,11 +14,11 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import view.GridBagConstraintsConstructor;
-import view.account.BalancePanel;
-import view.account.ConfirmPassword;
-import view.account.PasswordPanel;
-import view.account.UsernamePanel;
 import view.gui.MenuManager;
+import view.menu.account.BalancePanel;
+import view.menu.account.ConfirmPassword;
+import view.menu.account.PasswordPanel;
+import view.menu.account.UsernamePanel;
 //vedere se possibile sostituire panel con estensione della classe con JPanel
 //e se possibile creare un'altra classe per panelAccount.
 public class AccountMenu implements Menu {

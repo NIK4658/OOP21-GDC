@@ -1,4 +1,4 @@
-package view.account;
+package view.menu.account;
 
 public interface PasswordConfirmed {
     

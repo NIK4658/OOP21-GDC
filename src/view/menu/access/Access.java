@@ -1,4 +1,4 @@
-package view.access;
+package view.menu.access;
 
 import account.AccountManager;
 

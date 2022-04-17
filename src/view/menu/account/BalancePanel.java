@@ -1,4 +1,4 @@
-package view.account;
+package view.menu.account;
 
 import java.awt.Color;
 import java.awt.Dimension;

@@ -1,4 +1,4 @@
-package view.access;
+package view.menu.access;
 
 import account.AccountManager;
 import account.AccountManagerImpl;
@@ -15,7 +15,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import view.GridBagConstraintsConstructor;
-import view.access.Access.AccessType;
+import view.menu.access.Access.AccessType;
 
 
 /**
