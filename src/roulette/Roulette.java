@@ -25,10 +25,7 @@ public class Roulette {
     }
 
     private void spin() {
-        int a = this.random.nextInt(37);
-        System.out.println(a);
-        this.winningNumbers.add(a);
-        System.out.println(winningNumbers);
+        this.winningNumbers.add(this.random.nextInt(37));
         l.display(this.winningNumbers);
     }
 }
