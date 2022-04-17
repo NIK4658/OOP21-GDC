@@ -4,6 +4,7 @@ import javax.swing.JPanel;
 import account.AccountManager;
 import roulette.Roulette;
 import view.gui.MenuManager;
+import view.menu.games.GamesPanel;
 import view.menu.games.roulette.DisplayWinningNumbers;
 import view.menu.games.roulette.Table;
 
@@ -19,8 +20,8 @@ public class RouletteMenu extends JPanel implements Menu {
         final DisplayWinningNumbers l = new DisplayWinningNumbers();
         final Roulette roulette = new Roulette(l);
         this.add(new Table());
-        
         this.add(l, BorderLayout.NORTH);
+        this.add(new GamesPanel(), BorderLayout.SOUTH);
         roulette.start();
     }
 
