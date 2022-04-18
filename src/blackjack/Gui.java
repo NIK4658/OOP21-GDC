@@ -11,7 +11,7 @@ import java.util.List;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import javax.swing.*;
-import view.ImageModifier;
+import java.awt.Image;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 
@@ -106,8 +106,9 @@ public class Gui extends JFrame{
                     //ruota la prima carta prima di aggiungerne altre
                     this.rotatefirstcard = true;
                     final Card c1 = new CardImpl(); 
-                    dCards.get(k).setIcon(new ImageIcon(new ImageModifier().scale(c1.getImg(),
-                            new Dimension(150, 150))));
+//                    dCards.get(k).setIcon(new ImageIcon(new ImageModifier().scale(c1.getImg(), ~FEDE
+//                            new Dimension(150, 150))));
+                    dCards.get(k).setIcon(new ImageIcon(c1.getImg().getScaledInstance(105, 150, Image.SCALE_SMOOTH))); //~FEDE
                     this.dealerValue += c1.getValue(); 
                     this.k++;
                 } else {
@@ -137,7 +138,8 @@ public class Gui extends JFrame{
         cards.add(new JLabel());
         cards.get(i).setBounds(575 + (counter * 20), 80 - (counter * 15), 150, 150);  //setbounds temporaneo?
         //setta al JLabel di index i l'immagine della nuova carta.
-        cards.get(i).setIcon(new ImageIcon(new ImageModifier().scale(c.getImg(), new Dimension(150, 150))));
+//        cards.get(i).setIcon(new ImageIcon(new ImageModifier().scale(c.getImg(), new Dimension(150, 150)))); ~FEDE
+        cards.get(i).setIcon(new ImageIcon(c.getImg().getScaledInstance(105, 150, Image.SCALE_SMOOTH))); //~FEDE
         //aggiunge la carta al pannello al layer 1
         p.add(cards.get(i), 0);
         //punteggio temporaneo giocatore
@@ -150,7 +152,8 @@ public class Gui extends JFrame{
         cards.add(new JLabel());
         cards.get(k).setBounds(575 + (counter * 35), 80 + (counter * 10), 150, 150);  //setbounds temporaneo?
         //setta al JLabel di index i l'immagine della nuova carta.
-        cards.get(k).setIcon(new ImageIcon(new ImageModifier().scale(c.getImg(), new Dimension(150, 150))));
+//        cards.get(k).setIcon(new ImageIcon(new ImageModifier().scale(c.getImg(), new Dimension(150, 150)))); ~FEDE
+        cards.get(k).setIcon(new ImageIcon(c.getImg().getScaledInstance(105, 150, Image.SCALE_SMOOTH))); //~FEDE
         //aggiunge la carta al pannello al layer 1
         p.add(cards.get(k), 0);
         //punteggio temporaneo giocatore 
