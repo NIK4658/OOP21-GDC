@@ -8,7 +8,6 @@ import java.awt.Image;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import view.ImageModifier;
 import view.gui.MenuManager;
 import view.menu.access.Access;
 import view.menu.access.AccessPanel;
@@ -30,9 +29,10 @@ public class AccessMenu extends JPanel implements Access, Menu {
         
         // Zona di destra
         final Dimension dimImg = new Dimension(frame.getWidthMenu() * 2 / 3, frame.getHeightMenu());
-        final Image imgi = new ImageModifier().scaleFullScreen(
-                new ImageIcon("res/img/backgrounds/HQcasinoCroppedWithTitle.gif").getImage(), dimImg);
-        this.add(new JLabel(new ImageIcon(imgi)), BorderLayout.EAST);
+        final Image img = new ImageIcon("res/img/backgrounds/HQcasinoCroppedWithTitle.gif").getImage();
+        final Image imgScaled = img.getScaledInstance(dimImg.width, dimImg.height, Image.SCALE_DEFAULT);
+        this.add(new JLabel(new ImageIcon(imgScaled)), BorderLayout.EAST);
+        
         
         // Zona di sinistra
         final CardLayout cl = new CardLayout();

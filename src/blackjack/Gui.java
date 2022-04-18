@@ -11,7 +11,7 @@ import java.util.List;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import javax.swing.*;
-import view.ImageModifier;
+import java.awt.Image;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 
