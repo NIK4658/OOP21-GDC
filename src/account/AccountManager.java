@@ -11,7 +11,7 @@ public interface AccountManager {
 
     boolean deposit(double amount);
 
-    boolean withdraw(double amount, String psw);
+    boolean withdraw(double amount);
 
     double balanceAmount();
 
