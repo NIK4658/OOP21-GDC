@@ -49,7 +49,7 @@ public class ExMasterGui extends JFrame {
         final JPanel south = new JPanel(new GridBagLayout());
         final JPanel north = new JPanel(new FlowLayout(FlowLayout.CENTER, 0, 0));
 
-        final ImageModifier imgMod = new ImageModifier();
+        final ExImageModifier imgMod = new ExImageModifier();
         Image imgi = imgMod.scaleFullScreen(
                 (new ImageIcon("res/img/backgrounds/tavolo.jpg").getImage()),
                 new Dimension(DIMX, DIMY));

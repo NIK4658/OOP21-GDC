@@ -3,7 +3,7 @@ package ex;
 import java.awt.Dimension;
 import java.awt.Image;
 
-public class ImageModifier {
+public class ExImageModifier {
 
     //given the image, and the size of the button / label it will scale based on your monitor
     public Image scale(final Image image, final Dimension size) {
@@ -12,6 +12,8 @@ public class ImageModifier {
         
         final int scaleWidth = (int) Math.round(image.getWidth(null) * scaleFactor);
         final int scaleHeight = (int) Math.round(image.getHeight(null) * scaleFactor);
+        System.out.println(scaleWidth);
+        System.out.println(scaleHeight);
         return image.getScaledInstance(scaleWidth, scaleHeight, Image.SCALE_SMOOTH);
     }
 

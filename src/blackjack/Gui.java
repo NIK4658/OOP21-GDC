@@ -14,6 +14,7 @@ import javax.swing.*;
 import java.awt.Image;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import ex.ExImageModifier;
 
 
 public class Gui extends JFrame{
@@ -164,13 +165,15 @@ public class Gui extends JFrame{
         });
         
         //codice ripetuto
-        stay.addActionListener(e -> {  
-            
+        stay.addActionListener(e -> {
             //g.nextDealerMove();
-            dCards.get(1).setIcon(new ImageIcon(new ImageModifier()
-                    .scale(new CardImpl(g.getDealerHand().get(1).getSuit(), 
-                            g.getDealerHand().get(1).getValue()).getImg(),
-                            new Dimension(150, 150))));
+//      ~FEDE
+//            dCards.get(1).setIcon(new ImageIcon(new ImageModifier()
+//                    .scale(new CardImpl(g.getDealerHand().get(1).getSuit(), 
+//                            g.getDealerHand().get(1).getValue()).getImg(),
+//                            new Dimension(150, 150))));
+            dCards.get(1).setIcon(new ImageIcon(new CardImpl(g.getDealerHand().get(1).getSuit(), 
+                            g.getDealerHand().get(1).getValue()).getImg().getScaledInstance(103,150,Image.SCALE_SMOOTH)));
             
             dpoints.setText(String.valueOf(g.calculatePoints(g.getDealerHand())));
             
@@ -251,8 +254,12 @@ public class Gui extends JFrame{
         cards.get((cards.size() - 1)).setBounds(575 + ((cards.size() - 1) * 20),
                 80 - ((cards.size() - 1) * 15), 150, 150);  //setbounds temporaneo?
         //setta al JLabel di index i l'immagine della nuova carta.
-        cards.get((cards.size() - 1)).setIcon(new ImageIcon(new ImageModifier().scale(c.getImg(),
-                new Dimension(150, 150))));
+//~FEDE
+//        cards.get((cards.size() - 1)).setIcon(new ImageIcon(new ImageModifier().scale(c.getImg(),
+//                new Dimension(150, 150))));
+        cards.get((cards.size() - 1)).setIcon(new ImageIcon(c.getImg().getScaledInstance(103, 150, Image.SCALE_SMOOTH)));
+        
+        
         //aggiunge la carta al pannello al layer 1
         p.add(cards.get((cards.size() - 1)), 0);
         //punteggio temporaneo giocatore
@@ -265,8 +272,10 @@ public class Gui extends JFrame{
         cards.get((cards.size() - 1)).setBounds(575 + ((cards.size() - 1) * 35),
                 80 + ((cards.size() - 1) * 10), 150, 150);  //setbounds temporaneo?
         //setta al JLabel di index i l'immagine della nuova carta.
-        cards.get((cards.size() - 1)).setIcon(new ImageIcon(new ImageModifier().scale(c.getImg(),
-                new Dimension(150, 150))));
+//~FEDE
+//        cards.get((cards.size() - 1)).setIcon(new ImageIcon(new ImageModifier().scale(c.getImg(),
+//                new Dimension(150, 150))));
+        cards.get((cards.size() - 1)).setIcon(new ImageIcon(c.getImg().getScaledInstance(103, 150, Image.SCALE_SMOOTH)));
         //aggiunge la carta al pannello al layer 1
         p.add(cards.get((cards.size() - 1)), 0);
         //punteggio temporaneo giocatore 
