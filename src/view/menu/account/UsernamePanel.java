@@ -45,12 +45,11 @@ public class UsernamePanel extends JPanel {
     }
     
     private String getUsername() {
-        return "Massimo Bossetti";
-//      return account.?        NICO
+        return account.getUsr();
     }
     
     private void setUsername(final String username) {
-//      account.?
+        account.changeUsr(username);
     }
 
 
