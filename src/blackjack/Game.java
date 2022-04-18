@@ -14,14 +14,23 @@ public interface Game {
     
     void startGame();
 
-    void checkWin();
+    boolean checkWin();
     
     void dealerDraw();
     
     void dealerStay();
     
+    List<Card> getPlayerHand();
+    
+    List<Card> getDealerHand();
+    
     int calculatePoints(List<Card> cards);
     
-    void checkDealerMove();
+    int getPlayerPoints();
+    
+    int getDealerPoints();
+    
+    
+    void nextDealerMove();
 
 }

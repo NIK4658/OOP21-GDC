@@ -1,6 +1,7 @@
 package blackjack;
 
 import java.awt.Image;
+import java.util.Objects;
 import java.util.Random;
 import javax.swing.ImageIcon;
 import utility.Pair;
@@ -73,10 +74,24 @@ public class CardImpl implements Card {
     }
     
     private static int getRandomValue() {
-        return new Random().nextInt(13) + 1;
+        //return new Random().nextInt(13) + 1;
+        return new Random().ints(1, 14).findFirst().getAsInt();
     }
     
-    
+    @Override
+    public boolean equals(final Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Card other = (Card) obj;
+        return Objects.equals(this.card.get1(), other.getSuit()) && Objects.equals(this.card.get2(), other.getValue());
+    }
 
 }
 

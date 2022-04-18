@@ -20,6 +20,8 @@ public interface Card {
     
     Image getImg();
     
+    public boolean equals(final Object obj);
+    
 }
 
 

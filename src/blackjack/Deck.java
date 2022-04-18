@@ -8,7 +8,6 @@ import blackjack.Card.Suits;
  */
 public interface Deck {
     
-    
     void showAllCards();
     
     void showPreciseCard(Card card);
@@ -20,5 +19,9 @@ public interface Deck {
     boolean removePreciseCard(Card card);
     
     boolean removeRandomCard();
+    
+    Card drawPreciseCard(Card card);
+    
+    Card drawRandomCard();
 
 }
