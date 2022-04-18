@@ -75,7 +75,7 @@ public class BalancePanel extends JPanel {
     }
 
     private double getAmount() {
-        return this.account.balanceAmount();
+        return this.account.getBalance();
     }
     
     private void setDeposit(final double deposit) {

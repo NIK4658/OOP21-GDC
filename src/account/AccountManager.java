@@ -13,8 +13,6 @@ public interface AccountManager {
 
     boolean withdraw(double amount);
 
-    double balanceAmount();
-
     boolean changeUsr(String usrnew);
 
     boolean changePass(String psw);
@@ -24,5 +22,14 @@ public interface AccountManager {
     boolean deleteAcc();
 
     boolean checkExisting(String usr);
+    
+    String getUsr();
+    
+    String getPsw();
+    
+    double getBalance();
+    
+    String getAge();
+    
 
 }

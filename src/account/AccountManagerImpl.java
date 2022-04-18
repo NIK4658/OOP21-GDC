@@ -107,7 +107,7 @@ public class AccountManagerImpl implements AccountManager {
 
     @Override
     public boolean deposit(final double amount) {
-        final double newbalance = balanceAmount() + amount;
+        final double newbalance = getBalance() + amount;
         final JSONObject jo = getJsonObject(this.username);
         jo.replace("Saldo", newbalance);
         writeOnFile(this.username, jo);
@@ -116,7 +116,7 @@ public class AccountManagerImpl implements AccountManager {
 
     @Override
     public boolean withdraw(final double amount) {
-        final double newbalance = balanceAmount() - amount;
+        final double newbalance = getBalance() - amount;
         if (newbalance >= 0) {
             changeBalance(newbalance);
             return true;
@@ -126,16 +126,14 @@ public class AccountManagerImpl implements AccountManager {
         }
     }
 
-    @Override
-    public double balanceAmount() { 
-        return Double.parseDouble(String.valueOf((getJsonObject(this.username)).get("Saldo")));
-    }
 
     @Override
     public boolean changeUsr(final String usrnew) {
         final JSONObject jo = getJsonObject(this.username);
         jo.replace("Username", usrnew);
-        writeOnFile(this.username, jo);
+        writeOnFile(usrnew, jo);
+        deleteAcc();
+        this.username = usrnew;
         return true;
     }
 
@@ -143,7 +141,6 @@ public class AccountManagerImpl implements AccountManager {
     public boolean changePass(final String psw) {
         final JSONObject jo = getJsonObject(this.username);
         jo.replace("Password", psw);
-        
         writeOnFile(this.username, jo);
         return true;
     }
@@ -159,6 +156,8 @@ public class AccountManagerImpl implements AccountManager {
     @Override
     public boolean deleteAcc() {
         final File f = new File(getPath(this.username));
+        System.out.println(f.getAbsolutePath());
+        System.out.println(f.delete());
         return f.delete();
     }
 
@@ -174,6 +173,28 @@ public class AccountManagerImpl implements AccountManager {
         }
     }
 
+
+    @Override
+    public String getUsr() {
+        return String.valueOf((getJsonObject(this.username)).get("Username"));
+    }
+
+
+    @Override
+    public String getPsw() {
+        return String.valueOf((getJsonObject(this.username)).get("Password"));
+    }
+
+
+    @Override
+    public String getAge() {
+        return String.valueOf((getJsonObject(this.username)).get("Eta"));
+    }
+
+    @Override
+    public double getBalance() { 
+        return Double.parseDouble(String.valueOf((getJsonObject(this.username)).get("Saldo")));
+    }
 
     
 }
