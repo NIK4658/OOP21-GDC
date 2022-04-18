@@ -35,7 +35,7 @@ public class BalancePanel extends JPanel {
     
         final NumberFormat format = DecimalFormat.getInstance();
         final NumberFormat formatAmount = DecimalFormat.getCurrencyInstance();
-        format.setMaximumIntegerDigits(6);
+        format.setMaximumIntegerDigits(4);
         format.setMinimumFractionDigits(2);
         format.setMaximumFractionDigits(2);
         format.setRoundingMode(RoundingMode.HALF_UP);
@@ -79,12 +79,14 @@ public class BalancePanel extends JPanel {
     }
     
     private void setDeposit(final double deposit) {
-//      this.account.?          NICO
+        //manca il check per numeri negativi
+        this.account.deposit(deposit);
     }
     
     
     private void setWithdraw(final double withdraw) {
-//      this.account.?          NICO
+        //manca il check per numeri negativi
+        this.account.withdraw(withdraw);
     }
 
 }
