@@ -16,11 +16,13 @@ import view.GridBagConstraintsConstructor;
 
 //pannello CAMBIO PASSWORD, sistemare ripetizioni
 public class PasswordPanel extends JPanel {
+    
+    private final AccountManager account;
 
     public PasswordPanel(final Frame frame, final AccountManager account) {
-      
+        this.account = account;
         this.setLayout(new GridBagLayout());
-        this.setBackground(new Color(68, 87, 96));
+        this.setBackground(new Color(68, 87, 96));     
         
         final JLabel labelPassword = new JLabel("New Password: ");
         final JLabel labelNewPassword = new JLabel("Confirm Password: ");
@@ -41,7 +43,7 @@ public class PasswordPanel extends JPanel {
     }
 
     private void setPassword(final String password) {
-//      account.?        NICO
+        this.account.changePass(password);
     }
     
 }
