@@ -34,7 +34,7 @@ public class ConfirmPassword implements PasswordConfirmed {
         final ActionListener closeDialog = e -> confirmDialog.dispose();
         
         passwordField.addActionListener(e -> {
-            if (true) {//passwordField.getText() == account.?        NICO
+            if (passwordField.getText().equals(account.getPsw())) { //passwordField.getText() == account.?        NICO
                 this.isTrue = true;
                 validLabel.setText("Password confermata");
                 new Timer(CLOSING_DELAY, closeDialog).start();
