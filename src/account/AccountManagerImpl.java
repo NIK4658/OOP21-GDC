@@ -63,7 +63,7 @@ public class AccountManagerImpl implements AccountManager {
             final Map<String, String> m = new HashMap<>();
             m.put("Username", usr);
             m.put("Password", psw);
-            m.put("Saldo", "0");
+            m.put("Saldo", "0.0");
             m.put("Eta", eta);
             final JSONObject jo = new JSONObject(m);
 
@@ -107,14 +107,15 @@ public class AccountManagerImpl implements AccountManager {
 
     @Override
     public boolean deposit(final double amount) {
+        final double newbalance = balanceAmount() + amount;
         final JSONObject jo = getJsonObject(this.username);
-        jo.replace("Saldo", amount);
+        jo.replace("Saldo", newbalance);
         writeOnFile(this.username, jo);
         return true;
     }
 
     @Override
-    public boolean withdraw(final double amount, final String psw) {
+    public boolean withdraw(final double amount) {
         final double newbalance = balanceAmount() - amount;
         if (newbalance >= 0) {
             changeBalance(newbalance);
@@ -126,8 +127,8 @@ public class AccountManagerImpl implements AccountManager {
     }
 
     @Override
-    public double balanceAmount() {   
-        return (double) (getJsonObject(this.username)).get("Saldo");
+    public double balanceAmount() { 
+        return Double.parseDouble(String.valueOf((getJsonObject(this.username)).get("Saldo")));
     }
 
     @Override
