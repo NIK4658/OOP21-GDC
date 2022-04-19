@@ -20,7 +20,7 @@ public class DisplayWinningNumbers extends JPanel {
     
     public DisplayWinningNumbers() {
         this.setLayout(new GridBagLayout());
-        this.setBackground(new Color(35654));
+//        this.setBackground(new Color(0, 118, 58));    //VERDE COME IL TAVOLO DELLA ROULETTE
         this.list = new LinkedList<>();
         for (int i = 0; i < MAX_NUM_DISPLAYED; i++) {
             final JButton b = new JButton();

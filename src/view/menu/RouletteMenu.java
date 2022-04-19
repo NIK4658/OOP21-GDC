@@ -1,5 +1,7 @@
 package view.menu;
 
+import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import account.AccountManager;
 import roulette.Roulette;
@@ -15,11 +17,13 @@ public class RouletteMenu extends JPanel implements Menu {
     
     public RouletteMenu(final MenuManager frame, final AccountManager account){
         this.setLayout(new BorderLayout());
-        this.setBackground(new Color(68, 87, 96));
-        this.setPreferredSize(frame.getSizeMenu());
+//        this.setBackground(new Color(0, 118, 58));    //VERDE COME IL TAVOLO DELLA ROULETTE
+//        this.setPreferredSize(frame.getSizeMenu());
         final DisplayWinningNumbers l = new DisplayWinningNumbers();
         final Roulette roulette = new Roulette(l);
         this.add(new Table());
+        
+        
         this.add(l, BorderLayout.NORTH);
         this.add(new GamesPanel(), BorderLayout.SOUTH);
         roulette.start();
