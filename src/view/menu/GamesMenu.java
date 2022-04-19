@@ -9,6 +9,7 @@ import java.awt.event.ActionListener;
 import java.awt.Font;
 import java.awt.GridBagLayout;
 import java.awt.Image;
+import java.awt.LayoutManager;
 import java.util.ArrayList;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -44,8 +45,16 @@ public class GamesMenu extends JPanel implements Menu {
         north.setPreferredSize(new Dimension(width, height / 4));
         center.setBackground(new Color(44, 107, 14));
         
+        this.setLayout(new BorderLayout());
+        JPanel buttonPanel = new JPanel();
+        
+        JButton accountman = new JButton("Impostazioni Account");
+        buttonPanel.add(accountman);
+        this.add(buttonPanel,BorderLayout.SOUTH);
+        
         //DA IMPOSTARE L'IMMAGINE DELLO SFONDO
         new ImageIcon("res/img/backgrounds/tavolo.jpg");
+        
         
         final JLabel title = new JLabel("GIOCHI DEL COLOSSO", SwingConstants.CENTER);
         title.setForeground(Color.WHITE);
@@ -58,26 +67,24 @@ public class GamesMenu extends JPanel implements Menu {
         final JButton roulette = new JButton();
         final JButton bacarat = new JButton();
         roulette.addActionListener(e -> frame.setRouletteMenu(account));
-        bacarat.addActionListener(e -> frame.setAccountMenu(account));
+        accountman.addActionListener(e -> frame.setAccountMenu(account));
         
         //meglio creare una funzione
         final Dimension dimButton = new Dimension(width / 5, height / 3);
         Image img, imgScaled;
         
-        img = new ImageIcon("res/img/buttons/blackjack.PNG").getImage();
+        img = new ImageIcon("res/img/backgrounds/bj.jpg").getImage();
         imgScaled = img.getScaledInstance(dimButton.width, dimButton.height, Image.SCALE_SMOOTH);
         blackjack.setIcon(new ImageIcon((imgScaled)));
         
-        img = new ImageIcon("res/img/buttons/blackjack.PNG").getImage();
+        img = new ImageIcon("res/img/backgrounds/rou2.jpg").getImage();
         imgScaled = img.getScaledInstance(dimButton.width, dimButton.height, Image.SCALE_SMOOTH);
-        blackjack.setIcon(new ImageIcon((imgScaled)));
+        roulette.setIcon(new ImageIcon((imgScaled)));
         
-        img = new ImageIcon("res/img/buttons/blackjack.PNG").getImage();
+        img = new ImageIcon("res/img/backgrounds/bac.jpg").getImage();
         imgScaled = img.getScaledInstance(dimButton.width, dimButton.height, Image.SCALE_SMOOTH);
-        blackjack.setIcon(new ImageIcon((imgScaled)));
-        //roulette.setBorder(BorderFactory.createEmptyBorder());
-        //roulette.setBorder(null);
-        //roulette.setBorderPainted(false);
+        bacarat.setIcon(new ImageIcon((imgScaled)));
+        
 
         //la lista non serve, basta usare una funzione
         final ArrayList<JComponent> list = new ArrayList<>();
