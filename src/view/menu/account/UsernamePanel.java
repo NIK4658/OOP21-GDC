@@ -29,11 +29,19 @@ public class UsernamePanel extends JPanel {
         final JTextField fieldUsername = new JTextField(this.getUsername(), 10);
         final JTextField fieldNewUsername = new JTextField(10);
         fieldUsername.setEditable(false);
+        final JLabel labelAlert = new JLabel();
         
         final JButton buttonUsername = new JButton("Change");
         buttonUsername.addActionListener(e -> {//aggiungere username non valido/già presente
             if (new ConfirmPassword(frame, account, " to change Username").isPasswordConfirmed()) {
-                this.setUsername(fieldNewUsername.getText());
+                if (this.setUsername(fieldNewUsername.getText())) {
+                    fieldUsername.setText(this.getUsername());
+                    fieldNewUsername.setText("");
+                    labelAlert.setText("Username changed");
+                }
+                else {
+                    labelAlert.setText("Username not valid");
+                }
             }
         });
         
@@ -42,14 +50,15 @@ public class UsernamePanel extends JPanel {
         this.add(labelNewUsername, GridBagConstraintsConstructor.get(0, 1, 0));
         this.add(fieldNewUsername, GridBagConstraintsConstructor.get(1, 1, 0));
         this.add(buttonUsername, GridBagConstraintsConstructor.get(2, 2, 0));
+        this.add(labelAlert, GridBagConstraintsConstructor.get(2, 3, 0));
     }
     
     private String getUsername() {
         return account.getUsr();
     }
     
-    private void setUsername(final String username) {
-        account.changeUsr(username);
+    private boolean setUsername(final String username) {
+        return account.changeUsr(username);
     }
 
 
