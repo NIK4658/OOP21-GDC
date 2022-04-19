@@ -69,21 +69,17 @@ public class AccountMenu implements Menu {
             jb.setFont(new Font("Arial", Font.PLAIN, frame.getWidthMenu() / 50));
             panelAccount.add(jb, GridBagConstraintsConstructor.get(0, index++, 5));
         }
-        
-        final BalancePanel panelBalance = new BalancePanel(this.account);
-        final UsernamePanel panelUsername = new UsernamePanel(this.frame.getFrame(), this.account);
-        final PasswordPanel panelPassword = new PasswordPanel(this.frame.getFrame(), this.account);
 
         buttonBalance.addActionListener(e -> {
-            this.updatePanel(panelBalance);
+            this.updatePanel(new BalancePanel(this.account));
         });
 
         buttonUsername.addActionListener(e -> {
-            this.updatePanel(panelUsername);
+            this.updatePanel(new UsernamePanel(this.frame.getFrame(), this.account));
         });        
 
         buttonPassword.addActionListener(e -> {
-            this.updatePanel(panelPassword);
+            this.updatePanel(new PasswordPanel(this.frame.getFrame(), this.account));
         });
         
         buttonAccount.addActionListener(e -> {
