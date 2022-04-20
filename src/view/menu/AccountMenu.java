@@ -117,7 +117,7 @@ public class AccountMenu implements Menu {
     }
     
     private ActionListener getActionListenerBackMenu() {
-        return e -> frame.setGamesMenu(account);
+        return e -> frame.setMainMenu(account);
     }
 
     @Override

@@ -23,7 +23,7 @@ import view.gui.MenuManager;
 /**
  * Menu principale.
  */
-public class GamesMenu extends JPanel implements Menu {
+public class MainMenu extends JPanel implements Menu {
 
     private static final long serialVersionUID = 1L;
 //    private final MenuManager frame;
@@ -32,7 +32,7 @@ public class GamesMenu extends JPanel implements Menu {
     /**
      * Costruttore.
      */
-    public GamesMenu(final MenuManager frame, final AccountManager account) {
+    public MainMenu(final MenuManager frame, final AccountManager account) {
 //        this.frame = frame;
 //        this.account = account;
         this.setLayout(new BorderLayout());
@@ -76,7 +76,7 @@ public class GamesMenu extends JPanel implements Menu {
         final JButton blackjack = new JButton();
         final JButton roulette = new JButton();
         final JButton bacarat = new JButton();
-        roulette.addActionListener(e -> frame.setRouletteMenu(account));
+        roulette.addActionListener(e -> frame.setGameMenu(account));
         accountman.addActionListener(e -> frame.setAccountMenu(account));
         
         //meglio creare una funzione

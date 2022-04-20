@@ -8,11 +8,11 @@ public interface MenuManager {
     
     void setAccessMenu();
 
-    void setGamesMenu(AccountManager account);
+    void setMainMenu(AccountManager account);
     
     void setAccountMenu(AccountManager account);
     
-    void setRouletteMenu(final AccountManager account);
+    void setGameMenu(final AccountManager account);
     
     Frame getFrame();
  
