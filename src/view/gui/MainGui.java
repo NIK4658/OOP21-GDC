@@ -33,8 +33,8 @@ public class MainGui implements MenuManager {
         this.frame.setResizable(false);
         this.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
-        this.setAccessMenu();
-//        this.setGameMenu(new AccountManagerImpl());
+//        this.setAccessMenu();
+        this.setGameMenu(new AccountManagerImpl());
 //        this.setAccountMenu(new AccountManagerImpl());
         
         this.frame.setLocationRelativeTo(null);
@@ -42,11 +42,9 @@ public class MainGui implements MenuManager {
     }
     
     private void updateMenu(final JPanel panel) {
-        System.out.println("updateMenu1: " + this.getSizeMenu());
         this.frame.setContentPane(panel);
         this.frame.pack();
         this.frame.revalidate();
-        System.out.println("updateMenu2: " + this.getSizeMenu());
     }
     
     @Override
@@ -56,20 +54,17 @@ public class MainGui implements MenuManager {
     
     @Override
     public void setMainMenu(final AccountManager account) {
-        System.out.println("setGamesMenu: " + this.getSizeMenu());
         this.updateMenu(new MainMenu(this, account).getMenu());
     }
 
     @Override
     public void setAccountMenu(final AccountManager account) {
-        System.out.println("setAccountMenu: " + this.getSizeMenu());
         this.updateMenu(new AccountMenu(this, account).getMenu());
     }
     
     @Override
     public void setGameMenu(final AccountManager account) {
         this.frame.setResizable(true);
-        System.out.println("setRouletteMenu: " + this.getSizeMenu());
         this.updateMenu(new GameMenu(this, account).getMenu());
     }
 
