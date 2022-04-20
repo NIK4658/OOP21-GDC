@@ -11,6 +11,9 @@ import java.util.List;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import javax.swing.*;
+
+import account.AccountManager;
+
 import java.awt.Image;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -28,7 +31,7 @@ public class Gui extends JFrame{
     private boolean rotatefirstcard = false;
     private final Game g = new GameImpl();
     
-    Gui(final Dimension dim) {
+    public Gui(final Dimension dim, AccountManager account) {
         setResizable(false);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         //JPanel con immagine di sfondo
@@ -328,7 +331,7 @@ public class Gui extends JFrame{
         //new DeckImpl().showPreciseSuit(Suits.DIAMONDS);
         //new DeckImpl().showPreciseCard(new CardImpl());
         //new DeckImpl().showAllCards();
-        new Gui(new Dimension(1280, 720));
+        //new Gui(new Dimension(1280, 720));
     }
     
 }
