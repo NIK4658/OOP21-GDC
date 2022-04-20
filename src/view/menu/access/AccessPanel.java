@@ -24,15 +24,15 @@ import view.menu.access.Access.AccessType;
 public class AccessPanel extends JPanel {
 
     private static final long serialVersionUID = 1L;
-    private static final int RATIOTITLEFONT=6;
-    private static final int RATIOTITLEAREAY=10;
-    private static final int RATIOBTNACCESSAREAX=2;
-    private static final int RATIOBTNACCESSAREAY=7;
-    private static final int RATIOBTNAREAX=2;
-    private static final int RATIOBTNAREAY=20;
-    private static final int RATIOBTNFONT=17;
-    private static final int SPACINGTITLE=60;
-    private static final int SPACINGBTN=5;
+    private static final int RATIOTITLEFONT = 6;
+    private static final int RATIOTITLEAREAY = 10;
+    private static final int RATIOBTNACCESSAREAX = 2;
+    private static final int RATIOBTNACCESSAREAY = 7;
+    private static final int RATIOBTNAREAX = 2;
+    private static final int RATIOBTNAREAY = 20;
+    private static final int RATIOBTNFONT = 17;
+    private static final int SPACINGTITLE = 60;
+    private static final int SPACINGBTN = 5;
     
     
     /**
@@ -43,12 +43,16 @@ public class AccessPanel extends JPanel {
         this.setBackground(new Color(68, 87, 96));
         this.setPreferredSize(dim);
         final JLabel title = new JLabel(accessType.toString(), SwingConstants.CENTER);
+        final JLabel warning = new JLabel("", SwingConstants.CENTER);
         final JTextField username = new JTextField("Username");
         final JTextField password = new JTextField("Password");                        
         final JTextField age = new JTextField("Età"); 
         final JButton loginButton;
         final JButton registerButton;
         final ArrayList<JComponent> list = new ArrayList<>();
+        //warning.setText("ciao");
+        
+        list.add(warning);
         list.add(username);
         list.add(password);
         
@@ -68,6 +72,8 @@ public class AccessPanel extends JPanel {
         final int dimX = dim.width;
         final int dimY = dim.height;
 
+        
+        
         title.setForeground(Color.WHITE);
         title.setPreferredSize(new Dimension(dimX, dimY / RATIOTITLEAREAY));
         title.setFont(new Font("Arial", Font.BOLD | Font.ITALIC, dimX / RATIOTITLEFONT));
@@ -78,10 +84,12 @@ public class AccessPanel extends JPanel {
         int i = 1;
         for (final JComponent jc : list) {
             jc.setPreferredSize(new Dimension(dimX / RATIOBTNAREAX, dimY / RATIOBTNAREAY));
-            jc.setFont(new Font("Arial", Font.PLAIN, dimX/RATIOBTNFONT));
+            jc.setFont(new Font("Arial", Font.PLAIN, dimX / RATIOBTNFONT));
             this.add(jc, GridBagConstraintsConstructor.get(0, i, SPACINGBTN));
             i++;
         }
+        
+        //warning.setFont(new Font("Arial", Font.PLAIN, dimX/(RATIOBTNFONT-2)));
         
         if (accessType.equals(AccessType.LOGIN)) {
             registerButton.addActionListener(al);
@@ -91,6 +99,8 @@ public class AccessPanel extends JPanel {
                 final AccountManager account = new AccountManagerImpl();
                 if (account.logger(username.getText(), password.getText())) {
                     access.successfullyAccessed(account);
+                } else {
+                    warning.setText("Login errato");
                 }
                 //aggiungere else: login errato, magari aggiungere JLabel("Credenziali errate")
                 //o Username non trovato, Password non trovata: sono da cambiare i metodi dela classe Account
@@ -103,6 +113,8 @@ public class AccessPanel extends JPanel {
             registerButton.addActionListener(e -> {
                 if (new AccountManagerImpl().register(username.getText(), password.getText(), age.getText())) {
                     //JLabel "registrazione completata esegui il login"
+                } else {
+                    warning.setText("Impossibile registrarsi");
                 }
                 //else: JLabel "...."
             });
