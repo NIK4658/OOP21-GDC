@@ -13,6 +13,8 @@ public interface Game {
     void askDouble();
     
     void startGame();
+    
+    void newTurn();
 
     boolean checkWin();
     

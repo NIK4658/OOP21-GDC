@@ -3,28 +3,38 @@ package blackjack;
 import java.util.LinkedList;
 import java.util.List;
 
+import account.AccountManager;
+
 public class GameImpl implements Game {
     
-    
-    private final List<Card> player = new LinkedList<>(); //creare classe hand? usare classe deck?
-    private final List<Card> dealer = new LinkedList<>(); //creare classe hand? usare classe deck?
+    private final AccountManager account;
+    private List<Card> player = new LinkedList<>(); //creare classe hand? usare classe deck?
+    private List<Card> dealer = new LinkedList<>(); //creare classe hand? usare classe deck?
     private final Deck deck;
 
 
     
-    GameImpl() {
-        this.deck = new DeckImpl();
+    GameImpl(AccountManager account) {
+        this.deck = new DeckImpl(6);
+        this.account = account;
         
-        this.player.add(this.deck.drawRandomCard());
-        this.player.add(this.deck.drawRandomCard());
+        newTurn();
         
-        this.dealer.add(this.deck.drawRandomCard());
-        this.dealer.add(this.deck.drawRandomCard()); 
+        
         //System.out.println(this.deck);
     }
     
     
-    
+    @Override
+    public void newTurn() {  
+        this.player = new LinkedList<>();
+        this.dealer = new LinkedList<>();     
+        this.player.add(this.deck.drawRandomCard());
+        this.player.add(this.deck.drawRandomCard());   
+        this.dealer.add(this.deck.drawRandomCard());
+        this.dealer.add(this.deck.drawRandomCard());  
+    }
+
     @Override
     public void askCard() {
         this.player.add(this.deck.drawRandomCard()); 
@@ -137,5 +147,11 @@ public class GameImpl implements Game {
     public int getDealerPoints() {
         return calculatePoints(this.dealer);
     }
+
+
+
+
+
+  
 
 }
