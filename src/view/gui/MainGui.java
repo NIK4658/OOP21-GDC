@@ -9,8 +9,8 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import view.menu.AccessMenu;
 import view.menu.AccountMenu;
-import view.menu.GamesMenu;
-import view.menu.RouletteMenu;
+import view.menu.MainMenu;
+import view.menu.GameMenu;
 
 //forse meglio usare un unico metodo setMenu(Menu menu, AccountManager account);
 //da settare this.frame.setResizable(false) appena aggiunto torna indietro nei giochi
@@ -34,7 +34,7 @@ public class MainGui implements MenuManager {
         this.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
         this.setAccessMenu();
-//        this.setRouletteMenu(new AccountManagerImpl());
+//        this.setGameMenu(new AccountManagerImpl());
 //        this.setAccountMenu(new AccountManagerImpl());
         
         this.frame.setLocationRelativeTo(null);
@@ -55,9 +55,9 @@ public class MainGui implements MenuManager {
     }
     
     @Override
-    public void setGamesMenu(final AccountManager account) {
+    public void setMainMenu(final AccountManager account) {
         System.out.println("setGamesMenu: " + this.getSizeMenu());
-        this.updateMenu(new GamesMenu(this, account).getMenu());
+        this.updateMenu(new MainMenu(this, account).getMenu());
     }
 
     @Override
@@ -67,10 +67,10 @@ public class MainGui implements MenuManager {
     }
     
     @Override
-    public void setRouletteMenu(final AccountManager account) {
+    public void setGameMenu(final AccountManager account) {
         this.frame.setResizable(true);
         System.out.println("setRouletteMenu: " + this.getSizeMenu());
-        this.updateMenu(new RouletteMenu(this, account).getMenu());
+        this.updateMenu(new GameMenu(this, account).getMenu());
     }
 
     @Override

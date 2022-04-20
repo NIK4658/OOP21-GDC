@@ -50,7 +50,7 @@ public class AccessMenu extends JPanel implements Access, Menu {
     
     @Override
     public void successfullyAccessed(final AccountManager account) {
-        frame.setGamesMenu(account);
+        frame.setMainMenu(account);
     }
     
     @Override
