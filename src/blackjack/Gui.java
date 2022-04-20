@@ -5,6 +5,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
+import java.awt.Graphics;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -13,6 +14,7 @@ import java.awt.Insets;
 import javax.swing.*;
 
 import account.AccountManager;
+import account.AccountManagerImpl;
 
 import java.awt.Image;
 import java.awt.GridBagConstraints;
@@ -21,12 +23,13 @@ import ex.ExImageModifier;
 import view.gui.MainGui;
 
 
-public class Gui extends JFrame{
+public class Gui extends JPanel{
 
     private static final long serialVersionUID = 1L;
     
     private int puntata;
     private int chipvalue = 1;
+    private Image img = new ImageIcon("res/img/backgrounds/blackjacktableHD.png").getImage();
     
     List<JLabel> dCards;
     List<JLabel> pCards;
@@ -35,13 +38,17 @@ public class Gui extends JFrame{
     public Gui(final Dimension dim, AccountManager account) {
         
         g = new GameImpl(account);
-        setResizable(false);
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        
+        this.setLayout(new BorderLayout());
+        
         //JPanel con immagine di sfondo
-        final BackgroundPanel bgpanel = new BackgroundPanel(
-                new ImageIcon("res/img/backgrounds/blackjacktableHD.png").getImage(),
-                BackgroundPanel.SCALED, 0.0f, 0.0f);  
+        //final BackgroundPanel bgpanel = new BackgroundPanel(
+        //       new ImageIcon("res/img/backgrounds/blackjacktableHD.png").getImage(),
+        //       BackgroundPanel.SCALED, 0.0f, 0.0f);  
         //Area Pulsanti in fondo SUD
+        
+        
+        
         final JPanel buttonsArea = new JPanel(new GridBagLayout());
         buttonsArea.setPreferredSize(new Dimension(150, 150));
 
@@ -81,7 +88,7 @@ public class Gui extends JFrame{
         }
         
         //aggiungo il jpanel dei pulsanti al jpanel generale
-        bgpanel.add(buttonsArea, BorderLayout.SOUTH);
+        add(buttonsArea, BorderLayout.SOUTH);
 
         
         
@@ -119,7 +126,7 @@ public class Gui extends JFrame{
         
         
         //aggiunto il pannello con tutte le carte del player al pannello generale
-        bgpanel.add(playerCardsPanel, BorderLayout.CENTER);
+        add(playerCardsPanel, BorderLayout.CENTER);
         
         
         
@@ -154,7 +161,7 @@ public class Gui extends JFrame{
         dealerCardsPanel.add(puntata);
         
         //aggiungo le carte del dealer al pannello generale NORTH
-        bgpanel.add(dealerCardsPanel, BorderLayout.NORTH);
+        add(dealerCardsPanel, BorderLayout.NORTH);
         
         
         dpoints.setText("");
@@ -166,11 +173,7 @@ public class Gui extends JFrame{
         reset.setEnabled(false);
         Double.setEnabled(false);
   
-        setPreferredSize(dim); 
-        add(bgpanel);    
-        pack();                                 
-        setLocationRelativeTo(null); 
-        setVisible(true); 
+        
        
 
         //da fare refactoring
@@ -436,7 +439,27 @@ public class Gui extends JFrame{
      */
     public static void main(final String[] args) {      
         //new Gui(new Dimension(1280, 720));
-        new MainGui();
+        final JFrame jf = new JFrame();
+        jf.setResizable(false);
+        //jf.setDefaultCloseOperation(EXIT_ON_CLOSE);
+        jf.setPreferredSize(new Dimension(1280, 720)); 
+        final AccountManager account = new AccountManagerImpl();
+        account.logger("Username", "Password");
+        jf.add(new Gui(new Dimension(1280, 720), account));    
+        jf.pack();                                 
+        jf.setLocationRelativeTo(null); 
+        jf.setVisible(true); 
+        
+        
+        
+        //new MainGui();
     }
+    
+    @Override
+    protected void paintComponent(final Graphics g) {
+        super.paintComponent(g);
+        g.drawImage(this.img, 0, 0, getWidth(), getHeight(), null);
+    }
+    
     
 }
