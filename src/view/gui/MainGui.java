@@ -10,6 +10,7 @@ import javax.swing.JPanel;
 import view.menu.AccessMenu;
 import view.menu.AccountMenu;
 import view.menu.MainMenu;
+import view.menu.Menu;
 import view.menu.GameMenu;
 
 //forse meglio usare un unico metodo setMenu(Menu menu, AccountManager account);
@@ -41,31 +42,31 @@ public class MainGui implements MenuManager {
         this.frame.setVisible(true);
     }
     
-    private void updateMenu(final JPanel panel) {
-        this.frame.setContentPane(panel);
+    private void updateMenu(final Menu menu) {
+        this.frame.setContentPane(menu.getMenu());
         this.frame.pack();
         this.frame.revalidate();
     }
     
     @Override
     public void setAccessMenu() {
-        this.updateMenu(new AccessMenu(this).getMenu());
+        this.updateMenu(new AccessMenu(this));
     }
     
     @Override
     public void setMainMenu(final AccountManager account) {
-        this.updateMenu(new MainMenu(this, account).getMenu());
+        this.updateMenu(new MainMenu(this, account));
     }
 
     @Override
     public void setAccountMenu(final AccountManager account) {
-        this.updateMenu(new AccountMenu(this, account).getMenu());
+        this.updateMenu(new AccountMenu(this, account));
     }
     
     @Override
     public void setGameMenu(final AccountManager account) {
         this.frame.setResizable(true);
-        this.updateMenu(new GameMenu(this, account).getMenu());
+        this.updateMenu(new GameMenu(this, account));
     }
 
     @Override
