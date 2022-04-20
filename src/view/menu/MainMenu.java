@@ -76,7 +76,9 @@ public class MainMenu extends JPanel implements Menu {
         final JButton blackjack = new JButton();
         final JButton roulette = new JButton();
         final JButton bacarat = new JButton();
+        
         roulette.addActionListener(e -> frame.setGameMenu(account));
+        blackjack.addActionListener(e -> frame.setBlackjackMenu(account));
         accountman.addActionListener(e -> frame.setAccountMenu(account));
         
         //meglio creare una funzione
@@ -111,7 +113,7 @@ public class MainMenu extends JPanel implements Menu {
         
         this.add(north, BorderLayout.NORTH);
         this.add(center, BorderLayout.CENTER);
-    }
+  }
 
     @Override
     public JPanel getMenu() {

@@ -2,6 +2,8 @@ package view.gui;
 
 import account.AccountManager;
 import account.AccountManagerImpl;
+import blackjack.Gui;
+
 import java.awt.Dimension;
 import java.awt.Frame;
 import java.awt.Toolkit;
@@ -72,6 +74,12 @@ public class MainGui implements MenuManager {
         System.out.println("setRouletteMenu: " + this.getSizeMenu());
         this.updateMenu(new GameMenu(this, account).getMenu());
     }
+    
+    @Override
+    public void setBlackjackMenu(AccountManager account) {
+        System.out.println("setBlackjackMenu: " + this.getSizeMenu());
+        new Gui(new Dimension(1280, 720), account);
+    }
 
     @Override
     public Frame getFrame() {
@@ -92,6 +100,8 @@ public class MainGui implements MenuManager {
     public Dimension getSizeMenu() {
         return this.sizeMenu;
     }
+
+    
 
 }
 
