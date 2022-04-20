@@ -45,17 +45,27 @@ public class GamesMenu extends JPanel implements Menu {
         north.setPreferredSize(new Dimension(width, height / 4));
         center.setBackground(new Color(44, 107, 14));
         
-        this.setLayout(new BorderLayout());
-        JPanel buttonPanel = new JPanel();
+        
+        
+        
         
         JButton accountman = new JButton("Impostazioni Account");
-        buttonPanel.add(accountman);
-        this.add(buttonPanel,BorderLayout.SOUTH);
+        
+        accountman.setOpaque(true);
+        accountman.setBorderPainted(false);
+        accountman.setBackground(new Color(0, 153, 0));
+        accountman.setForeground(Color.WHITE);
+
+        this.add(accountman,BorderLayout.SOUTH);
         
         //DA IMPOSTARE L'IMMAGINE DELLO SFONDO
-        new ImageIcon("res/img/backgrounds/tavolo.jpg");
         
+        final Dimension dimImg = new Dimension(frame.getWidthMenu(), frame.getHeightMenu());
+        final Image img1 = new ImageIcon("res/img/backgrounds/tavolo.jpg").getImage();
+        final Image imgScaled1 = img1.getScaledInstance(dimImg.width, dimImg.height, Image.SCALE_DEFAULT);
+        this.add(new JLabel(new ImageIcon(imgScaled1)));
         
+
         final JLabel title = new JLabel("GIOCHI DEL COLOSSO", SwingConstants.CENTER);
         title.setForeground(Color.WHITE);
         title.setPreferredSize(new Dimension(width - (width / 3 / 2), height / 10));
