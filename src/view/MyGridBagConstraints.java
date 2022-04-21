@@ -11,14 +11,19 @@ public class MyGridBagConstraints extends GridBagConstraints {
                 GridBagConstraints.CENTER, GridBagConstraints.BOTH, insets, ipadx, ipady);
     }
     
-    public MyGridBagConstraints(final int gridx, final int gridy, final int gridwidth, //
+    public MyGridBagConstraints(final int gridx, final int gridy, final int gridwidth,
             final int gridheight, final int ipadx, final int ipady) {
         this(gridx, gridy, gridwidth, gridheight, new Insets(0, 0, 0, 0), ipadx, ipady);
     }
     
-    public MyGridBagConstraints(final int gridx, final int gridy, final int gridwidth, //
+    public MyGridBagConstraints(final int gridx, final int gridy, final int gridwidth,
             final int gridheight, final Insets insets) {
         this(gridx, gridy, gridwidth, gridheight, insets, 0, 0);
+    }
+    
+    public MyGridBagConstraints(final int gridx, final int gridy, final int gridwidth,
+            final int gridheight) {
+        this(gridx, gridy, gridwidth, gridheight, 0, 0);
     }
     
     public MyGridBagConstraints(final int gridx, final int gridy) {
