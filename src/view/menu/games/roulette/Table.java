@@ -25,30 +25,69 @@ public class Table extends JPanel {
     
     private final Map<Integer, Color> rouletteNumbers;
     private final Image img;
-    private final int rightAlignment;
-    private final int adjustWidthButton;
+//    private final int rightAlignment;
+//    private final int adjustWidthButton;
     private final int adjustHeightButton;
     private int x;
     private int y;
     private GridBagConstraints gbc;
     
     public Table() {
-        final ImageIcon imgIcon = new ImageIcon("res/img/backgrounds/RouletteTable.png");
+        final ImageIcon imgIcon = new ImageIcon("res/img/backgrounds/Test3.png");
         this.img = imgIcon.getImage();
         this.setPreferredSize(new Dimension(imgIcon.getIconWidth(), imgIcon.getIconHeight()));
+        System.out.println(new Dimension(imgIcon.getIconWidth(), imgIcon.getIconHeight()));
         this.setLayout(new GridBagLayout());
-        this.adjustWidthButton = this.getPreferredSize().width / 30;
-        this.rightAlignment = this.getPreferredSize().width / 130;
-        this.adjustHeightButton = this.getPreferredSize().height / 7 * -1;
+//        this.adjustWidthButton = this.getPreferredSize().width / 33;
+//        this.rightAlignment = this.getPreferredSize().width / 150;
+        this.adjustHeightButton = this.getPreferredSize().height / -2;
         this.rouletteNumbers = new RouletteNumbers(37, 1);//sostituire numeri in modo da avere più tipi di roulette
-        this.addSectors();
-        this.addNumbers();
-        this.addRows();
-        this.addColumns();
-        this.addNumbersIncluded();
-        this.addEvenOdd();
-        this.addRedBlack();
         
+        JButton b;
+        final var d = new Dimension(imgIcon.getIconWidth() / 14, (imgIcon.getIconHeight() - 61)/ 3);
+        
+        final var d2 = new Dimension((imgIcon.getIconWidth() - 122) / 3, 61);
+        b = new JButton("1");
+        b.setPreferredSize(d2);
+        this.add(b, new MyGridBagConstraints(1, 0, 3, 1));
+        b = new JButton("2");
+        b.setPreferredSize(d2);
+        this.add(b, new MyGridBagConstraints(4, 0, 3, 1));
+        b = new JButton("3");
+        b.setPreferredSize(d2);
+        this.add(b, new MyGridBagConstraints(7, 0, 3, 1));
+        b = new JButton("4");
+        b.setPreferredSize(d2);
+        this.add(b, new MyGridBagConstraints(10, 0, 3, 1));
+        
+        
+        b = new JButton("0");
+        b.setPreferredSize(new Dimension(imgIcon.getIconWidth() / 14, imgIcon.getIconHeight()));
+        this.add(b, new MyGridBagConstraints(0, 1, 1, 3));
+        for (int i = 1; i < 14; i++) {
+            b = new JButton(String.valueOf(i));
+            b.setPreferredSize(d);
+            this.add(b, new MyGridBagConstraints(i, 1, 1, 1));
+        }
+        for (int i = 1; i < 14; i++) {
+            b = new JButton(String.valueOf(i));
+            b.setPreferredSize(d);
+            this.add(b, new MyGridBagConstraints(i, 2, 1, 1));
+        }
+        for (int i = 1; i < 14; i++) {
+            b = new JButton(String.valueOf(i));
+            b.setPreferredSize(d);
+            this.add(b, new MyGridBagConstraints(i, 3, 1, 1));
+        }
+        
+        
+//        this.addSectors();
+//        this.addNumbers();
+//        this.addRows();
+//        this.addColumns();
+//        this.addNumbersIncluded();
+//        this.addEvenOdd();
+//        this.addRedBlack();
     }
     
     private void addSectors() {
@@ -73,7 +112,8 @@ public class Table extends JPanel {
             final JButton button = new JButton(n.toString());
             button.setForeground(rouletteNumbers.get(n));
             if (value == 0) {
-                this.add(button, new MyGridBagConstraints(0, 1, 1, 3, this.adjustWidthButton, 0));
+//                this.add(button, new MyGridBagConstraints(0, 1, 1, 3, this.adjustWidthButton, 0));
+                this.add(button, new MyGridBagConstraints(0,1,1,3));
             } else {
                 this.add(button, gbc);
                 y--;
@@ -88,7 +128,8 @@ public class Table extends JPanel {
     }
     
     private void addRows() {
-        gbc = new MyGridBagConstraints(x, y, 1, 1, new Insets(0, 0, 0, this.rightAlignment));
+//        gbc = new MyGridBagConstraints(x, y, 1, 1, new Insets(0, 0, 0, this.rightAlignment));
+        gbc = new MyGridBagConstraints(x, y);
         for (; y > 0; y--) {
             this.add(new JButton("2to1"), gbc);
             gbc.gridy--;
