@@ -4,7 +4,7 @@ import java.util.LinkedList;
 
 public class WinningNumbers extends LinkedList<RouletteNumber> {
     
-    private static final int MAX_NUM_DISPLAYED = 12;
+    public static final int MAX_NUM_DISPLAYED = 12;
     
     public WinningNumbers() {
         for (int i = 0; i < MAX_NUM_DISPLAYED; i++) {

@@ -19,7 +19,8 @@ import javax.swing.Timer;
 
 import account.AccountManager;
 import view.gui.MenuManager;
-import view.menu.games.roulette.RoulettePanel;
+import view.menu.games.roulette.Game;
+import view.menu.games.roulette.RouletteGame;
 import view.menu.games.roulette.Table;
 
 public class GameMenu extends JPanel implements Menu {
@@ -46,6 +47,7 @@ public class GameMenu extends JPanel implements Menu {
         betField.setEditable(false);
         this.updateField();
         
+        Game game = new RouletteGame();
         final JLabel timer = new JLabel();
         this.time = TIME_BETTING;
         final ActionListener clock = e -> {
@@ -55,7 +57,7 @@ public class GameMenu extends JPanel implements Menu {
             timer.setText(String.valueOf(time / CLOCK_TIME));
             time -= 1000;
         };
-        final ActionListener endBetting = e -> System.out.println("End betting");
+        final ActionListener endBetting = e -> game.endBetting();
         new Timer(CLOCK_TIME, clock).start();
         new Timer(TIME_BETTING, endBetting).start();
         
@@ -65,7 +67,7 @@ public class GameMenu extends JPanel implements Menu {
         south.add(betField);
         south.add(timer);
         this.add(south, BorderLayout.SOUTH);
-        this.add(new RoulettePanel());
+        this.add(game.getGame());
     }
 
     private void updateBalance() {
