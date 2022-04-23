@@ -19,12 +19,13 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import roulette.RouletteNumber;
 import roulette.RouletteNumbers;
 import view.MyGridBagConstraints;
 
 public class Table extends JPanel {
     
-    private final Map<Integer, Color> rouletteNumbers;
+    private final List<RouletteNumber> rouletteNumbers;
     private final Image img;
     private int x;
     private int y;
@@ -42,7 +43,7 @@ public class Table extends JPanel {
         height = this.getPreferredSize().height;
         this.setLayout(new GridBagLayout());
         
-        this.rouletteNumbers = new RouletteNumbers(37, 1);//sostituire numeri in modo da avere più tipi di roulette
+        this.rouletteNumbers = new RouletteNumbers();//sostituire numeri in modo da avere più tipi di roulette
         this.addSectors();
         this.addNumbers();
         this.addRows();
@@ -78,10 +79,10 @@ public class Table extends JPanel {
     private void addNumbers() {
         y += 3;
         gbc = new MyGridBagConstraints(x, y);
-        for (final Integer n : rouletteNumbers.keySet()) {
-            final int value = n;
-            final JButton button = new JButton(n.toString());
-            button.setForeground(rouletteNumbers.get(n));
+        for (final RouletteNumber n : rouletteNumbers) {
+            final Integer value = n.getValue();
+            final JButton button = new JButton(value.toString());
+            button.setForeground(n.getColor());
             if (value == 0) {
                 button.setPreferredSize(new Dimension(width / 14, height / 2));
                 this.add(button, new MyGridBagConstraints(0, 1, 1, 3));

@@ -19,7 +19,7 @@ public class RoulettePanel extends JPanel {
         final DisplayWinningNumbers l = new DisplayWinningNumbers();
         final Roulette roulette = new Roulette(l);
         this.add(new Table());
-//        this.add(l, BorderLayout.NORTH);
+        this.add(l, BorderLayout.NORTH);
         
         roulette.start();
     }

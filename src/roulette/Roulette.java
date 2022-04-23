@@ -8,7 +8,7 @@ import view.menu.games.roulette.DisplayWinningNumbers;
 
 //da eliminare winningNumbers e metodo spin deve tornare un RouletteNumber
 public class Roulette {
-    private static final int DELAY = 3000;
+    private static final int DELAY = 3000;//da togliere o mettere poi gif roulette che gira
     private final Random random;
     private final WinningNumbers winningNumbers;
     private final DisplayWinningNumbers l;
