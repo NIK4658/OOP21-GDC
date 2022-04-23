@@ -38,7 +38,6 @@ public class Table extends JPanel {
     public Table() {
         final ImageIcon imgIcon = new ImageIcon("res/img/backgrounds/RouletteTable.png");
         this.img = imgIcon.getImage();
-        this.setPreferredSize(new Dimension(imgIcon.getIconWidth() / 4, imgIcon.getIconHeight() / 4));
         width = this.getPreferredSize().width;
         height = this.getPreferredSize().height;
         this.setLayout(new GridBagLayout());

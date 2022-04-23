@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Container;
+import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
@@ -40,15 +41,25 @@ public class GameMenu extends JPanel implements Menu {
         final JPanel south = new JPanel(new GridBagLayout());
         final JLabel balanceLabel = new JLabel("Balance");
         final JLabel betLabel = new JLabel("Bet");
+        final JLabel timer = new JLabel();
         final NumberFormat format = DecimalFormat.getCurrencyInstance();
         balanceField = new JFormattedTextField(format);
         betField = new JFormattedTextField(format);
         balanceField.setEditable(false);
         betField.setEditable(false);
         this.updateField();
+        south.add(balanceLabel);
+        south.add(balanceField);
+        south.add(betLabel);
+        south.add(betField);
+        south.add(timer);
+        this.add(south, BorderLayout.SOUTH);
         
-        Game game = new RouletteGame();
-        final JLabel timer = new JLabel();
+        Dimension dimensionGame = new Dimension(this.getPreferredSize().width - south.getPreferredSize().height,
+                this.getPreferredSize().height - south.getPreferredSize().width);
+        final Game game = new RouletteGame(dimensionGame);
+        this.add(game.getGame());
+        
         this.time = TIME_BETTING;
         final ActionListener clock = e -> {
             if (time <= 0) {
@@ -61,13 +72,8 @@ public class GameMenu extends JPanel implements Menu {
         new Timer(CLOCK_TIME, clock).start();
         new Timer(TIME_BETTING, endBetting).start();
         
-        south.add(balanceLabel);
-        south.add(balanceField);
-        south.add(betLabel);
-        south.add(betField);
-        south.add(timer);
-        this.add(south, BorderLayout.SOUTH);
-        this.add(game.getGame());
+
+
     }
 
     private void updateBalance() {
