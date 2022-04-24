@@ -15,13 +15,14 @@ import java.awt.FlowLayout;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 import javax.swing.border.Border;
 import java.awt.Font;
-
+import java.awt.Image;
 
 import account.AccountManager;
 import view.gui.MenuManager;
@@ -31,7 +32,7 @@ public class GeneralGui extends JFrame {
 	
 	
 	  GeneralGui(){
-	        setTitle("JPANEL CREATION");
+	        setTitle("Gui giochi");
 	        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	        setLayout(null);
 	        //setting the bounds for the JFrame
@@ -55,11 +56,11 @@ public class GeneralGui extends JFrame {
 	        
 	        panel2.setBounds(570,10,70,50);
 	        //Panel 3
-	        //panel3.setBackground(Color.green);
+	        
 	        panel3.setBounds(10,400,300,200);
 	        //Panel 4
-	        panel4.setBackground(Color.cyan);
-	        panel4.setBounds(400,220,300,200);
+	        
+	        panel4.setBounds(300,400,300,200);
 	        
 	        JLabel label3=new JLabel("SALDO | PUNTATA | VINCITA");
 	        label3.setFont(new Font("Verdana", Font.PLAIN, 15));
@@ -75,6 +76,36 @@ public class GeneralGui extends JFrame {
 	        
 	        final JButton bo1 = new JButton("?");
 	        panel2.add(bo1);
+	        
+	        final JButton bo2 = new JButton("ANNULLA");
+	        /*final JButton bo3 = new JButton("?");
+	        final JButton bo4 = new JButton("?");
+	        final JButton bo5 = new JButton("?");
+	        final JButton bo6 = new JButton("?");
+	        final JButton bo7 = new JButton("?");
+	        //panel4.add(bo2);
+	        //panel4.add(bo3);
+	        //panel4.add(bo4);
+	        //panel4.add(bo5);
+	        //panel4.add(bo6);
+	        //panel4.add(bo7);*/
+	        
+	        final Image img1 = new ImageIcon("res/img/fiches/empty/1.png").getImage();
+	        
+	        JButton imageButton = new JButton(new ImageIcon(img1));
+	        
+	        //Image img = icon.getImage() ;  
+	        //Image newimg = img.getScaledInstance( NEW_WIDTH, NEW_HEIGHT,  java.awt.Image.SCALE_SMOOTH ) ;  
+	        //icon = new ImageIcon( newimg );
+	        
+	        imageButton.setBorderPainted(false);
+	        imageButton.setContentAreaFilled(false);
+	        imageButton.setFocusPainted(false);
+	        imageButton.setOpaque(false);
+	        imageButton.setPreferredSize(new Dimension(40, 40));
+	        
+	        panel4.add(bo2);
+	        
 	        
 	        // Panel border
 	        //panel.setBorder(br);
