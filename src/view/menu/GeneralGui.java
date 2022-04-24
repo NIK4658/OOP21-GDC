@@ -5,6 +5,8 @@ import java.awt.LayoutManager;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.SwingConstants;
+
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Container;
@@ -18,6 +20,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 import javax.swing.border.Border;
+import java.awt.Font;
 
 
 import account.AccountManager;
@@ -43,36 +46,27 @@ public class GeneralGui extends JFrame {
 	        //setting the panel layout as null
 	        
 	        
-	        /*panel.setLayout(null);
-	        panel2.setLayout(null);
-	        panel3.setLayout(null);
-	        panel4.setLayout(null);
-	        //adding a label element to the panel
-	        /*JLabel label=new JLabel("Panel 1");
-	        JLabel label2=new JLabel("Panel 2");
-	        JLabel label3=new JLabel("Panel 3");
-	        JLabel label4=new JLabel("Panel 4");
-	        label.setBounds(120,50,200,50);
-	        label2.setBounds(120,50,200,50);
-	        label3.setBounds(120,50,200,50);
-	        label4.setBounds(120,50,200,50);
-	        panel.add(label);
-	        panel2.add(label2);
-	        panel3.add(label3);
-	        panel4.add(label4);*/
+	       
 	        // changing the background color of the panel to yellow
 	        //Panel 1
 	        //panel.setBackground(Color.yellow);
 	        panel.setBounds(10,10,70,50);
 	        //Panel 2
-	        //panel2.setBackground(Color.red);
+	        
 	        panel2.setBounds(570,10,70,50);
 	        //Panel 3
-	        panel3.setBackground(Color.green);
-	        panel3.setBounds(10,220,300,200);
+	        //panel3.setBackground(Color.green);
+	        panel3.setBounds(10,400,300,200);
 	        //Panel 4
 	        panel4.setBackground(Color.cyan);
-	        panel4.setBounds(320,220,300,200);
+	        panel4.setBounds(400,220,300,200);
+	        
+	        JLabel label3=new JLabel("SALDO | PUNTATA | VINCITA");
+	        label3.setFont(new Font("Verdana", Font.PLAIN, 15));
+	        
+	        label3.setBounds(10,50,200,50);
+	        
+	        panel3.add(label3);
 	        
 
 
@@ -91,7 +85,7 @@ public class GeneralGui extends JFrame {
 	        //adding the panel to the Container of the JFrame
 	        c.add(panel,BorderLayout.EAST);
 	        c.add(panel2,BorderLayout.WEST);
-	        c.add(panel3);
+	        c.add(panel3,BorderLayout.SOUTH);
 	        c.add(panel4);
 	       
 	        setVisible(true);
