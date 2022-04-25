@@ -1,16 +1,10 @@
 package view.menu.games.roulette;
 
-import java.awt.Dimension;
-import javax.swing.JButton;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import account.AccountManager;
-import roulette.Roulette;
-import view.gui.MenuManager;
-import view.menu.GameMenu;
-
 import java.awt.BorderLayout;
-import java.awt.Color;
+import java.awt.Dimension;
+import javax.swing.JPanel;
+import roulette.Roulette;
+
 
 //RouletteGame
 public class RouletteGame extends JPanel implements Game {
