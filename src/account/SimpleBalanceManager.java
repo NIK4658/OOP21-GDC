@@ -1,6 +1,6 @@
 package account;
 
-public interface BalanceManager {
+public interface SimpleBalanceManager {
 
     boolean deposit(double amount);
 

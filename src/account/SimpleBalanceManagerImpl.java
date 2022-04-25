@@ -4,12 +4,12 @@ import java.io.PrintWriter;
 
 import org.json.simple.JSONObject;
 
-public class BalanceManagerImpl implements BalanceManager {
+public class SimpleBalanceManagerImpl implements SimpleBalanceManager {
 
     
     private String username;
     
-    BalanceManagerImpl(String username) {
+    SimpleBalanceManagerImpl(String username) {
         this.username = username;
     }
     
