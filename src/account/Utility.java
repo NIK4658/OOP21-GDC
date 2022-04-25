@@ -41,6 +41,16 @@ public class Utility {
         }
     }
     
+    public static String getField(final String usr, final AdvancedAccountManager.Fields field) {
+        final JSONObject jo = getJsonObject(usr);  
+        if (!jo.isEmpty()) {
+            //BUG TOSTRING DA SISTEMARE
+            return jo.get(field.toString()).toString();
+        } else {
+            return "";
+        }
+    }
+    
     
     
     
