@@ -24,7 +24,7 @@ import javax.swing.border.Border;
 import java.awt.Font;
 import java.awt.Image;
 
-import account.AccountManager;
+import account.SimpleAccountManager;
 import view.gui.MenuManager;
 
 public class GeneralGui extends JFrame {

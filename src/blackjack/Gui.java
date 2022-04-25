@@ -12,7 +12,7 @@ import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import javax.swing.*;
 
-import account.AccountManager;
+import account.SimpleAccountManager;
 
 import java.awt.Image;
 import java.awt.GridBagConstraints;
@@ -31,7 +31,7 @@ public class Gui extends JFrame{
     private boolean rotatefirstcard = false;
     private final Game g = new GameImpl();
     
-    public Gui(final Dimension dim, AccountManager account) {
+    public Gui(final Dimension dim, SimpleAccountManager account) {
         setResizable(false);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         //JPanel con immagine di sfondo

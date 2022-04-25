@@ -1,7 +1,7 @@
 package view.menu.access;
 
-import account.AccountManager;
-import account.AccountManagerImpl;
+import account.SimpleAccountManager;
+import account.SimpleAccountManagerImpl;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -96,7 +96,7 @@ public class AccessPanel extends JPanel {
             registerButton.setPreferredSize(new Dimension(dimX / RATIOBTNACCESSAREAX, dimY / RATIOBTNACCESSAREAY));
             
             loginButton.addActionListener(e -> {
-                final AccountManager account = new AccountManagerImpl();
+                final SimpleAccountManager account = new SimpleAccountManagerImpl();
                 if (account.logger(username.getText(), password.getText())) {
                     access.successfullyAccessed(account);
                 } else {
@@ -111,7 +111,7 @@ public class AccessPanel extends JPanel {
             loginButton.setPreferredSize(new Dimension(dimX / RATIOBTNACCESSAREAX, dimY / RATIOBTNACCESSAREAY));
             
             registerButton.addActionListener(e -> {
-                if (new AccountManagerImpl().register(username.getText(), password.getText(), age.getText())) {
+                if (new SimpleAccountManagerImpl().register(username.getText(), password.getText(), age.getText())) {
                     //JLabel "registrazione completata esegui il login"
                 } else {
                     warning.setText("Impossibile registrarsi");

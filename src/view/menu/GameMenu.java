@@ -15,7 +15,7 @@ import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import account.AccountManager;
+import account.SimpleAccountManager;
 import view.gui.MenuManager;
 import view.menu.games.roulette.RoulettePanel;
 
@@ -24,7 +24,7 @@ public class GameMenu extends JPanel implements Menu {
     private final JFormattedTextField balanceField;
     private final JFormattedTextField betField;
     
-    public GameMenu(final MenuManager frame, final AccountManager account) {
+    public GameMenu(final MenuManager frame, final SimpleAccountManager account) {
         this.setLayout(new BorderLayout());
         this.setPreferredSize(frame.getSizeMenu());
 //        this.setBackground(new Color(0, 118, 58)); //verde come il tavolo della roulette

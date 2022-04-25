@@ -11,15 +11,15 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-import account.AccountManager;
+import account.SimpleAccountManager;
 import view.GridBagConstraintsConstructor;
 
 //pannello CAMBIO PASSWORD, sistemare ripetizioni
 public class PasswordPanel extends JPanel {
     
-    private final AccountManager account;
+    private final SimpleAccountManager account;
 
-    public PasswordPanel(final Frame frame, final AccountManager account) {
+    public PasswordPanel(final Frame frame, final SimpleAccountManager account) {
         this.account = account;
         this.setLayout(new GridBagLayout());
         this.setBackground(new Color(68, 87, 96));     

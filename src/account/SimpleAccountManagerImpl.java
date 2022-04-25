@@ -5,6 +5,8 @@ import java.io.FileReader;
 import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Map.Entry;
+
 import notify.gui.NotifyGui;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -12,7 +14,7 @@ import org.json.simple.parser.JSONParser;
 /**
  * Classe principale gestione account.
  */
-public class AccountManagerImpl implements AccountManager {
+public class SimpleAccountManagerImpl implements SimpleAccountManager {
 
     private String username;
     
@@ -61,13 +63,15 @@ public class AccountManagerImpl implements AccountManager {
                 return false;
             }
 
-            final Map<AccountManager.Fields, String> m = new HashMap<>();
+            final Map<SimpleAccountManager.Fields, String> m = new HashMap<>();
             m.put(Fields.USERNAME, usr);
             m.put(Fields.PASSWORD, psw);
             m.put(Fields.BALANCE, "0.0");
             m.put(Fields.AGE, age);
             final JSONObject jo = new JSONObject(m);
 
+            jo.replace("Username", usr);
+            
             Utility.writeOnFile(usr, jo);
             
             new NotifyGui(("Registrazione confermata, scrittura su file avvenuta"));
@@ -112,9 +116,6 @@ public class AccountManagerImpl implements AccountManager {
         return f.delete();
     }
 
-
-
-
     @Override
     public String getUsr() {
         return String.valueOf((Utility.getJsonObject(this.username)).get("Username"));
@@ -130,7 +131,5 @@ public class AccountManagerImpl implements AccountManager {
     @Override
     public String getAge() {
         return String.valueOf((Utility.getJsonObject(this.username)).get("Eta"));
-    }
-
-    
+    }    
 }

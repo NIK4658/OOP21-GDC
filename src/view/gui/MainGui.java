@@ -1,7 +1,7 @@
 package view.gui;
 
-import account.AccountManager;
-import account.AccountManagerImpl;
+import account.SimpleAccountManager;
+import account.SimpleAccountManagerImpl;
 import blackjack.Gui;
 
 import java.awt.Dimension;
@@ -57,26 +57,26 @@ public class MainGui implements MenuManager {
     }
     
     @Override
-    public void setMainMenu(final AccountManager account) {
+    public void setMainMenu(final SimpleAccountManager account) {
         System.out.println("setGamesMenu: " + this.getSizeMenu());
         this.updateMenu(new MainMenu(this, account).getMenu());
     }
 
     @Override
-    public void setAccountMenu(final AccountManager account) {
+    public void setAccountMenu(final SimpleAccountManager account) {
         System.out.println("setAccountMenu: " + this.getSizeMenu());
         this.updateMenu(new AccountMenu(this, account).getMenu());
     }
     
     @Override
-    public void setGameMenu(final AccountManager account) {
+    public void setGameMenu(final SimpleAccountManager account) {
         this.frame.setResizable(true);
         System.out.println("setRouletteMenu: " + this.getSizeMenu());
         this.updateMenu(new GameMenu(this, account).getMenu());
     }
     
     @Override
-    public void setBlackjackMenu(AccountManager account) {
+    public void setBlackjackMenu(SimpleAccountManager account) {
         System.out.println("setBlackjackMenu: " + this.getSizeMenu());
         new Gui(new Dimension(1280, 720), account);
     }

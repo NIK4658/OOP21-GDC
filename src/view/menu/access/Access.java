@@ -1,6 +1,6 @@
 package view.menu.access;
 
-import account.AccountManager;
+import account.SimpleAccountManager;
 
 public interface Access {
     
@@ -8,6 +8,6 @@ public interface Access {
         LOGIN, REGISTER 
     } 
     
-    void successfullyAccessed(AccountManager account);
+    void successfullyAccessed(SimpleAccountManager account);
 
 }

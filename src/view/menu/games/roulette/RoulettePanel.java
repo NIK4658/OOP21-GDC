@@ -3,7 +3,7 @@ package view.menu.games.roulette;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import account.AccountManager;
+import account.SimpleAccountManager;
 import roulette.Roulette;
 import view.gui.MenuManager;
 import view.menu.GameMenu;

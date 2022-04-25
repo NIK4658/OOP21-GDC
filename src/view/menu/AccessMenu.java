@@ -1,6 +1,6 @@
 package view.menu;
 
-import account.AccountManager;
+import account.SimpleAccountManager;
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.Dimension;
@@ -49,7 +49,7 @@ public class AccessMenu extends JPanel implements Access, Menu {
     }
     
     @Override
-    public void successfullyAccessed(final AccountManager account) {
+    public void successfullyAccessed(final SimpleAccountManager account) {
         frame.setMainMenu(account);
     }
     

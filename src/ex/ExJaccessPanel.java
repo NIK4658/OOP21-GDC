@@ -1,6 +1,6 @@
 package ex;
 
-import account.AccountManagerImpl;
+import account.SimpleAccountManagerImpl;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -89,11 +89,11 @@ public class ExJaccessPanel extends JPanel implements ExAccessPanel {
 
         if (access.equals(AccessType.LOGIN)) {
             loginbtn.addActionListener(e -> {
-                new AccountManagerImpl().logger(usr.getText(), psw.getText());
+                new SimpleAccountManagerImpl().logger(usr.getText(), psw.getText());
             });
         } else if (access.equals(AccessType.REGISTER)) {
             registerbtn.addActionListener(e -> {
-                new AccountManagerImpl().register(usr.getText(), psw.getText(), eta.getText());
+                new SimpleAccountManagerImpl().register(usr.getText(), psw.getText(), eta.getText());
             });
         }
     }
