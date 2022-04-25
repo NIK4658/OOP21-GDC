@@ -15,6 +15,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import account.SimpleAccountManager;
+import account.SimpleBalanceManager;
+import account.SimpleBalanceManagerImpl;
 import view.GridBagConstraintsConstructor;
 
 //pannello GESTIONE SALDO, sistemare ripetizioni e creare funzioni per check amount
@@ -22,10 +24,10 @@ public class BalancePanel extends JPanel {
     
     private static final double MAX_IMPORT = 10000;
     private static final double MIN_IMPORT = 15;
-    private final SimpleAccountManager account;
+    private final SimpleBalanceManager account;
     
     public BalancePanel(final SimpleAccountManager account) {
-        this.account = account;
+        this.account = new SimpleBalanceManagerImpl(account);
         final String currencySymbol = Currency.getInstance(getLocale()).getSymbol();
         this.setLayout(new GridBagLayout());
         this.setBackground(new Color(68, 87, 96));

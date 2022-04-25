@@ -7,9 +7,9 @@ import org.json.simple.JSONObject;
 public class SimpleBalanceManagerImpl implements SimpleBalanceManager {
 
     
-    private String username;
+    private SimpleAccountManager username;
     
-    SimpleBalanceManagerImpl(String username) {
+    public SimpleBalanceManagerImpl(SimpleAccountManager username) {
         this.username = username;
     }
     
@@ -18,9 +18,9 @@ public class SimpleBalanceManagerImpl implements SimpleBalanceManager {
     @Override
     public boolean deposit(final double amount) {
         final double newbalance = getBalance() + amount;
-        final JSONObject jo = Utility.getJsonObject(this.username);
+        final JSONObject jo = Utility.getJsonObject(this.username.getUsr());
         jo.replace("Saldo", newbalance);
-        Utility.writeOnFile(this.username, jo);
+        Utility.writeOnFile(this.username.getUsr(), jo);
         return true;
     }
 
@@ -38,15 +38,15 @@ public class SimpleBalanceManagerImpl implements SimpleBalanceManager {
     
     @Override
     public boolean changeBalance(final double balancenew) {
-        final JSONObject jo = Utility.getJsonObject(this.username);
+        final JSONObject jo = Utility.getJsonObject(this.username.getUsr());
         jo.replace("Saldo", balancenew);
-        Utility.writeOnFile(this.username, jo);
+        Utility.writeOnFile(this.username.getUsr(), jo);
         return true;
     }
     
     @Override
     public double getBalance() { 
-        return Double.parseDouble(String.valueOf((Utility.getJsonObject(this.username)).get("Saldo")));
+        return Double.parseDouble(String.valueOf((Utility.getJsonObject(this.username.getUsr())).get(Fields.BALANCE)));
     }
     
     
