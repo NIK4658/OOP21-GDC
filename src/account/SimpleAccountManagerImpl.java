@@ -69,8 +69,6 @@ public class SimpleAccountManagerImpl implements SimpleAccountManager {
             m.put(Fields.BALANCE, "0.0");
             m.put(Fields.AGE, age);
             final JSONObject jo = new JSONObject(m);
-
-            jo.replace("Username", usr);
             
             Utility.writeOnFile(usr, jo);
             
@@ -90,46 +88,44 @@ public class SimpleAccountManagerImpl implements SimpleAccountManager {
 
     @Override
     public boolean changeUsr(final String usrnew) {
-        final JSONObject jo = Utility.getJsonObject(this.username);
-        jo.replace("Username", usrnew);
-        Utility.writeOnFile(usrnew, jo);
-        deleteAcc();
-        this.username = usrnew;
-        return true;
+        if (changeField(Fields.USERNAME, usrnew, usrnew) && deleteAcc()) {
+            this.username = usrnew;
+            return true;
+        } else {
+            return false;
+        }
     }
 
     @Override
     public boolean changePass(final String psw) {
-        final JSONObject jo = Utility.getJsonObject(this.username);
-        jo.replace("Password", psw);
-        Utility.writeOnFile(this.username, jo);
-        return true;
+        return changeField(Fields.PASSWORD, psw, this.username);
     }
     
-   
+    private boolean changeField(final SimpleAccountManager.Fields field, final String newValue, final String usr) {
+        final JSONObject jo = Utility.getJsonObject(this.username);
+        jo.replace(field, newValue);
+        Utility.writeOnFile(usr, jo);
+        return true;
+    }
 
     @Override
     public boolean deleteAcc() {
         final File f = new File(Utility.getPath(this.username));
-        System.out.println(f.getAbsolutePath());
-        System.out.println(f.delete());
         return f.delete();
     }
 
     @Override
     public String getUsr() {
-        return String.valueOf((Utility.getJsonObject(this.username)).get("Username"));
+        return String.valueOf((Utility.getJsonObject(this.username)).get(Fields.USERNAME));
     }
-
 
     @Override
     public String getPsw() {
-        return String.valueOf((Utility.getJsonObject(this.username)).get("Password"));
+        return String.valueOf((Utility.getJsonObject(this.username)).get(Fields.PASSWORD));
     }
-
 
     @Override
     public String getAge() {
-        return String.valueOf((Utility.getJsonObject(this.username)).get("Eta"));
+        return String.valueOf((Utility.getJsonObject(this.username)).get(Fields.AGE));
     }    
 }
