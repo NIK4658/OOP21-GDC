@@ -1,5 +1,6 @@
 package view.menu;
 
+import account.AdvancedAccountManager;
 import account.SimpleAccountManager;
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
@@ -49,7 +50,7 @@ public class AccessMenu extends JPanel implements Access, Menu {
     }
     
     @Override
-    public void successfullyAccessed(final SimpleAccountManager account) {
+    public void successfullyAccessed(final AdvancedAccountManager account) {
         frame.setMainMenu(account);
     }
     

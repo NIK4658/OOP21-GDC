@@ -14,6 +14,7 @@ import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import account.AdvancedAccountManager;
 import account.SimpleAccountManager;
 import account.SimpleBalanceManager;
 import account.SimpleBalanceManagerImpl;
@@ -26,7 +27,7 @@ public class BalancePanel extends JPanel {
     private static final double MIN_IMPORT = 15;
     private final SimpleBalanceManager account;
     
-    public BalancePanel(final SimpleAccountManager account) {
+    public BalancePanel(final AdvancedAccountManager account) {
         this.account = new SimpleBalanceManagerImpl(account);
         final String currencySymbol = Currency.getInstance(getLocale()).getSymbol();
         this.setLayout(new GridBagLayout());

@@ -1,5 +1,6 @@
 package view.menu;
 
+import account.AdvancedAccountManager;
 import account.SimpleAccountManager;
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -28,14 +29,14 @@ public class AccountMenu implements Menu {
      **/
     private static final long serialVersionUID = 1L;
     private final MenuManager frame;
-    private final SimpleAccountManager account;
+    private final AdvancedAccountManager account;
     private final JPanel panel;
     private final JPanel panelAccount;
     private final JButton buttonBack;
     private final ActionListener alBackMenu;
     private ActionListener alBackPanel;
     
-    public AccountMenu(final MenuManager frame, final SimpleAccountManager account) {
+    public AccountMenu(final MenuManager frame, final AdvancedAccountManager account) {
         this.frame = frame;
         this.account = account;
         this.panel = new JPanel(new BorderLayout());

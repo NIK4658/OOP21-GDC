@@ -1,5 +1,7 @@
 package view.gui;
 
+import account.AdvancedAccountManager;
+import account.AdvancedAccountManagerImpl;
 import account.SimpleAccountManager;
 import account.SimpleAccountManagerImpl;
 import blackjack.Gui;
@@ -36,9 +38,9 @@ public class MainGui implements MenuManager {
         this.frame.setResizable(false);
         this.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
-//        this.setAccessMenu();
-        this.setGameMenu(new AccountManagerImpl());
-//        this.setAccountMenu(new AccountManagerImpl());
+        this.setAccessMenu();
+        //this.setGameMenu(new AdvancedAccountManagerImpl());
+        //this.setAccountMenu(new AdvancedAccountManagerImpl());
         
         this.frame.setLocationRelativeTo(null);
         this.frame.setVisible(true);
@@ -56,23 +58,23 @@ public class MainGui implements MenuManager {
     }
     
     @Override
-    public void setMainMenu(final AccountManager account) {
+    public void setMainMenu(final AdvancedAccountManager account) {
         this.updateMenu(new MainMenu(this, account));
     }
 
     @Override
-    public void setAccountMenu(final AccountManager account) {
+    public void setAccountMenu(final AdvancedAccountManager account) {
         this.updateMenu(new AccountMenu(this, account));
     }
     
     @Override
-    public void setGameMenu(final SimpleAccountManager account) {
+    public void setGameMenu(final AdvancedAccountManager account) {
         this.frame.setResizable(true);
         this.updateMenu(new GameMenu(this, account));
     }
     
     @Override
-    public void setBlackjackMenu(SimpleAccountManager account) {
+    public void setBlackjackMenu(AdvancedAccountManager account) {
         System.out.println("setBlackjackMenu: " + this.getSizeMenu());
         new Gui(new Dimension(1280, 720), account);
     }

@@ -1,5 +1,6 @@
 package view.gui;
 
+import account.AdvancedAccountManager;
 import account.SimpleAccountManager;
 import java.awt.Dimension;
 import java.awt.Frame;
@@ -8,13 +9,13 @@ public interface MenuManager {
     
     void setAccessMenu();
 
-    void setMainMenu(SimpleAccountManager account);
+    void setMainMenu(AdvancedAccountManager account);
     
-    void setAccountMenu(SimpleAccountManager account);
+    void setAccountMenu(AdvancedAccountManager account);
     
-    void setGameMenu(final SimpleAccountManager account);
+    void setGameMenu(final AdvancedAccountManager account);
     
-    void setBlackjackMenu(final SimpleAccountManager account);
+    void setBlackjackMenu(final AdvancedAccountManager account);
     
     Frame getFrame();
  

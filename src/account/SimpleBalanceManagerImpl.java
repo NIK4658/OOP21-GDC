@@ -7,9 +7,9 @@ import org.json.simple.JSONObject;
 public class SimpleBalanceManagerImpl implements SimpleBalanceManager {
 
     
-    private SimpleAccountManager username;
+    private AdvancedAccountManager username;
     
-    public SimpleBalanceManagerImpl(SimpleAccountManager username) {
+    public SimpleBalanceManagerImpl(AdvancedAccountManager username) {
         this.username = username;
     }
     
@@ -46,7 +46,8 @@ public class SimpleBalanceManagerImpl implements SimpleBalanceManager {
     
     @Override
     public double getBalance() { 
-        return Double.parseDouble(String.valueOf((Utility.getJsonObject(this.username.getUsr())).get(Fields.BALANCE)));
+        return Double.parseDouble(String.valueOf((Utility.getJsonObject(this.username.getUsr()))
+                .get(Fields.BALANCE.toString()))); //da fixare bug
     }
     
     
