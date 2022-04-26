@@ -2,19 +2,19 @@ package test;
 
 import static org.junit.Assert.assertTrue;
 
-import account.AccountManager;
-import account.AccountManagerImpl;
+import account.SimpleAccountManager;
+import account.SimpleAccountManagerImpl;
 import org.junit.Before;
 import org.junit.Test;
 
 
 public class AccountTest {
 
-    private AccountManager account;
+    private SimpleAccountManager account;
     
     @Before
     public void initAccount() {
-        this.account = new AccountManagerImpl();
+        this.account = new SimpleAccountManagerImpl();
     }
     
     

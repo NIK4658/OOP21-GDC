@@ -13,8 +13,7 @@ import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import javax.swing.*;
 
-import account.AccountManager;
-import account.AccountManagerImpl;
+import account.SimpleAccountManager;
 
 import java.awt.Image;
 import java.awt.GridBagConstraints;
@@ -35,12 +34,9 @@ public class Gui extends JPanel{
     List<JLabel> pCards;
     private final Game g;
     
-    public Gui(final Dimension dim, AccountManager account) {
-        
-        g = new GameImpl(account);
-        
-        this.setLayout(new BorderLayout());
-        
+    public Gui(final Dimension dim, SimpleAccountManager account) {
+        setResizable(false);
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
         //JPanel con immagine di sfondo
         //final BackgroundPanel bgpanel = new BackgroundPanel(
         //       new ImageIcon("res/img/backgrounds/blackjacktableHD.png").getImage(),

@@ -1,7 +1,9 @@
 package view.gui;
 
-import account.AccountManager;
-import account.AccountManagerImpl;
+import account.AdvancedAccountManager;
+import account.AdvancedAccountManagerImpl;
+import account.SimpleAccountManager;
+import account.SimpleAccountManagerImpl;
 import blackjack.Gui;
 
 import java.awt.Dimension;
@@ -12,6 +14,7 @@ import javax.swing.JPanel;
 import view.menu.AccessMenu;
 import view.menu.AccountMenu;
 import view.menu.MainMenu;
+import view.menu.Menu;
 import view.menu.GameMenu;
 
 //forse meglio usare un unico metodo setMenu(Menu menu, AccountManager account);
@@ -36,47 +39,42 @@ public class MainGui implements MenuManager {
         this.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
         this.setAccessMenu();
-//        this.setGameMenu(new AccountManagerImpl());
-//        this.setAccountMenu(new AccountManagerImpl());
+        //this.setGameMenu(new AdvancedAccountManagerImpl());
+        //this.setAccountMenu(new AdvancedAccountManagerImpl());
         
         this.frame.setLocationRelativeTo(null);
         this.frame.setVisible(true);
     }
     
-    private void updateMenu(final JPanel panel) {
-        System.out.println("updateMenu1: " + this.getSizeMenu());
-        this.frame.setContentPane(panel);
+    private void updateMenu(final Menu menu) {
+        this.frame.setContentPane(menu.getMenu());
         this.frame.pack();
         this.frame.revalidate();
-        System.out.println("updateMenu2: " + this.getSizeMenu());
     }
     
     @Override
     public void setAccessMenu() {
-        this.updateMenu(new AccessMenu(this).getMenu());
+        this.updateMenu(new AccessMenu(this));
     }
     
     @Override
-    public void setMainMenu(final AccountManager account) {
-        System.out.println("setGamesMenu: " + this.getSizeMenu());
-        this.updateMenu(new MainMenu(this, account).getMenu());
+    public void setMainMenu(final AdvancedAccountManager account) {
+        this.updateMenu(new MainMenu(this, account));
     }
 
     @Override
-    public void setAccountMenu(final AccountManager account) {
-        System.out.println("setAccountMenu: " + this.getSizeMenu());
-        this.updateMenu(new AccountMenu(this, account).getMenu());
+    public void setAccountMenu(final AdvancedAccountManager account) {
+        this.updateMenu(new AccountMenu(this, account));
     }
     
     @Override
-    public void setGameMenu(final AccountManager account) {
+    public void setGameMenu(final AdvancedAccountManager account) {
         this.frame.setResizable(true);
-        System.out.println("setRouletteMenu: " + this.getSizeMenu());
-        this.updateMenu(new GameMenu(this, account).getMenu());
+        this.updateMenu(new GameMenu(this, account));
     }
     
     @Override
-    public void setBlackjackMenu(AccountManager account) {
+    public void setBlackjackMenu(AdvancedAccountManager account) {
         System.out.println("setBlackjackMenu: " + this.getSizeMenu());
         new Gui(new Dimension(1280, 720), account);
     }

@@ -1,6 +1,7 @@
 package view.menu;
 
-import account.AccountManager;
+import account.AdvancedAccountManager;
+import account.SimpleAccountManager;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -28,14 +29,14 @@ public class AccountMenu implements Menu {
      **/
     private static final long serialVersionUID = 1L;
     private final MenuManager frame;
-    private final AccountManager account;
+    private final AdvancedAccountManager account;
     private final JPanel panel;
     private final JPanel panelAccount;
     private final JButton buttonBack;
     private final ActionListener alBackMenu;
     private ActionListener alBackPanel;
     
-    public AccountMenu(final MenuManager frame, final AccountManager account) {
+    public AccountMenu(final MenuManager frame, final AdvancedAccountManager account) {
         this.frame = frame;
         this.account = account;
         this.panel = new JPanel(new BorderLayout());
@@ -84,7 +85,7 @@ public class AccountMenu implements Menu {
         
         buttonAccount.addActionListener(e -> {
             if (new ConfirmPassword(frame.getFrame(), account, " to delete Account").isPasswordConfirmed()) {
-                this.account.deleteAcc();
+                this.account.deleteAcc(this.account.getUsr());
                 this.frame.setAccessMenu();
             }
         });
