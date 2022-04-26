@@ -85,7 +85,7 @@ public class AccountMenu implements Menu {
         
         buttonAccount.addActionListener(e -> {
             if (new ConfirmPassword(frame.getFrame(), account, " to delete Account").isPasswordConfirmed()) {
-                this.account.deleteAcc();
+                this.account.deleteAcc(this.account.getUsr());
                 this.frame.setAccessMenu();
             }
         });

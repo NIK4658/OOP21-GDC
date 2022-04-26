@@ -5,9 +5,12 @@ package account;
  */
 public interface SimpleAccountManager {
     
+    /**
+     * Campi di ogni account.
+     */
     enum Fields {
         USERNAME, PASSWORD, BALANCE, AGE
-        }
+    }
 
     boolean logger(String usr, String psw);
 
@@ -17,7 +20,7 @@ public interface SimpleAccountManager {
 
     boolean changePass(String psw);
 
-    boolean deleteAcc();
+    boolean deleteAcc(String usr);
 
     boolean checkExisting(String usr);
     
