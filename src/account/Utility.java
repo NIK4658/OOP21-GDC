@@ -2,17 +2,24 @@ package account;
 
 import java.io.FileReader;
 import java.io.PrintWriter;
-
+import java.util.HashMap;
+import java.util.Map;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
+
+/**
+ * Classe di utility per funzioni statiche in comune necessarie ai manager.
+ */
 public class Utility {
     
+    /**
+     * Funzione utile a creare File JSON da JSONObject.
+     */
     public static boolean writeOnFile(final String usr, final JSONObject jo) {
         try {
             final PrintWriter pw = new PrintWriter(getPath(usr));
             pw.write(jo.toJSONString());
-            pw.flush();
             pw.close();
             return true;
         } catch (Exception e) {
@@ -24,35 +31,47 @@ public class Utility {
         return ("res/json/users/" + usr + ".json"); 
     }
     
+    /**
+     * Funzione utile a creare JSONObject da File JSON precedentemente creati.
+     */
     public static JSONObject getJsonObject(final String usr) {
         try {
-            return (JSONObject) new JSONParser().parse(new FileReader(getPath(usr)));
+            final FileReader fr = new FileReader(getPath(usr));
+            final JSONObject jo = (JSONObject) new JSONParser().parse(fr);
+            fr.close();
+            final Map<SimpleAccountManager.Fields, String> m = new HashMap<>();
+            for (final Object o : jo.keySet()) {
+                for (final SimpleAccountManager.Fields f : SimpleAccountManager.Fields.values()) {
+                    if (o.equals(f.toString())) {
+                        m.put(f, jo.get(o).toString());
+                    }
+                }
+            }
+            return new JSONObject(m);
         } catch (Exception e) {
             return null;
         }
     }
-
-    public static boolean isNumeric(final String str) {
-        try {
-            Double.parseDouble(str);
-            return true;
-        } catch (NumberFormatException e) {
-            return false;
-        }
-    }
     
-    public static String getField(final String usr, final AdvancedAccountManager.Fields field) {
+    /**
+     * Funzione utile a trovare i valodi dei campi dei File JSON precedentemente creati.
+     */
+    public static String getField(final SimpleAccountManager.Fields field, final String usr) {
         final JSONObject jo = getJsonObject(usr);  
-        if (!jo.isEmpty()) {
-            //BUG TOSTRING DA SISTEMARE
-            return jo.get(field.toString()).toString();
+        if (jo != null) {
+            return jo.get(field).toString();
         } else {
             return "";
         }
     }
     
-    
-    
-    
-    
+    /**
+     * Funzione utile a cambiare i valodi dei campi dei File JSON precedentemente creati.
+     */
+    public static boolean changeField(final SimpleAccountManager.Fields field, 
+            final String newValue, final String targetUsr, final String usr) {
+        final JSONObject jo = Utility.getJsonObject(usr);
+        jo.replace(field, newValue);
+        return Utility.writeOnFile(targetUsr, jo);
+    }
 }
