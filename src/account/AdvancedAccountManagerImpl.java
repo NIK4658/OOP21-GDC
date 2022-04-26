@@ -1,17 +1,9 @@
 package account;
 
-import java.io.FileReader;
-import java.util.HashMap;
-import java.util.Map;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-
-import account.SimpleAccountManager.Fields;
-
-
+/**
+ * Classe principale AVANZATA gestione account.
+ */
 public class AdvancedAccountManagerImpl extends SimpleAccountManagerImpl implements AdvancedAccountManager {
-
-    private String username;
     
     @Override
     public boolean register(final String usr, final String psw, final String age) {
@@ -20,7 +12,7 @@ public class AdvancedAccountManagerImpl extends SimpleAccountManagerImpl impleme
                 System.out.println("Account already existing");
                 return false;
             }
-            if (!Utility.isNumeric(age)) {
+            if (!(age.chars().allMatch(Character::isDigit))) {
                 System.out.println("Unable to complete registration, invalid age");
                 return false;
             }
@@ -45,10 +37,10 @@ public class AdvancedAccountManagerImpl extends SimpleAccountManagerImpl impleme
     @Override
     public boolean logger(final String usr, final String psw) {
         if (super.logger(usr, psw)) {
-            this.username = Utility.getField(usr, AdvancedAccountManager.Fields.USERNAME);
-            final String password = Utility.getField(usr, AdvancedAccountManager.Fields.PASSWORD);
-            final String balance = Utility.getField(usr, AdvancedAccountManager.Fields.BALANCE);
-            final String age = Utility.getField(usr, AdvancedAccountManager.Fields.AGE);
+            //this.username = Utility.getField(Fields.USERNAME, usr);
+            final String password = Utility.getField(Fields.PASSWORD, usr);
+            final String balance = Utility.getField(Fields.BALANCE, usr);
+            final String age = Utility.getField(Fields.AGE, usr);
             if (usr.equals(this.username) && psw.equals(password)) {
                 System.out.println(("Welcome back: " + this.username + ". Your password is: " + password
                         + ", your balance is: " + balance + " and you're " + age + " years old"));
@@ -62,10 +54,5 @@ public class AdvancedAccountManagerImpl extends SimpleAccountManagerImpl impleme
             System.out.println("The account could not be found");
             return false;
         }    
-    }
-    
-    @Override
-    public String getUsr() {
-        return this.username;
     }
 }
