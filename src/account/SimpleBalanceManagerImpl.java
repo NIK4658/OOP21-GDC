@@ -1,54 +1,36 @@
 package account;
 
-import java.io.PrintWriter;
+import account.SimpleAccountManager.Fields;
 
-import org.json.simple.JSONObject;
 
+/**
+ * Classe principale SEMPLICE gestione balance.
+ */
 public class SimpleBalanceManagerImpl implements SimpleBalanceManager {
 
+    protected final AdvancedAccountManager username;
     
-    private AdvancedAccountManager username;
-    
-    public SimpleBalanceManagerImpl(AdvancedAccountManager username) {
+    public SimpleBalanceManagerImpl(final AdvancedAccountManager username) {
         this.username = username;
     }
-    
-    
-    
+
     @Override
     public boolean deposit(final double amount) {
-        final double newbalance = getBalance() + amount;
-        final JSONObject jo = Utility.getJsonObject(this.username.getUsr());
-        jo.replace("Saldo", newbalance);
-        Utility.writeOnFile(this.username.getUsr(), jo);
-        return true;
+        return changeBalance(getBalance() + amount);
     }
 
     @Override
     public boolean withdraw(final double amount) {
-        final double newbalance = getBalance() - amount;
-        if (newbalance >= 0) {
-            changeBalance(newbalance);
-            return true;
-        } else {
-            //Impossibile ritirare "amount", non si dispone di tale cifra;
-            return false;
-        }
+        return changeBalance(getBalance() - amount);
     }
     
     @Override
     public boolean changeBalance(final double balancenew) {
-        final JSONObject jo = Utility.getJsonObject(this.username.getUsr());
-        jo.replace("Saldo", balancenew);
-        Utility.writeOnFile(this.username.getUsr(), jo);
-        return true;
+        return Utility.changeField(Fields.BALANCE, String.valueOf(balancenew), username.getUsr(), username.getUsr());
     }
     
     @Override
     public double getBalance() { 
-        return Double.parseDouble(String.valueOf((Utility.getJsonObject(this.username.getUsr()))
-                .get(Fields.BALANCE.toString()))); //da fixare bug
+        return Double.valueOf(Utility.getField(Fields.BALANCE, username.getUsr()));
     }
-    
-    
 }
