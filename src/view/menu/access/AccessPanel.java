@@ -9,6 +9,8 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 import java.util.ArrayList;
 import javax.swing.JButton;
 import javax.swing.JComponent;
@@ -54,6 +56,10 @@ public class AccessPanel extends JPanel {
         final ArrayList<JComponent> list = new ArrayList<>();
         //warning.setText("ciao");
         
+        //da eliminare
+        username.setForeground(new Color(150, 150, 150));
+        password.setForeground(new Color(150, 150, 150));
+        
         list.add(warning);
         list.add(username);
         list.add(password);
@@ -71,10 +77,9 @@ public class AccessPanel extends JPanel {
             list.add(loginButton);
         }
         
+        
         final int dimX = dim.width;
         final int dimY = dim.height;
-
-        
         
         title.setForeground(Color.WHITE);
         title.setPreferredSize(new Dimension(dimX, dimY / RATIOTITLEAREAY));
@@ -92,6 +97,42 @@ public class AccessPanel extends JPanel {
         }
         
         //warning.setFont(new Font("Arial", Font.PLAIN, dimX/(RATIOBTNFONT-2)));
+        
+       
+        username.addFocusListener(new FocusListener() {  
+            @Override  
+            public void focusGained(FocusEvent e) {  
+                username.setText("");  
+                username.setForeground(new Color(50, 50, 50));  
+            }  
+            
+            @Override
+            public void focusLost(FocusEvent e) { 
+
+                if (username.getText().length() == 0) {  
+                    username.setText("Username");  
+                    username.setForeground(new Color(150, 150, 150));  
+                }
+            }
+        });
+        
+        password.addFocusListener(new FocusListener() {  
+            @Override  
+            public void focusGained(FocusEvent e) {  
+                password.setText("");  
+                password.setForeground(new Color(50, 50, 50));  
+            }  
+            
+            @Override
+            public void focusLost(FocusEvent e) { 
+
+                if (password.getText().length() == 0) {  
+                    password.setText("Password");  
+                    password.setForeground(new Color(150, 150, 150));  
+                }
+            }
+        });
+        
         
         if (accessType.equals(AccessType.LOGIN)) {
             registerButton.addActionListener(al);
