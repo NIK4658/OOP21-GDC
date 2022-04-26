@@ -1,11 +1,16 @@
 package test;
 
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 
 import account.AdvancedAccountManager;
 import account.AdvancedAccountManagerImpl;
 import account.SimpleAccountManager;
+import account.SimpleAccountManager.Fields;
 import account.SimpleAccountManagerImpl;
+import account.Utility;
+
 import org.junit.Before;
 import org.junit.Test;
 
@@ -26,13 +31,18 @@ public class AccountManagerTest {
     //test deposito
     @Test
     public void testSimpleRegister() {
-        assertTrue(true);
+        assertTrue(this.simpleAccount.register("Username", "Password", "20"));
+        assertTrue(this.simpleAccount.logger("Username", "Password"));
+        assertSame(this.simpleAccount.getUsr(), "Username");
+        assertSame(this.simpleAccount.getPsw(), "Password");
+        assertSame(this.simpleAccount.getAge(), "20");        
     }
 
     //test ritiro
     @Test
     public void testSimpleLogin() {
-        assertTrue(true);
+        assertTrue(this.simpleAccount.logger("Username", "Password")); //User exist, expected True.
+        assertFalse(this.simpleAccount.logger("Usrnm", "Password"));   //User does not exist, expected false.
     }
     
     //test deposito
