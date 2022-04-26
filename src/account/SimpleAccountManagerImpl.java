@@ -1,26 +1,24 @@
 package account;
 
 import java.io.File;
-import java.io.FileReader;
 import java.util.HashMap;
 import java.util.Map;
 import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
 
 /**
- * Classe principale gestione account.
+ * Classe principale SEMPLICE gestione account.
  */
 public class SimpleAccountManagerImpl implements SimpleAccountManager {
 
-    private String username;
+    protected String username;
     
     @Override
     public boolean logger(final String usr, final String psw) {
-        try {
-            final JSONObject jo = (JSONObject) new JSONParser().parse(new FileReader(Utility.getPath(usr)));
-            this.username = jo.get(Fields.USERNAME.toString()).toString(); //Fixare il bug
+        final JSONObject jo = Utility.getJsonObject(usr);
+        if (jo != null) {
+            this.username = jo.get(Fields.USERNAME).toString();
             return true;
-        } catch (Exception e) {
+        } else {
             return false;
         }
     }
@@ -44,7 +42,7 @@ public class SimpleAccountManagerImpl implements SimpleAccountManager {
 
     @Override
     public boolean changeUsr(final String usrnew) {
-        if (changeField(Fields.USERNAME, usrnew, usrnew) && deleteAcc()) {
+        if (Utility.changeField(Fields.USERNAME, usrnew, usrnew, this.username) && deleteAcc(this.username)) {
             this.username = usrnew;
             return true;
         } else {
@@ -54,34 +52,26 @@ public class SimpleAccountManagerImpl implements SimpleAccountManager {
 
     @Override
     public boolean changePass(final String psw) {
-        return changeField(Fields.PASSWORD, psw, this.username);
-    }
-    
-    private boolean changeField(final SimpleAccountManager.Fields field, final String newValue, final String usr) {
-        final JSONObject jo = Utility.getJsonObject(this.username);
-        jo.replace(field, newValue);
-        Utility.writeOnFile(usr, jo);
-        return true;
+        return Utility.changeField(Fields.PASSWORD, psw, this.username, this.username);
     }
 
     @Override
-    public boolean deleteAcc() {
-        final File f = new File(Utility.getPath(this.username));
-        return f.delete();
+    public boolean deleteAcc(final String usr) {
+        return (new File(Utility.getPath(usr))).delete();
     }
 
     @Override
     public String getUsr() {
-        return String.valueOf((Utility.getJsonObject(this.username)).get(Fields.USERNAME));
+        return Utility.getField(Fields.USERNAME, this.username);
     }
 
     @Override
     public String getPsw() {
-        return String.valueOf((Utility.getJsonObject(this.username)).get(Fields.PASSWORD));
+        return Utility.getField(Fields.PASSWORD, this.username);
     }
 
     @Override
     public String getAge() {
-        return String.valueOf((Utility.getJsonObject(this.username)).get(Fields.AGE));
+        return Utility.getField(Fields.AGE, this.username);
     }    
 }
