@@ -2,6 +2,7 @@ package view.gui;
 
 import account.AdvancedAccountManager;
 import account.AdvancedAccountManagerImpl;
+import account.AdvancedBalanceManagerImpl;
 import account.SimpleAccountManager;
 import account.SimpleAccountManagerImpl;
 import blackjack.Gui;
@@ -74,9 +75,9 @@ public class MainGui implements MenuManager {
     }
     
     @Override
-    public void setBlackjackMenu(AdvancedAccountManager account) {
+    public void setBlackjackMenu(final AdvancedAccountManager account) {
         System.out.println("setBlackjackMenu: " + this.getSizeMenu());
-        new Gui(new Dimension(1280, 720), account);
+        new Gui(new Dimension(1280, 720), new AdvancedBalanceManagerImpl(account));
     }
 
     @Override
