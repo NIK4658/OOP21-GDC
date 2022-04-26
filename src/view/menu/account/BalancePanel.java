@@ -15,6 +15,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import account.AdvancedAccountManager;
+import account.AdvancedBalanceManager;
+import account.AdvancedBalanceManagerImpl;
 import account.SimpleAccountManager;
 import account.SimpleBalanceManager;
 import account.SimpleBalanceManagerImpl;
@@ -25,10 +27,10 @@ public class BalancePanel extends JPanel {
     
     private static final double MAX_IMPORT = 10000;
     private static final double MIN_IMPORT = 15;
-    private final SimpleBalanceManager account;
+    private final AdvancedBalanceManager account;
     
     public BalancePanel(final AdvancedAccountManager account) {
-        this.account = new SimpleBalanceManagerImpl(account);
+        this.account = new AdvancedBalanceManagerImpl(account);
         final String currencySymbol = Currency.getInstance(getLocale()).getSymbol();
         this.setLayout(new GridBagLayout());
         this.setBackground(new Color(68, 87, 96));
