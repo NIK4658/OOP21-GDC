@@ -1,21 +1,27 @@
 package blackjack;
 
+import account.AdvancedAccountManager;
+import account.AdvancedBalanceManager;
+
 import java.util.LinkedList;
 import java.util.List;
 
-import account.AccountManager;
 
+/**
+ * Classe principale gestione gioco blackjack.
+ */
 public class GameImpl implements Game {
     
-    private final AccountManager account;
+    private final AdvancedBalanceManager account;
     private List<Card> player = new LinkedList<>(); //creare classe hand? usare classe deck?
     private List<Card> dealer = new LinkedList<>(); //creare classe hand? usare classe deck?
     private final Deck deck;
 
 
     
-    GameImpl(AccountManager account) {
+    GameImpl(final AdvancedBalanceManager account) {
         this.deck = new DeckImpl(6);
+        this.deck.generateDeck();
         this.account = account;
         
         newTurn();
