@@ -32,7 +32,7 @@ public class Gui extends JPanel{
     
     private int puntata;
     private int chipvalue = 1;
-    private Image img = new ImageIcon("res/img/backgrounds/blackjacktableHD.png").getImage();
+    private Image img = new ImageIcon("res/img/backgrounds/blackjacktableHDwithbet.png").getImage();
     
     private List<JLabel> dcards;
     private List<JLabel> pcards;
@@ -113,16 +113,20 @@ public class Gui extends JPanel{
         playerCardsPanel.add(amountbet, 0);
         
         
-        final JButton bet = new JButton("Punta");
-        bet.setBounds(350, 120, 90, 30);
+        final JButton bet = new JButton();
+        bet.setBounds(370, 130, 70, 70);
+        bet.setOpaque(false);
+        bet.setContentAreaFilled(false);
+        bet.setBorderPainted(false);
+        bet.setFocusPainted( false );
         playerCardsPanel.add(bet, 0);
         
         final JButton resetta = new JButton("Resetta");
-        resetta.setBounds(350, 155, 90, 30);
+        resetta.setBounds(220, 125, 90, 30);
         playerCardsPanel.add(resetta, 0);
         
         final JButton conferma = new JButton("Conferma");
-        conferma.setBounds(350, 190, 90, 30);
+        conferma.setBounds(220, 190, 90, 30);
         playerCardsPanel.add(conferma, 0);
         
         
@@ -280,6 +284,8 @@ public class Gui extends JPanel{
         resetta.addActionListener(e -> {  
             this.puntata = 0;
             amountbet.setText(this.puntata + " €");
+            bet.removeAll();
+            bet.setIcon(null);
         });
        
         reset.addActionListener(e -> {  
@@ -289,7 +295,8 @@ public class Gui extends JPanel{
             resetta.setEnabled(true);
             bet.setEnabled(true);
             conferma.setEnabled(true);
-            
+            bet.removeAll();
+            bet.setIcon(null);
             draw.setEnabled(false);
             stay.setEnabled(false);
             reset.setEnabled(false);
@@ -326,7 +333,6 @@ public class Gui extends JPanel{
             reset.setEnabled(true);
             Double.setEnabled(true);
             
-            
             //prima carta scoperta, seconda coperta
             addCardDealer(dcards, gam.getDealerHand().get(0), dealerCardsPanel);
             addCardDealer(dcards, gam.getDealerHand().get(1), dealerCardsPanel);
@@ -349,27 +355,27 @@ public class Gui extends JPanel{
     private ImageIcon chooseChip(final int puntata) {
         
         if (puntata <  5) {
-            final Image img = new ImageIcon("res/img/fiches/empty/1.png").getImage();
-            return new ImageIcon(img.getScaledInstance(40, 40, Image.SCALE_SMOOTH));
+            final Image img = new ImageIcon("res/img/fiches/empty/1HD2.png").getImage();
+            return new ImageIcon(img.getScaledInstance(70, 70, Image.SCALE_SMOOTH));
         }
         
         if (puntata < 25) {
             final Image img = new ImageIcon("res/img/fiches/empty/5.png").getImage();
-            return new ImageIcon(img.getScaledInstance(40, 40, Image.SCALE_SMOOTH));
+            return new ImageIcon(img.getScaledInstance(45, 45, Image.SCALE_SMOOTH));
         }
         
         if (puntata < 100) {
             final Image img = new ImageIcon("res/img/fiches/empty/25.png").getImage();
-            return new ImageIcon(img.getScaledInstance(40, 40, Image.SCALE_SMOOTH));
+            return new ImageIcon(img.getScaledInstance(45, 45, Image.SCALE_SMOOTH));
         }
         
         if (puntata < 500) {
             final Image img = new ImageIcon("res/img/fiches/empty/100.png").getImage();
-            return new ImageIcon(img.getScaledInstance(40, 40, Image.SCALE_SMOOTH));
+            return new ImageIcon(img.getScaledInstance(45, 45, Image.SCALE_SMOOTH));
         }
         
         final Image img = new ImageIcon("res/img/fiches/empty/500.png").getImage();
-        return new ImageIcon(img.getScaledInstance(40, 40, Image.SCALE_SMOOTH)); 
+        return new ImageIcon(img.getScaledInstance(45, 45, Image.SCALE_SMOOTH)); 
     }
 
 
