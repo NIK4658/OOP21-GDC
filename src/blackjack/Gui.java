@@ -13,6 +13,10 @@ import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import javax.swing.*;
 
+import account.AdvancedAccountManager;
+import account.AdvancedAccountManagerImpl;
+import account.AdvancedBalanceManager;
+import account.AdvancedBalanceManagerImpl;
 import account.SimpleAccountManager;
 
 import java.awt.Image;
@@ -30,23 +34,24 @@ public class Gui extends JPanel{
     private int chipvalue = 1;
     private Image img = new ImageIcon("res/img/backgrounds/blackjacktableHD.png").getImage();
     
-    List<JLabel> dCards;
-    List<JLabel> pCards;
-    private final Game g;
+    private List<JLabel> dcards;
+    private List<JLabel> pcards;
+    private final Game gam;
     
-    public Gui(final Dimension dim, SimpleAccountManager account) {
-        setResizable(false);
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
+    public Gui(final Dimension dim, final AdvancedBalanceManager account) {
+        
         //JPanel con immagine di sfondo
         //final BackgroundPanel bgpanel = new BackgroundPanel(
         //       new ImageIcon("res/img/backgrounds/blackjacktableHD.png").getImage(),
         //       BackgroundPanel.SCALED, 0.0f, 0.0f);  
         //Area Pulsanti in fondo SUD
         
-        
+        gam = new GameImpl(account);
+        this.setLayout(new BorderLayout());
         
         final JPanel buttonsArea = new JPanel(new GridBagLayout());
         buttonsArea.setPreferredSize(new Dimension(150, 150));
+        buttonsArea.setOpaque(false);
 
         //codice ripetuto
         final JButton draw = new JButton("Hit"); 
@@ -92,7 +97,7 @@ public class Gui extends JPanel{
         //JPanel a layer che mostra le carte del giocatore CENTER
         final JLayeredPane playerCardsPanel = new JLayeredPane();
         //playerCardsPanel.setLayout(null); //da rivedere
-        pCards = new LinkedList<>(); //lista di JLabel, ciascuna sarà una carta del giocatore
+        pcards = new LinkedList<>(); //lista di JLabel, ciascuna sarà una carta del giocatore
         
         //Punteggio player
         final JLabel playerpoints = new JLabel();
@@ -134,7 +139,7 @@ public class Gui extends JPanel{
         //dealerCardsPanel.setLayout(null); //da rivedere
         dealerCardsPanel.setPreferredSize(new Dimension(300, 300));
         //Lista delle carte del dealer
-        dCards = new LinkedList<>();
+        dcards = new LinkedList<>();
         final JLabel dpoints = new JLabel();
         dpoints.setForeground(Color.WHITE);
         dpoints.setBounds(530, 20, 150, 150);
@@ -174,13 +179,13 @@ public class Gui extends JPanel{
 
         //da fare refactoring
         draw.addActionListener(e -> {   
-            if (g.getPlayerPoints() < 21) {
-                g.askCard();
-                addCard(pCards, g.getPlayerHand().get(g.getPlayerHand().size() - 1), playerCardsPanel);
-                playerpoints.setText(String.valueOf(g.calculatePoints(g.getPlayerHand())));
+            if (gam.getPlayerPoints() < 21) {
+                gam.askCard();
+                addCard(pcards, gam.getPlayerHand().get(gam.getPlayerHand().size() - 1), playerCardsPanel);
+                playerpoints.setText(String.valueOf(gam.calculatePoints(gam.getPlayerHand())));
             } 
       
-            if (g.getPlayerPoints() >= 21) {
+            if (gam.getPlayerPoints() >= 21) {
                 stay.doClick();
             }
         });
@@ -188,22 +193,22 @@ public class Gui extends JPanel{
         //codice ripetuto
         stay.addActionListener(e -> {
             //g.nextDealerMove();
-            dCards.get(1).setIcon(new ImageIcon(new CardImpl(g.getDealerHand().get(1).getSuit(), 
-                    g.getDealerHand().get(1).getValue()).getImg().getScaledInstance(100, 150, Image.SCALE_SMOOTH))); 
-            dpoints.setText(String.valueOf(g.calculatePoints(g.getDealerHand())));
+            dcards.get(1).setIcon(new ImageIcon(new CardImpl(gam.getDealerHand().get(1).getSuit(), 
+                    gam.getDealerHand().get(1).getValue()).getImg().getScaledInstance(100, 150, Image.SCALE_SMOOTH))); 
+            dpoints.setText(String.valueOf(gam.calculatePoints(gam.getDealerHand())));
             
             System.out.println("ciao");
-            while (g.getDealerPoints() < 17) {
+            while (gam.getDealerPoints() < 17) {
                 //aggiunge altre carte nel caso non basti la prima
-                g.nextDealerMove();
-                addCardDealer(dCards, g.getDealerHand().get(g.getDealerHand().size() - 1), dealerCardsPanel);
-                dpoints.setText(String.valueOf(g.calculatePoints(g.getDealerHand())));
+                gam.nextDealerMove();
+                addCardDealer(dcards, gam.getDealerHand().get(gam.getDealerHand().size() - 1), dealerCardsPanel);
+                dpoints.setText(String.valueOf(gam.calculatePoints(gam.getDealerHand())));
             }
             
             //dice chi ha vinto e i punteggi
             //System.out.println(checkWin(this.playerValue, this.dealerValue));
             
-            if (g.checkWin()) {
+            if (gam.checkWin()) {
                 account.deposit(this.puntata); 
             } else {
                 account.withdraw(this.puntata); 
@@ -294,21 +299,21 @@ public class Gui extends JPanel{
             playerpoints.setText("");
             
             
-            for(final JLabel j : pCards) {
+            for (final JLabel j : pcards) {
                 playerCardsPanel.remove(j);
             }
             
-            for(final JLabel j : dCards) {
+            for (final JLabel j : dcards) {
                 dealerCardsPanel.remove(j);
             }
 
-            dCards = new LinkedList<>();
-            pCards = new LinkedList<>();     
+            dcards = new LinkedList<>();
+            pcards = new LinkedList<>();     
             playerCardsPanel.revalidate();
             playerCardsPanel.repaint();
             dealerCardsPanel.revalidate();
             dealerCardsPanel.repaint();
-            g.newTurn();
+            gam.newTurn();
         });
         
         conferma.addActionListener(e -> {  
@@ -323,15 +328,15 @@ public class Gui extends JPanel{
             
             
             //prima carta scoperta, seconda coperta
-            addCardDealer(dCards, g.getDealerHand().get(0), dealerCardsPanel);
-            addCardDealer(dCards, g.getDealerHand().get(1), dealerCardsPanel);
+            addCardDealer(dcards, gam.getDealerHand().get(0), dealerCardsPanel);
+            addCardDealer(dcards, gam.getDealerHand().get(1), dealerCardsPanel);
 
-            addCard(pCards, g.getPlayerHand().get(0), playerCardsPanel);
-            addCard(pCards, g.getPlayerHand().get(1), playerCardsPanel);
+            addCard(pcards, gam.getPlayerHand().get(0), playerCardsPanel);
+            addCard(pcards, gam.getPlayerHand().get(1), playerCardsPanel);
             
             puntata.setText("Puntata: " + this.puntata);
-            dpoints.setText(String.valueOf(g.getDealerHand().get(0).getValue()));
-            playerpoints.setText(String.valueOf(g.calculatePoints(g.getPlayerHand())));
+            dpoints.setText(String.valueOf(gam.getDealerHand().get(0).getValue()));
+            playerpoints.setText(String.valueOf(gam.calculatePoints(gam.getPlayerHand())));
         });
         
         
@@ -433,15 +438,16 @@ public class Gui extends JPanel{
     /**
      * Testing. Da eliminare in seguito.
      */
-    public static void main(final String[] args) {      
+    public static void main(final String[] args) {   
+        
         //new Gui(new Dimension(1280, 720));
         final JFrame jf = new JFrame();
         jf.setResizable(false);
         //jf.setDefaultCloseOperation(EXIT_ON_CLOSE);
         jf.setPreferredSize(new Dimension(1280, 720)); 
-        final AccountManager account = new AccountManagerImpl();
+        final AdvancedAccountManager account = new AdvancedAccountManagerImpl();
         account.logger("Username", "Password");
-        jf.add(new Gui(new Dimension(1280, 720), account));    
+        jf.add(new Gui(new Dimension(1280, 720), new AdvancedBalanceManagerImpl(account)));    
         jf.pack();                                 
         jf.setLocationRelativeTo(null); 
         jf.setVisible(true); 
