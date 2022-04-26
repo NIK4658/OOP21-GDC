@@ -1,12 +1,11 @@
 package blackjack;
 
-import blackjack.Card.Suits;
-
-
 /**
  * Interfaccia per classe gestione mazzi.
  */
 public interface Deck {
+    
+    void generateDeck();
     
     boolean removePreciseCard(Card card);
     
@@ -15,5 +14,7 @@ public interface Deck {
     Card drawPreciseCard(Card card);
     
     Card drawRandomCard();
+    
+    void shuffle();
 
 }
