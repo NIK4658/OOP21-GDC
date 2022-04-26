@@ -14,6 +14,7 @@ public class CardImpl implements Card {
     
     private final Pair<Suits, Integer> card;
     private Image img;
+    private boolean facedown;
     
     
     //Genera carta random
@@ -31,24 +32,20 @@ public class CardImpl implements Card {
         this(getRandomSuit(), value);
     }
     
-    //Genera carta girata nera o rossa
-    public CardImpl(boolean color) {
+    //Genera carta girata random
+    public CardImpl(final boolean isFacedown) {
         this(getRandomSuit(), getRandomValue());      
-        if(color) {
-            this.img = new ImageIcon("res/img/cards/back/black.png").getImage();
-        } else {
-            this.img = new ImageIcon("res/img/cards/back/red.png").getImage();
-        }    
+        this.facedown = isFacedown;
     }
     
-    //Genera carta precisa
+    /**
+     * Costruttore che genera una carta precisa.
+     */
     public CardImpl(final Suits s, final int value) {
         this.card = new Pair<>(s, value);
         this.img = new ImageIcon("res/img/cards/" + this.card.get1() + "/" + this.card.get2() + ".png").getImage();
+        this.facedown = false;
     }
-    
-    
-    
     
     @Override
     public Suits getSuit() {
@@ -69,13 +66,37 @@ public class CardImpl implements Card {
         return this.img;
     }
     
+    @Override
+    public boolean isFaceDown() {
+        return this.facedown;
+    }
+    
     private static Suits getRandomSuit() {
         return Suits.values()[new Random().nextInt(Suits.values().length)];
     }
     
     private static int getRandomValue() {
-        //return new Random().nextInt(13) + 1;
         return new Random().ints(1, 14).findFirst().getAsInt();
+    }
+    
+    private boolean isRedColored() {
+        return (this.card.get1() == Suits.DIAMONDS || this.card.get1() == Suits.HEARTS);
+    }
+    
+    
+    @Override
+    public void turnOver() {
+        if (this.facedown) {
+            new ImageIcon("res/img/cards/" + this.card.get1() + "/" + this.card.get2() + ".png").getImage();
+            this.facedown = false;
+        } else {
+            if (isRedColored()) {
+                this.img = new ImageIcon("res/img/cards/back/red.png").getImage();
+            } else {
+                this.img = new ImageIcon("res/img/cards/back/black.png").getImage();
+            } 
+            this.facedown = true;
+        }
     }
     
     @Override
@@ -92,6 +113,11 @@ public class CardImpl implements Card {
         final Card other = (Card) obj;
         return Objects.equals(this.card.get1(), other.getSuit()) && Objects.equals(this.card.get2(), other.getValue());
     }
+    
+    @Override
+    public int hashCode() {
+        return 0;
+    }   
 
 }
 
