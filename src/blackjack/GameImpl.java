@@ -39,6 +39,7 @@ public class GameImpl implements Game {
         this.player.add(this.deck.drawRandomCard());   
         this.dealer.add(this.deck.drawRandomCard());
         this.dealer.add(this.deck.drawRandomCard());  
+        this.dealer.get(1).turnOver();
     }
 
     @Override
