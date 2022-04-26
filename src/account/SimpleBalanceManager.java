@@ -1,11 +1,9 @@
 package account;
 
+/**
+ * Interfaccia principale che definisce le funzioni utili alla gestione del saldo.
+ */
 public interface SimpleBalanceManager {
-    
-    enum Fields {
-        USERNAME, PASSWORD, BALANCE, AGE
-        }
-
 
     boolean deposit(double amount);
 
