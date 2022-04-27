@@ -1,10 +1,6 @@
 package blackjack;
 
-import account.AdvancedAccountManager;
 import account.AdvancedBalanceManager;
-
-import java.util.LinkedList;
-import java.util.List;
 
 
 /**
@@ -13,42 +9,45 @@ import java.util.List;
 public class GameImpl implements Game {
     
     private final AdvancedBalanceManager account;
-    private List<Card> player = new LinkedList<>(); //creare classe hand? usare classe deck?
-    private List<Card> dealer = new LinkedList<>(); //creare classe hand? usare classe deck?
     private final Deck deck;
-
-
+    private int bet;
+    private Hand player;
+    private Hand dealer;
     
     GameImpl(final AdvancedBalanceManager account) {
         this.deck = new DeckImpl(6);
         this.deck.generateDeck();
         this.account = account;
-        
-        newTurn();
-        
-        
-        //System.out.println(this.deck);
+        this.player = new HandImpl();
+        this.dealer = new HandImpl();
+        this.bet = 0;
     }
-    
     
     @Override
-    public void newTurn() {  
-        this.player = new LinkedList<>();
-        this.dealer = new LinkedList<>();     
-        this.player.add(this.deck.drawRandomCard());
-        this.player.add(this.deck.drawRandomCard());   
-        this.dealer.add(this.deck.drawRandomCard());
-        this.dealer.add(this.deck.drawRandomCard());  
-        this.dealer.get(1).turnOver();
+    public void startGame(final int bet) {
+        this.bet = bet;
+        this.player = new HandImpl();
+        this.dealer = new HandImpl();    
+        this.player.addCard(this.deck.drawRandomCard());
+        this.player.addCard(this.deck.drawRandomCard());   
+        this.dealer.addCard(this.deck.drawRandomCard());
+        this.dealer.addCard(this.deck.drawRandomCard());  
+        this.dealer.getCard(1).turnOver();
+        this.dealer.calculatePoints();
+        this.player.calculatePoints();
     }
-
+    
+    
+    
+    
     @Override
     public void askCard() {
-        this.player.add(this.deck.drawRandomCard()); 
+        this.player.addCard(this.deck.drawRandomCard()); 
+        this.player.calculatePoints();
     }
 
     @Override
-    public void stay() {
+    public void stand() {
         nextDealerMove();
     }
 
@@ -62,103 +61,72 @@ public class GameImpl implements Game {
     public void askDouble() {
         //raddoppio puntata
         askCard();
-        stay();
+        stand();
     }
 
-    @Override
-    public void startGame() {
-        // TODO Auto-generated method stub
-        
-    }
+
 
     @Override
-    public boolean checkWin() { 
-        if (calculatePoints(this.player) > 21) {
-            return false;
+    public void checkWin() { 
+        int win = 0;
+        if (this.player.getPoints() > 21) {
+            win = -1;
         }
         
-        if (calculatePoints(this.dealer) > 21) {
-            return true;
+        if (this.dealer.getPoints() > 21) {
+            win = 1;
         }
 
-        return (calculatePoints(this.player) > calculatePoints(this.dealer));
+        if (this.player.getPoints() == this.dealer.getPoints()) {
+            win = 0;
+        } 
+        
+        if (this.player.getPoints() < this.dealer.getPoints()) {
+            win = -1;
+        } else {
+            win = 1;
+        }
+        
+        
+        account.changeBalance(account.getBalance() + (this.bet * win));
+        
+        //check mischiare mazzo
+        
     }
 
     @Override
     public void dealerDraw() {
-        this.dealer.add(this.deck.drawRandomCard());
-    }
-
-    @Override
-    public void dealerStay() {
-        checkWin();
+        this.dealer.addCard(this.deck.drawRandomCard());
+        this.dealer.calculatePoints();
     }
 
     @Override
     public void nextDealerMove() {
-        if (calculatePoints(this.dealer) < 17) {
+        if (this.dealer.getPoints() < 17) {
             dealerDraw();
             //nextDealerMove();
         } else {
-            dealerStay();
+            checkWin();
         }
     }
 
     @Override
-    public int calculatePoints(final List<Card> cards) {
-        int points = 0;
-        boolean ace = false;
-        boolean converted = false;
-        
-        for (final Card c : cards) {
-            if (c.getValue() == 1 && !ace) {
-                points += (c.getValue() + 10);
-                ace = true;
-            } else {
-                points += c.getValue();
-            }
-            
-            if (points > 21 && ace && !converted) {
-                points -= 10;
-                converted = true;
-            }  
-        }
-        return points;
-    }
-
-
-    
-
-    @Override
-    public List<Card> getPlayerHand() {
+    public Hand getPlayerHand() {
         return this.player;
     }
 
-
-
     @Override
-    public List<Card> getDealerHand() {
+    public Hand getDealerHand() {
         return this.dealer;
     }
 
-
-
     @Override
     public int getPlayerPoints() {
-        return calculatePoints(this.player);
+        return this.player.getPoints();
     }
-
-
 
     @Override
     public int getDealerPoints() {
-        return calculatePoints(this.dealer);
+        return this.dealer.getPoints();
     }
-
-
-
-
-
-  
-
 }
