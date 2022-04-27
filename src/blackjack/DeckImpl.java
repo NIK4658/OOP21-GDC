@@ -44,10 +44,8 @@ public class DeckImpl extends ArrayList<Card> implements Deck {
 
     @Override
     public void shuffle() {
-        System.out.println(this.size());
         this.removeAll(this);
-        System.out.println(this.size());
-        //generateDeck();
+        generateDeck();
     }
 
     @Override
