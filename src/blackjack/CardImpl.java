@@ -20,6 +20,7 @@ public class CardImpl implements Card {
     //Genera carta random
     public CardImpl() {
         this(getRandomSuit(), getRandomValue());
+        this.facedown = false;
     }
     
     //Genera carta random con seme preciso
