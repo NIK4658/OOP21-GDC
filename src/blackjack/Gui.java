@@ -2,6 +2,7 @@ package blackjack;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
@@ -12,6 +13,7 @@ import java.util.List;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import javax.swing.*;
+import javax.swing.border.Border;
 
 import account.AdvancedAccountManager;
 import account.AdvancedAccountManagerImpl;
@@ -36,28 +38,45 @@ public class Gui extends JPanel{
     
     private List<JLabel> dcards;
     private List<JLabel> pcards;
-    private final Game gam;
+    private final Game game;
     
     public Gui(final Dimension dim, final AdvancedBalanceManager account) {
-        
-        //JPanel con immagine di sfondo
-        //final BackgroundPanel bgpanel = new BackgroundPanel(
-        //       new ImageIcon("res/img/backgrounds/blackjacktableHD.png").getImage(),
-        //       BackgroundPanel.SCALED, 0.0f, 0.0f);  
-        //Area Pulsanti in fondo SUD
-        
-        gam = new GameImpl(account);
         this.setLayout(new BorderLayout());
         
+        game = new GameImpl(account);
+        
+        //Area Pulsanti in fondo SUD
         final JPanel buttonsArea = new JPanel(new GridBagLayout());
         buttonsArea.setPreferredSize(new Dimension(150, 150));
         buttonsArea.setOpaque(false);
 
         //codice ripetuto
-        final JButton draw = new JButton("Hit"); 
-        final JButton stay = new JButton("Stand");
-        final JButton Double = new JButton("Double");
+        final JButton draw = new JButton(); 
+        final JButton stand = new JButton();
+        final JButton Double = new JButton();
         final JButton reset = new JButton("Reset");      
+        
+        
+        draw.setIcon(new ImageIcon((new ImageIcon("res/img/buttons/plus.png").getImage())
+                .getScaledInstance(100, 100, Image.SCALE_SMOOTH)));
+        draw.setOpaque(false);
+        draw.setContentAreaFilled(false);
+        draw.setBorderPainted(false);
+        draw.setFocusPainted(false);
+        
+        stand.setIcon(new ImageIcon((new ImageIcon("res/img/buttons/stay.png").getImage())
+                .getScaledInstance(100, 100, Image.SCALE_SMOOTH)));
+        stand.setOpaque(false);
+        stand.setContentAreaFilled(false);
+        stand.setBorderPainted(false);
+        stand.setFocusPainted(false);
+        
+        Double.setIcon(new ImageIcon((new ImageIcon("res/img/buttons/double.png").getImage())
+                .getScaledInstance(100, 100, Image.SCALE_SMOOTH)));
+        Double.setOpaque(false);
+        Double.setContentAreaFilled(false);
+        Double.setBorderPainted(false);
+        Double.setFocusPainted(false);
         
         final JButton chip1 = new JButton("1"); 
         final JButton chip2 = new JButton("5");
@@ -68,20 +87,20 @@ public class Gui extends JPanel{
         
         final List<JButton> l = new ArrayList<>();
         l.add(draw);
-        l.add(stay);
+        l.add(stand);
         l.add(Double);
         l.add(reset);   
         
-        l.add(chip1);
-        l.add(chip2);
-        l.add(chip3);
-        l.add(chip4);
-        l.add(chip5);
+        //l.add(chip1);
+        //l.add(chip2);
+        //l.add(chip3);
+        //l.add(chip4);
+        //l.add(chip5);
         
         
         int i = 0;
         for (final JButton jb : l) { 
-            jb.setPreferredSize(new Dimension(130, 100));
+            jb.setPreferredSize(new Dimension(110, 100));
             jb.setForeground(Color.BLACK);
             jb.setFont(new Font("Arial", Font.BOLD | Font.ITALIC, 20));
             buttonsArea.add(jb, setDimensionObj(i, 0, 0, 10, 10));
@@ -118,7 +137,7 @@ public class Gui extends JPanel{
         bet.setOpaque(false);
         bet.setContentAreaFilled(false);
         bet.setBorderPainted(false);
-        bet.setFocusPainted( false );
+        bet.setFocusPainted(false);
         playerCardsPanel.add(bet, 0);
         
         final JButton resetta = new JButton("Resetta");
@@ -174,7 +193,7 @@ public class Gui extends JPanel{
         
         
         draw.setEnabled(false);
-        stay.setEnabled(false);
+        stand.setEnabled(false);
         reset.setEnabled(false);
         Double.setEnabled(false);
   
@@ -183,53 +202,52 @@ public class Gui extends JPanel{
 
         //da fare refactoring
         draw.addActionListener(e -> {   
-            if (gam.getPlayerPoints() < 21) {
-                gam.askCard();
-                addCard(pcards, gam.getPlayerHand().get(gam.getPlayerHand().size() - 1), playerCardsPanel);
-                playerpoints.setText(String.valueOf(gam.calculatePoints(gam.getPlayerHand())));
+            if (game.getPlayerPoints() < 21) {
+                game.askCard();
+                addCard(pcards, game.getPlayerHand().getCard(game.getPlayerHand().size() - 1), playerCardsPanel);
+                playerpoints.setText(String.valueOf(game.getPlayerPoints()));
             } 
       
-            if (gam.getPlayerPoints() >= 21) {
-                stay.doClick();
+            if (game.getPlayerPoints() >= 21) {
+                stand.doClick();
             }
         });
         
         //codice ripetuto
-        stay.addActionListener(e -> {
+        stand.addActionListener(e -> {
             //g.nextDealerMove();
-            dcards.get(1).setIcon(new ImageIcon(new CardImpl(gam.getDealerHand().get(1).getSuit(), 
-                    gam.getDealerHand().get(1).getValue()).getImg().getScaledInstance(100, 150, Image.SCALE_SMOOTH))); 
-            dpoints.setText(String.valueOf(gam.calculatePoints(gam.getDealerHand())));
+            dcards.get(1).setIcon(new ImageIcon(new CardImpl(game.getDealerHand().getCard(1).getSuit(), 
+                    game.getDealerHand().getCard(1).getValue()).getImg()
+                    .getScaledInstance(100, 150, Image.SCALE_SMOOTH))); 
+            dpoints.setText(String.valueOf(game.getDealerPoints()));
             
-            System.out.println("ciao");
-            while (gam.getDealerPoints() < 17) {
+            while (game.getDealerPoints() < 17) {
                 //aggiunge altre carte nel caso non basti la prima
-                gam.nextDealerMove();
-                addCardDealer(dcards, gam.getDealerHand().get(gam.getDealerHand().size() - 1), dealerCardsPanel);
-                dpoints.setText(String.valueOf(gam.calculatePoints(gam.getDealerHand())));
+                game.nextDealerMove();
+                addCardDealer(dcards, game.getDealerHand().getCard(game.getDealerHand().size() - 1), dealerCardsPanel);
+                dpoints.setText(String.valueOf(game.getDealerPoints()));
             }
             
             //dice chi ha vinto e i punteggi
-            //System.out.println(checkWin(this.playerValue, this.dealerValue));
-            
-            if (gam.checkWin()) {
-                account.deposit(this.puntata); 
-            } else {
-                account.withdraw(this.puntata); 
-            }
-            
             saldo.setText("Saldo: " + account.getBalance());
             
             //disattiva i pulsanti
             draw.setEnabled(false);
-            stay.setEnabled(false);
+            stand.setEnabled(false);
             reset.setEnabled(true);
             Double.setEnabled(false);
-            
-            
         });
         
-        
+        Double.addActionListener(e -> {   
+            if (this.puntata * 2 <= account.getBalance()) {
+                this.puntata *= 2;
+                amountbet.setText(this.puntata + " €");
+                game.askCard();
+                addCard(pcards, game.getPlayerHand().getCard(game.getPlayerHand().size() - 1), playerCardsPanel);
+                playerpoints.setText(String.valueOf(game.getPlayerPoints()));
+                stand.doClick();
+            }
+        });
         
         chip1.addActionListener(e -> {  
             this.chipvalue = 1;
@@ -252,33 +270,18 @@ public class Gui extends JPanel{
         });
         
         bet.addActionListener(e -> {  
-            this.puntata += this.chipvalue;
-            bet.setText("");
-            
-            bet.removeAll();
-            
-            final JPanel jp = new JPanel(new BorderLayout());
-            
-            //jp.setPreferredSize(new Dimension(100, 100));
-            
-            
-            
-            final JLabel punt = new JLabel(String.valueOf(this.puntata), SwingConstants.CENTER);
-            punt.setForeground(Color.WHITE);
-            
-            jp.setOpaque(false);
-            
-            //jp.setBackground(Color.BLACK);
-            
-            jp.add(punt, BorderLayout.CENTER);
-            
-            
-            bet.add(jp, BorderLayout.CENTER);
-            bet.setIcon(chooseChip(this.puntata));
-            
-            
-            
-            amountbet.setText(this.puntata + " €");
+            if ((this.puntata + this.chipvalue) <= account.getBalance()) {
+                this.puntata += this.chipvalue;
+                bet.removeAll();
+                final JPanel jp = new JPanel(new BorderLayout());
+                final JLabel punt = new JLabel(String.valueOf(this.puntata), SwingConstants.CENTER);
+                punt.setForeground(Color.WHITE);
+                jp.setOpaque(false);
+                jp.add(punt, BorderLayout.CENTER);
+                bet.add(jp, BorderLayout.CENTER);
+                bet.setIcon(chooseChip(this.puntata));
+                amountbet.setText(this.puntata + " €");
+            }
         });
         
         resetta.addActionListener(e -> {  
@@ -298,7 +301,7 @@ public class Gui extends JPanel{
             bet.removeAll();
             bet.setIcon(null);
             draw.setEnabled(false);
-            stay.setEnabled(false);
+            stand.setEnabled(false);
             reset.setEnabled(false);
             Double.setEnabled(false);
             
@@ -320,29 +323,31 @@ public class Gui extends JPanel{
             playerCardsPanel.repaint();
             dealerCardsPanel.revalidate();
             dealerCardsPanel.repaint();
-            gam.newTurn();
         });
         
-        conferma.addActionListener(e -> {  
-            resetta.setEnabled(false);
-            bet.setEnabled(false);
-            conferma.setEnabled(false);
-            
-            draw.setEnabled(true);
-            stay.setEnabled(true);
-            reset.setEnabled(true);
-            Double.setEnabled(true);
-            
-            //prima carta scoperta, seconda coperta
-            addCardDealer(dcards, gam.getDealerHand().get(0), dealerCardsPanel);
-            addCardDealer(dcards, gam.getDealerHand().get(1), dealerCardsPanel);
+        conferma.addActionListener(e -> { 
+            if (this.puntata != 0) {
+                game.startGame(this.puntata);
+                resetta.setEnabled(false);
+                bet.setEnabled(false);
+                conferma.setEnabled(false);
+                
+                draw.setEnabled(true);
+                stand.setEnabled(true);
+                reset.setEnabled(true);
+                Double.setEnabled(true);
+                
+                //prima carta scoperta, seconda coperta
+                addCardDealer(dcards, game.getDealerHand().getCard(0), dealerCardsPanel);
+                addCardDealer(dcards, game.getDealerHand().getCard(1), dealerCardsPanel);
 
-            addCard(pcards, gam.getPlayerHand().get(0), playerCardsPanel);
-            addCard(pcards, gam.getPlayerHand().get(1), playerCardsPanel);
-            
-            puntata.setText("Puntata: " + this.puntata);
-            dpoints.setText(String.valueOf(gam.getDealerHand().get(0).getValue()));
-            playerpoints.setText(String.valueOf(gam.calculatePoints(gam.getPlayerHand())));
+                addCard(pcards, game.getPlayerHand().getCard(0), playerCardsPanel);
+                addCard(pcards, game.getPlayerHand().getCard(1), playerCardsPanel);
+                
+                puntata.setText("Puntata: " + this.puntata);
+                dpoints.setText(String.valueOf(game.getDealerHand().getCard(0).getValue()));
+                playerpoints.setText(String.valueOf(game.getPlayerPoints()));
+            }
         });
         
         
@@ -353,27 +358,22 @@ public class Gui extends JPanel{
     
     
     private ImageIcon chooseChip(final int puntata) {
-        
         if (puntata <  5) {
             final Image img = new ImageIcon("res/img/fiches/empty/1HD2.png").getImage();
             return new ImageIcon(img.getScaledInstance(70, 70, Image.SCALE_SMOOTH));
         }
-        
         if (puntata < 25) {
             final Image img = new ImageIcon("res/img/fiches/empty/5.png").getImage();
             return new ImageIcon(img.getScaledInstance(45, 45, Image.SCALE_SMOOTH));
         }
-        
         if (puntata < 100) {
             final Image img = new ImageIcon("res/img/fiches/empty/25.png").getImage();
             return new ImageIcon(img.getScaledInstance(45, 45, Image.SCALE_SMOOTH));
         }
-        
         if (puntata < 500) {
             final Image img = new ImageIcon("res/img/fiches/empty/100.png").getImage();
             return new ImageIcon(img.getScaledInstance(45, 45, Image.SCALE_SMOOTH));
         }
-        
         final Image img = new ImageIcon("res/img/fiches/empty/500.png").getImage();
         return new ImageIcon(img.getScaledInstance(45, 45, Image.SCALE_SMOOTH)); 
     }
@@ -403,32 +403,6 @@ public class Gui extends JPanel{
         p.add(cards.get((cards.size() - 1)), 0);
     }
     
-    
-    
-    private String checkWin(final int uservalue, final int dealervalue) {
-        
-        System.out.println("finegioco");
-        
-        System.out.println("Il tuo punteggio: " + uservalue);
-        System.out.println("Il punteggio del dealer: " + dealervalue);
-   
-        if (uservalue > 21) {
-            return "hai perso";
-        }
-        
-        if (dealervalue > 21) {
-            return "hai vinto";
-        }
-        
-        if (uservalue == dealervalue) {
-            return "patta";
-        }
-        if (uservalue > dealervalue) {
-            return "hai vinto";
-        } else {
-            return "hai perso";
-        }  
-    }
     
     private GridBagConstraints setDimensionObj(final int gridx, final int gridy,
             final int spacedown, final int spaceright, final int spaceleft) {
@@ -463,11 +437,11 @@ public class Gui extends JPanel{
         //new MainGui();
     }
     
+    
+    
     @Override
     protected void paintComponent(final Graphics g) {
         super.paintComponent(g);
         g.drawImage(this.img, 0, 0, getWidth(), getHeight(), null);
     }
-    
-    
 }
