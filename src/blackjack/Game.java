@@ -1,38 +1,33 @@
 package blackjack;
 
-import java.util.List;
 
+/**
+ * Interfaccia principale gestione gioco blackjack.
+ */
 public interface Game {
+    
+    void startGame(final int bet);
     
     void askCard();
     
-    void stay();
-    
-    void split();
+    void stand();
     
     void askDouble();
     
-    void startGame();
-    
-    void newTurn();
+    void split();
 
-    boolean checkWin();
+    void checkWin();
+    
+    void nextDealerMove();
     
     void dealerDraw();
     
-    void dealerStay();
+    Hand getPlayerHand();
     
-    List<Card> getPlayerHand();
-    
-    List<Card> getDealerHand();
-    
-    int calculatePoints(List<Card> cards);
+    Hand getDealerHand();
     
     int getPlayerPoints();
     
     int getDealerPoints();
     
-    
-    void nextDealerMove();
-
 }
