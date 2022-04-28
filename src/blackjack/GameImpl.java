@@ -33,8 +33,15 @@ public class GameImpl implements Game {
         this.dealer.addCard(this.deck.drawRandomCard());
         this.dealer.addCard(this.deck.drawRandomCard());  
         this.dealer.getCard(1).turnOver();
+        //System.out.println(this.dealer.getCard(1).isFaceDown());
         this.dealer.calculatePoints();
         this.player.calculatePoints();
+        
+        if (this.player.getPoints() == 21) {
+            System.out.println("Blackjack!");
+            checkWin();
+        }
+        
     }
     
     
@@ -102,11 +109,15 @@ public class GameImpl implements Game {
 
     @Override
     public void nextDealerMove() {
-        if (this.dealer.getPoints() < 17) {
-            dealerDraw();
-            //nextDealerMove();
+        if (this.dealer.getCard(1).isFaceDown()) {
+            this.dealer.getCard(1).turnOver();
+            nextDealerMove();
         } else {
-            checkWin();
+            if (getDealerPoints() < 17) {
+                dealerDraw();
+            } else {
+                checkWin();
+            }
         }
     }
 
