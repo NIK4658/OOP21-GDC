@@ -13,6 +13,8 @@ public interface Hand {
     
     Card getCard(int index);
     
+    Card getLastCard();
+    
     Hand getHand();
     
     int getPoints();

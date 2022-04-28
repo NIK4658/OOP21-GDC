@@ -70,5 +70,10 @@ public class HandImpl extends LinkedList<Card> implements Hand {
         }
         return i;
     }
+
+    @Override
+    public Card getLastCard() {
+        return this.get(size() - 1);
+    }
     
 }
