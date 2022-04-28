@@ -88,7 +88,7 @@ public class CardImpl implements Card {
     @Override
     public void turnOver() {
         if (this.facedown) {
-            new ImageIcon("res/img/cards/" + this.card.get1() + "/" + this.card.get2() + ".png").getImage();
+            this.img = new ImageIcon("res/img/cards/" + this.card.get1() + "/" + this.card.get2() + ".png").getImage();
             this.facedown = false;
         } else {
             if (isRedColored()) {
