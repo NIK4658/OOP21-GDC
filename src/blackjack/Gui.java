@@ -313,6 +313,7 @@ public class Gui extends JPanel {
                 setCards(pcards, game.getPlayerHand(), playerCardsPanel, -1);
                 setCards(dcards, game.getDealerHand(), dealerCardsPanel, 1);
                 
+                saldo.setText("Saldo: " + account.getBalance());
                 puntata.setText("Puntata: " + this.puntata);
                 dpoints.setText(String.valueOf(game.getDealerHand().getCard(0).getValue()));
                 playerpoints.setText(String.valueOf(game.getPlayerPoints()));
