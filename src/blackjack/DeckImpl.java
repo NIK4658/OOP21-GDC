@@ -58,4 +58,20 @@ public class DeckImpl extends ArrayList<Card> implements Deck {
             }  
         }  
     }
+
+    @Override
+    public int getnDecks() {
+        return this.ndeck;
+    }
+    
+    @Override
+    public int size() {
+        int counter = 0;
+        for (final Card c : this) {
+            counter++;
+        }
+        return counter;
+    }
+    
+    
 }

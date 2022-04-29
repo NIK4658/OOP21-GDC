@@ -16,5 +16,9 @@ public interface Deck {
     Card drawRandomCard();
     
     void shuffle();
+    
+    int getnDecks();
+    
+    int size();
 
 }
