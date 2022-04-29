@@ -16,11 +16,17 @@ public interface Game {
     
     void split();
 
-    void checkWin();
+    int checkWin();
     
     void nextDealerMove();
     
     void dealerDraw();
+    
+    boolean checkInsurance();
+    
+    boolean checkBlackjack(Hand h);
+    
+    void endGame();
     
     Hand getPlayerHand();
     

@@ -10,7 +10,7 @@ public class GameImpl implements Game {
     
     private final AdvancedBalanceManager account;
     private final Deck deck;
-    private int bet;
+    private double bet;
     private Hand player;
     private Hand dealer;
     
@@ -26,6 +26,7 @@ public class GameImpl implements Game {
     @Override
     public void startGame(final int bet) {
         this.bet = bet;
+        account.withdraw(this.bet);
         this.player = new HandImpl();
         this.dealer = new HandImpl();    
         this.player.addCard(this.deck.drawRandomCard());
@@ -36,6 +37,10 @@ public class GameImpl implements Game {
         //System.out.println(this.dealer.getCard(1).isFaceDown());
         this.dealer.calculatePoints();
         this.player.calculatePoints();
+        
+        checkInsurance();
+        checkBlackjack(this.player);
+        
         
         if (this.player.getPoints() == 21) {
             System.out.println("Blackjack!");
@@ -74,31 +79,24 @@ public class GameImpl implements Game {
 
 
     @Override
-    public void checkWin() { 
-        int win = 0;
+    public int checkWin() { 
         if (this.player.getPoints() > 21) {
-            win = -1;
+            return -1;
         }
         
         if (this.dealer.getPoints() > 21) {
-            win = 1;
+            return 1;
         }
 
         if (this.player.getPoints() == this.dealer.getPoints()) {
-            win = 0;
+            return 0;
         } 
         
         if (this.player.getPoints() < this.dealer.getPoints()) {
-            win = -1;
+            return -1;
         } else {
-            win = 1;
+            return 1;
         }
-        
-        
-        account.changeBalance(account.getBalance() + (this.bet * win));
-        
-        //check mischiare mazzo
-        
     }
 
     @Override
@@ -115,8 +113,9 @@ public class GameImpl implements Game {
         } else {
             if (getDealerPoints() < 17) {
                 dealerDraw();
+                nextDealerMove();
             } else {
-                checkWin();
+                endGame();
             }
         }
     }
@@ -139,5 +138,33 @@ public class GameImpl implements Game {
     @Override
     public int getDealerPoints() {
         return this.dealer.getPoints();
+    }
+
+    @Override
+    public boolean checkInsurance() {
+        return (this.dealer.getCard(0).getValue() == 1 && this.dealer.size() == 2);
+    }
+
+    @Override
+    public boolean checkBlackjack(final Hand h) {
+        return (h.getPoints() == 21 && h.size() == 2);
+    }
+
+    @Override
+    public void endGame() {
+        
+        if (this.deck.size() <= (this.deck.getnDecks() * 13 * 4) / 2) {
+            this.deck.shuffle();
+        }
+        
+        if (checkBlackjack(this.player) && !checkBlackjack(this.dealer)) {
+            account.changeBalance(account.getBalance() + ((this.bet * 3) / 2));
+        } else {
+            if (checkWin() == 1) {
+                account.changeBalance(account.getBalance() + (this.bet * 2));
+            } else if (checkWin() == 0) {
+                account.changeBalance(account.getBalance() + (this.bet));
+            }
+        }
     }
 }
