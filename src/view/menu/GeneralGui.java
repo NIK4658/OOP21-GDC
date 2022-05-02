@@ -62,28 +62,28 @@ public class GeneralGui extends JFrame {
 	        
 	        panel4.setBounds(300,400,300,200);
 	        
-	        JLabel label3=new JLabel("SALDO | PUNTATA | VINCITA");
-	        label3.setFont(new Font("Verdana", Font.PLAIN, 15));
+	        //JLabel label3=new JLabel("SALDO | PUNTATA | VINCITA");
+	        //label3.setFont(new Font("Verdana", Font.PLAIN, 15));
 	        
 	        final JLabel saldo = new JLabel("SALDO");
-	        saldo.setForeground(Color.WHITE);
-	        saldo.setBounds(530, 20, 150, 150);
-	        saldo.setFont(new Font("Arial", Font.BOLD | Font.ITALIC, 20));
+	        saldo.setForeground(Color.BLACK);
+	        saldo.setBounds(350, 20, 150, 150);
+	        saldo.setFont(new Font("Arial", Font.BOLD | Font.ITALIC, 15));
 	        panel3.add(saldo, 0);
 	        
 	        final JLabel puntata = new JLabel("PUNTATA");
-	        puntata.setForeground(Color.WHITE);
+	        puntata.setForeground(Color.BLACK);
 	        puntata.setBounds(350, 20, 150, 150);
-	        puntata.setFont(new Font("Arial", Font.BOLD | Font.ITALIC, 30));
+	        puntata.setFont(new Font("Arial", Font.BOLD | Font.ITALIC, 15));
 	        panel3.add(puntata, 0);
 	        
 	        final JLabel vincita = new JLabel("VINCITA");
-	        vincita.setForeground(Color.WHITE);
+	        vincita.setForeground(Color.BLACK);
 	        vincita.setBounds(350, 20, 150, 150);
-	        vincita.setFont(new Font("Arial", Font.BOLD | Font.ITALIC, 30));
+	        vincita.setFont(new Font("Arial", Font.BOLD | Font.ITALIC, 15));
 	        panel3.add(vincita, 0);
 	        
-	        label3.setBounds(10,50,200,50);
+	        //label3.setBounds(10,50,200,50);
 	        
 	        
 	        
@@ -96,17 +96,17 @@ public class GeneralGui extends JFrame {
 	        panel2.add(bo1);
 	        
 	        final JButton bo2 = new JButton("ANNULLA");
-	        /*final JButton bo3 = new JButton("?");
+	        final JButton bo3 = new JButton("?");
 	        final JButton bo4 = new JButton("?");
 	        final JButton bo5 = new JButton("?");
 	        final JButton bo6 = new JButton("?");
 	        final JButton bo7 = new JButton("?");
-	        //panel4.add(bo2);
-	        //panel4.add(bo3);
-	        //panel4.add(bo4);
-	        //panel4.add(bo5);
-	        //panel4.add(bo6);
-	        //panel4.add(bo7);*/
+	        panel4.add(bo2);
+	        panel4.add(bo3);
+	        panel4.add(bo4);
+	        panel4.add(bo5);
+	        panel4.add(bo6);
+	        panel4.add(bo7);
 	        
 	        final Image img1 = new ImageIcon("res/img/fiches/empty/1.png").getImage();
 	        
