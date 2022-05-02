@@ -65,9 +65,27 @@ public class GeneralGui extends JFrame {
 	        JLabel label3=new JLabel("SALDO | PUNTATA | VINCITA");
 	        label3.setFont(new Font("Verdana", Font.PLAIN, 15));
 	        
+	        final JLabel saldo = new JLabel("SALDO");
+	        saldo.setForeground(Color.WHITE);
+	        saldo.setBounds(530, 20, 150, 150);
+	        saldo.setFont(new Font("Arial", Font.BOLD | Font.ITALIC, 20));
+	        panel3.add(saldo, 0);
+	        
+	        final JLabel puntata = new JLabel("PUNTATA");
+	        puntata.setForeground(Color.WHITE);
+	        puntata.setBounds(350, 20, 150, 150);
+	        puntata.setFont(new Font("Arial", Font.BOLD | Font.ITALIC, 30));
+	        panel3.add(puntata, 0);
+	        
+	        final JLabel vincita = new JLabel("VINCITA");
+	        vincita.setForeground(Color.WHITE);
+	        vincita.setBounds(350, 20, 150, 150);
+	        vincita.setFont(new Font("Arial", Font.BOLD | Font.ITALIC, 30));
+	        panel3.add(vincita, 0);
+	        
 	        label3.setBounds(10,50,200,50);
 	        
-	        panel3.add(label3);
+	        
 	        
 
 
