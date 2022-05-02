@@ -1,4 +1,6 @@
 package view.menu;
+import java.awt.image.BufferedImage;
+import javax.swing.BorderFactory;
 
 import java.awt.LayoutManager;
 
@@ -13,6 +15,7 @@ import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 
+import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
@@ -60,7 +63,7 @@ public class GeneralGui extends JFrame {
 	        panel3.setBounds(10,400,300,200);
 	        //Panel 4
 	        
-	        panel4.setBounds(300,400,300,200);
+	        panel4.setBounds(300,400,300,400);
 	        
 	        //JLabel label3=new JLabel("SALDO | PUNTATA | VINCITA");
 	        //label3.setFont(new Font("Verdana", Font.PLAIN, 15));
@@ -68,22 +71,22 @@ public class GeneralGui extends JFrame {
 	        final JLabel saldo = new JLabel("SALDO");
 	        saldo.setForeground(Color.BLACK);
 	        saldo.setBounds(350, 20, 150, 150);
-	        saldo.setFont(new Font("Arial", Font.BOLD | Font.ITALIC, 15));
+	        saldo.setFont(new Font("Arial", Font.PLAIN | Font.ITALIC, 15));
 	        panel3.add(saldo, 0);
 	        
 	        final JLabel puntata = new JLabel("PUNTATA");
 	        puntata.setForeground(Color.BLACK);
 	        puntata.setBounds(350, 20, 150, 150);
-	        puntata.setFont(new Font("Arial", Font.BOLD | Font.ITALIC, 15));
+	        puntata.setFont(new Font("Arial", Font.PLAIN | Font.ITALIC, 15));
 	        panel3.add(puntata, 0);
 	        
 	        final JLabel vincita = new JLabel("VINCITA");
 	        vincita.setForeground(Color.BLACK);
 	        vincita.setBounds(350, 20, 150, 150);
-	        vincita.setFont(new Font("Arial", Font.BOLD | Font.ITALIC, 15));
+	        vincita.setFont(new Font("Arial", Font.PLAIN | Font.ITALIC, 15));
 	        panel3.add(vincita, 0);
 	        
-	        //label3.setBounds(10,50,200,50);
+	        
 	        
 	        
 	        
@@ -95,14 +98,56 @@ public class GeneralGui extends JFrame {
 	        final JButton bo1 = new JButton("?");
 	        panel2.add(bo1);
 	        
-	        final JButton bo2 = new JButton("ANNULLA");
-	        final JButton bo3 = new JButton("?");
-	        final JButton bo4 = new JButton("?");
-	        final JButton bo5 = new JButton("?");
-	        final JButton bo6 = new JButton("?");
-	        final JButton bo7 = new JButton("?");
+	        
+	        JButton imageButton = new JButton();
+
+	        ImageIcon image = new ImageIcon("yourImage.png"); 
+	        		//JButton jButton1 = new JButton(new ImageIcon(getScaledImage(icon.getImage(), 32, 32)));
+	        		
+	        		
+	        		//jButton1.setIcon(new ImageIcon(ImageIO.read(new File("path/to/image.png"))));
+
+
+
+	        		/**
+	        		 * Resizes an image using a Graphics2D object backed by a BufferedImage.
+	        		 * @param srcImg - source image to scale
+	        		 * @param w - desired width
+	        		 * @param h - desired height
+	        		 * @return - the new resized image
+	        		 */
+	        		/*private Image getScaledImage(Image srcImg, int w, int h){
+	        		    BufferedImage resizedImg = new BufferedImage(w, h, BufferedImage.TRANSLUCENT);
+	        		    Graphics2D g2 = resizedImg.createGraphics();
+	        		    g2.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
+	        		    g2.drawImage(srcImg, 0, 0, w, h, null);
+	        		    g2.dispose();
+	        		    return resizedImg;
+	        		}*/
+	        
+	       
+	     
+	     
+	     final JButton bo2 = new JButton("ANNULLA");
+	        final JButton button = new JButton("1");
+	        button.setOpaque(false);
+	        button.setFocusPainted(false);
+	        button.setBorderPainted(false);
+	        button.setContentAreaFilled(false);
+	        button.setBorder(BorderFactory.createEmptyBorder(0,0,0,0));
+	        try {
+	            Image img = ImageIO.read(getClass().getResource("res/img/backgrounds/1.png"));
+	            button.setIcon(new ImageIcon(img));
+	          } catch (Exception ex) {
+	            System.out.println(ex);
+	          }
+	        final JButton bo4 = new JButton("5");
+	        final JButton bo5 = new JButton("10");
+	        final JButton bo6 = new JButton("25");
+	        final JButton bo7 = new JButton("120");
+	        panel4.add(imageButton);
 	        panel4.add(bo2);
-	        panel4.add(bo3);
+	        panel4.add(button);
 	        panel4.add(bo4);
 	        panel4.add(bo5);
 	        panel4.add(bo6);
@@ -110,7 +155,7 @@ public class GeneralGui extends JFrame {
 	        
 	        final Image img1 = new ImageIcon("res/img/fiches/empty/1.png").getImage();
 	        
-	        JButton imageButton = new JButton(new ImageIcon(img1));
+	        //JButton imageButton = new JButton(new ImageIcon(img1));
 	        
 	        //Image img = icon.getImage() ;  
 	        //Image newimg = img.getScaledInstance( NEW_WIDTH, NEW_HEIGHT,  java.awt.Image.SCALE_SMOOTH ) ;  
@@ -122,7 +167,7 @@ public class GeneralGui extends JFrame {
 	        imageButton.setOpaque(false);
 	        imageButton.setPreferredSize(new Dimension(40, 40));
 	        
-	        panel4.add(bo2);
+	       // panel4.add(bo2);
 	        
 	        
 	        // Panel border
@@ -135,7 +180,7 @@ public class GeneralGui extends JFrame {
 	        c.add(panel,BorderLayout.EAST);
 	        c.add(panel2,BorderLayout.WEST);
 	        c.add(panel3,BorderLayout.SOUTH);
-	        c.add(panel4);
+	        c.add(panel4,BorderLayout.SOUTH);
 	       
 	        setVisible(true);
 	    }
