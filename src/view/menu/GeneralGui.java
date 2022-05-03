@@ -28,6 +28,7 @@ import java.awt.Font;
 import java.awt.Image;
 
 import account.SimpleAccountManager;
+import blackjack.BackgroundPanel;
 import view.gui.MenuManager;
 
 public class GeneralGui extends JFrame {
@@ -166,6 +167,9 @@ public class GeneralGui extends JFrame {
 	        imageButton.setFocusPainted(false);
 	        imageButton.setOpaque(false);
 	        imageButton.setPreferredSize(new Dimension(40, 40));
+	        final BackgroundPanel bgpanel = new BackgroundPanel(
+	                new ImageIcon("res/img/backgrounds/blackjacktableHD.png").getImage(),
+	                BackgroundPanel.SCALED, 0.0f, 0.0f);
 	        
 	       // panel4.add(bo2);
 	        

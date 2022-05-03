@@ -2,6 +2,8 @@ package view.menu;
 
 import account.AdvancedAccountManager;
 import account.SimpleAccountManager;
+import blackjack.BackgroundPanel;
+
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -61,10 +63,14 @@ public class MainMenu extends JPanel implements Menu {
         
         //DA IMPOSTARE L'IMMAGINE DELLO SFONDO
         
-        final Dimension dimImg = new Dimension(frame.getWidthMenu(), frame.getHeightMenu());
+        final BackgroundPanel bgpanel = new BackgroundPanel(
+                new ImageIcon("res/img/backgrounds/blackjacktableHD.png").getImage(),
+                BackgroundPanel.SCALED, 0.0f, 0.0f);
+        
+        /*final Dimension dimImg = new Dimension(frame.getWidthMenu(), frame.getHeightMenu());
         final Image img1 = new ImageIcon("res/img/backgrounds/tavolo.jpg").getImage();
         final Image imgScaled1 = img1.getScaledInstance(dimImg.width, dimImg.height, Image.SCALE_DEFAULT);
-        this.add(new JLabel(new ImageIcon(imgScaled1)));
+        this.add(new JLabel(new ImageIcon(imgScaled1)));*/
         
 
         final JLabel title = new JLabel("GIOCHI DEL COLOSSO", SwingConstants.CENTER);
