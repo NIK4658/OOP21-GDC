@@ -43,15 +43,21 @@ public class Warning {
         		+ "your Internet Service Provider for more information.\n"
         		+ "1.3 William Hill RacingTV is available on a race by race basis based  \n"
         		+ "on you placing at least a £1.00 single bet or a £0.50 each-way single "
-        		+ "bet (total stake £1.00), or at least a £2.00 double bet or a £1.00 each-way double bet \n"
-        		+ " (total stake £2.00), or at least a £3.00 treble bet or a £1.50 each-way treble bet (total stake £3.00) \n"
-        		+ "on the race(s) you wish to view. For multiple bet types the equivalent stake of £1.00 per event \n"
+        		+ "bet (total stake £1.00), or at least a £2.00 double bet or a £1.00 each-way "
+        		+ "double bet \n"
+        		+ " (total stake £2.00), or at least a £3.00 treble bet or a £1.50 each-way \n"
+        		+ "treble bet (total stake £3.00) \n"
+        		+ "on the race(s) you wish to view. For multiple bet types the equivalent\n"
+        		+ " stake of £1.00 per event \n"
         		+ "must be spent to view each additional race.\n"
         		+ "1.4 Antepost, totePool and special bets do not apply.\n"
         		+ "1.5 However, William Hill reserve the right to alter these conditions \n"
-        		+ "for access or introduce a fee, subscription or other charge for access to William Hill RacingTV in \n"
-        		+ "the future. You will be made aware of the introduction of any charge or condition before it is introduced.\n"
-        		+ "1.6 William Hill may refuse access to William Hill RacingTV to any customer \n"
+        		+ "for access or introduce a fee, subscription or other charge for access \n"
+        		+ "to William Hill RacingTV in \n"
+        		+ "the future. You will be made aware of the introduction of any charge or \n"
+        		+ "condition before it is introduced.\n"
+        		+ "1.6 William Hill may refuse access to William Hill RacingTV to any \n "
+        		+ "customer \n"
         		+ "at its absolute discretion.\n"
         		+ "1.7 By accessing William Hill RacingTV you accept these terms and conditions.\n"
         		+ "");
@@ -66,8 +72,10 @@ public class Warning {
 
         //Add Textarea in to middle panel
         middlePanel.add ( scroll );
-        middlePanel.add ( tf );
-        middlePanel.add ( send);
+        south.add ( tf );
+        south.add ( send);
+        
+        
         
         ActionListener actionListener = new ActionListener() {
             public void actionPerformed(ActionEvent actionEvent) {
@@ -94,8 +102,8 @@ public class Warning {
         // My code
         tf.addActionListener(actionListener);
         JFrame frame = new JFrame ("WARNING");
-        frame.add ( middlePanel );
-        //frame.add(south);
+        frame.add ( middlePanel ,BorderLayout.CENTER);
+        frame.add(south, BorderLayout.SOUTH);
         frame.pack ();
         frame.setLocationRelativeTo ( null );
         frame.setVisible ( true );
