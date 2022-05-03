@@ -1,6 +1,7 @@
 package view.menu;
 
 import account.AdvancedAccountManager;
+
 import account.SimpleAccountManager;
 import blackjack.BackgroundPanel;
 
@@ -22,15 +23,21 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import view.GridBagConstraintsConstructor;
 import view.gui.MenuManager;
+import java.awt.Graphics;
 
 /**
  * Menu principale.
  */
 public class MainMenu extends JPanel implements Menu {
+	
+	
 
     private static final long serialVersionUID = 1L;
 //    private final MenuManager frame;
 //    private final AccountManager account;
+    
+    
+    private final Image img = new ImageIcon("res/img/backgrounds/MainBG.jpg").getImage();
 
     /**
      * Costruttore.
@@ -44,9 +51,11 @@ public class MainMenu extends JPanel implements Menu {
         final int height = frame.getHeightMenu();
         final JPanel north = new JPanel(new GridBagLayout());
         final JPanel center = new JPanel(new GridBagLayout());
-        north.setBackground(new Color(44, 107, 14));
+        center.setOpaque(false);
+        north.setOpaque(false);
+        
         north.setPreferredSize(new Dimension(width, height / 4));
-        center.setBackground(new Color(44, 107, 14));
+        
         
         
         
@@ -63,9 +72,7 @@ public class MainMenu extends JPanel implements Menu {
         
         //DA IMPOSTARE L'IMMAGINE DELLO SFONDO
         
-        final BackgroundPanel bgpanel = new BackgroundPanel(
-                new ImageIcon("res/img/backgrounds/blackjacktableHD.png").getImage(),
-                BackgroundPanel.SCALED, 0.0f, 0.0f);
+        
         
         /*final Dimension dimImg = new Dimension(frame.getWidthMenu(), frame.getHeightMenu());
         final Image img1 = new ImageIcon("res/img/backgrounds/tavolo.jpg").getImage();
@@ -125,6 +132,11 @@ public class MainMenu extends JPanel implements Menu {
     @Override
     public JPanel getMenu() {
         return this;
+    }
+    @Override
+    protected void paintComponent(final Graphics g) {
+    	super.paintComponent(g);
+    	g.drawImage(this.img,0,0, getWidth(), getHeight(), null);
     }
     
 }
