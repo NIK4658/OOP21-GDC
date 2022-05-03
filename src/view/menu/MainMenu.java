@@ -127,6 +127,8 @@ public class MainMenu extends JPanel implements Menu {
         
         this.add(north, BorderLayout.NORTH);
         this.add(center, BorderLayout.CENTER);
+        
+        
   }
 
     @Override
