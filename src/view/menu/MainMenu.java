@@ -93,6 +93,7 @@ public class MainMenu extends JPanel implements Menu {
         
         roulette.addActionListener(e -> frame.setGameMenu(account));
         blackjack.addActionListener(e -> frame.setBlackjackMenu(account));
+        bacarat.addActionListener(e -> frame.setBaccaratMenu(account));
         accountman.addActionListener(e -> frame.setAccountMenu(account));
         
         //meglio creare una funzione

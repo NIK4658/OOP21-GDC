@@ -44,10 +44,13 @@ public class GeneralGui extends JPanel {
 	
 	
 	
-	  GeneralGui(){
+	  public GeneralGui(){
+	      
+	      
 	       
 	        setLayout(new BorderLayout());
-	        setPreferredSize(new Dimension(x,y));
+	        
+	        this.setPreferredSize(new Dimension(x,y));
 	        
 	        JPanel north = new JPanel();
 	        JPanel south = new JPanel();
@@ -55,11 +58,11 @@ public class GeneralGui extends JPanel {
 	        
 	        
 	        south.setLayout(new GridBagLayout());
-	        south.setPreferredSize(new Dimension(100,100));
+	        south.setPreferredSize(new Dimension((int)(x/12.8),(int)(x/12.8)));
 	        //south.setBackground(Color.RED);
 	        
 	        north.setLayout(new GridBagLayout());
-	        north.setPreferredSize(new Dimension(100,100));
+	        north.setPreferredSize(new Dimension((int)(x/12.8),(int)(x/12.8)));
 	        //north.setBackground(Color.RED);
 	        
 	        //JLabel definition
@@ -72,7 +75,7 @@ public class GeneralGui extends JPanel {
 	        north.add(labelvincita);
 	        
 	        final JButton backToMenu = new JButton("BACK MENU");
-            backToMenu.setPreferredSize(new Dimension(100,50));
+            backToMenu.setPreferredSize(new Dimension((int)(x/12.8),(int)(x/25.6)));
             north.add(backToMenu, setDimensionObj(0,0,0,(int)(x/1.3),0));
             
             final JButton help = new JButton("?");
@@ -201,6 +204,7 @@ public class GeneralGui extends JPanel {
 	    	frame.setTitle("Gui giochi");
 	        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	        frame.setPreferredSize(new Dimension(1280,720));
+	        
 	        frame.add(new GeneralGui());
 	        frame.pack();
 	        frame.setLocationRelativeTo(null);
