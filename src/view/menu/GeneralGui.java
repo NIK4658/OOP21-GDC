@@ -62,15 +62,24 @@ public class GeneralGui extends JPanel {
 	        north.setPreferredSize(new Dimension(100,100));
 	        //north.setBackground(Color.RED);
 	        
+	        //JLabel definition
+	        
+	        //North jpanel label
+	        
 	        final JLabel labelvincita = new JLabel("HAI VINTO...");
 	        labelvincita.setForeground(Color.BLACK);
-	        labelvincita.setFont(new Font("Arial", Font.PLAIN | Font.ITALIC, 15));
+	        labelvincita.setFont(new Font("Arial", Font.PLAIN | Font.ITALIC, 25));
 	        north.add(labelvincita);
 	        
-	        
-	       
-	        
-	        
+	        final JButton backToMenu = new JButton("BACK MENU");
+            backToMenu.setPreferredSize(new Dimension(100,50));
+            north.add(backToMenu, setDimensionObj(0,0,0,(int)(x/1.3),0));
+            
+            final JButton help = new JButton("?");
+            help.setPreferredSize(new Dimension(100,50));
+            north.add(help, setDimensionObj(1,0,0,0,0));
+            
+            //South Jpanel label
 	        
 	        final JLabel vincita = new JLabel("VINCITA");
 	        vincita.setForeground(Color.BLACK);
@@ -89,6 +98,8 @@ public class GeneralGui extends JPanel {
 	        puntata.setBounds(350, 20, 150, 150);
 	        puntata.setFont(new Font("Arial", Font.PLAIN | Font.ITALIC, 15));
 	        south.add(puntata, setDimensionObj(0,0,0,(int)(x/3),0));
+	        
+	        //Jlabel for puntata,vincita,saldo value
 	        
 	        final JLabel vsaldo = new JLabel("1");
             puntata.setForeground(Color.BLACK);
@@ -109,48 +120,31 @@ public class GeneralGui extends JPanel {
             south.add(vvincita, setDimensionObj(0,1,0,(int)(x/3),0));
             
             
+            //Button for confirm or cancel your bet in the south panel
             
-	        
-	        
-	      
-	        
-
-
-	        final JButton backToMenu = new JButton("TORNA AL MENU");
-	        //bo.setPreferredSize(new Dimension(100,50));
-	        north.add(backToMenu, setDimensionObj(0,0,0,(int)(x/1.3),0));
-	        
-	        final JButton help = new JButton("?");
-	        //bo1.setPreferredSize(new Dimension(100,50));
-	        north.add(help, setDimensionObj(1,0,0,0,0));
-	        
-
-	     
-	     final JButton reset = new JButton(" ");
-	     final JButton confirm = new JButton("  ");
-	     
-	     
-	     
-	     final JButton fish1 = new JButton(" ");
-	     final JButton fish2 = new JButton(" ");
-	     final JButton fish3 = new JButton(" ");
-	     final JButton fish4 = new JButton(" ");
-	     final JButton fish5 = new JButton(" ");
-	     final JButton fish6 = new JButton(" ");
-	     
-	     
-	     final List<JButton> list = new ArrayList<>();
-	     	list.add(reset);
-	     	list.add(confirm);
-	        list.add(fish1);
-	        list.add(fish2);
-	        list.add(fish3);
-	        list.add(fish4);
-	        list.add(fish5);
-	        
-	        
-	        
-
+            final JButton reset = new JButton(" ");
+            final JButton confirm = new JButton("  ");
+            
+            //Button with fish image for your bet
+            
+            final JButton fish1 = new JButton(" ");
+            final JButton fish2 = new JButton(" ");
+            final JButton fish3 = new JButton(" ");
+            final JButton fish4 = new JButton(" ");
+            final JButton fish5 = new JButton(" ");
+            
+            
+            
+            final List<JButton> list = new ArrayList<>();
+               list.add(reset);
+               list.add(confirm);
+               list.add(fish1);
+               list.add(fish2);
+               list.add(fish3);
+               list.add(fish4);
+               list.add(fish5);
+            
+            //Setting all the button transparent 
 
 	        for (final JButton jb : list) { 
 	        	jb.setOpaque(false);
@@ -160,6 +154,8 @@ public class GeneralGui extends JPanel {
 		        jb.setBorder(BorderFactory.createEmptyBorder(0,0,0,0));
 	            
 	        }
+	        
+	        //Setting images to the buttons
 	        
 	        final Image img = new ImageIcon("res/img/fiches/numbers/1.png").getImage();
 	        reset.setIcon(new ImageIcon(img.getScaledInstance(70, 70, Image.SCALE_SMOOTH)));
@@ -182,14 +178,14 @@ public class GeneralGui extends JPanel {
 	        final Image img6 = new ImageIcon("res/img/fiches/numbers/500.png").getImage();
 	        fish5.setIcon(new ImageIcon(img6.getScaledInstance(70, 70, Image.SCALE_SMOOTH)));
 	     
-	        
+	        //Adding fish and confirm/cancel button on the south panel
 	        
 	        for(final JButton jb: list) {
 	        	south.add(jb);
 	        }
 
 	        
-	        //adding the panel to the Container of the JFrame
+	        //adding the panel to the Container 
 	        add(north,BorderLayout.NORTH);
 	        add(center,BorderLayout.CENTER);
 	        add(south,BorderLayout.SOUTH);
@@ -197,6 +193,8 @@ public class GeneralGui extends JPanel {
 	       
 	        setVisible(true);
 	    }
+	  
+	  
 	    public static void main(String[] args) {
 	    	
 	    	JFrame frame = new JFrame();
