@@ -13,30 +13,24 @@ import javax.swing.*;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import javax.swing.JButton;
-import javax.swing.JCheckBox;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
-import javax.swing.JTextField;
-import javax.swing.ScrollPaneConstants;
+
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
 
-public class Warning {
+public class Warning extends JDialog {
     public static void main(String args[]) {
         
+        //Definition of center and south JPanel
     	
-    	JPanel middlePanel = new JPanel ();
+    	JPanel center = new JPanel ();
     	JPanel south = new JPanel ();
-        middlePanel.setBorder ( new TitledBorder ( new EtchedBorder (), "WARNING!!" ) );
+        center.setBorder ( new TitledBorder ( new EtchedBorder (), "WARNING!!" ) );
 
-        // create the middle panel components
+        // Definition of a Text area with terms and condiction
 
-        JTextArea display = new JTextArea ( 15,30 );
-        display.setBackground(Color.RED);
-        display.setText("1.1 William Hill RacingTV is only available to William Hill account holders, "
+        JTextArea textArea = new JTextArea ( 15,30 );
+        textArea.setBackground(Color.RED);
+        textArea.setText("1.1 William Hill RacingTV is only available to William Hill account holders, "
         		+ "subject to the provisions of the remaining terms and conditions below.\n"
         		+ "1.2 Race viewing is available to UK and Ireland residents only and may not \n"
         		+ "be available to customers using foreign configured IP addresses. Please contact "
@@ -61,48 +55,60 @@ public class Warning {
         		+ "at its absolute discretion.\n"
         		+ "1.7 By accessing William Hill RacingTV you accept these terms and conditions.\n"
         		+ "");
-        display.setEditable ( false ); // set textArea non-editable
-        JScrollPane scroll = new JScrollPane ( display );
-        scroll.setVerticalScrollBarPolicy ( ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS );
-        scroll.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-        final JCheckBox tf = new JCheckBox("Sono consapevole"); // accepts upto 10 characters
-        final JButton send = new JButton("Avanti");
         
-        send.setEnabled(false);
+        // set textArea non-editable
+        textArea.setEditable ( false ); 
+        
+        //Putting the Text area on a scroll panel
+        
+        JScrollPane scrollText = new JScrollPane ( textArea );
+        
+        //Setting scroll option only vertical
+        
+        scrollText.setVerticalScrollBarPolicy ( ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS );
+        scrollText.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        
+        //Definition of a ceckbox and button for confirm terms and conditions
+        
+        final JCheckBox ceckbox = new JCheckBox("Sono consapevole"); // accepts upto 10 characters
+        final JButton accept = new JButton("Avanti");
+        accept.setEnabled(false);
+        
+        //Adding action listener for the checkbox the button "avanti" is unavaiable 
+        //the button "avanti" is not enabled until the checkbox is selected
 
-        //Add Textarea in to middle panel
-        middlePanel.add ( scroll );
-        south.add ( tf );
-        south.add ( send);
-        
-        
-        
         ActionListener actionListener = new ActionListener() {
             public void actionPerformed(ActionEvent actionEvent) {
               AbstractButton abstractButton = (AbstractButton) actionEvent.getSource();
               boolean selected = abstractButton.getModel().isSelected();
-              if(selected==true) {
-            	  send.setEnabled(true);
+              
+              if(selected==true) 
+              {
+            	  accept.setEnabled(true);
             	  
               }
-              else;
+              
+              else 
+              {
+                  
+                  accept.setEnabled(false);
+                  
+              }
             
-            }};
+            }
+            
+        };
         
-       /* send.setEnabled(false);
-        if (( tf.isSelected()==true)) {
-            send.setEnabled(true);
-       } else {
-            // Your code if the box is not checked
-       }*/
+        //Adding the components to the panels
         
+        center.add ( scrollText );
+        south.add ( ceckbox );
+        south.add ( accept);
         
-       // frame.getContentPane().add(BorderLayout.SOUTH, );
-
-        // My code
-        tf.addActionListener(actionListener);
+        // Setting Frame
+        ceckbox.addActionListener(actionListener);
         JFrame frame = new JFrame ("WARNING");
-        frame.add ( middlePanel ,BorderLayout.CENTER);
+        frame.add ( center ,BorderLayout.CENTER);
         frame.add(south, BorderLayout.SOUTH);
         frame.pack ();
         frame.setLocationRelativeTo ( null );
@@ -110,143 +116,7 @@ public class Warning {
     }
 }
     	
-    	
 
-       
-    	
-    	
-    	
-    	
-    	
-    	
-    	
-    	
-    	
-    	
-    	
-    	
-    	
-    	
-    	
-    	
-    	
-    	
-    	
-    	
-    	
-    	
-    	
-    	
-    	
-    	
-    	
-    	
-    	
-    	
-    	
-    	
-    	
-    	
-    	//Creating the Frame
-        /*final JFrame frame = new JFrame("WARNING");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(400, 400);
-        Color colore = Color.RED;
-        Color colore2 = Color.WHITE;*/
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        /*final JTextField t1 = new JTextField("IL GIOCO CREA DIPENDENZA STAI ATTENTO");
-         
-        
-        t1.setBackground(colore);
-        t1.setSelectedTextColor(colore2);
-        t1.setHorizontalAlignment(JTextField.CENTER);
-        t1.setEditable(false);
-        t1.setBounds(30, 30, 300, 200);  
-          
-         
-        frame.add(t1);   
-        
-        JPanel middlePanel = new JPanel ();
-        middlePanel.setBorder ( new TitledBorder ( new EtchedBorder (), "ATTENZIONE!!" ) );
-
-        // create the middle panel components
-
-        JTextArea display = new JTextArea ( 16,58);
-        display.setBackground(colore);
-        display.setSelectedTextColor(colore2);
-        display.setBounds(30, 30, 300, 200);
-        display.setEditable ( false ); // set textArea non-editable
-        JScrollPane scroll = new JScrollPane ( display );
-        scroll.setVerticalScrollBarPolicy ( ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS );
-
-        //Add Textarea in to middle panel
-        middlePanel.add ( scroll );
-        
-        
-        final JPanel panel = new JPanel(); // the panel is not visible in output
-        //JLabel label = new JLabel("Enter Text");
-        final JCheckBox tf = new JCheckBox("Sono consapevole"); // accepts upto 10 characters
-        final JButton send = new JButton("Avanti");
-        //JButton reset = new JButton("Reset");
-        //panel.add(label); // Components Added using Flow Layout
-        panel.add(tf);
-        panel.add(send);
-
-        // My code
-        JFrame frame1 = new JFrame ("WARNING");
-        frame1.add ( middlePanel );
-        frame1.add(panel);
-        frame1.pack ();
-        frame1.setLocationRelativeTo ( null );
-        
-        
-        
-        
-        
-          
-          
-    
-       
-        //panel.add(reset);
-
-        
-        
-
-        //Adding Components to the frame.
-        //frame1.getContentPane().add(BorderLayout.SOUTH, panel);
-        //frame1.getContentPane().add(BorderLayout.CENTER, middlePanel);
-        
-        frame1.setVisible ( true );*/
-        
         
         
  
