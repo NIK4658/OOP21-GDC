@@ -70,43 +70,42 @@ public class GeneralGui extends JPanel {
 	        
 	       
 	        
-	        //JLabel label3=new JLabel("SALDO | PUNTATA | VINCITA");
-	        //label3.setFont(new Font("Verdana", Font.PLAIN, 15));
 	        
-	        final JLabel saldo = new JLabel("SALDO");
-	        saldo.setForeground(Color.BLACK);
-	        saldo.setBounds(350, 20, 150, 150);
-	        saldo.setFont(new Font("Arial", Font.PLAIN | Font.ITALIC, 15));
-	        south.add(saldo, setDimensionObj(0,0,0,(int)(x/3),150));
-	        
-	        final JLabel puntata = new JLabel("PUNTATA");
-	        puntata.setForeground(Color.BLACK);
-	        puntata.setBounds(350, 20, 150, 150);
-	        puntata.setFont(new Font("Arial", Font.PLAIN | Font.ITALIC, 15));
-	        south.add(puntata, setDimensionObj(0,0,0,(int)(x/2),20));
 	        
 	        final JLabel vincita = new JLabel("VINCITA");
 	        vincita.setForeground(Color.BLACK);
 	        vincita.setBounds(350, 20, 150, 150);
 	        vincita.setFont(new Font("Arial", Font.PLAIN | Font.ITALIC, 15));
-	        south.add(vincita, setDimensionObj(0,0,0,(int)(x/3),0));
+	        south.add(vincita, setDimensionObj(0,0,0,(int)(x/3),150));
+	        
+	        final JLabel saldo = new JLabel("SALDO");
+	        saldo.setForeground(Color.BLACK);
+	        saldo.setBounds(350, 20, 150, 150);
+	        saldo.setFont(new Font("Arial", Font.PLAIN | Font.ITALIC, 15));
+	        south.add(saldo, setDimensionObj(0,0,0,(int)(x/2),20));
+	        
+	        final JLabel puntata = new JLabel("PUNTATA");
+	        puntata.setForeground(Color.BLACK);
+	        puntata.setBounds(350, 20, 150, 150);
+	        puntata.setFont(new Font("Arial", Font.PLAIN | Font.ITALIC, 15));
+	        south.add(puntata, setDimensionObj(0,0,0,(int)(x/3),0));
 	        
 	        final JLabel vsaldo = new JLabel("1");
-            vincita.setForeground(Color.BLACK);
-            vincita.setBounds(350, 20, 150, 150);
-            vincita.setFont(new Font("Arial", Font.PLAIN | Font.ITALIC, 15));
+            puntata.setForeground(Color.BLACK);
+            puntata.setBounds(350, 20, 150, 150);
+            puntata.setFont(new Font("Arial", Font.PLAIN | Font.ITALIC, 15));
             south.add(vsaldo, setDimensionObj(0,1,0,(int)(x/3),150));
             
             final JLabel vpuntata = new JLabel("2");
-            vincita.setForeground(Color.BLACK);
-            vincita.setBounds(350, 20, 150, 150);
-            vincita.setFont(new Font("Arial", Font.PLAIN | Font.ITALIC, 15));
+            puntata.setForeground(Color.BLACK);
+            puntata.setBounds(350, 20, 150, 150);
+            puntata.setFont(new Font("Arial", Font.PLAIN | Font.ITALIC, 15));
             south.add(vpuntata, setDimensionObj(0,1,0,(int)(x/2),20));
             
             final JLabel vvincita = new JLabel("3");
-            vincita.setForeground(Color.BLACK);
-            vincita.setBounds(350, 20, 150, 150);
-            vincita.setFont(new Font("Arial", Font.PLAIN | Font.ITALIC, 15));
+            puntata.setForeground(Color.BLACK);
+            puntata.setBounds(350, 20, 150, 150);
+            puntata.setFont(new Font("Arial", Font.PLAIN | Font.ITALIC, 15));
             south.add(vvincita, setDimensionObj(0,1,0,(int)(x/3),0));
             
             
