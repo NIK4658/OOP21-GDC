@@ -116,43 +116,15 @@ public class GeneralGui extends JPanel {
 	        
 
 
-	        final JButton bo = new JButton("MENU");
+	        final JButton backToMenu = new JButton("TORNA AL MENU");
 	        //bo.setPreferredSize(new Dimension(100,50));
-	        north.add(bo, setDimensionObj(0,0,0,(int)(x/1.3),0));
+	        north.add(backToMenu, setDimensionObj(0,0,0,(int)(x/1.3),0));
 	        
-	        final JButton bo1 = new JButton("?");
+	        final JButton help = new JButton("?");
 	        //bo1.setPreferredSize(new Dimension(100,50));
-	        north.add(bo1, setDimensionObj(1,0,0,0,0));
+	        north.add(help, setDimensionObj(1,0,0,0,0));
 	        
-	        
-	        JButton imageButton = new JButton();
 
-	        ImageIcon image = new ImageIcon("yourImage.png"); 
-	        		//JButton jButton1 = new JButton(new ImageIcon(getScaledImage(icon.getImage(), 32, 32)));
-	        		
-	        		
-	        		//jButton1.setIcon(new ImageIcon(ImageIO.read(new File("path/to/image.png"))));
-
-
-
-	        		/**
-	        		 * Resizes an image using a Graphics2D object backed by a BufferedImage.
-	        		 * @param srcImg - source image to scale
-	        		 * @param w - desired width
-	        		 * @param h - desired height
-	        		 * @return - the new resized image
-	        		 */
-	        		/*private Image getScaledImage(Image srcImg, int w, int h){
-	        		    BufferedImage resizedImg = new BufferedImage(w, h, BufferedImage.TRANSLUCENT);
-	        		    Graphics2D g2 = resizedImg.createGraphics();
-	        		    g2.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
-	        		    g2.drawImage(srcImg, 0, 0, w, h, null);
-	        		    g2.dispose();
-	        		    return resizedImg;
-	        		}*/
-	        
-	       
-	     
 	     
 	     final JButton reset = new JButton(" ");
 	     final JButton confirm = new JButton("  ");
@@ -215,23 +187,7 @@ public class GeneralGui extends JPanel {
 	        for(final JButton jb: list) {
 	        	south.add(jb);
 	        }
-	        
-	        
-	        
-	        
-	        
-	        
-	        
-	        
-	     
-	       
-	   
-	        
-	      
-	        
-	        
-	        
-	     
+
 	        
 	        //adding the panel to the Container of the JFrame
 	        add(north,BorderLayout.NORTH);
