@@ -17,6 +17,8 @@ public interface MenuManager {
     
     void setBlackjackMenu(final AdvancedAccountManager account);
     
+    void setBaccaratMenu(AdvancedAccountManager account);
+    
     Frame getFrame();
  
     int getWidthMenu();
@@ -24,6 +26,8 @@ public interface MenuManager {
     int getHeightMenu();
     
     Dimension getSizeMenu();
+
+    
 
     
     

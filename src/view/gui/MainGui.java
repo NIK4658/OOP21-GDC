@@ -17,6 +17,7 @@ import view.menu.AccountMenu;
 import view.menu.MainMenu;
 import view.menu.Menu;
 import view.menu.GameMenu;
+import view.menu.GeneralGui;
 
 //forse meglio usare un unico metodo setMenu(Menu menu, AccountManager account);
 //da settare this.frame.setResizable(false) appena aggiunto torna indietro nei giochi
@@ -78,6 +79,11 @@ public class MainGui implements MenuManager {
     public void setBlackjackMenu(final AdvancedAccountManager account) {
         System.out.println("setBlackjackMenu: " + this.getSizeMenu());
         new Gui(new Dimension(1280, 720), new AdvancedBalanceManagerImpl(account));
+    }
+    
+    @Override
+    public void setBaccaratMenu(AdvancedAccountManager account) {
+        //new GeneralGui(this);
     }
 
     @Override
