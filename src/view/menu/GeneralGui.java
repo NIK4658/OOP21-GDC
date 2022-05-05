@@ -41,13 +41,17 @@ public class GeneralGui extends JPanel {
 	
 	private final int x = 1280;
 	private final int y = 720;
+	private int fichesvalue = 0;
 	
+	private final int getFichesValue() {
+	    return fichesvalue;
+	}
 	
+
 	
 	  public GeneralGui(){
 	      
-	      
-	       
+
 	        setLayout(new BorderLayout());
 	        
 	        this.setPreferredSize(new Dimension(x,y));
@@ -136,7 +140,15 @@ public class GeneralGui extends JPanel {
             final JButton fish4 = new JButton(" ");
             final JButton fish5 = new JButton(" ");
             
+            //Adding Listener to set fiches value
             
+            fish1.addActionListener(e -> fichesvalue = 1);
+            fish1.addActionListener(e -> fichesvalue = 5);
+            fish1.addActionListener(e -> fichesvalue = 25);
+            fish1.addActionListener(e -> fichesvalue = 100);
+            fish1.addActionListener(e -> fichesvalue = 500);
+            
+
             
             final List<JButton> list = new ArrayList<>();
                list.add(reset);
@@ -150,6 +162,9 @@ public class GeneralGui extends JPanel {
             //Setting all the button transparent 
 
 	        for (final JButton jb : list) { 
+	            
+	            
+	            
 	        	jb.setOpaque(false);
 		        jb.setFocusPainted(false);
 		        jb.setBorderPainted(false);
