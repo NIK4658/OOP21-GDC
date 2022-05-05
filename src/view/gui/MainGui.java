@@ -82,8 +82,7 @@ public class MainGui implements MenuManager {
     
     @Override
     public void setBaccaratMenu(AdvancedAccountManager account) {
-        System.out.println("setBlackjackMenu: " + this.getSizeMenu());
-        new GeneralGui(this);
+        //new GeneralGui(this);
     }
 
     @Override
