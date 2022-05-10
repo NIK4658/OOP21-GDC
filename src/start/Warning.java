@@ -3,6 +3,9 @@ package start;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 
 import javax.swing.*;
 
@@ -30,7 +33,7 @@ public class Warning extends JDialog {
 
         JTextArea textArea = new JTextArea ( 15,30 );
         textArea.setBackground(Color.RED);
-        textArea.setText("1.1 William Hill RacingTV is only available to William Hill account holders, "
+        /*textArea.setText("1.1 William Hill RacingTV is only available to William Hill account holders, "
         		+ "subject to the provisions of the remaining terms and conditions below.\n"
         		+ "1.2 Race viewing is available to UK and Ireland residents only and may not \n"
         		+ "be available to customers using foreign configured IP addresses. Please contact "
@@ -54,7 +57,21 @@ public class Warning extends JDialog {
         		+ "customer \n"
         		+ "at its absolute discretion.\n"
         		+ "1.7 By accessing William Hill RacingTV you accept these terms and conditions.\n"
-        		+ "");
+        		+ "");*/
+        
+        
+
+        BufferedReader in = null;
+        try {
+            in = new BufferedReader(new FileReader("WarningTest.txt"));
+            String str;
+            while ((str = in.readLine()) != null) {
+                textArea.append(str);
+            }
+        } catch (IOException e) {
+        } finally {
+            try { in.close(); } catch (Exception ex) { }
+        }
         
         // set textArea non-editable
         textArea.setEditable ( false ); 

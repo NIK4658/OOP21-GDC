@@ -33,6 +33,7 @@ import java.awt.Insets;
 
 import account.SimpleAccountManager;
 import blackjack.BackgroundPanel;
+import view.MyGridBagConstraints;
 import view.gui.MenuManager;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
@@ -41,26 +42,24 @@ public class GeneralGui extends JPanel {
 	
 	private final int x = 1280;
 	private final int y = 720;
-	private int fichesvalue = 0;
+	private int fichesvalue;
 	
-	private final int getFichesValue() {
-	    return fichesvalue;
+   private final int getFichesValue() {
+       return fichesvalue;
 	}
 	
 
 	
 	  public GeneralGui(){
 	      
-
-	        setLayout(new BorderLayout());
+            setLayout(new BorderLayout());
 	        
-	        this.setPreferredSize(new Dimension(x,y));
-	        
+        this.setPreferredSize(new Dimension(x,y));      
 	        JPanel north = new JPanel();
 	        JPanel south = new JPanel();
 	        JPanel center = new JPanel();
 	        
-	        
+		        
 	        south.setLayout(new GridBagLayout());
 	        south.setPreferredSize(new Dimension((int)(x/12.8),(int)(x/12.8)));
 	        //south.setBackground(Color.RED);
@@ -92,19 +91,27 @@ public class GeneralGui extends JPanel {
 	        vincita.setForeground(Color.BLACK);
 	        vincita.setBounds(350, 20, 150, 150);
 	        vincita.setFont(new Font("Arial", Font.PLAIN | Font.ITALIC, 15));
-	        south.add(vincita, setDimensionObj(0,0,0,(int)(x/3),150));
+	        south.add(vincita, new MyGridBagConstraints(0,1,10,10));
+	        
+	        //(0,0,0,(int)(x/3),150));
 	        
 	        final JLabel saldo = new JLabel("SALDO");
 	        saldo.setForeground(Color.BLACK);
 	        saldo.setBounds(350, 20, 150, 150);
 	        saldo.setFont(new Font("Arial", Font.PLAIN | Font.ITALIC, 15));
-	        south.add(saldo, setDimensionObj(0,0,0,(int)(x/2),20));
+	        south.add(saldo, new MyGridBagConstraints(1,0,150,100));
+	        
+	        //(int)(x/2),20))
 	        
 	        final JLabel puntata = new JLabel("PUNTATA");
 	        puntata.setForeground(Color.BLACK);
 	        puntata.setBounds(350, 20, 150, 150);
 	        puntata.setFont(new Font("Arial", Font.PLAIN | Font.ITALIC, 15));
-	        south.add(puntata, setDimensionObj(0,0,0,(int)(x/3),0));
+	        south.add(puntata, new MyGridBagConstraints(2,5,200,200));
+	        
+//	        south.add(puntata, setDimensionObj(0,0,0,(int)(x/3),0));
+	        
+	        
 	        
 	        //Jlabel for puntata,vincita,saldo value
 	        
@@ -112,19 +119,23 @@ public class GeneralGui extends JPanel {
             puntata.setForeground(Color.BLACK);
             puntata.setBounds(350, 20, 150, 150);
             puntata.setFont(new Font("Arial", Font.PLAIN | Font.ITALIC, 15));
-            south.add(vsaldo, setDimensionObj(0,1,0,(int)(x/3),150));
+            south.add(vsaldo, new MyGridBagConstraints(1,1,300,300));
+           // south.add(vsaldo, setDimensionObj(0,1,0,(int)(x/3),150));
             
             final JLabel vpuntata = new JLabel("2");
             puntata.setForeground(Color.BLACK);
             puntata.setBounds(350, 20, 150, 150);
             puntata.setFont(new Font("Arial", Font.PLAIN | Font.ITALIC, 15));
-            south.add(vpuntata, setDimensionObj(0,1,0,(int)(x/2),20));
+            south.add(vpuntata, new MyGridBagConstraints(2,1,300,300));
+            
+            //south.add(vpuntata, setDimensionObj(0,1,0,(int)(x/2),20));
             
             final JLabel vvincita = new JLabel("3");
             puntata.setForeground(Color.BLACK);
             puntata.setBounds(350, 20, 150, 150);
             puntata.setFont(new Font("Arial", Font.PLAIN | Font.ITALIC, 15));
-            south.add(vvincita, setDimensionObj(0,1,0,(int)(x/3),0));
+            south.add(vvincita, new MyGridBagConstraints(0,1,100,100));
+            //south.add(vvincita, setDimensionObj(0,1,0,(int)(x/3),0));
             
             
             //Button for confirm or cancel your bet in the south panel
@@ -143,10 +154,10 @@ public class GeneralGui extends JPanel {
             //Adding Listener to set fiches value
             
             fish1.addActionListener(e -> fichesvalue = 1);
-            fish1.addActionListener(e -> fichesvalue = 5);
-            fish1.addActionListener(e -> fichesvalue = 25);
-            fish1.addActionListener(e -> fichesvalue = 100);
-            fish1.addActionListener(e -> fichesvalue = 500);
+            fish2.addActionListener(e -> fichesvalue = 5);
+            fish3.addActionListener(e -> fichesvalue = 25);
+            fish4.addActionListener(e -> fichesvalue = 100);
+            fish5.addActionListener(e -> fichesvalue = 500);
             
 
             
@@ -198,8 +209,11 @@ public class GeneralGui extends JPanel {
 	     
 	        //Adding fish and confirm/cancel button on the south panel
 	        
+	        int c1 = 3;
+	        
 	        for(final JButton jb: list) {
-	        	south.add(jb);
+	            south.add(jb, new MyGridBagConstraints(0,c1,100,100));
+	            c1++;
 	        }
 
 	        
@@ -216,7 +230,7 @@ public class GeneralGui extends JPanel {
 	    public static void main(String[] args) {
 	    	
 	    	JFrame frame = new JFrame();
-	    	frame.setTitle("Gui giochi");
+           frame.setTitle("Gui giochi");
 	        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	        frame.setPreferredSize(new Dimension(1280,720));
 	        
