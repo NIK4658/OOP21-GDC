@@ -35,7 +35,7 @@ public class GeneralGui extends JPanel {
 
         setLayout(new BorderLayout());
 
-        this.setPreferredSize(new Dimension(x, y)); 
+        this.setPreferredSize(new Dimension(dimx, dimy)); 
         
         final JPanel north = new JPanel();
         final JPanel south = new JPanel();
@@ -58,8 +58,8 @@ public class GeneralGui extends JPanel {
         north.add(labelvincita);
 
         final JButton backToMenu = new JButton("BACK MENU");
-        backToMenu.setPreferredSize(new Dimension((int) (x / 12.8), (int) (x / 25.6)));
-        north.add(backToMenu, setDimensionObj(0, 0, 0, (int) (x / 1.3), 0));
+        backToMenu.setPreferredSize(new Dimension((int) (dimx / 12.8), (int) (dimx / 25.6)));
+        north.add(backToMenu, setDimensionObj(0, 0, 0, (int) (dimx / 1.3), 0));
             
         final JButton help = new JButton("?");
         help.setPreferredSize(new Dimension(100, 50));
