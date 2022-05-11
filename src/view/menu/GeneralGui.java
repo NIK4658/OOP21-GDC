@@ -14,6 +14,8 @@ import java.awt.Font;
 import java.awt.Image;
 import java.awt.Insets;
 import javax.swing.JPanel;
+import javax.swing.SwingConstants;
+
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import view.MyGridBagConstraints;
@@ -65,58 +67,73 @@ public class GeneralGui extends JPanel {
         help.setPreferredSize(new Dimension(100, 50));
         north.add(help, setDimensionObj(1, 0, 0, 0, 0));
             
+        
+        
+        
         //South Jpanel label
-
-        final JLabel vincita = new JLabel("VINCITA");
-        //vincita.setBounds(350, 20, 150, 150);
-        south.add(vincita, new MyGridBagConstraints(1, 2, 30, 30));
-
-        final JLabel saldo = new JLabel("SALDO");
-        south.add(saldo, new MyGridBagConstraints(2, 2, 30, 30));
-
-        final JLabel puntata = new JLabel("PUNTATA");
-        //puntata.setBounds(350, 20, 150, 150);
-        south.add(puntata, new MyGridBagConstraints(0, 2, 30, 30));
-
         //Jlabel for puntata,vincita,saldo value
-
-        final JLabel vsaldo = new JLabel("1");
-        //puntata.setBounds(350, 20, 150, 150);
-        south.add(vsaldo, new MyGridBagConstraints(1, 1, 30, 30));
-            
-        final JLabel vpuntata = new JLabel("2");
-        //puntata.setBounds(350, 20, 150, 150);
-        south.add(vpuntata, new MyGridBagConstraints(2, 1, 30, 30));
-            
+        final JLabel puntata = new JLabel("PUNTATA");
+        final JLabel saldo = new JLabel("SALDO");
+        final JLabel vincita = new JLabel("VINCITA");
+        
+        final JLabel vpuntata = new JLabel("1");
+        final JLabel vsaldo = new JLabel("2");
         final JLabel vvincita = new JLabel("3");
+        
+        //da rimuovere tutti se non utilizzati
         //puntata.setBounds(350, 20, 150, 150);
-        south.add(vvincita, new MyGridBagConstraints(0, 1, 30, 30));
+        //vincita.setBounds(350, 20, 150, 150);
+        //puntata.setBounds(350, 20, 150, 150); 
+        //puntata.setBounds(350, 20, 150, 150);
+        //puntata.setBounds(350, 20, 150, 150);
+        
+        //da rimuovere tutti se non utilizzati
+        //south.add(puntata, new MyGridBagConstraints(0, 0));
+        //south.add(saldo, new MyGridBagConstraints(1, 0));
+        //south.add(vincita, new MyGridBagConstraints(2, 0));
+        //south.add(vpuntata, new MyGridBagConstraints(0, 1));
+        //south.add(vsaldo, new MyGridBagConstraints(1, 1));
+        //south.add(vvincita, new MyGridBagConstraints(2, 1));
         
         final List<JLabel> listlabel = new ArrayList<>();
-        listlabel.add(vincita);
-        listlabel.add(saldo);
-        listlabel.add(puntata);
-        listlabel.add(vvincita);
-        listlabel.add(vsaldo);
-        listlabel.add(vpuntata);
         
+        listlabel.add(puntata);
+        listlabel.add(saldo);
+        listlabel.add(vincita);
+        
+        listlabel.add(vpuntata);
+        listlabel.add(vsaldo);
+        listlabel.add(vvincita);
+        
+        
+        
+        int i = 0;
+        int j = 0;
         for (final JLabel jb : listlabel) {
             jb.setForeground(Color.BLACK);
+            jb.setHorizontalAlignment(SwingConstants.CENTER);
             jb.setFont(new Font("Arial", Font.PLAIN | Font.ITALIC, 15));
+            south.add(jb, new MyGridBagConstraints(i, j));
+            if (i == 2) {
+                i = 0;
+                j++;
+            } else {
+                i++;
+            }
         }
         
         //Button for confirm or cancel your bet in the south panel
             
-        final JButton reset = new JButton(" ");
-        final JButton confirm = new JButton("  ");
+        final JButton reset = new JButton();
+        final JButton confirm = new JButton();
             
         //Button with fish image for your bet
             
-        final JButton fish1 = new JButton(" ");
-        final JButton fish2 = new JButton(" ");
-        final JButton fish3 = new JButton(" ");
-        final JButton fish4 = new JButton(" ");
-        final JButton fish5 = new JButton(" ");
+        final JButton fish1 = new JButton();
+        final JButton fish2 = new JButton();
+        final JButton fish3 = new JButton();
+        final JButton fish4 = new JButton();
+        final JButton fish5 = new JButton();
             
         //Adding Listener to set fiches value
             
@@ -135,19 +152,38 @@ public class GeneralGui extends JPanel {
         list.add(fish3);
         list.add(fish4);
         list.add(fish5);
+        
+        final List<String> fichesList = new ArrayList<>();
+        fichesList.add("1"); //da cambiare in pulsante reset
+        fichesList.add("1"); //da cambiare in pulsante conferma
+        fichesList.add("1");
+        fichesList.add("5");
+        fichesList.add("25");
+        fichesList.add("100");
+        fichesList.add("500");
+        
             
         //Setting all the button transparent 
+        //Adding fish and confirm/cancel button on the south panel
+        int c1 = 4;
         for (final JButton jb : list) { 
             jb.setOpaque(false);
             jb.setFocusPainted(false);
             jb.setBorderPainted(false);
             jb.setContentAreaFilled(false);
             jb.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
+            //final Image img = ;
+            jb.setIcon(new ImageIcon((new ImageIcon("res/img/fiches/numbers/"
+                    + fichesList.get(c1 - 4) + ".png").getImage())
+                    .getScaledInstance(70, 70, Image.SCALE_SMOOTH)));
+            south.add(jb, new MyGridBagConstraints(c1, 0, 1, 2));
+            c1++;
 
         }
 
         //Setting images to the buttons
 
+        /*
         final Image img = new ImageIcon("res/img/fiches/numbers/1.png").getImage();
         reset.setIcon(new ImageIcon(img.getScaledInstance(70, 70, Image.SCALE_SMOOTH)));
 
@@ -169,14 +205,8 @@ public class GeneralGui extends JPanel {
         final Image img6 = new ImageIcon("res/img/fiches/numbers/500.png").getImage();
         fish5.setIcon(new ImageIcon(img6.getScaledInstance(70, 70, Image.SCALE_SMOOTH)));
 
-        //Adding fish and confirm/cancel button on the south panel
-
-        int c1 = 4;
-        for (final JButton jb : list) {
-            south.add(jb, new MyGridBagConstraints(0, c1, 30, 30));
-            c1++;
-        }
-
+         */
+        
 
         //adding the panel to the Container 
         add(north, BorderLayout.NORTH);
