@@ -21,8 +21,8 @@ import view.MyGridBagConstraints;
 
 public class GeneralGui extends JPanel {
 	
-    private final int x = 1280;
-    private final int y = 720;
+    private final int dimx = 1280;
+    private final int dimy = 720;
     private int fichesvalue;
 	
     private final int getFichesValue() {
@@ -37,9 +37,9 @@ public class GeneralGui extends JPanel {
 
         this.setPreferredSize(new Dimension(x, y)); 
         
-        JPanel north = new JPanel();
-        JPanel south = new JPanel();
-        JPanel center = new JPanel();
+        final JPanel north = new JPanel();
+        final JPanel south = new JPanel();
+        final JPanel center = new JPanel();
 
         south.setLayout(new GridBagLayout());
         south.setPreferredSize(new Dimension((int) (x / 12.8), (int) (x / 12.8)));
@@ -212,7 +212,7 @@ public class GeneralGui extends JPanel {
         frame.setVisible(true);
 
     }
-        
+
         private GridBagConstraints setDimensionObj(final int gridx, final int gridy,    
                 final int spacedown, final int spaceright, final int spaceleft) {       
             final GridBagConstraints c = new GridBagConstraints();        

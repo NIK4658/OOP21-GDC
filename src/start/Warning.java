@@ -25,8 +25,8 @@ public class Warning extends JDialog {
         
         //Definition of center and south JPanel
     	
-        JPanel center = new JPanel();
-    	JPanel south = new JPanel();
+        final JPanel center = new JPanel();
+        final JPanel south = new JPanel();
         center.setBorder(new TitledBorder(new EtchedBorder(), "WARNING!!"));
 
         // Definition of a Text area with terms and condiction
@@ -71,16 +71,14 @@ public class Warning extends JDialog {
         //Adding action listener for the checkbox the button "avanti" is unavaiable 
         //the button "avanti" is not enabled until the checkbox is selected
 
-        ActionListener actionListener = new ActionListener() {
+        final ActionListener actionListener = new ActionListener() {
             public void actionPerformed(ActionEvent actionEvent) {
                 AbstractButton abstractButton = (AbstractButton) actionEvent.getSource();
                 boolean selected = abstractButton.getModel().isSelected();
               
                 if (selected == true) {
-                    accept.setEnabled(true);
-                }
-              
-                else {
+                    accept.setEnabled(true); 
+                } else {
                     accept.setEnabled(false);
                   
                 }
