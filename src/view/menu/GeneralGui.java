@@ -42,13 +42,12 @@ public class GeneralGui extends JPanel {
         final JPanel center = new JPanel();
 
         south.setLayout(new GridBagLayout());
-        south.setPreferredSize(new Dimension((int) (x / 12.8), (int) (x / 12.8)));
+        south.setPreferredSize(new Dimension((int) (dimx / 12.8), (int) (dimx / 12.8)));
 
 
         north.setLayout(new GridBagLayout());
-        north.setPreferredSize(new Dimension((int) (x / 12.8), (int) (x / 12.8)));
-        //north.setBackground(Color.RED);
-
+        north.setPreferredSize(new Dimension((int) (dimx / 12.8), (int) (dimx / 12.8)));
+        
         //JLabel definition
 
         //North jpanel label
@@ -69,54 +68,43 @@ public class GeneralGui extends JPanel {
         //South Jpanel label
 
         final JLabel vincita = new JLabel("VINCITA");
-        vincita.setForeground(Color.BLACK);
         //vincita.setBounds(350, 20, 150, 150);
-        vincita.setFont(new Font("Arial", Font.PLAIN | Font.ITALIC, 15));
         south.add(vincita, new MyGridBagConstraints(1, 2, 30, 30));
 
-        //(0,0,0,(int)(x/3),150));
-
         final JLabel saldo = new JLabel("SALDO");
-        saldo.setForeground(Color.BLACK);
-        //saldo.setBounds(350, 20, 150, 150);
-        saldo.setFont(new Font("Arial", Font.PLAIN | Font.ITALIC, 15));
         south.add(saldo, new MyGridBagConstraints(2, 2, 30, 30));
 
-        //(int)(x/2),20))
-
         final JLabel puntata = new JLabel("PUNTATA");
-        puntata.setForeground(Color.BLACK);
         //puntata.setBounds(350, 20, 150, 150);
-        puntata.setFont(new Font("Arial", Font.PLAIN | Font.ITALIC, 15));
         south.add(puntata, new MyGridBagConstraints(0, 2, 30, 30));
-
-        //south.add(puntata, setDimensionObj(0,0,0,(int)(x/3),0));
 
         //Jlabel for puntata,vincita,saldo value
 
         final JLabel vsaldo = new JLabel("1");
-        puntata.setForeground(Color.BLACK);
         //puntata.setBounds(350, 20, 150, 150);
-        puntata.setFont(new Font("Arial", Font.PLAIN | Font.ITALIC, 15));
         south.add(vsaldo, new MyGridBagConstraints(1, 1, 30, 30));
-        // south.add(vsaldo, setDimensionObj(0,1,0,(int)(x/3),150));
             
         final JLabel vpuntata = new JLabel("2");
-        puntata.setForeground(Color.BLACK);
         //puntata.setBounds(350, 20, 150, 150);
-        puntata.setFont(new Font("Arial", Font.PLAIN | Font.ITALIC, 15));
         south.add(vpuntata, new MyGridBagConstraints(2, 1, 30, 30));
             
-        //south.add(vpuntata, setDimensionObj(0,1,0,(int)(x/2),20));
-            
         final JLabel vvincita = new JLabel("3");
-        puntata.setForeground(Color.BLACK);
         //puntata.setBounds(350, 20, 150, 150);
-        puntata.setFont(new Font("Arial", Font.PLAIN | Font.ITALIC, 15));
         south.add(vvincita, new MyGridBagConstraints(0, 1, 30, 30));
-        //south.add(vvincita, setDimensionObj(0,1,0,(int)(x/3),0));
-            
-            
+        
+        final List<JLabel> listlabel = new ArrayList<>();
+        listlabel.add(vincita);
+        listlabel.add(saldo);
+        listlabel.add(puntata);
+        listlabel.add(vvincita);
+        listlabel.add(vsaldo);
+        listlabel.add(vpuntata);
+        
+        for (final JLabel jb : listlabel) {
+            jb.setForeground(Color.BLACK);
+            jb.setFont(new Font("Arial", Font.PLAIN | Font.ITALIC, 15));
+        }
+        
         //Button for confirm or cancel your bet in the south panel
             
         final JButton reset = new JButton(" ");
@@ -138,8 +126,7 @@ public class GeneralGui extends JPanel {
         fish4.addActionListener(e -> fichesvalue = 100);
         fish5.addActionListener(e -> fichesvalue = 500);
             
-
-            
+        
         final List<JButton> list = new ArrayList<>();
         list.add(reset);
         list.add(confirm);
