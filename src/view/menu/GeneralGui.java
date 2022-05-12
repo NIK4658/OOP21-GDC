@@ -25,26 +25,49 @@ public class GeneralGui extends JPanel {
 	
     private final int dimx = 1280;
     private final int dimy = 720;
+    private final int width;
+    private final int height;
     private int fichesvalue;
+    final JLabel vpuntata = new JLabel("1");
+    final JLabel vvincita = new JLabel("2");
+    final JLabel vsaldo = new JLabel("3");
 	
     private final int getFichesValue() {
         return fichesvalue;
     }
+    
+    public int setvpuntata(String value) {
+         vpuntata.setText(value);
+         return 1;
+    }
+    
+    public int setvvincita(String value) {
+        vvincita.setText(value);
+        return 1;
+   }
+    
+    public int setvsaldo(String value) {
+        vsaldo.setText(value);
+        return 1;
+   }
 	
 
 	
     public GeneralGui(){
 
         setLayout(new BorderLayout());
+        width = this.getPreferredSize().width;
+        height = this.getPreferredSize().height;
 
-        this.setPreferredSize(new Dimension(dimx, dimy)); 
+        this.setPreferredSize(new Dimension(width, height)); 
+        System.out.println(width);
         
         final JPanel north = new JPanel();
         final JPanel south = new JPanel();
         final JPanel center = new JPanel();
 
         south.setLayout(new GridBagLayout());
-        south.setPreferredSize(new Dimension((int) (dimx / 12.8), (int) (dimx / 12.8)));
+        south.setPreferredSize(new Dimension((int) (width / 12.8), (int) (width / 12.8)));
 
 
         north.setLayout(new GridBagLayout());
@@ -56,16 +79,21 @@ public class GeneralGui extends JPanel {
 
         final JLabel labelvincita = new JLabel("HAI VINTO...");
         labelvincita.setForeground(Color.BLACK);
+        labelvincita.setHorizontalAlignment(SwingConstants.CENTER);
         labelvincita.setFont(new Font("Arial", Font.PLAIN | Font.ITALIC, 25));
-        north.add(labelvincita);
+        north.add(labelvincita, new MyGridBagConstraints(5, 0));
 
-        final JButton backToMenu = new JButton("BACK MENU");
-        backToMenu.setPreferredSize(new Dimension((int) (dimx / 12.8), (int) (dimx / 25.6)));
-        north.add(backToMenu, setDimensionObj(0, 0, 0, (int) (dimx / 1.3), 0));
+        final JButton backToMenu = new JButton("Torna al Menu");
+        backToMenu.setHorizontalAlignment(SwingConstants.LEFT);
+        
+        north.add(backToMenu, new MyGridBagConstraints(0, 0));
             
         final JButton help = new JButton("?");
-        help.setPreferredSize(new Dimension(100, 50));
-        north.add(help, setDimensionObj(1, 0, 0, 0, 0));
+        help.setHorizontalAlignment(SwingConstants.RIGHT);
+        //help.setPreferredSize(new Dimension(100, 50));
+        north.add(help, new MyGridBagConstraints(10, 0));
+        
+        
             
         
         
@@ -76,9 +104,10 @@ public class GeneralGui extends JPanel {
         final JLabel saldo = new JLabel("SALDO");
         final JLabel vincita = new JLabel("VINCITA");
         
-        final JLabel vpuntata = new JLabel("1");
-        final JLabel vsaldo = new JLabel("2");
-        final JLabel vvincita = new JLabel("3");
+        //final JLabel vpuntata = new JLabel("1");
+        //final JLabel vsaldo = new JLabel("2");
+        //final JLabel vvincita = new JLabel("3");
+        
         
         //da rimuovere tutti se non utilizzati
         //puntata.setBounds(350, 20, 150, 150);
