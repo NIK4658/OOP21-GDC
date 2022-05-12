@@ -37,19 +37,19 @@ public class GeneralGui extends JPanel {
     }
     
     public int setvpuntata(String value) {
-         vpuntata.setText(value);
-         return 1;
+        vpuntata.setText(value);
+        return 1;
     }
     
     public int setvvincita(String value) {
         vvincita.setText(value);
         return 1;
-   }
+    }
     
     public int setvsaldo(String value) {
         vsaldo.setText(value);
         return 1;
-   }
+    }
 	
 
 	
@@ -59,7 +59,7 @@ public class GeneralGui extends JPanel {
         width = this.getPreferredSize().width;
         height = this.getPreferredSize().height;
 
-        this.setPreferredSize(new Dimension(width, height)); 
+        this.setPreferredSize(new Dimension(1024, 720)); 
         System.out.println(width);
         
         final JPanel north = new JPanel();
@@ -67,7 +67,7 @@ public class GeneralGui extends JPanel {
         final JPanel center = new JPanel();
 
         south.setLayout(new GridBagLayout());
-        south.setPreferredSize(new Dimension((int) (width / 12.8), (int) (width / 12.8)));
+        south.setPreferredSize(new Dimension((int) (dimx / 12.8), (int) (dimx / 12.8)));
 
 
         north.setLayout(new GridBagLayout());
@@ -92,6 +92,17 @@ public class GeneralGui extends JPanel {
         help.setHorizontalAlignment(SwingConstants.RIGHT);
         //help.setPreferredSize(new Dimension(100, 50));
         north.add(help, new MyGridBagConstraints(10, 0));
+        
+        final List<JButton> listbutton1 = new ArrayList();
+        listbutton1.add(help);
+        listbutton1.add(backToMenu);
+        
+        for (final JButton jb : listbutton1) { 
+            jb.setOpaque(false);
+            jb.setFocusPainted(false);
+            jb.setBorderPainted(false);
+            jb.setContentAreaFilled(false);
+        }
         
         
             
