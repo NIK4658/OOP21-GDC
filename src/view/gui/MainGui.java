@@ -1,16 +1,14 @@
 package view.gui;
 
 import account.AdvancedAccountManager;
-import account.AdvancedAccountManagerImpl;
-import account.SimpleAccountManager;
-import account.SimpleAccountManagerImpl;
+import account.AdvancedBalanceManagerImpl;
 import blackjack.Gui;
-
 import java.awt.Dimension;
 import java.awt.Frame;
 import java.awt.Toolkit;
 import javax.swing.JFrame;
-import javax.swing.JPanel;
+import javax.swing.JLayeredPane;
+
 import view.menu.AccessMenu;
 import view.menu.AccountMenu;
 import view.menu.MainMenu;
@@ -60,6 +58,7 @@ public class MainGui implements MenuManager {
     
     @Override
     public void setMainMenu(final AdvancedAccountManager account) {
+        this.frame.setResizable(false);
         this.updateMenu(new MainMenu(this, account));
     }
 
@@ -75,14 +74,15 @@ public class MainGui implements MenuManager {
     }
     
     @Override
-    public void setBlackjackMenu(AdvancedAccountManager account) {
+    public void setBlackjackMenu(final AdvancedAccountManager account) {
         System.out.println("setBlackjackMenu: " + this.getSizeMenu());
         new Gui(new Dimension(1280, 720), account);
     }
     
     @Override
-    public void setBaccaratMenu(AdvancedAccountManager account) {
-        //new GeneralGui(this);
+    public void setBaccaratMenu(final AdvancedAccountManager account) {
+        this.frame.setResizable(true);
+        this.updateMenu(new GeneralGui(this, account));
     }
 
     @Override
