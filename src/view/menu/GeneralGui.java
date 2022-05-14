@@ -23,30 +23,30 @@ import view.MyGridBagConstraints;
 
 public class GeneralGui extends JPanel {
 	
-    private final int dimx = 1280;
-    private final int dimy = 720;
-    private final int width;
-    private final int height;
+    private static int dimx = 1280;
+    private static int dimy = 720;
+    //private final int width;
+    //private final int height;
     private int fichesvalue;
     final JLabel vpuntata = new JLabel("1");
     final JLabel vvincita = new JLabel("2");
     final JLabel vsaldo = new JLabel("3");
 	
-    private final int getFichesValue() {
+    public final int getFichesValue() {
         return fichesvalue;
     }
     
-    public int setvpuntata(String value) {
+    public int setvpuntata(final String value) {
         vpuntata.setText(value);
         return 1;
     }
     
-    public int setvvincita(String value) {
+    public int setvvincita(final String value) {
         vvincita.setText(value);
         return 1;
     }
     
-    public int setvsaldo(String value) {
+    public int setvsaldo(final String value) {
         vsaldo.setText(value);
         return 1;
     }
@@ -56,22 +56,21 @@ public class GeneralGui extends JPanel {
     public GeneralGui(){
 
         setLayout(new BorderLayout());
-        width = this.getPreferredSize().width;
-        height = this.getPreferredSize().height;
+        //width = this.getPreferredSize().width;
+        //height = this.getPreferredSize().height;
 
-        this.setPreferredSize(new Dimension(1024, 720)); 
-        System.out.println(width);
+        this.setPreferredSize(new Dimension(dimx, dimy)); 
         
         final JPanel north = new JPanel();
         final JPanel south = new JPanel();
         final JPanel center = new JPanel();
 
         south.setLayout(new GridBagLayout());
-        south.setPreferredSize(new Dimension((int) (dimx / 12.8), (int) (dimx / 12.8)));
+        south.setPreferredSize(new Dimension((int) (dimx / 12.8), (int) (dimy / 7.2)));
 
 
         north.setLayout(new GridBagLayout());
-        north.setPreferredSize(new Dimension((int) (dimx / 12.8), (int) (dimx / 12.8)));
+        north.setPreferredSize(new Dimension((int) (dimx / 12.8), (int) (dimy / 7.2)));
         
         //JLabel definition
 
@@ -81,28 +80,28 @@ public class GeneralGui extends JPanel {
         labelvincita.setForeground(Color.BLACK);
         labelvincita.setHorizontalAlignment(SwingConstants.CENTER);
         labelvincita.setFont(new Font("Arial", Font.PLAIN | Font.ITALIC, 25));
-        north.add(labelvincita, new MyGridBagConstraints(5, 0));
+        north.add(labelvincita, new MyGridBagConstraints(5, 0, 1, 1, new Insets(1, 5, 5, 90)));
 
         final JButton backToMenu = new JButton("Torna al Menu");
         backToMenu.setHorizontalAlignment(SwingConstants.LEFT);
         
-        north.add(backToMenu, new MyGridBagConstraints(0, 0));
+        north.add(backToMenu, new MyGridBagConstraints(0, 0, 1, 1, new Insets(1, 20, 40, 980)));
             
         final JButton help = new JButton("?");
         help.setHorizontalAlignment(SwingConstants.RIGHT);
         //help.setPreferredSize(new Dimension(100, 50));
-        north.add(help, new MyGridBagConstraints(10, 0));
+        north.add(help, new MyGridBagConstraints(10, 0, 1, 1, new Insets(1, 0, 5, 1)));
         
-        final List<JButton> listbutton1 = new ArrayList();
+        final List<JButton> listbutton1 = new ArrayList<JButton>();
         listbutton1.add(help);
         listbutton1.add(backToMenu);
         
-        for (final JButton jb : listbutton1) { 
+       /* for (final JButton jb : listbutton1) { 
             jb.setOpaque(false);
             jb.setFocusPainted(false);
             jb.setBorderPainted(false);
             jb.setContentAreaFilled(false);
-        }
+        }*/
         
         
             
@@ -259,7 +258,7 @@ public class GeneralGui extends JPanel {
 
         public static void main(String[] args) {
 
-        JFrame frame = new JFrame();
+        final JFrame frame = new JFrame();
         frame.setTitle("Gui giochi");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setPreferredSize(new Dimension(1280, 720));
