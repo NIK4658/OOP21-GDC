@@ -26,11 +26,13 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import ex.ExImageModifier;
 import view.gui.MainGui;
+import view.gui.MenuManager;
+import view.menu.Menu;
 
 /**
  * GUI principale Blackjack.
  */
-public class Gui extends JPanel {
+public class Gui extends JPanel implements Menu {
 
     private static final long serialVersionUID = 1L;
     
@@ -45,9 +47,11 @@ public class Gui extends JPanel {
     /**
      * Costruttore.
      */
-    public Gui(final Dimension dim, final AdvancedBalanceManager account) {
+    public Gui(final MenuManager frame, final AdvancedBalanceManager account) {
         this.setLayout(new BorderLayout());
         game = new GameImpl(account);
+        
+        this.setPreferredSize(frame.getSizeMenu());
         
         //Area Pulsanti in fondo SUD
         final JPanel buttonsArea = new JPanel(new GridBagLayout());
@@ -329,37 +333,6 @@ public class Gui extends JPanel {
         });
     }
     
-    
-
-    
-
-    
-
-    
-    /**
-     * Testing. Da eliminare in seguito.
-     */
-    public static void main(final String[] args) {   
-        final JFrame jf = new JFrame();
-        jf.setResizable(false);
-        jf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        jf.setPreferredSize(new Dimension(1280, 720)); 
-        final AdvancedAccountManager account = new AdvancedAccountManagerImpl();
-        account.logger("Username", "Password");
-        jf.add(new Gui(new Dimension(1280, 720), new AdvancedBalanceManagerImpl(account)));    
-        jf.pack();                                 
-        jf.setLocationRelativeTo(null); 
-        jf.setVisible(true); 
-    }
-    
-    
-    
-    
-    
-    
-    
-    
-    
     private GridBagConstraints setDimensionObj(final int gridx, final int gridy,
             final int spacedown, final int spaceright, final int spaceleft) {
         final GridBagConstraints c = new GridBagConstraints();
@@ -410,5 +383,11 @@ public class Gui extends JPanel {
     protected void paintComponent(final Graphics g) {
         super.paintComponent(g);
         g.drawImage(this.img, 0, 0, getWidth(), getHeight(), null);
+    }
+
+
+    @Override
+    public JPanel getMenu() {
+        return this;
     }
 }
