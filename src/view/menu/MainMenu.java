@@ -3,8 +3,6 @@ package view.menu;
 import account.AdvancedAccountManager;
 
 import account.SimpleAccountManager;
-import blackjack.BackgroundPanel;
-
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -13,7 +11,6 @@ import java.awt.event.ActionListener;
 import java.awt.Font;
 import java.awt.GridBagLayout;
 import java.awt.Image;
-import java.awt.LayoutManager;
 import java.util.ArrayList;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
