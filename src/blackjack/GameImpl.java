@@ -1,37 +1,65 @@
 package blackjack;
 
-import java.util.LinkedList;
-import java.util.List;
+import account.AdvancedBalanceManager;
 
+
+/**
+ * Classe principale gestione gioco blackjack.
+ */
 public class GameImpl implements Game {
     
-    
-    private final List<Card> player = new LinkedList<>(); //creare classe hand? usare classe deck?
-    private final List<Card> dealer = new LinkedList<>(); //creare classe hand? usare classe deck?
+    private final AdvancedBalanceManager account;
     private final Deck deck;
-
-
+    private double bet;
+    private Hand player;
+    private Hand dealer;
     
-    GameImpl() {
-        this.deck = new DeckImpl();
-        
-        this.player.add(this.deck.drawRandomCard());
-        this.player.add(this.deck.drawRandomCard());
-        
-        this.dealer.add(this.deck.drawRandomCard());
-        this.dealer.add(this.deck.drawRandomCard()); 
-        //System.out.println(this.deck);
+    GameImpl(final AdvancedBalanceManager account) {
+        this.deck = new DeckImpl(6);
+        this.deck.generateDeck();
+        this.account = account;
+        this.player = new HandImpl();
+        this.dealer = new HandImpl();
+        this.bet = 0;
     }
+    
+    @Override
+    public void startGame(final int bet) {
+        this.bet = bet;
+        account.withdraw(this.bet);
+        this.player = new HandImpl();
+        this.dealer = new HandImpl();    
+        this.player.addCard(this.deck.drawRandomCard());
+        this.player.addCard(this.deck.drawRandomCard());   
+        this.dealer.addCard(this.deck.drawRandomCard());
+        this.dealer.addCard(this.deck.drawRandomCard());  
+        this.dealer.getCard(1).turnOver();
+        //System.out.println(this.dealer.getCard(1).isFaceDown());
+        this.dealer.calculatePoints();
+        this.player.calculatePoints();
+        
+        checkInsurance();
+        checkBlackjack(this.player);
+        
+        
+        if (this.player.getPoints() == 21) {
+            System.out.println("Blackjack!");
+            checkWin();
+        }
+        
+    }
+    
     
     
     
     @Override
     public void askCard() {
-        this.player.add(this.deck.drawRandomCard()); 
+        this.player.addCard(this.deck.drawRandomCard()); 
+        this.player.calculatePoints();
     }
 
     @Override
-    public void stay() {
+    public void stand() {
         nextDealerMove();
     }
 
@@ -45,97 +73,98 @@ public class GameImpl implements Game {
     public void askDouble() {
         //raddoppio puntata
         askCard();
-        stay();
+        stand();
     }
 
-    @Override
-    public void startGame() {
-        // TODO Auto-generated method stub
-        
-    }
+
 
     @Override
-    public boolean checkWin() { 
-        if (calculatePoints(this.player) > 21) {
-            return false;
+    public int checkWin() { 
+        if (this.player.getPoints() > 21) {
+            return -1;
         }
         
-        if (calculatePoints(this.dealer) > 21) {
-            return true;
+        if (this.dealer.getPoints() > 21) {
+            return 1;
         }
 
-        return (calculatePoints(this.player) > calculatePoints(this.dealer));
+        if (this.player.getPoints() == this.dealer.getPoints()) {
+            return 0;
+        } 
+        
+        if (this.player.getPoints() < this.dealer.getPoints()) {
+            return -1;
+        } else {
+            return 1;
+        }
     }
 
     @Override
     public void dealerDraw() {
-        this.dealer.add(this.deck.drawRandomCard());
-    }
-
-    @Override
-    public void dealerStay() {
-        checkWin();
+        this.dealer.addCard(this.deck.drawRandomCard());
+        this.dealer.calculatePoints();
     }
 
     @Override
     public void nextDealerMove() {
-        if (calculatePoints(this.dealer) < 17) {
-            dealerDraw();
-            //nextDealerMove();
+        if (this.dealer.getCard(1).isFaceDown()) {
+            this.dealer.getCard(1).turnOver();
+            nextDealerMove();
         } else {
-            dealerStay();
-        }
-    }
-
-    @Override
-    public int calculatePoints(final List<Card> cards) {
-        int points = 0;
-        boolean ace = false;
-        boolean converted = false;
-        
-        for (final Card c : cards) {
-            if (c.getValue() == 1 && !ace) {
-                points += (c.getValue() + 10);
-                ace = true;
+            if (getDealerPoints() < 17) {
+                dealerDraw();
+                nextDealerMove();
             } else {
-                points += c.getValue();
+                endGame();
             }
-            
-            if (points > 21 && ace && !converted) {
-                points -= 10;
-                converted = true;
-            }  
         }
-        return points;
     }
 
-
-    
-
     @Override
-    public List<Card> getPlayerHand() {
+    public Hand getPlayerHand() {
         return this.player;
     }
 
-
-
     @Override
-    public List<Card> getDealerHand() {
+    public Hand getDealerHand() {
         return this.dealer;
     }
 
-
-
     @Override
     public int getPlayerPoints() {
-        return calculatePoints(this.player);
+        return this.player.getPoints();
     }
-
-
 
     @Override
     public int getDealerPoints() {
-        return calculatePoints(this.dealer);
+        return this.dealer.getPoints();
     }
 
+    @Override
+    public boolean checkInsurance() {
+        return (this.dealer.getCard(0).getValue() == 1 && this.dealer.size() == 2);
+    }
+
+    @Override
+    public boolean checkBlackjack(final Hand h) {
+        return (h.getPoints() == 21 && h.size() == 2);
+    }
+
+    @Override
+    public void endGame() {
+        
+        if (this.deck.size() <= (this.deck.getnDecks() * 13 * 4) / 2) {
+            this.deck.shuffle();
+        }
+        
+        if (checkBlackjack(this.player) && !checkBlackjack(this.dealer)) {
+            account.changeBalance(account.getBalance() + ((this.bet * 3) / 2));
+        } else {
+            if (checkWin() == 1) {
+                account.changeBalance(account.getBalance() + (this.bet * 2));
+            } else if (checkWin() == 0) {
+                account.changeBalance(account.getBalance() + (this.bet));
+            }
+        }
+    }
 }

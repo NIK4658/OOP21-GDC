@@ -19,7 +19,7 @@ import view.menu.GeneralGui;
 //forse meglio usare un unico metodo setMenu(Menu menu, AccountManager account);
 //da settare this.frame.setResizable(false) appena aggiunto torna indietro nei giochi
 public class MainGui implements MenuManager {
-    
+
 //    private static final int SCALE = 2 / 3;
     private final JFrame frame;
     private final int widthMenu;
@@ -36,26 +36,26 @@ public class MainGui implements MenuManager {
         this.frame.setSize(this.sizeMenu);
         this.frame.setResizable(false);
         this.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        
+
         this.setAccessMenu();
         //this.setGameMenu(new AdvancedAccountManagerImpl());
         //this.setAccountMenu(new AdvancedAccountManagerImpl());
-        
+
         this.frame.setLocationRelativeTo(null);
         this.frame.setVisible(true);
     }
-    
+
     private void updateMenu(final Menu menu) {
         this.frame.setContentPane(menu.getMenu());
         this.frame.pack();
         this.frame.revalidate();
     }
-    
+
     @Override
     public void setAccessMenu() {
         this.updateMenu(new AccessMenu(this));
     }
-    
+
     @Override
     public void setMainMenu(final AdvancedAccountManager account) {
         this.frame.setResizable(false);
@@ -66,19 +66,19 @@ public class MainGui implements MenuManager {
     public void setAccountMenu(final AdvancedAccountManager account) {
         this.updateMenu(new AccountMenu(this, account));
     }
-    
+
     @Override
     public void setGameMenu(final AdvancedAccountManager account) {
         this.frame.setResizable(true);
         this.updateMenu(new GameMenu(this, account));
     }
-    
+
     @Override
     public void setBlackjackMenu(final AdvancedAccountManager account) {
         System.out.println("setBlackjackMenu: " + this.getSizeMenu());
-        new Gui(new Dimension(1280, 720), account);
+        new Gui(new Dimension(1280, 720), new AdvancedBalanceManagerImpl(account));
     }
-    
+
     @Override
     public void setBaccaratMenu(final AdvancedAccountManager account) {
         this.frame.setResizable(true);
@@ -99,13 +99,12 @@ public class MainGui implements MenuManager {
     public int getHeightMenu() {
         return this.heightMenu;
     }
-    
+
     @Override
     public Dimension getSizeMenu() {
         return this.sizeMenu;
     }
 
-    
+
 
 }
-

@@ -14,13 +14,19 @@ public interface Card {
     CLUBS, DIAMONDS, HEARTS, SPADES
     }
 
+    void turnOver();
+    
     Suits getSuit();
     
     int getValue();
     
     Image getImg();
     
-    public boolean equals(final Object obj);
+    boolean isFaceDown();
+    
+    boolean equals(final Object obj);
+    
+    int hashCode();
     
 }
 
