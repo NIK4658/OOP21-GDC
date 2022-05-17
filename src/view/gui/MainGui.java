@@ -13,6 +13,7 @@ import view.menu.AccessMenu;
 import view.menu.AccountMenu;
 import view.menu.MainMenu;
 import view.menu.Menu;
+import view.menu.games.GameImpl;
 import view.menu.GameMenu;
 import view.menu.GeneralGui;
 
@@ -75,8 +76,7 @@ public class MainGui implements MenuManager {
 
     @Override
     public void setBlackjackMenu(final AdvancedAccountManager account) {
-        System.out.println("setBlackjackMenu: " + this.getSizeMenu());
-        new Gui(new Dimension(1280, 720), new AdvancedBalanceManagerImpl(account));
+        this.updateMenu(new GameImpl(this, account));
     }
 
     @Override
