@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import javax.swing.JPanel;
 import roulette.Roulette;
+import view.menu.games.Game;
 
 
 //RouletteGame

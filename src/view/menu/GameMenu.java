@@ -20,7 +20,7 @@ import javax.swing.Timer;
 
 import account.SimpleAccountManager;
 import view.gui.MenuManager;
-import view.menu.games.roulette.Game;
+import view.menu.games.Game;
 import view.menu.games.roulette.RouletteGame;
 import view.menu.games.roulette.Table;
 

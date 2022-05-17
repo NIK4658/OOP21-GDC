@@ -1,4 +1,4 @@
-package view.menu.games.roulette;
+package view.menu.games;
 
 import javax.swing.JPanel;
 
