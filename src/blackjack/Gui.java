@@ -2,30 +2,25 @@ package blackjack;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.awt.GridBagConstraints;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JLayeredPane;
+import javax.swing.JPanel;
+import javax.swing.SwingConstants;
+
 import java.awt.Insets;
-import javax.swing.*;
-import javax.swing.border.Border;
-
-import account.AdvancedAccountManager;
-import account.AdvancedAccountManagerImpl;
 import account.AdvancedBalanceManager;
-import account.AdvancedBalanceManagerImpl;
-import account.SimpleAccountManager;
-
+import view.MyGridBagConstraints;
 import java.awt.Image;
-import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import ex.ExImageModifier;
-import view.gui.MainGui;
 import view.gui.MenuManager;
 import view.menu.Menu;
 
@@ -75,18 +70,6 @@ public class Gui extends JPanel implements Menu {
         l.add(draw);
         l.add(stand);
         l.add(Double);
-
-        //momentaneamente tolti
-        final JButton chip1 = new JButton("1"); 
-        final JButton chip2 = new JButton("5");
-        final JButton chip3 = new JButton("25");
-        final JButton chip4 = new JButton("100");    
-        final JButton chip5 = new JButton("500");
-        //l.add(chip1);
-        //l.add(chip2);
-        //l.add(chip3);
-        //l.add(chip4);
-        //l.add(chip5);
         
         int i = 0;
         for (final JButton jb : l) { 
@@ -98,7 +81,7 @@ public class Gui extends JPanel implements Menu {
             jb.setContentAreaFilled(false);
             jb.setBorderPainted(false);
             jb.setFocusPainted(false);
-            buttonsArea.add(jb, setDimensionObj(i, 0, 0, 10, 10));
+            buttonsArea.add(jb, new MyGridBagConstraints(i, 0, new Insets(0, 0, 0, 0), GridBagConstraints.NONE));
             i++;
         }
         //aggiungo il jpanel dei pulsanti al jpanel generale
@@ -160,32 +143,11 @@ public class Gui extends JPanel implements Menu {
         dcards = new LinkedList<>();
 
         final JLabel dpoints = new JLabel();
-        final JLabel vincita = new JLabel("Hai vinto!");
-        final JLabel saldo = new JLabel("Saldo: " + account.getBalance());
-        final JLabel puntata = new JLabel("Puntata: " + this.puntata);
         dpoints.setBounds(510, 25, 150, 150);
-        vincita.setBounds(900, 20, 150, 150);
-        saldo.setBounds(100, 80, 150, 150);
-        puntata.setBounds(100, 110, 150, 150);
-
-        
-        
-        
-        final List<JLabel> list = new ArrayList<>();
-        list.add(dpoints);
-        list.add(saldo);
-        list.add(puntata);
-        list.add(vincita);
-        
-        for (final JLabel jb : list) { 
-            jb.setForeground(Color.WHITE);
-            jb.setFont(new Font("Arial", Font.BOLD | Font.ITALIC, 20));
-        }
+        dpoints.setForeground(Color.WHITE);
+        dpoints.setFont(new Font("Arial", Font.BOLD | Font.ITALIC, 20));
         
         dealerCardsPanel.add(dpoints, 0);
-        dealerCardsPanel.add(vincita);
-        dealerCardsPanel.add(saldo);
-        dealerCardsPanel.add(puntata);
         //aggiungo le carte del dealer al pannello generale NORTH
         add(dealerCardsPanel, BorderLayout.NORTH);
 
@@ -209,7 +171,6 @@ public class Gui extends JPanel implements Menu {
             game.stand();
             setCards(dcards, game.getDealerHand(), dealerCardsPanel, 1);
             dpoints.setText(String.valueOf(game.getDealerPoints()));
-            saldo.setText("Saldo: " + account.getBalance());
             
             //disattiva i pulsanti
             draw.setVisible(false);
@@ -228,25 +189,7 @@ public class Gui extends JPanel implements Menu {
             }
         });
         
-        chip1.addActionListener(e -> {  
-            this.chipvalue = 1;
-        });
-        
-        chip2.addActionListener(e -> {  
-            this.chipvalue = 5;
-        });
-        
-        chip3.addActionListener(e -> {  
-            this.chipvalue = 25;
-        });
-        
-        chip4.addActionListener(e -> {  
-            this.chipvalue = 100;
-        });
-        
-        chip5.addActionListener(e -> {  
-            this.chipvalue = 500;
-        });
+      
         
         bet.addActionListener(e -> {  
             conferma.setVisible(true);
@@ -277,7 +220,7 @@ public class Gui extends JPanel implements Menu {
        
         reset.addActionListener(e -> {  
             this.puntata = 0;
-            puntata.setText("Puntata: " + this.puntata);
+           
             bet.setEnabled(true);
             bet.removeAll();
             bet.setIcon(null);
@@ -317,8 +260,7 @@ public class Gui extends JPanel implements Menu {
                 setCards(pcards, game.getPlayerHand(), playerCardsPanel, -1);
                 setCards(dcards, game.getDealerHand(), dealerCardsPanel, 1);
                 
-                saldo.setText("Saldo: " + account.getBalance());
-                puntata.setText("Puntata: " + this.puntata);
+                
                 dpoints.setText(String.valueOf(game.getDealerHand().getCard(0).getValue()));
                 playerpoints.setText(String.valueOf(game.getPlayerPoints()));
                 final Image img = ((new ImageIcon("res/img/buttons/points.png")
@@ -333,16 +275,7 @@ public class Gui extends JPanel implements Menu {
         });
     }
     
-    private GridBagConstraints setDimensionObj(final int gridx, final int gridy,
-            final int spacedown, final int spaceright, final int spaceleft) {
-        final GridBagConstraints c = new GridBagConstraints();
-        c.anchor = GridBagConstraints.PAGE_END;
-        c.insets = new Insets(0, spaceleft, spacedown, spaceright); // terzo parametro definisce la distanza verticale
-        //(verso il basso) tra i vari oggetti della gui
-        c.gridx = gridx;
-        c.gridy = gridy;
-        return c;
-    }
+
     
     private void setCards(final List<JLabel> cards, final Hand h, final JLayeredPane p, final int direction) {
         for (final JLabel j : cards) {
