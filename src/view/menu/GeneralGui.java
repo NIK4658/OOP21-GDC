@@ -88,7 +88,7 @@ public class GeneralGui extends JPanel implements Menu {
         int i = 0;
         int j = 0;
         for (final JLabel jb : listlabel) {
-            jb.setForeground(Color.BLACK);
+            jb.setForeground(Color.WHITE);
             jb.setHorizontalAlignment(SwingConstants.CENTER);
             jb.setFont(new Font("Arial", Font.PLAIN | Font.ITALIC, height / 40));
             southleft.add(jb, new MyGridBagConstraints(i, j, 1, 1, new Insets(0, height / 30, 0, height / 30)));
@@ -118,8 +118,8 @@ public class GeneralGui extends JPanel implements Menu {
         list.add(fiches500);
         
         final List<String> fichesList = new ArrayList<>();
-        fichesList.add("1"); //da cambiare in pulsante reset
-        fichesList.add("1"); //da cambiare in pulsante conferma
+        fichesList.add("cancel"); //da cambiare in pulsante reset
+        fichesList.add("confirm"); //da cambiare in pulsante conferma
         fichesList.add("1");
         fichesList.add("5");
         fichesList.add("25");
@@ -134,9 +134,18 @@ public class GeneralGui extends JPanel implements Menu {
             jb.setBorderPainted(false);
             jb.setContentAreaFilled(false);
             jb.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
-            jb.setIcon(new ImageIcon((new ImageIcon("res/img/fiches/numbers/"
-                    + fichesList.get(i) + ".png").getImage())
-                    .getScaledInstance(width / 20, width / 20, Image.SCALE_SMOOTH)));
+            
+            //da fare bene
+            if (i == 0 || i == 1) {
+                jb.setIcon(new ImageIcon((new ImageIcon("res/img/buttons/"
+                        + fichesList.get(i) + ".png").getImage())
+                        .getScaledInstance(width / 20, width / 20, Image.SCALE_SMOOTH)));
+            } else {
+                jb.setIcon(new ImageIcon((new ImageIcon("res/img/fiches/numbers/"
+                        + fichesList.get(i) + ".png").getImage())
+                        .getScaledInstance(width / 20, width / 20, Image.SCALE_SMOOTH)));
+            }
+
             if (i == 1) {
                 southright.add(jb, new MyGridBagConstraints(i, 0, 1, 2, new Insets(0, 0, height / 100, height / 30)));
             } else {
@@ -154,6 +163,14 @@ public class GeneralGui extends JPanel implements Menu {
         
         backToMenu.addActionListener(e -> frame.setMainMenu(account));
 
+        //da vedere come migliorare
+        north.setOpaque(false);
+        center.setOpaque(false);
+        south.setOpaque(false);
+        southleft.setOpaque(false);
+        southright.setOpaque(false);
+        this.setOpaque(false);
+        
         
         //adding the panel to the Container 
         add(north, BorderLayout.NORTH);
@@ -163,6 +180,7 @@ public class GeneralGui extends JPanel implements Menu {
         add(south, BorderLayout.SOUTH);
 
         setBalanceValue();
+        
         setVisible(true);
     }
         
