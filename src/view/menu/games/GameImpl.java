@@ -17,25 +17,25 @@ import view.menu.Menu;
 public class GameImpl extends JPanel implements Menu {
 
     
-    public GameImpl(final MenuManager frame,  final AdvancedAccountManager account){
-        
-
-        final JPanel interfacee = new GeneralGui(frame, account);
-        final JPanel game = new Gui(frame, new AdvancedBalanceManagerImpl(account));
+    
+    public GameImpl(final MenuManager frame,  final AdvancedAccountManager account, final JPanel game){
+        final int width = frame.getWidthMenu();
+        final int height = frame.getHeightMenu();
         this.setPreferredSize(frame.getSizeMenu());
+        this.setLayout(null);
         
-        final JLayeredPane jll = new JLayeredPane();
-        jll.setOpaque(true);
-        jll.setBackground(Color.GREEN);
-        final JButton ciao = new JButton("ciao");
-        ciao.setBounds(0, 0, 100, 100);
-        jll.add(ciao, 0);
+        final JPanel usrInterface = new GeneralGui(frame, account);
+        usrInterface.setBounds(0, 0, width, height);
+        game.setBounds(0, 0, width, height);
+       
+        final JLayeredPane containerPanel = new JLayeredPane();
+        containerPanel.setBounds(0, 0, width, height);
+        containerPanel.setOpaque(true);
         
-        jll.setBounds(1, 1, 1000, 500);
+        containerPanel.add(usrInterface, 0);
+        containerPanel.add(game, 1);
         
-        //jl.add(interfacee, 0);
-        //jl.add(game, 0);
-        this.add(game);
+        this.add(containerPanel);
     }
 
     @Override
