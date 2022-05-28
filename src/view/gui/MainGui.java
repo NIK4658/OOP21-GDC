@@ -76,7 +76,7 @@ public class MainGui implements MenuManager {
 
     @Override
     public void setBlackjackMenu(final AdvancedAccountManager account) {
-        this.updateMenu(new GameImpl(this, account));
+        this.updateMenu(new GameImpl(this, account, new Gui(this, new AdvancedBalanceManagerImpl(account))));
     }
 
     @Override
