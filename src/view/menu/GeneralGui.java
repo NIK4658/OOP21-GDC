@@ -53,7 +53,7 @@ public class GeneralGui extends JPanel implements Menu {
         final JButton backToMenu = new JButton("Back to Menu");
         final JButton help = new JButton("?");
          
-        this.winmessage.setForeground(Color.BLACK);
+        this.winmessage.setForeground(Color.WHITE);
         this.winmessage.setHorizontalAlignment(SwingConstants.CENTER);
         this.winmessage.setFont(new Font("Arial", Font.PLAIN | Font.ITALIC, height / 25));
 
