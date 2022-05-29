@@ -102,7 +102,7 @@ public class Gui extends JPanel implements Menu {
         playerpoints.setFont(new Font("Arial", Font.BOLD | Font.ITALIC, 20));
         
         final JButton cancel = new JButton();
-        final JButton bet = new JButton();
+        final BetButton bet = new BetButton();
         final JButton conferma = new JButton();
         
         cancel.setBounds(310, 110, 50, 50);
@@ -195,25 +195,14 @@ public class Gui extends JPanel implements Menu {
             conferma.setVisible(true);
             cancel.setVisible(true);
             if ((this.puntata + this.chipvalue) <= account.getBalance()) {
-                this.puntata += this.chipvalue;
-                //bet.setText(String.valueOf(this.puntata));
-                bet.removeAll();
-                bet.setIcon(chooseChip(this.puntata));
-                final JPanel jp = new JPanel(new BorderLayout());
-                final JLabel punt = new JLabel(String.valueOf(this.puntata), SwingConstants.CENTER);
-                punt.setForeground(Color.WHITE);
-                jp.setOpaque(false);
-                jp.add(punt, BorderLayout.CENTER);
-                bet.add(jp, BorderLayout.CENTER);
+                bet.incrementBet(this.chipvalue);
             }
         });
         
         
         
         cancel.addActionListener(e -> {  
-            this.puntata = 0;
-            bet.removeAll();
-            bet.setIcon(null);
+            bet.resetBet();
             conferma.setVisible(false);
             cancel.setVisible(false);
         });
@@ -247,11 +236,11 @@ public class Gui extends JPanel implements Menu {
         });
         
         conferma.addActionListener(e -> { 
-            if (this.puntata != 0) {
+            if (bet.getBet() != 0) {
                 game.startGame(this.puntata);
                 cancel.setVisible(false);
                 bet.setEnabled(false);
-                bet.setDisabledIcon(chooseChip(this.puntata));
+                //bet.setDisabledIcon(chooseChip(this.puntata));
                 conferma.setVisible(false);
                 draw.setVisible(true);
                 stand.setVisible(true);
@@ -269,8 +258,6 @@ public class Gui extends JPanel implements Menu {
                 dpoints.setHorizontalTextPosition(JLabel.CENTER);
                 playerpoints.setIcon(new ImageIcon(img));
                 playerpoints.setHorizontalTextPosition(JLabel.CENTER);
-                
-                
             }
         });
     }
@@ -289,27 +276,6 @@ public class Gui extends JPanel implements Menu {
             jlabel.setIcon(new ImageIcon(h.getCard(i).getImg().getScaledInstance(100, 150, Image.SCALE_SMOOTH)));
             p.add(jlabel, 0);
         }
-    }
-     
-    private ImageIcon chooseChip(final int puntata) {
-        if (puntata <  5) {
-            final Image img = new ImageIcon("res/img/fiches/empty/1HD2.png").getImage();
-            return new ImageIcon(img.getScaledInstance(70, 70, Image.SCALE_SMOOTH));
-        }
-        if (puntata < 25) {
-            final Image img = new ImageIcon("res/img/fiches/empty/5.png").getImage();
-            return new ImageIcon(img.getScaledInstance(45, 45, Image.SCALE_SMOOTH));
-        }
-        if (puntata < 100) {
-            final Image img = new ImageIcon("res/img/fiches/empty/25.png").getImage();
-            return new ImageIcon(img.getScaledInstance(45, 45, Image.SCALE_SMOOTH));
-        }
-        if (puntata < 500) {
-            final Image img = new ImageIcon("res/img/fiches/empty/100.png").getImage();
-            return new ImageIcon(img.getScaledInstance(45, 45, Image.SCALE_SMOOTH));
-        }
-        final Image img = new ImageIcon("res/img/fiches/empty/500.png").getImage();
-        return new ImageIcon(img.getScaledInstance(45, 45, Image.SCALE_SMOOTH)); 
     }
     
     @Override
