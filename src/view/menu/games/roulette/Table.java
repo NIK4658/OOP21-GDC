@@ -42,7 +42,7 @@ public class Table extends JPanel {
         height = this.getPreferredSize().height;
         this.setLayout(new GridBagLayout());
         
-        this.rouletteNumbers = new RouletteNumbers();//sostituire numeri in modo da avere più tipi di roulette
+        this.rouletteNumbers = new RouletteNumbers().getList();
         this.addSectors();
         this.addNumbers();
         this.addRows();
