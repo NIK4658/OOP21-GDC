@@ -82,7 +82,7 @@ public class MainGui implements MenuManager {
     @Override
     public void setBaccaratMenu(final AdvancedAccountManager account) {
         this.frame.setResizable(true);
-        this.updateMenu(new GeneralGui(this, account));
+        this.updateMenu(new GameImpl(this, account, new Gui(this, new AdvancedBalanceManagerImpl(account))));
     }
 
     @Override
