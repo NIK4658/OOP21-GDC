@@ -1,56 +1,110 @@
 package start;
 
+
+import java.awt.*;
+import java.awt.event.*;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+
+import javax.swing.*;
+
+import java.awt.*;
+import java.awt.event.*;
+
+import javax.swing.*;
+
 import java.awt.BorderLayout;
 import java.awt.Color;
-import javax.swing.JButton;
-import javax.swing.JCheckBox;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.JTextField;
 
-public class Warning {
+import javax.swing.border.EtchedBorder;
+import javax.swing.border.TitledBorder;
+
+public class Warning extends JDialog {
     public static void main(String args[]) {
+        
+        //Definition of center and south JPanel
+    	
+        final JPanel center = new JPanel();
+        final JPanel south = new JPanel();
+        center.setBorder(new TitledBorder(new EtchedBorder(), "WARNING!!"));
 
-        //Creating the Frame
-        final JFrame frame = new JFrame("WARNING");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(400, 400);
-        Color colore = Color.RED;
-        Color colore2 = Color.WHITE;
-        
-        
-        final JTextField t1 = new JTextField("IL GIOCO CREA DIPENDENZA STAI ATTENTO");
-         
-        
-        t1.setBackground(colore);
-        t1.setSelectedTextColor(colore2);
-        t1.setHorizontalAlignment(JTextField.CENTER);
-        t1.setEditable(false);
-        t1.setBounds(30, 30, 300, 200);  
-          
-         
-        frame.add(t1);   
-          
-          
-        //Creating the panel at bottom and adding components
-        final JPanel panel = new JPanel(); // the panel is not visible in output
-        //JLabel label = new JLabel("Enter Text");
-        final JCheckBox tf = new JCheckBox("Sono consapevole"); // accepts upto 10 characters
-        final JButton send = new JButton("Avanti");
-        //JButton reset = new JButton("Reset");
-        //panel.add(label); // Components Added using Flow Layout
-        panel.add(tf);
-        panel.add(send);
-        //panel.add(reset);
+        // Definition of a Text area with terms and condiction
 
-        // Text Area at the Center
+        JTextArea textArea = new JTextArea(15, 30);
+        textArea.setBackground(Color.RED);
         
+        //lettura da file
 
-        //Adding Components to the frame.
-        frame.getContentPane().add(BorderLayout.SOUTH, panel);
-        frame.getContentPane().add(BorderLayout.CENTER, t1);
+        BufferedReader in = null;
+        try {
+            in = new BufferedReader(new FileReader("WarningTest.txt"));
+            String str;
+            while ((str = in.readLine()) != null) {
+                textArea.append(str);
+            }
+        } catch (IOException e) {
+        } finally {
+            try { 
+                in.close(); 
+            } catch (Exception ex) { }
+        }
         
+        // set textArea non-editable
+        textArea.setEditable(false); 
         
+        //Putting the Text area on a scroll panel
+        
+        JScrollPane scrollText = new JScrollPane(textArea);
+        
+        //Setting scroll option only vertical
+        
+        scrollText.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+        scrollText.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        
+        //Definition of a ceckbox and button for confirm terms and conditions
+        
+        final JCheckBox ceckbox = new JCheckBox("Sono consapevole"); // accepts upto 10 characters
+        final JButton accept = new JButton("Avanti");
+        accept.setEnabled(false);
+        
+        //Adding action listener for the checkbox the button "avanti" is unavaiable 
+        //the button "avanti" is not enabled until the checkbox is selected
+
+        final ActionListener actionListener = new ActionListener() {
+            public void actionPerformed(ActionEvent actionEvent) {
+                AbstractButton abstractButton = (AbstractButton) actionEvent.getSource();
+                boolean selected = abstractButton.getModel().isSelected();
+              
+                if (selected == true) {
+                    accept.setEnabled(true); 
+                } else {
+                    accept.setEnabled(false);
+                  
+                }
+            
+            }
+            
+        };
+        
+        //Adding the components to the panels
+        
+        center.add(scrollText);
+        south.add(ceckbox);
+        south.add(accept);
+        
+        // Setting Frame
+        ceckbox.addActionListener(actionListener);
+        JFrame frame = new JFrame("WARNING");
+        frame.add(center, BorderLayout.CENTER);
+        frame.add(south, BorderLayout.SOUTH);
+        frame.pack();
+        frame.setLocationRelativeTo(null);
         frame.setVisible(true);
     }
 }
+    	
+
+        
+        
+ 

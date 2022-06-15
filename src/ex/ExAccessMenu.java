@@ -12,7 +12,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
-import view.ImageModifier;
+
 import view.Resizer;
 
 /**
@@ -34,7 +34,7 @@ public class ExAccessMenu extends JFrame {
         
         // Zona di destra
         final JPanel east = new JPanel(new FlowLayout(FlowLayout.CENTER, 0, 0));
-        final Image imgi = new ImageModifier().scaleFullScreen(
+        final Image imgi = new ExImageModifier().scaleFullScreen(
                 new ImageIcon("res/img/backgrounds/HQcasinoCroppedWithTitle.gif").getImage(),
                 new Dimension((int) (this.dim.getWidth() * 2 / 3), (int) this.dim.getHeight()));
         east.add(new JLabel(new ImageIcon(imgi), SwingConstants.CENTER));

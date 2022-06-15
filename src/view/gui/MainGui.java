@@ -1,21 +1,26 @@
 package view.gui;
 
-import account.AccountManager;
-import account.AccountManagerImpl;
+import account.AdvancedAccountManager;
+import account.AdvancedBalanceManagerImpl;
+import blackjack.Gui;
 import java.awt.Dimension;
 import java.awt.Frame;
 import java.awt.Toolkit;
 import javax.swing.JFrame;
-import javax.swing.JPanel;
+import javax.swing.JLayeredPane;
+
 import view.menu.AccessMenu;
 import view.menu.AccountMenu;
-import view.menu.GamesMenu;
-import view.menu.RouletteMenu;
+import view.menu.MainMenu;
+import view.menu.Menu;
+import view.menu.games.GameImpl;
+import view.menu.GameMenu;
+import view.menu.GeneralGui;
 
 //forse meglio usare un unico metodo setMenu(Menu menu, AccountManager account);
 //da settare this.frame.setResizable(false) appena aggiunto torna indietro nei giochi
 public class MainGui implements MenuManager {
-    
+
 //    private static final int SCALE = 2 / 3;
     private final JFrame frame;
     private final int widthMenu;
@@ -32,45 +37,52 @@ public class MainGui implements MenuManager {
         this.frame.setSize(this.sizeMenu);
         this.frame.setResizable(false);
         this.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        
-//        this.setAccessMenu();
-        this.setRouletteMenu(new AccountManagerImpl());
-//        this.setAccountMenu(new AccountManagerImpl());
-        
+
+        this.setAccessMenu();
+        //this.setGameMenu(new AdvancedAccountManagerImpl());
+        //this.setAccountMenu(new AdvancedAccountManagerImpl());
+
         this.frame.setLocationRelativeTo(null);
         this.frame.setVisible(true);
     }
-    
-    private void updateMenu(final JPanel panel) {
-        System.out.println("updateMenu1: " + this.getSizeMenu());
-        this.frame.setContentPane(panel);
+
+    private void updateMenu(final Menu menu) {
+        this.frame.setContentPane(menu.getMenu());
         this.frame.pack();
         this.frame.revalidate();
-        System.out.println("updateMenu2: " + this.getSizeMenu());
-    }
-    
-    @Override
-    public void setAccessMenu() {
-        this.updateMenu(new AccessMenu(this).getMenu());
-    }
-    
-    @Override
-    public void setGamesMenu(final AccountManager account) {
-        System.out.println("setGamesMenu: " + this.getSizeMenu());
-        this.updateMenu(new GamesMenu(this, account).getMenu());
     }
 
     @Override
-    public void setAccountMenu(final AccountManager account) {
-        System.out.println("setAccountMenu: " + this.getSizeMenu());
-        this.updateMenu(new AccountMenu(this, account).getMenu());
+    public void setAccessMenu() {
+        this.updateMenu(new AccessMenu(this));
     }
-    
+
     @Override
-    public void setRouletteMenu(final AccountManager account) {
+    public void setMainMenu(final AdvancedAccountManager account) {
+        this.frame.setResizable(false);
+        this.updateMenu(new MainMenu(this, account));
+    }
+
+    @Override
+    public void setAccountMenu(final AdvancedAccountManager account) {
+        this.updateMenu(new AccountMenu(this, account));
+    }
+
+    @Override
+    public void setGameMenu(final AdvancedAccountManager account) {
         this.frame.setResizable(true);
-        System.out.println("setRouletteMenu: " + this.getSizeMenu());
-        this.updateMenu(new RouletteMenu(this, account).getMenu());
+        this.updateMenu(new GameMenu(this, account));
+    }
+
+    @Override
+    public void setBlackjackMenu(final AdvancedAccountManager account) {
+        this.updateMenu(new GameImpl(this, account, new Gui(this, new AdvancedBalanceManagerImpl(account))));
+    }
+
+    @Override
+    public void setBaccaratMenu(final AdvancedAccountManager account) {
+        this.frame.setResizable(true);
+        this.updateMenu(new GameImpl(this, account, new Gui(this, new AdvancedBalanceManagerImpl(account))));
     }
 
     @Override
@@ -87,11 +99,12 @@ public class MainGui implements MenuManager {
     public int getHeightMenu() {
         return this.heightMenu;
     }
-    
+
     @Override
     public Dimension getSizeMenu() {
         return this.sizeMenu;
     }
 
-}
 
+
+}

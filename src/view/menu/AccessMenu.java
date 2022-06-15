@@ -1,6 +1,7 @@
 package view.menu;
 
-import account.AccountManager;
+import account.AdvancedAccountManager;
+import account.SimpleAccountManager;
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.Dimension;
@@ -8,10 +9,9 @@ import java.awt.Image;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import view.ImageModifier;
-import view.access.Access;
-import view.access.AccessPanel;
 import view.gui.MenuManager;
+import view.menu.access.Access;
+import view.menu.access.AccessPanel;
 
 /**
  * //DA SISTEMARE I MAGIC NUMBERS.
@@ -30,9 +30,10 @@ public class AccessMenu extends JPanel implements Access, Menu {
         
         // Zona di destra
         final Dimension dimImg = new Dimension(frame.getWidthMenu() * 2 / 3, frame.getHeightMenu());
-        final Image imgi = new ImageModifier().scaleFullScreen(
-                new ImageIcon("res/img/backgrounds/HQcasinoCroppedWithTitle.gif").getImage(), dimImg);
-        this.add(new JLabel(new ImageIcon(imgi)), BorderLayout.EAST);
+        final Image img = new ImageIcon("res/img/backgrounds/HQcasinoCroppedWithTitle.gif").getImage();
+        final Image imgScaled = img.getScaledInstance(dimImg.width, dimImg.height, Image.SCALE_DEFAULT);
+        this.add(new JLabel(new ImageIcon(imgScaled)), BorderLayout.EAST);
+        
         
         // Zona di sinistra
         final CardLayout cl = new CardLayout();
@@ -49,8 +50,8 @@ public class AccessMenu extends JPanel implements Access, Menu {
     }
     
     @Override
-    public void successfullyAccessed(final AccountManager account) {
-        frame.setGamesMenu(account);
+    public void successfullyAccessed(final AdvancedAccountManager account) {
+        frame.setMainMenu(account);
     }
     
     @Override

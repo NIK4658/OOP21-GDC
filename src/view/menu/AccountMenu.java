@@ -1,6 +1,7 @@
 package view.menu;
 
-import account.AccountManager;
+import account.AdvancedAccountManager;
+import account.SimpleAccountManager;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -14,11 +15,11 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import view.GridBagConstraintsConstructor;
-import view.account.BalancePanel;
-import view.account.ConfirmPassword;
-import view.account.PasswordPanel;
-import view.account.UsernamePanel;
 import view.gui.MenuManager;
+import view.menu.account.BalancePanel;
+import view.menu.account.ConfirmPassword;
+import view.menu.account.PasswordPanel;
+import view.menu.account.UsernamePanel;
 //vedere se possibile sostituire panel con estensione della classe con JPanel
 //e se possibile creare un'altra classe per panelAccount.
 public class AccountMenu implements Menu {
@@ -28,14 +29,14 @@ public class AccountMenu implements Menu {
      **/
     private static final long serialVersionUID = 1L;
     private final MenuManager frame;
-    private final AccountManager account;
+    private final AdvancedAccountManager account;
     private final JPanel panel;
     private final JPanel panelAccount;
     private final JButton buttonBack;
     private final ActionListener alBackMenu;
     private ActionListener alBackPanel;
     
-    public AccountMenu(final MenuManager frame, final AccountManager account) {
+    public AccountMenu(final MenuManager frame, final AdvancedAccountManager account) {
         this.frame = frame;
         this.account = account;
         this.panel = new JPanel(new BorderLayout());
@@ -69,25 +70,22 @@ public class AccountMenu implements Menu {
             jb.setFont(new Font("Arial", Font.PLAIN, frame.getWidthMenu() / 50));
             panelAccount.add(jb, GridBagConstraintsConstructor.get(0, index++, 5));
         }
-        
-        final BalancePanel panelBalance = new BalancePanel(this.account);
-        final UsernamePanel panelUsername = new UsernamePanel(this.frame.getFrame(), this.account);
-        final PasswordPanel panelPassword = new PasswordPanel(this.frame.getFrame(), this.account);
 
         buttonBalance.addActionListener(e -> {
-            this.updatePanel(panelBalance);
+            this.updatePanel(new BalancePanel(this.account));
         });
 
         buttonUsername.addActionListener(e -> {
-            this.updatePanel(panelUsername);
+            this.updatePanel(new UsernamePanel(this.frame.getFrame(), this.account));
         });        
 
         buttonPassword.addActionListener(e -> {
-            this.updatePanel(panelPassword);
+            this.updatePanel(new PasswordPanel(this.frame.getFrame(), this.account));
         });
         
         buttonAccount.addActionListener(e -> {
             if (new ConfirmPassword(frame.getFrame(), account, " to delete Account").isPasswordConfirmed()) {
+                this.account.deleteAcc(this.account.getUsr());
                 this.frame.setAccessMenu();
             }
         });
@@ -120,7 +118,7 @@ public class AccountMenu implements Menu {
     }
     
     private ActionListener getActionListenerBackMenu() {
-        return e -> frame.setGamesMenu(account);
+        return e -> frame.setMainMenu(account);
     }
 
     @Override
