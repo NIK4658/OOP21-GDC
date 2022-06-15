@@ -42,8 +42,8 @@ public class RouletteNumber {
         this.included = value == 0 ? Included.NOT : (value >= 1 && value <= 18 ? Included._1_18_ : Included._19_36);
     }
 
-    public int getValue() {
-        return value;
+    public Integer getValue() {//da int a Integer
+        return Integer.valueOf(value);
     }
 
     public Color getColor() {
@@ -68,6 +68,33 @@ public class RouletteNumber {
         }
         final int nColumn = value / 12;
         return nColumn <= 1 ? Column.FIRST : (nColumn <= 2 ? Column.SECOND : Column.THIRD);
+    }
+    
+    public Row getRow() {
+        if (value == 0) {
+            return Row.NOT;
+        }
+        final int nRow = value % 3;
+        return nRow == 0 ? Row.FIRST : (nRow == 2 ? Row.SECOND : Row.THIRD);
+    }
+    
+    public Object getProperty(final Class classProperty) {
+        if (classProperty == Integer.class) {
+            return getValue();
+        } else if (classProperty == Color.class) {
+            return getColor();
+        } else if (classProperty == Parity.class) {
+            return getParity();
+        } else if (classProperty == Included.class) {
+            return getIncluded();
+        } else if (classProperty == Column.class) {
+            return getColumn();
+        } else if (classProperty == Row.class) {
+            return getRow();
+        } else if (classProperty == Sector.class) {
+            return getSector();
+        }
+        return null;
     }
     
     @Override
