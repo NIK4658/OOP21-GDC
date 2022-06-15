@@ -12,11 +12,11 @@ import view.menu.games.roulette.DisplayWinningNumbers;
 public class Roulette {
 //    private static final int DELAY = 3000;//da togliere o mettere poi gif roulette che gira
     private final Random random;
-    private final WinningNumbers winningNumbers;
+//    private final WinningNumbers winningNumbers;
     
     public Roulette() {
         this.random = new Random();
-        this.winningNumbers = new WinningNumbers();
+//        this.winningNumbers = new WinningNumbers();
     }
     
 //    public void start() {
@@ -24,8 +24,9 @@ public class Roulette {
 //        new Timer(DELAY, e -> this.spin()).start();
 //    }
 
-    public List<RouletteNumber> spin() {
-        this.winningNumbers.add(this.random.nextInt(37));
-        return new ArrayList<>(winningNumbers);
+    public RouletteNumber spin() {
+//        this.winningNumbers.add(this.random.nextInt(37));
+//        return new ArrayList<>(winningNumbers);
+        return new RouletteNumbers().get(this.random.nextInt(37));
     }
 }

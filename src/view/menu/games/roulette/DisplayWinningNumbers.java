@@ -38,12 +38,12 @@ public class DisplayWinningNumbers extends JPanel {
     
     public void display() {
         int i = 0;
-        for (final RouletteNumber n : this.roulette.spin()) {
-            final JButton b = this.winningNumbers.get(i);
-            b.setText(String.valueOf(n.getValue()));
-            b.setForeground(n.getColor());
-            i++;
-        }
+//        for (final RouletteNumber n : this.roulette.spin()) {
+//            final JButton b = this.winningNumbers.get(i);
+//            b.setText(String.valueOf(n.getValue()));
+//            b.setForeground(n.getColor());
+//            i++;
+//        }
         
     }
 

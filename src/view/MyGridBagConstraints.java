@@ -3,6 +3,7 @@ package view;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
 
+//renderla statica?
 public class MyGridBagConstraints extends GridBagConstraints {
     
     public MyGridBagConstraints(final int gridx, final int gridy, final int gridwidth, 

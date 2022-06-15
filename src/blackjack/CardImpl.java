@@ -44,21 +44,21 @@ public class CardImpl implements Card {
      */
     public CardImpl(final Suits s, final int value) {
         this.card = new Pair<>(s, value);
-        this.img = new ImageIcon("res/img/cards/" + this.card.get1() + "/" + this.card.get2() + ".png").getImage();
+        this.img = new ImageIcon("res/img/cards/" + this.card.getX() + "/" + this.card.getY() + ".png").getImage();
         this.facedown = false;
     }
     
     @Override
     public Suits getSuit() {
-        return this.card.get1(); 
+        return this.card.getX(); 
     }
     
     @Override
     public int getValue() {     
-        if (this.card.get2() >= 10) {
+        if (this.card.getY() >= 10) {
             return 10;
         } else {
-            return this.card.get2();
+            return this.card.getY();
         }   
     }
     
@@ -81,14 +81,14 @@ public class CardImpl implements Card {
     }
     
     private boolean isRedColored() {
-        return (this.card.get1() == Suits.DIAMONDS || this.card.get1() == Suits.HEARTS);
+        return (this.card.getX() == Suits.DIAMONDS || this.card.getX() == Suits.HEARTS);
     }
     
     
     @Override
     public void turnOver() {
         if (this.facedown) {
-            this.img = new ImageIcon("res/img/cards/" + this.card.get1() + "/" + this.card.get2() + ".png").getImage();
+            this.img = new ImageIcon("res/img/cards/" + this.card.getX() + "/" + this.card.getY() + ".png").getImage();
             this.facedown = false;
         } else {
             if (isRedColored()) {
@@ -112,7 +112,7 @@ public class CardImpl implements Card {
             return false;
         }
         final Card other = (Card) obj;
-        return Objects.equals(this.card.get1(), other.getSuit()) && Objects.equals(this.card.get2(), other.getValue());
+        return Objects.equals(this.card.getX(), other.getSuit()) && Objects.equals(this.card.getY(), other.getValue());
     }
     
     @Override
