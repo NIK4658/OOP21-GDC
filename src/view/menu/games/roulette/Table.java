@@ -42,14 +42,14 @@ public class Table extends JPanel {
         height = this.getPreferredSize().height;
         this.setLayout(new GridBagLayout());
         
-        this.rouletteNumbers = new RouletteNumbers();//sostituire numeri in modo da avere più tipi di roulette
+        this.rouletteNumbers = new RouletteNumbers().getList();
         this.addSectors();
         this.addNumbers();
         this.addRows();
         this.addColumns();
         this.addNumbersIncluded();
-        this.addEvenOdd();
-        this.addRedBlack();
+        this.addParity();
+        this.addColors();
     }
     
     private void addSectors() {
@@ -141,7 +141,7 @@ public class Table extends JPanel {
         this.add(b, gbc);
     }
     
-    private void addEvenOdd() {
+    private void addParity() {
         x += 2;
         gbc.gridx = x;
         b = new JButton("EVEN");
@@ -153,7 +153,7 @@ public class Table extends JPanel {
         this.add(b, gbc);
     }
     
-    private void addRedBlack() {
+    private void addColors() {
         x += 2;
         gbc.gridx = x;
         b = new JButton("RED");
