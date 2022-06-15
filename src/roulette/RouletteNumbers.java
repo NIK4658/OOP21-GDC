@@ -60,7 +60,7 @@ public class RouletteNumbers {
         return this.rouletteNumbers.get(index);
     }
     
-    public List<RouletteNumber> getList(){
+    public List<RouletteNumber> getList() {
         return Collections.unmodifiableList(this.rouletteNumbers);
     }
     

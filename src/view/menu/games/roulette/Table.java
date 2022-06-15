@@ -48,8 +48,8 @@ public class Table extends JPanel {
         this.addRows();
         this.addColumns();
         this.addNumbersIncluded();
-        this.addEvenOdd();
-        this.addRedBlack();
+        this.addParity();
+        this.addColors();
     }
     
     private void addSectors() {
@@ -141,7 +141,7 @@ public class Table extends JPanel {
         this.add(b, gbc);
     }
     
-    private void addEvenOdd() {
+    private void addParity() {
         x += 2;
         gbc.gridx = x;
         b = new JButton("EVEN");
@@ -153,7 +153,7 @@ public class Table extends JPanel {
         this.add(b, gbc);
     }
     
-    private void addRedBlack() {
+    private void addColors() {
         x += 2;
         gbc.gridx = x;
         b = new JButton("RED");
