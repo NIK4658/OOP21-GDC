@@ -219,7 +219,11 @@ public class Table extends JPanel {
     
     private void addActionListener() {
         for (final var button : buttons) {
-            button.addActionListener(e -> button.incrementBet(this.generalInterface.getFichesValue()));
+            button.addActionListener(e -> {
+                final double fichesValue = this.generalInterface.getFichesValue();
+                button.incrementBet(fichesValue);
+                //settare bet in GeneralGui2
+            });
         }
     }
     
