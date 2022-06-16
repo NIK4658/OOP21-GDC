@@ -32,8 +32,8 @@ public class GameImpl extends JPanel implements Menu {
         containerPanel.setBounds(0, 0, width, height);
         containerPanel.setOpaque(true);
         
-        containerPanel.add(usrInterface, 0);
-        containerPanel.add(game, 1);
+        containerPanel.add(usrInterface, new Integer(1));
+        containerPanel.add(game, new Integer(0));
         
         this.add(containerPanel);
     }
