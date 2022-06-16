@@ -9,6 +9,7 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.BorderLayout;
 import java.awt.Insets;
+import java.awt.event.ActionListener;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -20,6 +21,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import blackjack.BetButton;
 import roulette.RouletteNumber;
 import roulette.RouletteNumber.Column;
 import roulette.RouletteNumber.Included;
@@ -29,6 +31,7 @@ import roulette.RouletteNumber.Sector;
 import roulette.RouletteNumbers;
 import utility.Pair;
 import view.MyGridBagConstraints;
+import view.menu.GeneralGui2;
 
 public class Table extends JPanel {
     
@@ -36,20 +39,24 @@ public class Table extends JPanel {
     private int x;
     private int y;
     private GridBagConstraints gbc;
-    private JButton b;
+    private RouletteBetButton b;
     private Dimension d;
     private final int width;
     private final int height;
-    private List<Pair<Object, Double>> bets;
+    private final List<RouletteBetButton> buttons;
+    private final GeneralGui2 generalInterface;
+//    private final ActionListener al;
     
-    public Table() {
+    public Table(final GeneralGui2 generalInterface) {
         final ImageIcon imgIcon = new ImageIcon("res/img/backgrounds/RouletteTable.png");
         this.img = imgIcon.getImage();
         width = this.getPreferredSize().width;
         height = this.getPreferredSize().height;
         this.setLayout(new GridBagLayout());
         
-        this.bets = new LinkedList<>();
+        this.generalInterface = generalInterface;
+        this.buttons = new LinkedList<>();
+        
         
         this.addSectors();
         this.addNumbers();
@@ -58,11 +65,17 @@ public class Table extends JPanel {
         this.addNumbersIncluded();
         this.addParity();
         this.addColors();
+        this.addActionListener();
+        
     }
+
     
     public List<Pair<Object, Double>> endBetting() {
-        final List<Pair<Object, Double>> bets = this.bets;
-        this.bets = new LinkedList<>();
+        final List<Pair<Object, Double>> bets = new LinkedList<>();
+        for (final var b : buttons) {
+            bets.add(new Pair<>(b.getProperty(), b.getBet()));
+            b.resetBet();
+        }
         return bets;
     }
     
@@ -73,24 +86,24 @@ public class Table extends JPanel {
         y = 0;
         d = new Dimension(this.width / 14 * 3, this.height / 6);
         gbc = new MyGridBagConstraints(x, y, 3, 1);
-        b = new JButton("TIER");
+        b = new RouletteBetButton(Sector.TIER);
         b.setPreferredSize(d);
-        b.addActionListener(e -> bets.add(new Pair<>(Sector.TIER, 1.00)));
+        buttons.add(b);
         this.add(b, gbc);
         gbc.gridx += 3;
-        b = new JButton("ORPHELINS");
+        b = new RouletteBetButton(Sector.ORPHELINS);
         b.setPreferredSize(d);
-        b.addActionListener(e -> bets.add(new Pair<>(Sector.ORPHELINS, 1.00)));
+        buttons.add(b);
         this.add(b, gbc);
         gbc.gridx += 3;
-        b = new JButton("VOISINS");
+        b = new RouletteBetButton(Sector.VOISINS);
         b.setPreferredSize(d);
-        b.addActionListener(e -> bets.add(new Pair<>(Sector.VOISINS, 1.00)));
+        buttons.add(b);
         this.add(b, gbc);
         gbc.gridx += 3;
-        b = new JButton("ZERO");
+        b = new RouletteBetButton(Sector.ZERO);
         b.setPreferredSize(d);
-        b.addActionListener(e -> bets.add(new Pair<>(Sector.ZERO, 1.00)));
+        buttons.add(b);
         this.add(b, gbc);
     }
 
@@ -100,9 +113,9 @@ public class Table extends JPanel {
         gbc = new MyGridBagConstraints(x, y);
         for (final RouletteNumber n : new RouletteNumbers().getList()) {
             final Integer value = n.getValue();
-            b = new JButton(value.toString());
+            b = new RouletteBetButton(value);
             b.setForeground(n.getColor());
-            b.addActionListener(e -> bets.add(new Pair<>(value, 1.00)));
+            buttons.add(b);
             if (value == 0) {
                 b.setPreferredSize(new Dimension(width / 14, height / 2));
                 this.add(b, new MyGridBagConstraints(0, 1, 1, 3));
@@ -123,8 +136,6 @@ public class Table extends JPanel {
     private void addRows() {
         gbc = new MyGridBagConstraints(x, y, 1, 1);
         for (; y > 0; y--) {
-            b = new JButton("2to1");
-            b.setPreferredSize(new Dimension(width / 14, height / 6));
             final Row row;
             switch (y) {
                 case 1: row = Row.FIRST;
@@ -133,7 +144,9 @@ public class Table extends JPanel {
                     break;
                 default: row = Row.THIRD;
             }
-            b.addActionListener(e -> bets.add(new Pair<>(row, 1.00)));
+            b = new RouletteBetButton(row);
+            b.setPreferredSize(new Dimension(width / 14, height / 6));
+            buttons.add(b);
             this.add(b, gbc);
             gbc.gridy--;
         }
@@ -144,19 +157,19 @@ public class Table extends JPanel {
         y += 4;
         gbc = new MyGridBagConstraints(x, y, 4, 1);
         d = new Dimension(width / 14 * 4, height / 6);
-        b = new JButton("1st 12");
+        b = new RouletteBetButton(Column.FIRST);
         b.setPreferredSize(d);
-        b.addActionListener(e -> bets.add(new Pair<>(Column.FIRST, 1.00)));
+        buttons.add(b);
         this.add(b, gbc);
         gbc.gridx += 4;
-        b = new JButton("2nd 12");
+        b = new RouletteBetButton(Column.SECOND);
         b.setPreferredSize(d);
-        b.addActionListener(e -> bets.add(new Pair<>(Column.SECOND, 1.00)));
+        buttons.add(b);
         this.add(b, gbc);
         gbc.gridx += 4;
-        b = new JButton("3rd 12");
+        b = new RouletteBetButton(Column.THIRD);
         b.setPreferredSize(d);
-        b.addActionListener(e -> bets.add(new Pair<>(Column.THIRD, 1.00)));
+        buttons.add(b);
         this.add(b, gbc);
         
     }
@@ -165,43 +178,49 @@ public class Table extends JPanel {
         y += 1;
         gbc = new MyGridBagConstraints(x, y, 2, 1);
         d = new Dimension(width / 7, height / 6);
-        b = new JButton("1-18");
+        b = new RouletteBetButton(Included._1_18_);
         b.setPreferredSize(d);
-        b.addActionListener(e -> bets.add(new Pair<>(Included._1_18_, 1.00)));
+        buttons.add(b);
         this.add(b, gbc);
         gbc.gridx += 10;
-        b = new JButton("19-36");
+        b = new RouletteBetButton(Included._19_36_);
         b.setPreferredSize(d);
-        b.addActionListener(e -> bets.add(new Pair<>(Included._19_36_, 1.00)));
+        buttons.add(b);
         this.add(b, gbc);
     }
     
     private void addParity() {
         x += 2;
         gbc.gridx = x;
-        b = new JButton("EVEN");
+        b = new RouletteBetButton(Parity.EVEN);
         b.setPreferredSize(d);
-        b.addActionListener(e -> bets.add(new Pair<>(Parity.EVEN, 1.00)));
+        buttons.add(b);
         this.add(b, gbc);
         gbc.gridx += 6;
-        b = new JButton("ODD");
+        b = new RouletteBetButton(Parity.ODD);
         b.setPreferredSize(d);
-        b.addActionListener(e -> bets.add(new Pair<>(Parity.ODD, 1.00)));
+        buttons.add(b);
         this.add(b, gbc);
     }
     
     private void addColors() {
         x += 2;
         gbc.gridx = x;
-        b = new JButton("RED");
+        b = new RouletteBetButton(Color.RED);
         b.setPreferredSize(d);
-        b.addActionListener(e -> bets.add(new Pair<>(Color.RED, 1.00)));
+        buttons.add(b);
         this.add(b, gbc);
         gbc.gridx += 2;
-        b = new JButton("BLACK");
-        b.setPreferredSize(d);
-        b.addActionListener(e -> bets.add(new Pair<>(Color.BLACK, 1.00)));
-        this.add(b, gbc);
+        final RouletteBetButton ba = new RouletteBetButton(Color.BLACK);
+        ba.setPreferredSize(d);
+        buttons.add(ba);
+        this.add(ba, gbc);
+    }
+    
+    private void addActionListener() {
+        for (final var button : buttons) {
+            button.addActionListener(e -> button.incrementBet(this.generalInterface.getFichesValue()));
+        }
     }
     
     
