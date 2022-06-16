@@ -116,7 +116,7 @@ public class RouletteTest {
     public void testNumberIncludedBet() {
         //scommetto sull'intervallo 1-18 e testo le vincite e perdite 
         //scommetto sull'intervallo 1-18 e 19-36 ma esce lo zero(neutro)
-        testPairPropertyBet(Included._1_18_, Included._19_36, amountBet);
+        testPairPropertyBet(Included._1_18_, Included._19_36_, amountBet);
     }
     
     

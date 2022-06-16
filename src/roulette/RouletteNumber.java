@@ -23,7 +23,7 @@ public class RouletteNumber {
     }
     
     public enum Included{
-        _1_18_, _19_36, NOT
+        _1_18_, _19_36_, NOT
     }
     
     public enum Parity{
@@ -39,7 +39,7 @@ public class RouletteNumber {
         this.color = color;
         this.sector = sector;
         this.parity = value == 0 ? Parity.NEUTRAL : (value % 2 == 0 ? Parity.EVEN : Parity.ODD);
-        this.included = value == 0 ? Included.NOT : (value >= 1 && value <= 18 ? Included._1_18_ : Included._19_36);
+        this.included = value == 0 ? Included.NOT : (value >= 1 && value <= 18 ? Included._1_18_ : Included._19_36_);
     }
 
     public Integer getValue() {//da int a Integer
