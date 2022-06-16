@@ -13,9 +13,12 @@ import view.menu.AccessMenu;
 import view.menu.AccountMenu;
 import view.menu.MainMenu;
 import view.menu.Menu;
+import view.menu.games.Game;
 import view.menu.games.GameImpl;
+import view.menu.games.roulette.RouletteGame;
 import view.menu.GameMenu;
 import view.menu.GeneralGui;
+import view.menu.GeneralGui2;
 
 //forse meglio usare un unico metodo setMenu(Menu menu, AccountManager account);
 //da settare this.frame.setResizable(false) appena aggiunto torna indietro nei giochi
@@ -71,7 +74,9 @@ public class MainGui implements MenuManager {
     @Override
     public void setGameMenu(final AdvancedAccountManager account) {
         this.frame.setResizable(true);
-        this.updateMenu(new GameMenu(this, account));
+        this.updateMenu(new GeneralGui2(this, account, new RouletteGame(this.getSizeMenu())));
+        //this.updateMenu(new GameImpl(this, account, new RouletteGame(this.getSizeMenu())));
+        //this.updateMenu(new GameMenu(this, account));
     }
 
     @Override
