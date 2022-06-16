@@ -20,6 +20,7 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import view.MyGridBagConstraints;
 import view.gui.MenuManager;
+import view.menu.games.roulette.RouletteGame;
 
 
 public class GeneralGui2 extends JPanel implements Menu {
@@ -32,7 +33,7 @@ public class GeneralGui2 extends JPanel implements Menu {
     private final JLabel balanceValue = new JLabel("0€");
     private final JLabel winmessage = new JLabel("YOU WON 10€");
     
-    public GeneralGui2(final MenuManager frame, final AdvancedAccountManager account, final JPanel gamePanel){
+    public GeneralGui2(final MenuManager frame, final AdvancedAccountManager account, final RouletteGame gamePanel){
         this.account = account;
         setLayout(new BorderLayout());
         this.setPreferredSize(frame.getSizeMenu());
@@ -160,6 +161,8 @@ public class GeneralGui2 extends JPanel implements Menu {
         fiches25.addActionListener(e -> fichesvalue = 25);
         fiches100.addActionListener(e -> fichesvalue = 100);
         fiches500.addActionListener(e -> fichesvalue = 500);
+        
+        confirm.addActionListener(e -> gamePanel.endBetting());
         
         backToMenu.addActionListener(e -> frame.setMainMenu(account));
 
