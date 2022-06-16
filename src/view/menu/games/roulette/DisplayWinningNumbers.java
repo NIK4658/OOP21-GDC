@@ -18,26 +18,46 @@ import view.MyGridBagConstraints;
 
 public class DisplayWinningNumbers extends JPanel {
     
-    private final Roulette roulette;
+    public static final int MAX_NUM_DISPLAYED = 12;
     private final List<JButton> winningNumbers;
     
-    public DisplayWinningNumbers(final Roulette roulette, final Dimension dimension) {
+    public DisplayWinningNumbers(final Dimension dimension) {
         this.setLayout(new GridBagLayout());
-//        this.setBackground(new Color(0, 118, 58));    //VERDE COME IL TAVOLO DELLA ROULETTE
+        this.setBackground(new Color(0, 118, 58));
+        this.setPreferredSize(dimension);
+        int height = dimension.height / 8;
+        int width = dimension.width / 200;
+        
+        
         this.winningNumbers = new LinkedList<>();
-        this.roulette = roulette;
-       
-        for (int i = 0; i < WinningNumbers.MAX_NUM_DISPLAYED; i++) {
+//        dimension.width /= (MAX_NUM_DISPLAYED * 2);
+        for (int i = 0; i < MAX_NUM_DISPLAYED; i++) {
             final JButton b = new JButton();
-            dimension.width /= WinningNumbers.MAX_NUM_DISPLAYED;
-            b.setPreferredSize(dimension);
-            winningNumbers.add(b);
-            this.add(b, new MyGridBagConstraints(i, 0));
+//            b.setPreferredSize(dimension);
+            b.setOpaque(true);
+            b.setBorderPainted(false);
+            b.setForeground(Color.WHITE);
+            b.setBackground(getBackground());
+            this.winningNumbers.add(b);
+            this.add(b, new MyGridBagConstraints(i, 0, 1, 1, 
+                    new Insets(height, width, height, width)));//da controllare
         }
     }
     
-    public void display() {
-        int i = 0;
+    public void update(RouletteNumber rouletteNumber) {
+        
+        for (int i = MAX_NUM_DISPLAYED - 2; i >= 0; i--) {
+            winningNumbers.get(i + 1).setText(winningNumbers.get(i).getText());
+            winningNumbers.get(i + 1).setBackground(winningNumbers.get(i).getBackground());
+            
+        }
+        winningNumbers.get(0).setText(rouletteNumber.getValue().toString());
+        winningNumbers.get(0).setBackground(rouletteNumber.getColor());
+    }
+    
+    
+//    public void display() {
+//        int i = 0;
 //        for (final RouletteNumber n : this.roulette.spin()) {
 //            final JButton b = this.winningNumbers.get(i);
 //            b.setText(String.valueOf(n.getValue()));
@@ -45,6 +65,6 @@ public class DisplayWinningNumbers extends JPanel {
 //            i++;
 //        }
         
-    }
+//    }
 
 }
