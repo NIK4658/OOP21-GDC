@@ -24,16 +24,30 @@ import view.menu.games.roulette.RouletteGame;
 
 
 public class GeneralGui2 extends JPanel implements Menu {
+    
+    public enum Game {
+        ROULETTE, BLACKJACK, BACCARAT
+    }
 
     
     private final AdvancedAccountManager account;
-    private int fichesvalue;
+    private int fichesvalue = 1;
     private final JLabel betValue = new JLabel("0€");
     private final JLabel winValue = new JLabel("0€");
     private final JLabel balanceValue = new JLabel("0€");
-    private final JLabel winmessage = new JLabel("YOU WON 10€");
+    private final JLabel winmessage = new JLabel();
     
-    public GeneralGui2(final MenuManager frame, final AdvancedAccountManager account, final RouletteGame gamePanel){
+    public GeneralGui2(final MenuManager frame, final AdvancedAccountManager account, final Game game){
+       
+        RouletteGame gamePanel;
+        switch (game) {
+            case ROULETTE: gamePanel = new RouletteGame(frame.getSizeMenu(), this);
+                break;
+            default: gamePanel = null;
+        }
+        
+        
+        
         this.account = account;
         setLayout(new BorderLayout());
         this.setPreferredSize(frame.getSizeMenu());
@@ -43,9 +57,18 @@ public class GeneralGui2 extends JPanel implements Menu {
         final JPanel north = new JPanel(new GridBagLayout());
         final JPanel south = new JPanel(new BorderLayout());
         final JPanel center = gamePanel;
+        
+
+        
 
         final JPanel southleft = new JPanel(new GridBagLayout());
         final JPanel southright = new JPanel(new GridBagLayout());
+        
+        this.setBackground(new Color(0, 118, 58));
+        north.setBackground(new Color(0, 118, 58));
+        south.setBackground(new Color(0, 118, 58));
+        southleft.setBackground(new Color(0, 118, 58));
+        southright.setBackground(new Color(0, 118, 58));
         
         //south.setPreferredSize(new Dimension((int) (dimx / 12.8), (int) (dimy / 7.2)));
         north.setPreferredSize(new Dimension((int) (width / 12.8), (int) (height / 7.2)));
@@ -167,12 +190,12 @@ public class GeneralGui2 extends JPanel implements Menu {
         backToMenu.addActionListener(e -> frame.setMainMenu(account));
 
         //da vedere come migliorare
-        north.setOpaque(false);
-        center.setOpaque(false);
-        south.setOpaque(false);
-        southleft.setOpaque(false);
-        southright.setOpaque(false);
-        this.setOpaque(false);
+//        north.setOpaque(false);
+//        center.setOpaque(false);
+//        south.setOpaque(false);
+//        southleft.setOpaque(false);
+//        southright.setOpaque(false);
+//        this.setOpaque(false);
         
         
         //adding the panel to the Container 
