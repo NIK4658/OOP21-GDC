@@ -9,6 +9,7 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.BorderLayout;
 import java.awt.Insets;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 //import java.awt.Toolkit;
@@ -20,12 +21,17 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import roulette.RouletteNumber;
+import roulette.RouletteNumber.Column;
+import roulette.RouletteNumber.Included;
+import roulette.RouletteNumber.Parity;
+import roulette.RouletteNumber.Row;
+import roulette.RouletteNumber.Sector;
 import roulette.RouletteNumbers;
+import utility.Pair;
 import view.MyGridBagConstraints;
 
 public class Table extends JPanel {
     
-    private final List<RouletteNumber> rouletteNumbers;
     private final Image img;
     private int x;
     private int y;
@@ -34,6 +40,7 @@ public class Table extends JPanel {
     private Dimension d;
     private final int width;
     private final int height;
+    private List<Pair<Object, Double>> bets;
     
     public Table() {
         final ImageIcon imgIcon = new ImageIcon("res/img/backgrounds/RouletteTable.png");
@@ -42,7 +49,8 @@ public class Table extends JPanel {
         height = this.getPreferredSize().height;
         this.setLayout(new GridBagLayout());
         
-        this.rouletteNumbers = new RouletteNumbers().getList();
+        this.bets = new LinkedList<>();
+        
         this.addSectors();
         this.addNumbers();
         this.addRows();
@@ -52,6 +60,14 @@ public class Table extends JPanel {
         this.addColors();
     }
     
+    public List<Pair<Object, Double>> endBetting() {
+        final List<Pair<Object, Double>> bets = this.bets;
+        this.bets = new LinkedList<>();
+        return bets;
+    }
+    
+
+    
     private void addSectors() {
         x = 1;
         y = 0;
@@ -59,18 +75,22 @@ public class Table extends JPanel {
         gbc = new MyGridBagConstraints(x, y, 3, 1);
         b = new JButton("TIER");
         b.setPreferredSize(d);
+        b.addActionListener(e -> bets.add(new Pair<>(Sector.TIER, 1.00)));
         this.add(b, gbc);
         gbc.gridx += 3;
         b = new JButton("ORPHELINS");
         b.setPreferredSize(d);
+        b.addActionListener(e -> bets.add(new Pair<>(Sector.ORPHELINS, 1.00)));
         this.add(b, gbc);
         gbc.gridx += 3;
         b = new JButton("VOISINS");
         b.setPreferredSize(d);
+        b.addActionListener(e -> bets.add(new Pair<>(Sector.VOISINS, 1.00)));
         this.add(b, gbc);
         gbc.gridx += 3;
         b = new JButton("ZERO");
         b.setPreferredSize(d);
+        b.addActionListener(e -> bets.add(new Pair<>(Sector.ZERO, 1.00)));
         this.add(b, gbc);
     }
 
@@ -78,16 +98,17 @@ public class Table extends JPanel {
     private void addNumbers() {
         y += 3;
         gbc = new MyGridBagConstraints(x, y);
-        for (final RouletteNumber n : rouletteNumbers) {
+        for (final RouletteNumber n : new RouletteNumbers().getList()) {
             final Integer value = n.getValue();
-            final JButton button = new JButton(value.toString());
-            button.setForeground(n.getColor());
+            b = new JButton(value.toString());
+            b.setForeground(n.getColor());
+            b.addActionListener(e -> bets.add(new Pair<>(value, 1.00)));
             if (value == 0) {
-                button.setPreferredSize(new Dimension(width / 14, height / 2));
-                this.add(button, new MyGridBagConstraints(0, 1, 1, 3));
+                b.setPreferredSize(new Dimension(width / 14, height / 2));
+                this.add(b, new MyGridBagConstraints(0, 1, 1, 3));
             } else {
-                button.setPreferredSize(new Dimension(width / 14, height / 6));
-                this.add(button, gbc);
+                b.setPreferredSize(new Dimension(width / 14, height / 6));
+                this.add(b, gbc);
                 y--;
                 if (y == 0) {
                     y = 3;
@@ -104,6 +125,15 @@ public class Table extends JPanel {
         for (; y > 0; y--) {
             b = new JButton("2to1");
             b.setPreferredSize(new Dimension(width / 14, height / 6));
+            final Row row;
+            switch (y) {
+                case 1: row = Row.FIRST;
+                    break;
+                case 2: row = Row.SECOND;
+                    break;
+                default: row = Row.THIRD;
+            }
+            b.addActionListener(e -> bets.add(new Pair<>(row, 1.00)));
             this.add(b, gbc);
             gbc.gridy--;
         }
@@ -116,14 +146,17 @@ public class Table extends JPanel {
         d = new Dimension(width / 14 * 4, height / 6);
         b = new JButton("1st 12");
         b.setPreferredSize(d);
+        b.addActionListener(e -> bets.add(new Pair<>(Column.FIRST, 1.00)));
         this.add(b, gbc);
         gbc.gridx += 4;
         b = new JButton("2nd 12");
         b.setPreferredSize(d);
+        b.addActionListener(e -> bets.add(new Pair<>(Column.SECOND, 1.00)));
         this.add(b, gbc);
         gbc.gridx += 4;
         b = new JButton("3rd 12");
         b.setPreferredSize(d);
+        b.addActionListener(e -> bets.add(new Pair<>(Column.THIRD, 1.00)));
         this.add(b, gbc);
         
     }
@@ -134,10 +167,12 @@ public class Table extends JPanel {
         d = new Dimension(width / 7, height / 6);
         b = new JButton("1-18");
         b.setPreferredSize(d);
+        b.addActionListener(e -> bets.add(new Pair<>(Included._1_18_, 1.00)));
         this.add(b, gbc);
         gbc.gridx += 10;
         b = new JButton("19-36");
         b.setPreferredSize(d);
+        b.addActionListener(e -> bets.add(new Pair<>(Included._19_36_, 1.00)));
         this.add(b, gbc);
     }
     
@@ -146,10 +181,12 @@ public class Table extends JPanel {
         gbc.gridx = x;
         b = new JButton("EVEN");
         b.setPreferredSize(d);
+        b.addActionListener(e -> bets.add(new Pair<>(Parity.EVEN, 1.00)));
         this.add(b, gbc);
         gbc.gridx += 6;
         b = new JButton("ODD");
         b.setPreferredSize(d);
+        b.addActionListener(e -> bets.add(new Pair<>(Parity.ODD, 1.00)));
         this.add(b, gbc);
     }
     
@@ -158,12 +195,15 @@ public class Table extends JPanel {
         gbc.gridx = x;
         b = new JButton("RED");
         b.setPreferredSize(d);
+        b.addActionListener(e -> bets.add(new Pair<>(Color.RED, 1.00)));
         this.add(b, gbc);
         gbc.gridx += 2;
         b = new JButton("BLACK");
         b.setPreferredSize(d);
+        b.addActionListener(e -> bets.add(new Pair<>(Color.BLACK, 1.00)));
         this.add(b, gbc);
     }
+    
     
     @Override
     protected void paintComponent(final Graphics g) {
