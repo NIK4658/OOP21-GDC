@@ -12,9 +12,13 @@ import javax.swing.SwingConstants;
 
 public class BetButton extends JButton{
     
-    private int value;
+    private double value;
     
-    public int getBet() {
+    public BetButton(){
+        super();
+    }
+    
+    public double getBet() {
         return this.value;
     }
     
@@ -24,12 +28,14 @@ public class BetButton extends JButton{
         this.setIcon(null);
     }
     
-    public void incrementBet(final int fvalue) {
+    public void incrementBet(final double fvalue) {
         this.value += fvalue;
         this.removeAll();
         this.setIcon(chooseChip(this.value));
         final JPanel jp = new JPanel(new BorderLayout());
-        final JLabel punt = new JLabel(String.valueOf(this.value), SwingConstants.CENTER);
+        final String stringValue = this.value * 100 % 100 == 0 
+                ? String.valueOf((int) this.value) : String.valueOf(this.value);
+        final JLabel punt = new JLabel(stringValue, SwingConstants.CENTER);
         punt.setForeground(Color.WHITE);
         jp.setOpaque(false);
         jp.add(punt, BorderLayout.CENTER);
@@ -37,7 +43,7 @@ public class BetButton extends JButton{
         validate();
     }  
      
-    private ImageIcon chooseChip(final int puntata) {
+    private ImageIcon chooseChip(final double puntata) {
         if (puntata <  5) {
             final Image img = new ImageIcon("res/img/fiches/empty/1HD2.png").getImage();
             return new ImageIcon(img.getScaledInstance(70, 70, Image.SCALE_SMOOTH));
