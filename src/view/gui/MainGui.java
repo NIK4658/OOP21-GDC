@@ -16,7 +16,6 @@ import view.menu.Menu;
 import view.menu.games.Game;
 import view.menu.games.GameImpl;
 import view.menu.games.roulette.RouletteGame;
-import view.menu.GameMenu;
 import view.menu.GeneralGui;
 import view.menu.GeneralGui2;
 
@@ -74,7 +73,8 @@ public class MainGui implements MenuManager {
     @Override
     public void setGameMenu(final AdvancedAccountManager account) {
         this.frame.setResizable(true);
-        this.updateMenu(new GeneralGui2(this, account, new RouletteGame(this.getSizeMenu())));
+        
+        this.updateMenu(new GeneralGui2(this, account, GeneralGui2.Game.ROULETTE));
         //this.updateMenu(new GameImpl(this, account, new RouletteGame(this.getSizeMenu())));
         //this.updateMenu(new GameMenu(this, account));
     }
