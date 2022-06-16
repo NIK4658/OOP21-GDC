@@ -13,7 +13,6 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 import roulette.Roulette;
 import roulette.RouletteNumber;
-import roulette.WinningNumbers;
 import view.MyGridBagConstraints;
 
 public class DisplayWinningNumbers extends JPanel {
