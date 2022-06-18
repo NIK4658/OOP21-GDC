@@ -11,6 +11,10 @@ public class AdvancedAccountManagerImpl extends SimpleAccountManagerImpl impleme
             if (checkExisting(usr)) {
                 System.out.println("Account already existing");
                 return false;
+            }   
+            if (usr.length() > 20) {
+                System.out.println("Username too long");
+                return false;
             }
             if (!(age.chars().allMatch(Character::isDigit))) {
                 System.out.println("Unable to complete registration, invalid age");
