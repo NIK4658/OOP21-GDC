@@ -18,6 +18,8 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
+
+import view.ImageLoader;
 import view.MyGridBagConstraints;
 import view.gui.MenuManager;
 
@@ -137,12 +139,12 @@ public class GeneralGui extends JPanel implements Menu {
             
             //da fare bene
             if (i == 0 || i == 1) {
-                jb.setIcon(new ImageIcon((new ImageIcon("res/img/buttons/"
-                        + fichesList.get(i) + ".png").getImage())
+                jb.setIcon(new ImageIcon((ImageLoader.getImage("res/img/buttons/"
+                        + fichesList.get(i) + ".png"))
                         .getScaledInstance(width / 20, width / 20, Image.SCALE_SMOOTH)));
             } else {
-                jb.setIcon(new ImageIcon((new ImageIcon("res/img/fiches/numbers/"
-                        + fichesList.get(i) + ".png").getImage())
+                jb.setIcon(new ImageIcon((ImageLoader.getImage("res/img/fiches/numbers/"
+                        + fichesList.get(i) + ".png"))
                         .getScaledInstance(width / 20, width / 20, Image.SCALE_SMOOTH)));
             }
 

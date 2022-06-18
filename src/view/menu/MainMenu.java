@@ -19,6 +19,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import view.GridBagConstraintsConstructor;
+import view.ImageLoader;
 import view.gui.MenuManager;
 import java.awt.Graphics;
 
@@ -34,7 +35,7 @@ public class MainMenu extends JPanel implements Menu {
 //    private final AccountManager account;
     
     
-    private final Image img = new ImageIcon("res/img/backgrounds/MainBG.jpg").getImage();
+    private final Image img = ImageLoader.getImage("res/img/backgrounds/MainBG.jpg");
 
     /**
      * Costruttore.
@@ -97,15 +98,15 @@ public class MainMenu extends JPanel implements Menu {
         final Dimension dimButton = new Dimension(width / 5, height / 3);
         Image img, imgScaled;
         
-        img = new ImageIcon("res/img/backgrounds/bj.jpg").getImage();
+        img = ImageLoader.getImage("res/img/backgrounds/bj.jpg");
         imgScaled = img.getScaledInstance(dimButton.width, dimButton.height, Image.SCALE_SMOOTH);
         blackjack.setIcon(new ImageIcon((imgScaled)));
         
-        img = new ImageIcon("res/img/backgrounds/rou2.jpg").getImage();
+        img = ImageLoader.getImage("res/img/backgrounds/rou2.jpg");
         imgScaled = img.getScaledInstance(dimButton.width, dimButton.height, Image.SCALE_SMOOTH);
         roulette.setIcon(new ImageIcon((imgScaled)));
         
-        img = new ImageIcon("res/img/backgrounds/bac.jpg").getImage();
+        img = ImageLoader.getImage("res/img/backgrounds/bac.jpg");
         imgScaled = img.getScaledInstance(dimButton.width, dimButton.height, Image.SCALE_SMOOTH);
         bacarat.setIcon(new ImageIcon((imgScaled)));
         

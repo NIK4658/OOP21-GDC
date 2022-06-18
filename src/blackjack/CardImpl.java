@@ -5,6 +5,7 @@ import java.util.Objects;
 import java.util.Random;
 import javax.swing.ImageIcon;
 import utility.Pair;
+import view.ImageLoader;
 
 /**
  * Classe principale gestione Carte.
@@ -44,7 +45,7 @@ public class CardImpl implements Card {
      */
     public CardImpl(final Suits s, final int value) {
         this.card = new Pair<>(s, value);
-        this.img = new ImageIcon("res/img/cards/" + this.card.getX() + "/" + this.card.getY() + ".png").getImage();
+        this.img = ImageLoader.getImage("res/img/cards/" + this.card.getX() + "/" + this.card.getY() + ".png");
         this.facedown = false;
     }
     
@@ -88,13 +89,13 @@ public class CardImpl implements Card {
     @Override
     public void turnOver() {
         if (this.facedown) {
-            this.img = new ImageIcon("res/img/cards/" + this.card.getX() + "/" + this.card.getY() + ".png").getImage();
+            this.img = ImageLoader.getImage("res/img/cards/" + this.card.getX() + "/" + this.card.getY() + ".png");
             this.facedown = false;
         } else {
             if (isRedColored()) {
-                this.img = new ImageIcon("res/img/cards/back/red.png").getImage();
+                this.img = ImageLoader.getImage("res/img/cards/back/red.png");
             } else {
-                this.img = new ImageIcon("res/img/cards/back/black.png").getImage();
+                this.img = ImageLoader.getImage("res/img/cards/back/black.png");
             } 
             this.facedown = true;
         }

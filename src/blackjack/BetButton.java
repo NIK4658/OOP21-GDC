@@ -10,6 +10,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
+import view.ImageLoader;
+
 public class BetButton extends JButton{
     
     private double value;
@@ -45,22 +47,22 @@ public class BetButton extends JButton{
      
     private ImageIcon chooseChip(final double puntata) {
         if (puntata <  5) {
-            final Image img = new ImageIcon("res/img/fiches/empty/1HD2.png").getImage();
+            final Image img = ImageLoader.getImage("res/img/fiches/empty/1HD2.png");
             return new ImageIcon(img.getScaledInstance(70, 70, Image.SCALE_SMOOTH));
         }
         if (puntata < 25) {
-            final Image img = new ImageIcon("res/img/fiches/empty/5.png").getImage();
+            final Image img = ImageLoader.getImage("res/img/fiches/empty/5.png");
             return new ImageIcon(img.getScaledInstance(45, 45, Image.SCALE_SMOOTH));
         }
         if (puntata < 100) {
-            final Image img = new ImageIcon("res/img/fiches/empty/25.png").getImage();
+            final Image img = ImageLoader.getImage("res/img/fiches/empty/25.png");
             return new ImageIcon(img.getScaledInstance(45, 45, Image.SCALE_SMOOTH));
         }
         if (puntata < 500) {
-            final Image img = new ImageIcon("res/img/fiches/empty/100.png").getImage();
+            final Image img = ImageLoader.getImage("res/img/fiches/empty/100.png");
             return new ImageIcon(img.getScaledInstance(45, 45, Image.SCALE_SMOOTH));
         }
-        final Image img = new ImageIcon("res/img/fiches/empty/500.png").getImage();
+        final Image img = ImageLoader.getImage("res/img/fiches/empty/500.png");
         return new ImageIcon(img.getScaledInstance(45, 45, Image.SCALE_SMOOTH)); 
     }
 }
