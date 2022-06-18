@@ -47,6 +47,7 @@ public class AccessMenu extends JPanel implements Access, Menu {
         west.add(register, AccessType.REGISTER.toString());
         cl.show(west, AccessType.LOGIN.toString());
         this.add(west, BorderLayout.WEST);
+        this.setFocusable(true);
     }
     
     @Override
