@@ -1,4 +1,5 @@
 package baccarat;
+import blackjack.Card;
 
 /**
  * ..

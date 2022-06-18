@@ -1,4 +1,6 @@
 package baccarat;
+import blackjack.Card;
+import blackjack.CardImpl;
 
 import java.util.LinkedList;
 
