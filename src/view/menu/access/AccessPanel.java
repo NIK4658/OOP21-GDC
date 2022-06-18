@@ -50,15 +50,11 @@ public class AccessPanel extends JPanel {
         final JLabel warning = new JLabel("", SwingConstants.CENTER);
         final JTextField username = new JTextField("Username");
         final JTextField password = new JTextField("Password");                        
-        final JTextField age = new JTextField("Età"); 
+        final JTextField age = new JTextField("Age"); 
         final JButton loginButton;
         final JButton registerButton;
         final ArrayList<JComponent> list = new ArrayList<>();
-        //warning.setText("ciao");
         
-        //da eliminare
-        username.setForeground(new Color(150, 150, 150));
-        password.setForeground(new Color(150, 150, 150));
         
         list.add(warning);
         list.add(username);
@@ -66,12 +62,12 @@ public class AccessPanel extends JPanel {
         
         if (accessType.equals(AccessType.LOGIN)) {
             loginButton = new JButton("Login");
-            registerButton = new JButton("<html>Non hai un Account? <br/>Registrati!<html>");
+            registerButton = new JButton("<html>\nDon't have an Account?<br/>Sign in!<html>");
             list.add(loginButton);
             list.add(registerButton);
         } else {
-            registerButton = new JButton("Registrati");
-            loginButton = new JButton("<html>Hai già un account? <br/>Esegui il Login</html>");
+            registerButton = new JButton("Sign In");
+            loginButton = new JButton("<html>Already got an account?<br/>Log in!</html>");
             list.add(age);
             list.add(registerButton);
             list.add(loginButton);
@@ -92,22 +88,28 @@ public class AccessPanel extends JPanel {
         for (final JComponent jc : list) {
             jc.setPreferredSize(new Dimension(dimX / RATIOBTNAREAX, dimY / RATIOBTNAREAY));
             jc.setFont(new Font("Arial", Font.PLAIN, dimX / RATIOBTNFONT));
+            jc.setForeground(new Color(150, 150, 150));
             this.add(jc, GridBagConstraintsConstructor.get(0, i, SPACINGBTN));
             i++;
         }
         
-        //warning.setFont(new Font("Arial", Font.PLAIN, dimX/(RATIOBTNFONT-2)));
+        loginButton.setForeground(Color.BLACK);
+        registerButton.setForeground(Color.BLACK);
+        
+        warning.setFont(new Font("Arial", Font.PLAIN, dimX/((RATIOBTNFONT))));
         
        
         username.addFocusListener(new FocusListener() {  
             @Override  
-            public void focusGained(FocusEvent e) {  
-                username.setText("");  
-                username.setForeground(new Color(50, 50, 50));  
+            public void focusGained(final FocusEvent e) {  
+                if (username.getText().equals("Username")) {  
+                    username.setText("");  
+                    username.setForeground(new Color(50, 50, 50));   
+                }  
             }  
             
             @Override
-            public void focusLost(FocusEvent e) { 
+            public void focusLost(final FocusEvent e) { 
 
                 if (username.getText().length() == 0) {  
                     username.setText("Username");  
@@ -118,17 +120,37 @@ public class AccessPanel extends JPanel {
         
         password.addFocusListener(new FocusListener() {  
             @Override  
-            public void focusGained(FocusEvent e) {  
-                password.setText("");  
-                password.setForeground(new Color(50, 50, 50));  
+            public void focusGained(final FocusEvent e) {  
+                if (password.getText().equals("Password")) {  
+                    password.setText("");  
+                    password.setForeground(new Color(50, 50, 50));  
+                }  
             }  
             
             @Override
-            public void focusLost(FocusEvent e) { 
-
+            public void focusLost(final FocusEvent e) { 
                 if (password.getText().length() == 0) {  
                     password.setText("Password");  
                     password.setForeground(new Color(150, 150, 150));  
+                }
+            }
+        });
+        
+        
+        age.addFocusListener(new FocusListener() {  
+            @Override  
+            public void focusGained(final FocusEvent e) {  
+                if (age.getText().equals("Age")) {  
+                    age.setText("");  
+                    age.setForeground(new Color(50, 50, 50));  
+                }  
+            }  
+            
+            @Override
+            public void focusLost(final FocusEvent e) { 
+                if (age.getText().length() == 0) {  
+                    age.setText("Age");  
+                    age.setForeground(new Color(150, 150, 150));  
                 }
             }
         });
@@ -143,23 +165,19 @@ public class AccessPanel extends JPanel {
                 if (account.logger(username.getText(), password.getText())) {
                     access.successfullyAccessed(account);
                 } else {
-                    warning.setText("Login errato");
+                    warning.setText("Wrong Credentials");
                 }
-                //aggiungere else: login errato, magari aggiungere JLabel("Credenziali errate")
-                //o Username non trovato, Password non trovata: sono da cambiare i metodi dela classe Account
             });
             
         } else {
             loginButton.addActionListener(al);
             loginButton.setPreferredSize(new Dimension(dimX / RATIOBTNACCESSAREAX, dimY / RATIOBTNACCESSAREAY));
-            
             registerButton.addActionListener(e -> {
                 if (new AdvancedAccountManagerImpl().register(username.getText(), password.getText(), age.getText())) {
-                    //JLabel "registrazione completata esegui il login"
+                    warning.setText("Signed up");
                 } else {
-                    warning.setText("Impossibile registrarsi");
+                    warning.setText("Unable to sign up");
                 }
-                //else: JLabel "...."
             });
             
         }
