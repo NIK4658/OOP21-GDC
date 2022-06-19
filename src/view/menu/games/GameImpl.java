@@ -18,13 +18,13 @@ public class GameImpl extends JPanel implements Menu {
 
     
     
-    public GameImpl(final MenuManager frame,  final AdvancedAccountManager account, final JPanel game){
+    public GameImpl(final MenuManager frame,  GeneralGui g, final JPanel game){
         final int width = frame.getWidthMenu();
         final int height = frame.getHeightMenu();
         this.setPreferredSize(frame.getSizeMenu());
         this.setLayout(null);
         
-        final JPanel usrInterface = new GeneralGui(frame, account);
+        final JPanel usrInterface = g;
         usrInterface.setBounds(0, 0, width, height);
         game.setBounds(0, 0, width, height);
        

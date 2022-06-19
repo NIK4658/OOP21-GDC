@@ -18,10 +18,12 @@ import javax.swing.SwingConstants;
 
 import java.awt.Insets;
 import account.AdvancedBalanceManager;
+import view.ImageLoader;
 import view.MyGridBagConstraints;
 import java.awt.Image;
 import java.awt.GridBagLayout;
 import view.gui.MenuManager;
+import view.menu.GeneralGui;
 import view.menu.Menu;
 
 /**
@@ -33,7 +35,7 @@ public class Gui extends JPanel implements Menu {
     
     private int puntata;
     private int chipvalue = 1;
-    private final Image img = new ImageIcon("res/img/backgrounds/blackjacktableHDwithbet.png").getImage();
+    private final Image img = ImageLoader.getImage("res/img/backgrounds/blackjacktableHDwithbet.png");
     
     private List<JLabel> dcards;
     private List<JLabel> pcards;
@@ -42,17 +44,25 @@ public class Gui extends JPanel implements Menu {
     /**
      * Costruttore.
      */
-    public Gui(final MenuManager frame, final AdvancedBalanceManager account) {
+    public Gui(final MenuManager frame, final AdvancedBalanceManager account, final GeneralGui g) {
         this.setLayout(new BorderLayout());
         game = new GameImpl(account);
         
         this.setPreferredSize(frame.getSizeMenu());
         
         //Area Pulsanti in fondo SUD
-        final JPanel buttonsArea = new JPanel(new GridBagLayout());
-        buttonsArea.setPreferredSize(new Dimension(150, 150));
+        final JPanel south = new JPanel(new GridBagLayout());
+        south.setPreferredSize(new Dimension(150, 150));
+        south.setOpaque(false);
+        final JPanel buttonsArea = new JPanel(new GridBagLayout());  
+        buttonsArea.setPreferredSize(new Dimension(350, 150));
         buttonsArea.setOpaque(false);
+        south.add(buttonsArea);
+        
 
+        
+        
+        
         //codice ripetuto
         final JButton draw = new JButton(); 
         final JButton stand = new JButton();
@@ -76,7 +86,7 @@ public class Gui extends JPanel implements Menu {
             jb.setPreferredSize(new Dimension(110, 100));
             jb.setVisible(false);
             jb.setOpaque(false);
-            jb.setIcon(new ImageIcon((new ImageIcon("res/img/buttons/" + s.get(i) + ".png").getImage())
+            jb.setIcon(new ImageIcon((ImageLoader.getImage("res/img/buttons/" + s.get(i) + ".png"))
                     .getScaledInstance(100, 100, Image.SCALE_SMOOTH)));
             jb.setContentAreaFilled(false);
             jb.setBorderPainted(false);
@@ -85,7 +95,7 @@ public class Gui extends JPanel implements Menu {
             i++;
         }
         //aggiungo il jpanel dei pulsanti al jpanel generale
-        add(buttonsArea, BorderLayout.SOUTH);
+        add(south, BorderLayout.SOUTH);
 
         
         
@@ -109,9 +119,9 @@ public class Gui extends JPanel implements Menu {
         bet.setBounds(370, 130, 70, 70);
         conferma.setBounds(310, 165, 50, 50);
         
-        cancel.setIcon(new ImageIcon((new ImageIcon("res/img/buttons/cancel.png").getImage())
+        cancel.setIcon(new ImageIcon((ImageLoader.getImage("res/img/buttons/cancel.png"))
                 .getScaledInstance(50, 50, Image.SCALE_SMOOTH)));
-        conferma.setIcon(new ImageIcon((new ImageIcon("res/img/buttons/confirm.png").getImage())
+        conferma.setIcon(new ImageIcon((ImageLoader.getImage("res/img/buttons/confirm.png"))
                 .getScaledInstance(50, 50, Image.SCALE_SMOOTH)));
 
         l.removeAll(l);
@@ -193,9 +203,10 @@ public class Gui extends JPanel implements Menu {
         
         bet.addActionListener(e -> {  
             conferma.setVisible(true);
+            g.showButtons(true);
             cancel.setVisible(true);
-            if ((this.puntata + this.chipvalue) <= account.getBalance()) {
-                bet.incrementBet(this.chipvalue);
+            if ((this.puntata + g.getFichesValue()) <= account.getBalance()) {
+                bet.incrementBet(g.getFichesValue());
             }
         });
         
@@ -252,8 +263,8 @@ public class Gui extends JPanel implements Menu {
                 
                 dpoints.setText(String.valueOf(game.getDealerHand().getCard(0).getValue()));
                 playerpoints.setText(String.valueOf(game.getPlayerPoints()));
-                final Image img = ((new ImageIcon("res/img/buttons/points.png")
-                        .getImage()).getScaledInstance(50, 50, Image.SCALE_SMOOTH));
+                final Image img = ((ImageLoader.getImage("res/img/buttons/points.png"))
+                        .getScaledInstance(50, 50, Image.SCALE_SMOOTH));
                 dpoints.setIcon(new ImageIcon(img));
                 dpoints.setHorizontalTextPosition(JLabel.CENTER);
                 playerpoints.setIcon(new ImageIcon(img));
