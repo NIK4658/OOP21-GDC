@@ -28,7 +28,9 @@ public class GeneralGui extends JPanel implements Menu {
 
     
     private final AdvancedAccountManager account;
-    private int fichesvalue;
+    private int fichesvalue = 1;
+    final JButton reset;
+    final JButton confirm;
     private final JLabel betValue = new JLabel("0€");
     private final JLabel winValue = new JLabel("0€");
     private final JLabel balanceValue = new JLabel("0€");
@@ -102,8 +104,8 @@ public class GeneralGui extends JPanel implements Menu {
             }
         }
         
-        final JButton reset = new JButton();
-        final JButton confirm = new JButton();
+        this.reset = new JButton();
+        this.confirm = new JButton();
         final JButton fiches1 = new JButton();
         final JButton fiches5 = new JButton();
         final JButton fiches25 = new JButton();
@@ -111,8 +113,8 @@ public class GeneralGui extends JPanel implements Menu {
         final JButton fiches500 = new JButton();
             
         final List<JButton> list = new ArrayList<>();
-        list.add(reset);
-        list.add(confirm);
+        list.add(this.reset);
+        list.add(this.confirm);
         list.add(fiches1);
         list.add(fiches5);
         list.add(fiches25);
@@ -182,7 +184,7 @@ public class GeneralGui extends JPanel implements Menu {
         add(south, BorderLayout.SOUTH);
 
         setBalanceValue();
-        
+        showButtons(false);
         setVisible(true);
     }
         
@@ -204,6 +206,11 @@ public class GeneralGui extends JPanel implements Menu {
     
     public void setWinMessage(final double value) {
         winmessage.setText("Hai vinto " + value + "€!");
+    }
+    
+    public void showButtons(final boolean val) {
+        this.reset.setVisible(val);
+        this.confirm.setVisible(val);
     }
 
     @Override

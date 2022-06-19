@@ -23,6 +23,7 @@ import view.MyGridBagConstraints;
 import java.awt.Image;
 import java.awt.GridBagLayout;
 import view.gui.MenuManager;
+import view.menu.GeneralGui;
 import view.menu.Menu;
 
 /**
@@ -43,7 +44,7 @@ public class Gui extends JPanel implements Menu {
     /**
      * Costruttore.
      */
-    public Gui(final MenuManager frame, final AdvancedBalanceManager account) {
+    public Gui(final MenuManager frame, final AdvancedBalanceManager account, final GeneralGui g) {
         this.setLayout(new BorderLayout());
         game = new GameImpl(account);
         
@@ -202,9 +203,10 @@ public class Gui extends JPanel implements Menu {
         
         bet.addActionListener(e -> {  
             conferma.setVisible(true);
+            g.showButtons(true);
             cancel.setVisible(true);
-            if ((this.puntata + this.chipvalue) <= account.getBalance()) {
-                bet.incrementBet(this.chipvalue);
+            if ((this.puntata + g.getFichesValue()) <= account.getBalance()) {
+                bet.incrementBet(g.getFichesValue());
             }
         });
         
