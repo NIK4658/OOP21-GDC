@@ -50,10 +50,18 @@ public class Gui extends JPanel implements Menu {
         this.setPreferredSize(frame.getSizeMenu());
         
         //Area Pulsanti in fondo SUD
-        final JPanel buttonsArea = new JPanel(new GridBagLayout());
-        buttonsArea.setPreferredSize(new Dimension(150, 150));
+        final JPanel south = new JPanel(new GridBagLayout());
+        south.setPreferredSize(new Dimension(150, 150));
+        south.setOpaque(false);
+        final JPanel buttonsArea = new JPanel(new GridBagLayout());  
+        buttonsArea.setPreferredSize(new Dimension(350, 150));
         buttonsArea.setOpaque(false);
+        south.add(buttonsArea);
+        
 
+        
+        
+        
         //codice ripetuto
         final JButton draw = new JButton(); 
         final JButton stand = new JButton();
@@ -86,7 +94,7 @@ public class Gui extends JPanel implements Menu {
             i++;
         }
         //aggiungo il jpanel dei pulsanti al jpanel generale
-        add(buttonsArea, BorderLayout.SOUTH);
+        add(south, BorderLayout.SOUTH);
 
         
         
