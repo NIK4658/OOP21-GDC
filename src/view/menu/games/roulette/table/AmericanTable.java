@@ -33,6 +33,7 @@ import roulette.number.EuropeanRouletteNumber.Sector;
 import roulette.numbers.AmericanRouletteNumbers;
 import roulette.numbers.EuropeanRouletteNumbers;
 import utility.Pair;
+import view.ImageLoader;
 import view.MyGridBagConstraints;
 import view.menu.GeneralGui2;
 import view.menu.games.roulette.RouletteBetButton;
@@ -52,8 +53,8 @@ public class AmericanTable extends JPanel implements Table {
 //    private final ActionListener al;
     
     public AmericanTable(final GeneralGui2 generalInterface) {
-        final ImageIcon imgIcon = new ImageIcon("res/img/backgrounds/AmericanRouletteTable.png");
-        this.img = imgIcon.getImage();
+//        final ImageIcon imgIcon = new ImageIcon("res/img/backgrounds/AmericanRouletteTable.png");
+        this.img = ImageLoader.getImage("res/img/backgrounds/AmericanRouletteTable.png");
         width = this.getPreferredSize().width;
         height = this.getPreferredSize().height;
         this.setLayout(new GridBagLayout());

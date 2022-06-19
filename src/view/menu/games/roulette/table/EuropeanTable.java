@@ -31,6 +31,7 @@ import roulette.number.EuropeanRouletteNumber;
 import roulette.number.EuropeanRouletteNumber.Sector;
 import roulette.numbers.EuropeanRouletteNumbers;
 import utility.Pair;
+import view.ImageLoader;
 import view.MyGridBagConstraints;
 import view.menu.GeneralGui2;
 import view.menu.games.roulette.RouletteBetButton;
@@ -50,8 +51,7 @@ public class EuropeanTable extends JPanel implements Table {
 //    private final ActionListener al;
     
     public EuropeanTable(final GeneralGui2 generalInterface) {
-        final ImageIcon imgIcon = new ImageIcon("res/img/backgrounds/RouletteTable.png");
-        this.img = imgIcon.getImage();
+        this.img = ImageLoader.getImage("res/img/backgrounds/EuropeanRouletteTable.png");
         width = this.getPreferredSize().width;
         height = this.getPreferredSize().height;
         this.setLayout(new GridBagLayout());
