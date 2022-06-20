@@ -249,7 +249,7 @@ public class GeneralGui extends JPanel implements Menu {
 
         final JLayeredPane southtotal = new JLayeredPane();
         southtotal.setPreferredSize(new Dimension((int) (width / 3.5) + width / 60, height / 10));
-        southleft.setBounds(width / 60, 0,(int) (width / 3.5), height / 10);
+        southleft.setBounds(width / 60, 0, (int) (width / 3.5), height / 10);
         
         final JLabel jl = new JLabel(new ImageIcon(ImageLoader.getImage("res/img/gui/ProvaSfondoLabel4.png")
                 .getScaledInstance((int) (width / 3.5), height / 10, Image.SCALE_SMOOTH)));
@@ -285,7 +285,8 @@ public class GeneralGui extends JPanel implements Menu {
     }
         
     public void setBetValue(final double value) {
-        betValue.setText(value + "€");
+        betValue.setText((value * 100 % 100 == 0 
+                ? String.valueOf((int) value) : String.valueOf(value)) + "€");
     }
         
     public void setSelectedFiches(final int fichesvalue) {
@@ -305,11 +306,15 @@ public class GeneralGui extends JPanel implements Menu {
         fichesList.add("500new");
         
         int i = 0;
-        for(JButton jb : list) {
-            if(fichesvalue==i) {
-                jb.setIcon(new ImageIcon((ImageLoader.getImage("res/img/fiches/numbers/new/"+fichesList.get(i)+"high.png")).getScaledInstance(width / 15, width / 15, Image.SCALE_SMOOTH)));   
+        for (final JButton jb : list) {
+            if (fichesvalue == i) {
+                jb.setIcon(new ImageIcon((ImageLoader
+                        .getImage("res/img/fiches/numbers/new/" + fichesList.get(i) + "high.png"))
+                        .getScaledInstance(width / 15, width / 15, Image.SCALE_SMOOTH)));   
             } else {
-                jb.setIcon(new ImageIcon((ImageLoader.getImage("res/img/fiches/numbers/new/"+fichesList.get(i)+".png")).getScaledInstance(width / 15, width / 15, Image.SCALE_SMOOTH)));
+                jb.setIcon(new ImageIcon((ImageLoader
+                        .getImage("res/img/fiches/numbers/new/" + fichesList.get(i) + ".png"))
+                        .getScaledInstance(width / 15, width / 15, Image.SCALE_SMOOTH)));
             }
             i++;
         }
@@ -317,11 +322,14 @@ public class GeneralGui extends JPanel implements Menu {
     
     
     public void setWinValue(final double value) {
-        winValue.setText(value + "€");
+        winValue.setText((value * 100 % 100 == 0 
+                ? String.valueOf((int) value) : String.valueOf(value)) + "€");
     }
         
     public void setBalanceValue() {
-        balanceValue.setText(new AdvancedBalanceManagerImpl(this.account).getBalance() + "€");
+        final double value = new AdvancedBalanceManagerImpl(this.account).getBalance();
+        balanceValue.setText((value * 100 % 100 == 0 
+                ? String.valueOf((int) value) : String.valueOf(value)) + "€");
     }
     
     public void setActionListener(final Game game) {
@@ -338,7 +346,8 @@ public class GeneralGui extends JPanel implements Menu {
     }
     
     public void setWinMessage(final double value) {
-        winmessage.setText("YOU WON " + value + "€!");
+        winmessage.setText("YOU WON " + (value * 100 % 100 == 0 
+                ? String.valueOf((int) value) : String.valueOf(value)) + "€!");
     }
     
     public void showButtons(final boolean val) {

@@ -38,8 +38,8 @@ public class MainGui implements MenuManager {
         this.frame = new JFrame();
         final Resizer r = new Resizer();
         //final Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        this.widthMenu =  (r.resize(1.1f)).width;
-        this.heightMenu = (r.resize(1.1f)).height;
+        this.widthMenu =  (r.resize(1.5f)).width;
+        this.heightMenu = (r.resize(1.5f)).height;
         
         System.out.println(this.widthMenu);
         System.out.println(this.heightMenu);
