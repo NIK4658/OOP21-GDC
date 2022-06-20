@@ -12,10 +12,13 @@ import java.awt.Image;
 import java.awt.Insets;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
@@ -29,8 +32,8 @@ public class GeneralGui extends JPanel implements Menu {
     
     private final AdvancedAccountManager account;
     private int fichesvalue = 1;
-    final JButton reset;
-    final JButton confirm;
+    private final JButton reset;
+    private final JButton confirm;
     private final JLabel betValue = new JLabel("0€");
     private final JLabel winValue = new JLabel("0€");
     private final JLabel balanceValue = new JLabel("0€");
@@ -175,6 +178,7 @@ public class GeneralGui extends JPanel implements Menu {
         southright.setOpaque(false);
         this.setOpaque(false);
         
+
         
         //adding the panel to the Container 
         add(north, BorderLayout.NORTH);
@@ -188,6 +192,14 @@ public class GeneralGui extends JPanel implements Menu {
         setVisible(true);
     }
         
+    public final JButton getResetButton() {
+        return this.reset;
+    }
+    
+    public final JButton getConfirmButton() {
+        return this.confirm;
+    }
+    
     public final int getFichesValue() {
         return this.fichesvalue;
     }
