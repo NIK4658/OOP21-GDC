@@ -2,13 +2,12 @@ package roulette.numbers;
 
 import java.util.List;
 
-import roulette.number.EuropeanRouletteNumber;
-import roulette.number.BaseRouletteNumber;
+import roulette.number.RouletteNumber;
 
-public interface RouletteNumbers {//da cambiare i tipi
+public interface RouletteNumbers {
 
-    EuropeanRouletteNumber get(final int index);
+    RouletteNumber get(final int index); //ci va final?
     
-    List<EuropeanRouletteNumber> getList();
+    List<RouletteNumber> getList();
     
 }
