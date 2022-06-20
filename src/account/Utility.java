@@ -28,7 +28,7 @@ public class Utility {
     }
     
     public static String getPath(final String usr) {
-        return ("src/res/json/users/" + usr + ".json"); 
+        return ("res/json/users/" + usr + ".json"); 
     }
     
     /**
