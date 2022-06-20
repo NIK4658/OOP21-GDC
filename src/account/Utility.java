@@ -39,9 +39,9 @@ public class Utility {
             final FileReader fr = new FileReader(getPath(usr));
             final JSONObject jo = (JSONObject) new JSONParser().parse(fr);
             fr.close();
-            final Map<SimpleAccountManager.Fields, String> m = new HashMap<>();
+            final Map<AccountManager.Fields, String> m = new HashMap<>();
             for (final Object o : jo.keySet()) {
-                for (final SimpleAccountManager.Fields f : SimpleAccountManager.Fields.values()) {
+                for (final AccountManager.Fields f : AccountManager.Fields.values()) {
                     if (o.equals(f.toString())) {
                         m.put(f, jo.get(o).toString());
                     }
@@ -56,7 +56,7 @@ public class Utility {
     /**
      * Funzione utile a trovare i valodi dei campi dei File JSON precedentemente creati.
      */
-    public static String getField(final SimpleAccountManager.Fields field, final String usr) {
+    public static String getField(final AccountManager.Fields field, final String usr) {
         final JSONObject jo = getJsonObject(usr);  
         if (jo != null) {
             return jo.get(field).toString();
@@ -68,7 +68,7 @@ public class Utility {
     /**
      * Funzione utile a cambiare i valodi dei campi dei File JSON precedentemente creati.
      */
-    public static boolean changeField(final SimpleAccountManager.Fields field, 
+    public static boolean changeField(final AccountManager.Fields field, 
             final String newValue, final String targetUsr, final String usr) {
         final JSONObject jo = Utility.getJsonObject(usr);
         jo.replace(field, newValue);

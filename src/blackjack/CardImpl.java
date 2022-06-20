@@ -3,7 +3,6 @@ package blackjack;
 import java.awt.Image;
 import java.util.Objects;
 import java.util.Random;
-import javax.swing.ImageIcon;
 import utility.Pair;
 import view.ImageLoader;
 
@@ -12,11 +11,18 @@ import view.ImageLoader;
  */
 public class CardImpl implements Card {
 
-    
     private final Pair<Suits, Integer> card;
-    private Image img;
     private boolean facedown;
+    private Image img;
     
+    /**
+    * Genera una carta precisa.
+    */
+    public CardImpl(final Suits s, final int value) {
+        this.card = new Pair<>(s, value);
+        this.img = ImageLoader.getImage("res/img/cards/" + this.card.getX() + "/" + this.card.getY() + ".png");
+        this.facedown = false;
+    }
     
     //Genera carta random
     public CardImpl() {
@@ -40,15 +46,7 @@ public class CardImpl implements Card {
         this.facedown = isFacedown;
     }
     
-    /**
-     * Costruttore che genera una carta precisa.
-     */
-    public CardImpl(final Suits s, final int value) {
-        this.card = new Pair<>(s, value);
-        this.img = ImageLoader.getImage("res/img/cards/" + this.card.getX() + "/" + this.card.getY() + ".png");
-        this.facedown = false;
-    }
-    
+
     @Override
     public Suits getSuit() {
         return this.card.getX(); 
@@ -85,7 +83,6 @@ public class CardImpl implements Card {
         return (this.card.getX() == Suits.DIAMONDS || this.card.getX() == Suits.HEARTS);
     }
     
-    
     @Override
     public void turnOver() {
         if (this.facedown) {
@@ -102,24 +99,24 @@ public class CardImpl implements Card {
     }
     
     @Override
+    public int hashCode() {
+        return Objects.hash(card);
+    }
+
+    @Override
     public boolean equals(final Object obj) {
         if (this == obj) {
             return true;
         }
         if (obj == null) {
             return false;
-        }
+        } 
         if (getClass() != obj.getClass()) {
             return false;
-        }
+        } 
         final Card other = (Card) obj;
         return Objects.equals(this.card.getX(), other.getSuit()) && Objects.equals(this.card.getY(), other.getValue());
     }
-    
-    @Override
-    public int hashCode() {
-        return 0;
-    }   
 
 }
 

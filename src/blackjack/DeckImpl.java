@@ -9,12 +9,28 @@ import java.util.Random;
  */
 public class DeckImpl extends ArrayList<Card> implements Deck {
     
-    private final int ndeck;
-    
     private static final long serialVersionUID = 1L;
+    private final int ndeck;
 
     public DeckImpl(final int ndeck) {   
         this.ndeck = ndeck; 
+    }
+    
+    @Override
+    public void generateDeck() {
+        for (int counter = 1; counter <= this.ndeck; counter++) {
+            for (final Suits s : Suits.values()) {
+                for (int i = 1; i <= 13; i++) {
+                    this.add(new CardImpl(s, i));
+                }
+            }  
+        }  
+    }
+    
+    @Override
+    public void shuffle() {
+        this.removeAll(this);
+        generateDeck();
     }
 
     @Override
@@ -43,23 +59,6 @@ public class DeckImpl extends ArrayList<Card> implements Deck {
     }
 
     @Override
-    public void shuffle() {
-        this.removeAll(this);
-        generateDeck();
-    }
-
-    @Override
-    public void generateDeck() {
-        for (int counter = 1; counter <= this.ndeck; counter++) {
-            for (final Suits s : Suits.values()) {
-                for (int i = 1; i <= 13; i++) {
-                    this.add(new CardImpl(s, i));
-                }
-            }  
-        }  
-    }
-
-    @Override
     public int getnDecks() {
         return this.ndeck;
     }
@@ -71,7 +70,5 @@ public class DeckImpl extends ArrayList<Card> implements Deck {
             counter++;
         }
         return counter;
-    }
-    
-    
+    }  
 }

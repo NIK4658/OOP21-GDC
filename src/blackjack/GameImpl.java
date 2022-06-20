@@ -1,20 +1,19 @@
 package blackjack;
 
-import account.AdvancedBalanceManager;
-
+import account.BalanceManager;
 
 /**
  * Classe principale gestione gioco blackjack.
  */
 public class GameImpl implements Game {
     
-    private final AdvancedBalanceManager account;
+    private final BalanceManager account;
     private final Deck deck;
     private double bet;
     private Hand player;
     private Hand dealer;
     
-    GameImpl(final AdvancedBalanceManager account) {
+    GameImpl(final BalanceManager account) {
         this.deck = new DeckImpl(6);
         this.deck.generateDeck();
         this.account = account;
@@ -28,24 +27,19 @@ public class GameImpl implements Game {
         this.bet = bet;
         account.withdraw(this.bet);
         this.player = new HandImpl();
-        this.dealer = new HandImpl();    
+        this.dealer = new HandImpl();
         this.player.addCard(this.deck.drawRandomCard());
-        this.player.addCard(this.deck.drawRandomCard());   
+        this.player.addCard(this.deck.drawRandomCard());
         this.dealer.addCard(this.deck.drawRandomCard());
-        this.dealer.addCard(this.deck.drawRandomCard());  
+        this.dealer.addCard(this.deck.drawRandomCard());
         this.dealer.getCard(1).turnOver();
         this.dealer.calculatePoints();
         this.player.calculatePoints();
-        checkBlackjack(this.player);
-        if (this.player.getPoints() == 21) {
-            System.out.println("Blackjack!");
+        
+        if (checkBlackjack(this.player)) {
             endGame();
         }
-        
     }
-    
-    
-    
     
     @Override
     public void askCard() {
@@ -67,6 +61,7 @@ public class GameImpl implements Game {
     @Override
     public void askDouble() {
         //raddoppio puntata
+        this.bet *= 2;
         askCard();
         stand();
     }
@@ -152,7 +147,6 @@ public class GameImpl implements Game {
 
     @Override
     public void endGame() {
-        
         if (this.deck.size() <= (this.deck.getnDecks() * 13 * 4) / 2) {
             this.deck.shuffle();
         }

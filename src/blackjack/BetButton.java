@@ -29,6 +29,10 @@ public class BetButton extends JButton{
         return this.value;
     }
     
+    public double setBet(final double value) {
+        return this.value=value;
+    }
+    
     public void resetBet() {
         this.value = 0;
         this.removeAll();
