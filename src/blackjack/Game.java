@@ -6,7 +6,7 @@ package blackjack;
  */
 public interface Game {
     
-    void startGame(final int bet);
+    void startGame(final double bet);
     
     void askCard();
     
