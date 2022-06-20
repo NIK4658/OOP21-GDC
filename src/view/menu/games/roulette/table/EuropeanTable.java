@@ -113,7 +113,7 @@ public class EuropeanTable extends JPanel implements Table {
     private void addNumbers() {
         y += 3;
         gbc = new MyGridBagConstraints(x, y);
-        for (final EuropeanRouletteNumber n : new EuropeanRouletteNumbers().getList()) {
+        for (final EuropeanRouletteNumber n : new EuropeanRouletteNumbers().getEuropeanList()) {
             final Integer value = n.getValue();
             b = new RouletteBetButton(value);
             b.setForeground(n.getColor());
