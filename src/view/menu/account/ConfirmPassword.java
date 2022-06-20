@@ -19,7 +19,7 @@ import view.GridBagConstraintsConstructor;
 public class ConfirmPassword implements PasswordConfirmed {
     
     private static final int CLOSING_DELAY = 2000;
-    private boolean isTrue;
+    private boolean isConfirm;
     
     //cambiare var con enumerazione e sistemare ripetizione "Inserisci password per "
     public ConfirmPassword(final Frame frame, final AccountManager account, final String operation) {//da eliminare dim
@@ -34,20 +34,29 @@ public class ConfirmPassword implements PasswordConfirmed {
         final ActionListener closeDialog = e -> confirmDialog.dispose();
         
         passwordField.addActionListener(e -> {
-            if (passwordField.getText().equals(account.getPsw())) { //passwordField.getText() == account.?        NICO
-                this.isTrue = true;
+            if (passwordField.getText().equals(account.getPsw())) {
+                this.isConfirm = true;
                 validLabel.setText("Password confermata");
                 new Timer(CLOSING_DELAY, closeDialog).start();
             } else {
-                this.isTrue = false;
+                this.isConfirm = false;
                 validLabel.setText("Password errata");
             }
         });
         
-        confirmPanel.add(confirmLabel, GridBagConstraintsConstructor.get(0, 0, 0));
-        confirmPanel.add(passwordLabel, GridBagConstraintsConstructor.get(0, 1, 0));
-        confirmPanel.add(passwordField, GridBagConstraintsConstructor.get(1, 1, 0));
-        confirmPanel.add(validLabel, GridBagConstraintsConstructor.get(1, 2, 0));
+        final GridBagConstraints c = new GridBagConstraints();
+        c.gridwidth = 2;
+        confirmPanel.add(confirmLabel, c);
+        c.gridwidth = 1;
+        c.gridx = 0;
+        c.gridy = 1;
+        confirmPanel.add(passwordLabel, c);
+        c.gridx = 1;
+        confirmPanel.add(passwordField, c);
+        c.gridy = 2;
+        confirmPanel.add(validLabel, c);
+        
+        
         confirmDialog.setContentPane(confirmPanel);
         confirmDialog.pack();
         confirmDialog.setLocationRelativeTo(frame);
@@ -57,7 +66,7 @@ public class ConfirmPassword implements PasswordConfirmed {
     
     @Override
     public boolean isPasswordConfirmed() {
-        return this.isTrue;
+        return this.isConfirm;
     }
     
 }

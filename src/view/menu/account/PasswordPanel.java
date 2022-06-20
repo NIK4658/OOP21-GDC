@@ -46,12 +46,21 @@ public class PasswordPanel extends JPanel {
             }
             
         });
-        this.add(labelPassword, GridBagConstraintsConstructor.get(0, 0, 0));
-        this.add(fieldPassword, GridBagConstraintsConstructor.get(1, 0, 0));
-        this.add(labelNewPassword, GridBagConstraintsConstructor.get(0, 1, 0));
-        this.add(fieldNewPassword, GridBagConstraintsConstructor.get(1, 1, 0));
-        this.add(buttonPassword, GridBagConstraintsConstructor.get(2, 2, 0));
-        this.add(labelAlert, GridBagConstraintsConstructor.get(1, 3, 0));
+        
+        final var c = new GridBagConstraints();
+        this.add(labelPassword);
+        c.gridx = 1;
+        this.add(fieldPassword, c);
+        c.gridx = 0;
+        c.gridy = 1;
+        this.add(labelNewPassword, c);
+        c.gridx = 1;
+        this.add(fieldNewPassword, c);
+        c.gridx = 1;
+        c.gridy = 2;
+        this.add(buttonPassword, c);
+        c.gridy = 3;
+        this.add(labelAlert, c);
     }
 
     private boolean setPassword(final String password) {

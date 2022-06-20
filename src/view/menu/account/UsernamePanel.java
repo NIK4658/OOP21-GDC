@@ -38,19 +38,26 @@ public class UsernamePanel extends JPanel {
                     fieldUsername.setText(this.getUsername());
                     fieldNewUsername.setText("");
                     labelAlert.setText("Username changed");
-                }
-                else {
+                } else {
                     labelAlert.setText("Username not valid");
                 }
             }
         });
         
-        this.add(labelUsername, GridBagConstraintsConstructor.get(0, 0, 0));
-        this.add(fieldUsername, GridBagConstraintsConstructor.get(1, 0, 0));
-        this.add(labelNewUsername, GridBagConstraintsConstructor.get(0, 1, 0));
-        this.add(fieldNewUsername, GridBagConstraintsConstructor.get(1, 1, 0));
-        this.add(buttonUsername, GridBagConstraintsConstructor.get(2, 2, 0));
-        this.add(labelAlert, GridBagConstraintsConstructor.get(2, 3, 0));
+        final var c = new GridBagConstraints();
+        this.add(labelUsername);
+        c.gridx = 1;
+        this.add(fieldUsername, c);
+        c.gridx = 0;
+        c.gridy = 1;
+        this.add(labelNewUsername, c);
+        c.gridx = 1;
+        this.add(fieldNewUsername, c);
+        c.gridx = 1;
+        c.gridy = 2;
+        this.add(buttonUsername, c);
+        c.gridy = 3;
+        this.add(labelAlert, c);
     }
     
     private String getUsername() {

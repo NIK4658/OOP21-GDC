@@ -102,7 +102,6 @@ public class BalancePanel extends JPanel {
             }
         });
         final var c = new GridBagConstraints();
-        
         this.add(labelDeposit);
         this.add(fieldDeposit);
         this.add(buttonDeposit);
