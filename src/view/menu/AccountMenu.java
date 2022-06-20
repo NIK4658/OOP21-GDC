@@ -7,7 +7,9 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridBagLayout;
+import java.awt.Insets;
 import java.awt.event.ActionListener;
+import java.awt.GridBagConstraints;
 import java.util.LinkedList;
 import java.util.List;
 import javax.swing.JButton;
@@ -15,6 +17,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import view.GridBagConstraintsConstructor;
+import view.MyGridBagConstraints;
 import view.gui.MenuManager;
 import view.menu.account.BalancePanel;
 import view.menu.account.ConfirmPassword;
@@ -24,10 +27,14 @@ import view.menu.account.UsernamePanel;
 //e se possibile creare un'altra classe per panelAccount.
 public class AccountMenu implements Menu {
 
-    /**
-     * 
-     **/
-    private static final long serialVersionUID = 1L;
+    
+    private static final int SCALE_TITLE = 7;
+    private static final int SCALE_BUTTON = 15;
+    private static final int SPACE_TITLE = 15;
+    private static final int SPACE_BUTTON = 30;
+//    private static final Font font = new Font("Arial", Font.BOLD, 1);
+    
+    
     private final MenuManager frame;
     private final AdvancedAccountManager account;
     private final JPanel panel;
@@ -36,9 +43,15 @@ public class AccountMenu implements Menu {
     private final ActionListener alBackMenu;
     private ActionListener alBackPanel;
     
+
+    
     public AccountMenu(final MenuManager frame, final AdvancedAccountManager account) {
         this.frame = frame;
         this.account = account;
+        final Dimension dimension = frame.getSizeMenu();
+        final int width = dimension.width;
+        final int height = dimension.height;
+        final int minSize = Math.min(width, height);
         this.panel = new JPanel(new BorderLayout());
         this.panel.setPreferredSize(this.frame.getSizeMenu());
         this.buttonBack = new JButton("BACK");
@@ -51,11 +64,12 @@ public class AccountMenu implements Menu {
         this.panelAccount.setBackground(new Color(68, 87, 96));
         this.panelAccount.setPreferredSize(frame.getSizeMenu());
         this.panel.add(panelAccount);
+
         final JLabel title = new JLabel("ACCOUNT", SwingConstants.CENTER);
         title.setForeground(Color.WHITE);
-        title.setFont(new Font("Arial", Font.BOLD, frame.getWidthMenu() / 20));
+        title.setFont(new Font("Arial", Font.BOLD, minSize / SCALE_TITLE));
         int index = 0;
-        this.panelAccount.add(title, GridBagConstraintsConstructor.get(0, index++, 40));
+        this.panelAccount.add(title, this.gridBagConstraints(index++, height / SPACE_TITLE));
         final JButton buttonBalance = new JButton("BALANCE");
         final JButton buttonUsername = new JButton("CHANGE USERNAME");
         final JButton buttonPassword = new JButton("CHANGE PASSWORD");
@@ -66,13 +80,13 @@ public class AccountMenu implements Menu {
         list.add(buttonPassword);
         list.add(buttonAccount);
         for (final JButton jb : list) {
-            jb.setPreferredSize(new Dimension(frame.getWidthMenu() / 4, frame.getHeightMenu() / 20));
-            jb.setFont(new Font("Arial", Font.PLAIN, frame.getWidthMenu() / 50));
-            panelAccount.add(jb, GridBagConstraintsConstructor.get(0, index++, 5));
+//            jb.setPreferredSize(new Dimension(frame.getWidthMenu() / 2, frame.getHeightMenu() / 12));
+            jb.setFont(new Font("Arial", Font.PLAIN, minSize / SCALE_BUTTON));
+            panelAccount.add(jb, this.gridBagConstraints(index++, height / SPACE_BUTTON));//creare costante poi modificare solo l'index
         }
 
         buttonBalance.addActionListener(e -> {
-            this.updatePanel(new BalancePanel(this.account));
+            this.updatePanel(new BalancePanel(this.account, dimension));
         });
 
         buttonUsername.addActionListener(e -> {
@@ -92,6 +106,14 @@ public class AccountMenu implements Menu {
         
     }
     
+    private GridBagConstraints gridBagConstraints(final int gridy, final int spacedown) {
+        final GridBagConstraints c = new GridBagConstraints();
+        c.gridy = gridy;
+        c.insets = new Insets(0, 0, spacedown, 0);
+        c.fill = GridBagConstraints.BOTH;
+        return c;
+    }
+    
     private void updatePanel(final JPanel panelToAdd) {
         this.changePanel(panelToAdd, this.panelAccount);
         this.alBackPanel = getActionListenerBackPanel(panelToAdd);
@@ -101,7 +123,7 @@ public class AccountMenu implements Menu {
     private void changePanel(final JPanel panelToAdd, final JPanel panelToRemove) {
         this.panel.remove(panelToRemove);
         this.panel.add(panelToAdd);
-        this.panel.revalidate();//controllare se serve
+        this.panel.revalidate();
         this.panel.repaint();
     }
     

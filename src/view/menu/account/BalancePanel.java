@@ -2,6 +2,7 @@ package view.menu.account;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
@@ -13,6 +14,7 @@ import javax.swing.JButton;
 import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.SwingConstants;
 
 import account.AdvancedAccountManager;
 import account.AdvancedBalanceManager;
@@ -25,25 +27,40 @@ import view.GridBagConstraintsConstructor;
 //pannello GESTIONE SALDO, sistemare ripetizioni e creare funzioni per check amount
 public class BalancePanel extends JPanel {
     
+//    private static final int SCALE_TITLE = 7;
+//    private static final int SCALE_COMPONENT = 20;
     private static final double MAX_IMPORT = 10000;
     private static final double MIN_IMPORT = 15;
     private final AdvancedBalanceManager account;
     
-    public BalancePanel(final AdvancedAccountManager account) {
+    public BalancePanel(final AdvancedAccountManager account, final Dimension dimension) { //togliere dimension
+        
+//        final int width = dimension.width;
+//        final int height = dimension.height;
+//        final int minSize = Math.min(width, height);
+        
+        
         this.account = new AdvancedBalanceManagerImpl(account);
         final String currencySymbol = Currency.getInstance(getLocale()).getSymbol();
         this.setLayout(new GridBagLayout());
-        this.setBackground(new Color(68, 87, 96));
+        this.setBackground(new Color(68, 87, 96));//da cambiare is opaque
         
-        //aggiungere "titolo" BALANCE
+
+        //inserire title???
+//        final JLabel title = new JLabel("BALANCE", SwingConstants.CENTER);
+//        title.setForeground(Color.WHITE);
+//        title.setFont(new Font("Arial", Font.BOLD, minSize / SCALE_TITLE));
         final JLabel labelDeposit = new JLabel(currencySymbol);
         final JLabel labelWithdraw = new JLabel(currencySymbol);
         final JLabel labelBalance = new JLabel("Balance: ");
         final JLabel labelAlert = new JLabel();
+//        labelDeposit.setFont(new Font("Arial", Font.PLAIN, minSize / SCALE_COMPONENT));
+//        labelWithdraw.setFont(new Font("Arial", Font.PLAIN, minSize / SCALE_COMPONENT));
+//        labelBalance.setFont(new Font("Arial", Font.PLAIN, minSize / SCALE_COMPONENT));
+//        labelAlert.setFont(new Font("Arial", Font.PLAIN, minSize / SCALE_COMPONENT));
     
         final NumberFormat format = DecimalFormat.getInstance();
         final NumberFormat formatBalance = DecimalFormat.getCurrencyInstance();
-//        format.setMaximumIntegerDigits(4);
         format.setMinimumFractionDigits(2);
         format.setMaximumFractionDigits(2);
         format.setRoundingMode(RoundingMode.HALF_UP);
@@ -58,51 +75,54 @@ public class BalancePanel extends JPanel {
         fieldBalance.setEditable(false);
         fieldBalance.setValue(this.getBalance());
         
+//        fieldDeposit.setPreferredSize(new Dimension(width / SCALE_COMPONENT, height / SCALE_COMPONENT));
+        
+        
+        
         //Eliminare rep con altro bottone(es. crea funzione)
         final JButton buttonDeposit = new JButton("Deposit");
         buttonDeposit.addActionListener(e -> {
             final String deposit = fieldDeposit.getText().replace(".", "").replace(",", ".");
             final double amount = Double.parseDouble(deposit);
-            if (amount < MIN_IMPORT) {
-                labelAlert.setText("The minimum amount must be at least " + formatBalance.format(MIN_IMPORT));
-            } else if (amount > MAX_IMPORT) {
-                labelAlert.setText("The maximum amount must be amaximum " + formatBalance.format(MAX_IMPORT));
+            if (this.setDeposit(amount)) {
+                fieldBalance.setValue(this.getBalance());
+                labelAlert.setText("Successful deposit of " + formatBalance.format(amount));
             } else {
-                if (this.setDeposit(amount)) {
-                    fieldBalance.setValue(this.getBalance());
-                    labelAlert.setText("Successful deposit of " + formatBalance.format(amount));
-                } else {
-                    labelAlert.setText("Unsuccessful deposit");
-                }
+                labelAlert.setText("Unsuccessful deposit");
             }
         });
+        
         final JButton buttonWithdraw = new JButton("Withdraw");
         buttonWithdraw.addActionListener(e -> {
             final String withdraw = fieldWithdraw.getText().replace(".", "").replace(",", ".");
             final double amount = Double.parseDouble(withdraw);
-            if (amount < MIN_IMPORT) {
-                labelAlert.setText("The minimum amount must be at least " + formatBalance.format(MIN_IMPORT));
-            } else if (amount > MAX_IMPORT) {
-                labelAlert.setText("The maximum amount must be a maximum " + formatBalance.format(MAX_IMPORT));
+            if (this.setWithdraw(amount)) {
+                fieldBalance.setValue(this.getBalance());
+                labelAlert.setText("Successful withdraw of " + formatBalance.format(amount));
             } else {
-                if (this.setWithdraw(amount)) {
-                    fieldBalance.setValue(this.getBalance());
-                    labelAlert.setText("Successful withdraw of " + formatBalance.format(amount));
-                } else {
-                    labelAlert.setText("Unsuccessful withdraw");
-                }
+                labelAlert.setText("Unsuccessful withdraw");
             }
         });
-    
+        final var c = new GridBagConstraints();
+        
         this.add(labelDeposit);
         this.add(fieldDeposit);
         this.add(buttonDeposit);
-        this.add(labelWithdraw, GridBagConstraintsConstructor.get(0, 1, 0));
-        this.add(fieldWithdraw, GridBagConstraintsConstructor.get(1, 1, 0));
-        this.add(buttonWithdraw, GridBagConstraintsConstructor.get(2, 1, 0));
-        this.add(labelBalance, GridBagConstraintsConstructor.get(0, 2, 0));
-        this.add(fieldBalance, GridBagConstraintsConstructor.get(1, 2, 0));
-        this.add(labelAlert, GridBagConstraintsConstructor.get(1, 3, 0));
+        c.gridy = 1;
+        this.add(labelWithdraw, c);
+        c.gridx = 1;
+        this.add(fieldWithdraw, c);
+        c.gridx = 2;
+        this.add(buttonWithdraw, c);
+        c.gridx = 0;
+        c.gridy = 2;
+        this.add(labelBalance, c);
+        c.gridx = 1;
+        this.add(fieldBalance, c);
+        c.gridy = 3;
+        c.gridx = 0;
+        c.gridwidth = 3;
+        this.add(labelAlert, c);
     }
 
     private double getBalance() {
