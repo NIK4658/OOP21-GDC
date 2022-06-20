@@ -37,7 +37,8 @@ public class GeneralGui extends JPanel implements Menu {
     private final JLabel betValue = new JLabel("0€");
     private final JLabel winValue = new JLabel("0€");
     private final JLabel balanceValue = new JLabel("0€");
-    private final JLabel winmessage = new JLabel("YOU WON 10€");
+    final JLayeredPane win2 = new JLayeredPane();
+    private final JLabel winmessage = new JLabel("");
     
     public GeneralGui(final MenuManager frame, final AdvancedAccountManager account){
         this.account = account;
@@ -60,14 +61,28 @@ public class GeneralGui extends JPanel implements Menu {
         final JButton backToMenu = new JButton("Back to Menu");
         final JButton help = new JButton("?");
          
+        //this.win2.setVisible(false);
+        this.winmessage.setOpaque(false);
         this.winmessage.setForeground(Color.WHITE);
         this.winmessage.setHorizontalAlignment(SwingConstants.CENTER);
         this.winmessage.setFont(new Font("Arial", Font.PLAIN | Font.ITALIC, height / 25));
+        
+        
+        win2.setPreferredSize(new Dimension(width / 4, height / 10));
+        
+        final JLabel backgrnd = new JLabel(new ImageIcon(ImageLoader.getImage("res/img/gui/ProvaSfondoLabel4.png")
+                .getScaledInstance(width / 5, height / 12, Image.SCALE_SMOOTH)));
+        backgrnd.setBounds(width / 50, height / 120, width / 5, height / 12);
+        this.winmessage.setBounds(0, 0, width / 4, height / 10);
+        
+        win2.add(backgrnd, 1);
+        win2.add(this.winmessage, 0);
+
 
         north.add(backToMenu, new MyGridBagConstraints(0, 0, 1, 1,
                 new Insets(height / 30, width / 15, height / 30, 0)));
         
-        north.add(this.winmessage, new MyGridBagConstraints(1, 0, 1, 1,
+        north.add(win2, new MyGridBagConstraints(1, 0, 1, 1,
                 new Insets(0, width / 5, 0, width / 5)));
         
         north.add(help, new MyGridBagConstraints(2, 0, 1, 1,
@@ -179,11 +194,21 @@ public class GeneralGui extends JPanel implements Menu {
         this.setOpaque(false);
         
 
+        final JLayeredPane southtotal = new JLayeredPane();
+        southtotal.setPreferredSize(new Dimension(width / 4, height / 10));
+        southleft.setBounds(0, 0, width / 4, height / 10);
         
+        final JLabel jl = new JLabel(new ImageIcon(ImageLoader.getImage("res/img/gui/ProvaSfondoLabel4.png")
+                .getScaledInstance(width / 4, height / 10, Image.SCALE_SMOOTH)));
+        jl.setBounds(0, 0, width / 4, height / 10);
+        
+        southtotal.add(southleft, 0);
+        southtotal.add(jl, 1);
+
         //adding the panel to the Container 
         add(north, BorderLayout.NORTH);
         add(center, BorderLayout.CENTER);
-        south.add(southleft, BorderLayout.WEST);
+        south.add(southtotal, BorderLayout.WEST);
         south.add(southright, BorderLayout.EAST);
         add(south, BorderLayout.SOUTH);
 
@@ -216,8 +241,18 @@ public class GeneralGui extends JPanel implements Menu {
         balanceValue.setText(new AdvancedBalanceManagerImpl(this.account).getBalance() + "€");
     }
     
+    public void showWinMessage(final boolean val, final double value) {
+        //win2.setVisible(val);
+        if (val) {
+            setWinMessage(value);
+        } else {
+            winmessage.setText("");
+        }
+        
+    }
+    
     public void setWinMessage(final double value) {
-        winmessage.setText("Hai vinto " + value + "€!");
+        winmessage.setText("YOU WON " + value + "€!");
     }
     
     public void showButtons(final boolean val) {
