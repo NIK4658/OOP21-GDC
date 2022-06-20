@@ -5,7 +5,9 @@ import account.SimpleAccountManagerImpl;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.Insets;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
@@ -16,7 +18,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
-import view.GridBagConstraintsConstructor;
 import view.menu.access.Access.AccessType;
 
 
@@ -78,16 +79,19 @@ public class AccessPanel extends JPanel {
         title.setForeground(Color.WHITE);
         title.setPreferredSize(new Dimension(dimX, dimY / RATIOTITLEAREAY));
         title.setFont(new Font("Arial", Font.BOLD | Font.ITALIC, dimX / RATIOTITLEFONT));
-
-        this.add(title, GridBagConstraintsConstructor.get(0, 0, SPACINGTITLE));
+        final GridBagConstraints c = new GridBagConstraints();
+        c.insets = new Insets(0, 0, SPACINGTITLE, 0);
+        this.add(title, c);
         
         // Modifiche generali
         int i = 1;
+        c.insets = new Insets(0, 0, SPACINGBTN, 0);
         for (final JComponent jc : list) {
             jc.setPreferredSize(new Dimension(dimX / RATIOBTNAREAX, dimY / RATIOBTNAREAY));
             jc.setFont(new Font("Arial", Font.PLAIN, dimX / RATIOBTNFONT));
             jc.setForeground(new Color(150, 150, 150));
-            this.add(jc, GridBagConstraintsConstructor.get(0, i, SPACINGBTN));
+            c.gridy = i;
+            this.add(jc, c);
             i++;
         }
         

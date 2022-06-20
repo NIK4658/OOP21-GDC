@@ -14,7 +14,6 @@ import javax.swing.JTextField;
 import javax.swing.Timer;
 
 import account.AccountManager;
-import view.GridBagConstraintsConstructor;
 
 public class ConfirmPassword implements PasswordConfirmed {
     

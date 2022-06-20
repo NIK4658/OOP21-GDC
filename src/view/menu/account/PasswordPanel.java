@@ -12,7 +12,6 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import account.AccountManager;
-import view.GridBagConstraintsConstructor;
 
 //pannello CAMBIO PASSWORD, sistemare ripetizioni
 public class PasswordPanel extends JPanel {

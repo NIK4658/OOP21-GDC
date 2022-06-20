@@ -18,7 +18,6 @@ import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
-import view.GridBagConstraintsConstructor;
 import view.ImageLoader;
 import view.MyGridBagConstraints;
 import view.gui.MenuManager;
@@ -106,23 +105,35 @@ public class MainMenu extends JPanel implements Menu {
         
         final Dimension buttonDimension = new Dimension(width / 5, height / 3); //eliminare magic numbers
         final Dimension buttonRouletteDimension = new Dimension(buttonDimension.width / 3, buttonDimension.height);
+        final GridBagConstraints c = new GridBagConstraints();
+        
+        c.gridx = 0;
+        c.insets = new Insets(0, 50, 0, 50);
         blackjack.setPreferredSize(buttonDimension);
-//        center.add(blackjack, new MyGridBagConstraints(0, 0, 0, 0, new Insets(0, 50, 0, 50)));
-        center.add(blackjack, GridBagConstraintsConstructor.get(0, 0, 0, 50, 50));
+        center.add(blackjack, c);
+        
         
         rouletteAmerican.setPreferredSize(buttonRouletteDimension);
-//        center.add(rouletteAmerican, new MyGridBagConstraints(1, 0, GridBagConstraints.RELATIVE, GridBagConstraints.RELATIVE, new Insets(0, 50, 0, 0)));
-        center.add(rouletteAmerican, GridBagConstraintsConstructor.get(1, 0, 0, 50, 0));
+        c.gridx++;
+        c.insets = new Insets(0, 50, 0, 0);
+        center.add(rouletteAmerican, c);
+        
+        
         rouletteBase.setPreferredSize(buttonRouletteDimension);
-//        center.add(rouletteBase, new MyGridBagConstraints(2, 0, GridBagConstraints.RELATIVE, GridBagConstraints.RELATIVE, new Insets(0, 0, 0, 0)));
-        center.add(rouletteBase, GridBagConstraintsConstructor.get(2, 0, 0, 0, 0));
+        c.gridx++;
+        c.insets = new Insets(0, 0, 0, 0);
+        center.add(rouletteBase, c);
+        
         rouletteEuropean.setPreferredSize(buttonRouletteDimension);
-//        center.add(rouletteEuropean, new MyGridBagConstraints(3, 0, GridBagConstraints.RELATIVE, GridBagConstraints.RELATIVE, new Insets(0, 0, 0, 50)));
-        center.add(rouletteEuropean, GridBagConstraintsConstructor.get(3, 0, 0, 0, 50));
+        c.gridx++;
+        c.insets = new Insets(0, 0, 0, 50);
+        center.add(rouletteEuropean, c);
         
         bacarat.setPreferredSize(buttonDimension);
-//        center.add(bacarat, new MyGridBagConstraints(4, 0, GridBagConstraints.RELATIVE, GridBagConstraints.RELATIVE, new Insets(0, 50, 0, 50)));
-        center.add(bacarat, GridBagConstraintsConstructor.get(4, 0, 0, 50, 50));
+        c.gridx++;
+        c.insets = new Insets(0, 50, 0, 50);
+        center.add(bacarat, c);
+        
         
         //meglio creare una funzione
         Image img, imgScaled;
@@ -156,6 +167,7 @@ public class MainMenu extends JPanel implements Menu {
     public JPanel getMenu() {
         return this;
     }
+    
     @Override
     protected void paintComponent(final Graphics g) {
     	super.paintComponent(g);

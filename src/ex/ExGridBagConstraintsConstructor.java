@@ -1,9 +1,9 @@
-package view;
+package ex;
 
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
 
-public class GridBagConstraintsConstructor {
+public class ExGridBagConstraintsConstructor {
     
     public static GridBagConstraints get(final int gridx, final int gridy, final int space) {
         final GridBagConstraints c = new GridBagConstraints();

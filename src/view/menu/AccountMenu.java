@@ -16,7 +16,6 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
 import account.AccountManager;
-import view.GridBagConstraintsConstructor;
 import view.MyGridBagConstraints;
 import view.gui.MenuManager;
 import view.menu.account.BalancePanel;

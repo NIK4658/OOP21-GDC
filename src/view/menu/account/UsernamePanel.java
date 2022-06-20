@@ -12,7 +12,6 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import account.AccountManager;
-import view.GridBagConstraintsConstructor;
 
 //pannello CAMBIO USERNAME, sistemare ripetizioni
 public class UsernamePanel extends JPanel {

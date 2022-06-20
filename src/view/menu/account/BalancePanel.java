@@ -20,7 +20,6 @@ import account.AccountManager;
 import account.AdvancedBalanceManagerImpl;
 import account.BalanceManager;
 import account.SimpleBalanceManagerImpl;
-import view.GridBagConstraintsConstructor;
 
 //pannello GESTIONE SALDO, sistemare ripetizioni e creare funzioni per check amount
 public class BalancePanel extends JPanel {
