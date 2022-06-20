@@ -13,8 +13,6 @@ public interface BlackJackLogic {
     void stand();
     
     void askDouble();
-    
-    void split();
 
     int checkWin();
     

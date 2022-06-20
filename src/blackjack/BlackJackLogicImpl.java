@@ -53,12 +53,6 @@ public class BlackJackLogicImpl implements BlackJackLogic {
     }
 
     @Override
-    public void split() {
-        // TODO Auto-generated method stub
-        
-    }
-
-    @Override
     public void askDouble() {
         //raddoppio puntata
         this.bet *= 2;
