@@ -23,6 +23,7 @@ import view.ImageLoader;
 import view.MyGridBagConstraints;
 import view.gui.MenuManager;
 import view.menu.games.roulette.RouletteGame;
+import view.menu.games.roulette.RouletteGame.TypeRoulette;
 
 
 public class GeneralGui2 extends JPanel implements Menu {
@@ -39,11 +40,11 @@ public class GeneralGui2 extends JPanel implements Menu {
     private final JLabel balanceValue = new JLabel("0€");
     private final JLabel winmessage = new JLabel();
     
-    public GeneralGui2(final MenuManager frame, final AdvancedAccountManager account, final Game game){
+    public GeneralGui2(final MenuManager frame, final AdvancedAccountManager account, final Game game, final TypeRoulette typeRoulette){
        
         RouletteGame gamePanel;
         switch (game) {
-            case ROULETTE: gamePanel = new RouletteGame(frame.getSizeMenu(), this);
+            case ROULETTE: gamePanel = new RouletteGame(frame.getSizeMenu(), this, typeRoulette);
                 break;
             default: gamePanel = null;
         }

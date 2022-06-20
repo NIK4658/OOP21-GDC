@@ -18,7 +18,9 @@ import roulette.numbers.EuropeanRouletteNumbers;
 import utility.Pair;
 import view.menu.GeneralGui2;
 import view.menu.games.Game;
+import view.menu.games.roulette.RouletteGame.TypeRoulette;
 import view.menu.games.roulette.table.AmericanTable;
+import view.menu.games.roulette.table.BaseTable;
 import view.menu.games.roulette.table.EuropeanTable;
 import view.menu.games.roulette.table.Table;
 
@@ -27,30 +29,39 @@ import view.menu.games.roulette.table.Table;
 public class RouletteGame extends JPanel implements Game {
     
     public enum TypeRoulette{
-        EUROPEAN_ROULETTE, AMERICAN_ROULETTE
+        EUROPEAN_ROULETTE, AMERICAN_ROULETTE, BASE_ROULETTE
     }
-    
-    private final TypeRoulette typeRoulette = TypeRoulette.AMERICAN_ROULETTE;
+  
     private final Roulette roulette;
     private final DisplayWinningNumbers winningNumbers;
     private final Table table;
     private final ManageRoulette win;
     private final GeneralGui2 generalInterface;
     
-    public RouletteGame(final Dimension dimension, final GeneralGui2 generalInterface) {
+    public RouletteGame(final Dimension dimension, final GeneralGui2 generalInterface, final TypeRoulette typeRoulette) {
         this.setLayout(new BorderLayout());
         
         this.generalInterface = generalInterface;
         this.win = new ManageRoulette();
         
-        if (typeRoulette == TypeRoulette.EUROPEAN_ROULETTE) {
-            this.roulette = new EuropeanRoulette();
-            this.table = new EuropeanTable(generalInterface);
-        } else {
-            this.roulette = new AmericanRoulette();
-            this.table = new AmericanTable(generalInterface);// vedere come metterli in comune
+        switch (typeRoulette) {
+            case BASE_ROULETTE: 
+                this.roulette = new EuropeanRoulette();//sistemare
+                this.table = new BaseTable(generalInterface);
+                break;
+            case EUROPEAN_ROULETTE: 
+                this.roulette = new EuropeanRoulette();
+                this.table = new EuropeanTable(generalInterface);
+                break;
+            case AMERICAN_ROULETTE: 
+                this.roulette = new AmericanRoulette();
+                this.table = new AmericanTable(generalInterface);// vedere come metterli in comune
+                break;
+            default://lanciare un'eccezione?
+                this.roulette = new EuropeanRoulette();
+                this.table = new EuropeanTable(generalInterface);
         }
-
+        
         this.winningNumbers = new DisplayWinningNumbers(new Dimension(dimension.width, dimension.height / 10));
         this.add(this.winningNumbers, BorderLayout.NORTH);
         this.add((Component) table);//da risolvere

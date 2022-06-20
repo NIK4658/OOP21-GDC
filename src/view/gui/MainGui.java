@@ -17,6 +17,7 @@ import view.menu.Menu;
 import view.menu.games.Game;
 import view.menu.games.GameImpl;
 import view.menu.games.roulette.RouletteGame;
+import view.menu.games.roulette.RouletteGame.TypeRoulette;
 import view.menu.GeneralGui;
 import view.menu.GeneralGui2;
 
@@ -72,10 +73,9 @@ public class MainGui implements MenuManager {
     }
 
     @Override
-    public void setGameMenu(final AdvancedAccountManager account) {
+    public void setRouletteMenu(final AdvancedAccountManager account, final TypeRoulette typeRoulette) {
         this.frame.setResizable(true);
-        
-        this.updateMenu(new GeneralGui2(this, account, GeneralGui2.Game.ROULETTE));
+        this.updateMenu(new GeneralGui2(this, account, GeneralGui2.Game.ROULETTE, typeRoulette));
         //this.updateMenu(new GameImpl(this, account, new RouletteGame(this.getSizeMenu())));
         //this.updateMenu(new GameMenu(this, account));
     }
@@ -89,7 +89,7 @@ public class MainGui implements MenuManager {
     @Override
     public void setBaccaratMenu(final AdvancedAccountManager account) {
         this.frame.setResizable(true);
-        this.updateMenu(new GameImpl(this, account, new BaccaratGui(this, new AdvancedBalanceManagerImpl(account))));
+        //this.updateMenu(new GameImpl(this, account, new BaccaratGui(this, new AdvancedBalanceManagerImpl(account))));
     }
 
     @Override
