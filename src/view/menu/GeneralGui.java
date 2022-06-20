@@ -2,6 +2,7 @@ package view.menu;
 
 import account.AccountManager;
 import view.menu.games.Game.Games;
+import view.menu.games.roulette.RouletteGame;
 import account.AdvancedBalanceManagerImpl;
 import blackjack.BlackJackGui;
 
@@ -49,12 +50,7 @@ public class GeneralGui extends JPanel implements Menu {
     public GeneralGui(final MenuManager frame, final AccountManager account, Games game ){
         
         
-        switch (game) {
-            case BLACKJACK: this.g = new BlackJackGui(frame, new AdvancedBalanceManagerImpl(account), this);
-            break;
-        
-            default: this.g = null;
-        }
+
 
         
         this.account = account;
@@ -65,10 +61,36 @@ public class GeneralGui extends JPanel implements Menu {
         
         final JPanel north = new JPanel(new GridBagLayout());
         final JPanel south = new JPanel(new BorderLayout());
-        final JPanel center = new JPanel();
+        JPanel center = new JPanel();
 
         final JPanel southleft = new JPanel(new GridBagLayout());
         final JPanel southright = new JPanel(new GridBagLayout());
+        
+        switch (game) {
+            case BLACKJACK: 
+                this.g = new BlackJackGui(frame, new AdvancedBalanceManagerImpl(account), this);
+                //da vedere come migliorare
+                north.setOpaque(false);
+                center.setOpaque(false);
+                south.setOpaque(false);
+                southleft.setOpaque(false);
+                southright.setOpaque(false);
+                this.setOpaque(false);
+                break;
+//            case BACCARAT:
+//                
+//                break;
+            default: 
+                this.g = new RouletteGame(frame.getSizeMenu(), this, game);
+                //da migliorare
+                center = (JPanel) this.g;
+                this.setBackground(new Color(0, 118, 58));
+                north.setBackground(new Color(0, 118, 58));
+                south.setBackground(new Color(0, 118, 58));
+                southleft.setBackground(new Color(0, 118, 58));
+                southright.setBackground(new Color(0, 118, 58));
+        }
+        
         
         //south.setPreferredSize(new Dimension((int) (dimx / 12.8), (int) (dimy / 7.2)));
         north.setPreferredSize(new Dimension((int) (width / 12.8), (int) (height / 7.2)));
@@ -205,13 +227,7 @@ public class GeneralGui extends JPanel implements Menu {
         
         backToMenu.addActionListener(e -> frame.setMainMenu(account));
 
-        //da vedere come migliorare
-        north.setOpaque(false);
-        center.setOpaque(false);
-        south.setOpaque(false);
-        southleft.setOpaque(false);
-        southright.setOpaque(false);
-        this.setOpaque(false);
+
         
 
         final JLayeredPane southtotal = new JLayeredPane();

@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.Map;
 //import java.awt.Toolkit;
 import java.util.Random;
-
+import view.menu.games.Game.Games;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -37,7 +37,7 @@ import roulette.numbers.RouletteNumbers;
 import utility.Pair;
 import view.ImageLoader;
 import view.MyGridBagConstraints;
-import view.menu.GeneralGui2;
+import view.menu.GeneralGui;
 import view.menu.games.roulette.RouletteGame.TypeRoulette;
 
 public class Table extends JPanel {
@@ -51,30 +51,30 @@ public class Table extends JPanel {
     private final int width;
     private final int height;
     private final List<RouletteBetButton> buttons;
-    private final GeneralGui2 generalInterface;
-    private final TypeRoulette typeRoulette;
+    private final GeneralGui generalInterface;
+    private final Games game;
 //    private final ActionListener al;
     
-    public Table(final GeneralGui2 generalInterface, final TypeRoulette typeRoulette) {
+    public Table(final GeneralGui generalInterface, final Games game) {
         
         width = this.getPreferredSize().width;
         height = this.getPreferredSize().height;
         this.setLayout(new GridBagLayout());
         
         this.generalInterface = generalInterface;
-        this.typeRoulette = typeRoulette;
+        this.game = game;
         this.buttons = new LinkedList<>();
         
         this.x = 1;
         this.y = 0;
-        switch (typeRoulette) {
-            case BASE_ROULETTE: 
+        switch (game) {
+            case ROULETTE_BASE: 
                 this.img = ImageLoader.getImage("res/img/backgrounds/BaseRouletteTable.png");
                 break;
-            case AMERICAN_ROULETTE: 
+            case ROULETTE_AMERICAN: 
                 this.img = ImageLoader.getImage("res/img/backgrounds/AmericanRouletteTable.png");
                 break;
-            case EUROPEAN_ROULETTE: 
+            case ROULETTE_EUROPEAN: 
                 this.img = ImageLoader.getImage("res/img/backgrounds/EuropeanRouletteTable.png");
                 this.addSectors();
                 break;
@@ -129,7 +129,7 @@ public class Table extends JPanel {
         gbc = new MyGridBagConstraints(x, y);
         
         final List<RouletteNumber> list;
-        if (this.typeRoulette == TypeRoulette.AMERICAN_ROULETTE) {
+        if (this.game == Games.ROULETTE_AMERICAN) {
             list = new AmericanRouletteNumbers().getList();
         } else {
             list = new BaseRouletteNumbers().getList();
@@ -139,7 +139,7 @@ public class Table extends JPanel {
             b = new RouletteBetButton(value);
             b.setForeground(n.getColor());
             buttons.add(b);
-            if (value == 0 && typeRoulette == TypeRoulette.AMERICAN_ROULETTE) {
+            if (value == 0 && game == Games.ROULETTE_AMERICAN) {
                 b.setPreferredSize(new Dimension(width / 14, height / 6));
                 this.add(b, new MyGridBagConstraints(0, 1, 1, 1));
             } else if (value == AmericanRouletteNumbers._00_) {
