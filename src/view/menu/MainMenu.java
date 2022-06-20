@@ -170,8 +170,8 @@ public class MainMenu extends JPanel implements Menu {
     
     @Override
     protected void paintComponent(final Graphics g) {
-    	super.paintComponent(g);
-    	g.drawImage(this.img,0,0, getWidth(), getHeight(), null);
+        super.paintComponent(g);
+        g.drawImage(this.img, 0, 0, getWidth(), getHeight(), null);
     }
     
 }
