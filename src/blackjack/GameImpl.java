@@ -24,7 +24,7 @@ public class GameImpl implements Game {
     }
     
     @Override
-    public void startGame(final int bet) {
+    public void startGame(final double bet) {
         this.bet = bet;
         account.withdraw(this.bet);
         this.player = new HandImpl();
@@ -44,7 +44,7 @@ public class GameImpl implements Game {
         
         if (this.player.getPoints() == 21) {
             System.out.println("Blackjack!");
-            checkWin();
+            endGame();
         }
         
     }
@@ -158,7 +158,7 @@ public class GameImpl implements Game {
         }
         
         if (checkBlackjack(this.player) && !checkBlackjack(this.dealer)) {
-            account.changeBalance(account.getBalance() + ((this.bet * 3) / 2));
+            account.changeBalance(account.getBalance() + ((this.bet + ((this.bet * 3) / 2))));
         } else {
             if (checkWin() == 1) {
                 account.changeBalance(account.getBalance() + (this.bet * 2));
