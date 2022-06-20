@@ -5,7 +5,7 @@ import account.BalanceManager;
 /**
  * Classe principale gestione gioco blackjack.
  */
-public class GameImpl implements BlackJackLogic {
+public class BlackJackLogicImpl implements BlackJackLogic {
     
     private final BalanceManager account;
     private final Deck deck;
@@ -13,7 +13,7 @@ public class GameImpl implements BlackJackLogic {
     private Hand player;
     private Hand dealer;
     
-    GameImpl(final BalanceManager account) {
+    BlackJackLogicImpl(final BalanceManager account) {
         this.deck = new DeckImpl(6);
         this.deck.generateDeck();
         this.account = account;

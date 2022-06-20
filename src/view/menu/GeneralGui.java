@@ -50,11 +50,11 @@ public class GeneralGui extends JPanel implements Menu {
         
         
         switch (game) {
-        case BLACKJACK: this.g = new BlackJackGui(frame, new AdvancedBalanceManagerImpl(account), this);
+            case BLACKJACK: this.g = new BlackJackGui(frame, new AdvancedBalanceManagerImpl(account), this);
             break;
         
-        default: this.g = null;
-    }
+            default: this.g = null;
+        }
 
         
         this.account = account;
@@ -274,7 +274,6 @@ public class GeneralGui extends JPanel implements Menu {
         } else {
             winmessage.setText("");
         }
-        
     }
     
     public void setWinMessage(final double value) {

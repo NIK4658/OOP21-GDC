@@ -56,7 +56,7 @@ public class BlackJackGui extends JPanel implements Game {
         this.generalInterface = generalInterface;
         this.setLayout(new BorderLayout());
         this.setPreferredSize(frame.getSizeMenu());
-        gameLogic = new GameImpl(account);
+        gameLogic = new BlackJackLogicImpl(account);
 
         this.draw = new JButton(); 
         this.stand = new JButton();
