@@ -34,14 +34,9 @@ public class GameImpl implements Game {
         this.dealer.addCard(this.deck.drawRandomCard());
         this.dealer.addCard(this.deck.drawRandomCard());  
         this.dealer.getCard(1).turnOver();
-        //System.out.println(this.dealer.getCard(1).isFaceDown());
         this.dealer.calculatePoints();
         this.player.calculatePoints();
-        
-        checkInsurance();
         checkBlackjack(this.player);
-        
-        
         if (this.player.getPoints() == 21) {
             System.out.println("Blackjack!");
             endGame();
@@ -142,7 +137,12 @@ public class GameImpl implements Game {
 
     @Override
     public boolean checkInsurance() {
-        return (this.dealer.getCard(0).getValue() == 1 && this.dealer.size() == 2);
+        if (this.dealer.getCard(0).getValue() == 1 && this.dealer.size() == 2) {
+            new InsuranceWindow();
+            return true;
+        } else {
+            return false; 
+        }
     }
 
     @Override

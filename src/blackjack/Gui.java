@@ -246,6 +246,13 @@ public class Gui extends JPanel implements Menu {
                 playerpoints.setIcon(new ImageIcon(img));
                 playerpoints.setHorizontalTextPosition(JLabel.CENTER);
 
+               
+                game.checkInsurance();
+
+                
+                if (game.checkBlackjack(game.getPlayerHand())) {
+                    stand.doClick();
+                }
                 
             }
         });
