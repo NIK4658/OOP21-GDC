@@ -18,6 +18,11 @@ public class BetButton extends JButton{
     
     public BetButton(){
         super();
+        this.setVisible(true);
+        this.setOpaque(false);
+        this.setContentAreaFilled(false);
+        this.setBorderPainted(false);
+        this.setFocusPainted(false);
     }
     
     public double getBet() {
@@ -28,6 +33,7 @@ public class BetButton extends JButton{
         this.value = 0;
         this.removeAll();
         this.setIcon(null);
+        this.setEnabled(true);
     }
     
     public void incrementBet(final double fvalue) {
@@ -44,11 +50,17 @@ public class BetButton extends JButton{
         this.add(jp, BorderLayout.CENTER);
         validate();
     }  
+    
+    public void confirmBet() {
+        this.setEnabled(false);
+        this.setDisabledIcon(chooseChip(this.value));
+        validate();
+    } 
      
     private ImageIcon chooseChip(final double puntata) {
         if (puntata <  5) {
             final Image img = ImageLoader.getImage("res/img/fiches/empty/1HD2.png");
-            return new ImageIcon(img.getScaledInstance(70, 70, Image.SCALE_SMOOTH));
+            return new ImageIcon(img.getScaledInstance(80, 80, Image.SCALE_SMOOTH));
         }
         if (puntata < 25) {
             final Image img = ImageLoader.getImage("res/img/fiches/empty/5.png");
