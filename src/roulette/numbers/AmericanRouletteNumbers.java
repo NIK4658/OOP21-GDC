@@ -7,8 +7,9 @@ import java.util.List;
 
 import roulette.number.AmericanRouletteNumber;
 import roulette.number.BaseRouletteNumber;
+import roulette.number.RouletteNumber;
 
-public class AmericanRouletteNumbers /*implements RouletteNumbers*/{
+public class AmericanRouletteNumbers implements RouletteNumbers {
 
     public static final int NUMBERS = 38;//da togliere?
     public static final int _00_ = 37;
@@ -17,20 +18,24 @@ public class AmericanRouletteNumbers /*implements RouletteNumbers*/{
     
     public AmericanRouletteNumbers() {
         this.rouletteNumbers = new ArrayList<>(NUMBERS);
-        for (final var bRouletteNumber : new BaseRouletteNumbers().getList()) {
-            this.rouletteNumbers.add(new AmericanRouletteNumber(bRouletteNumber));
+        for (final var baseRouletteNumber : new BaseRouletteNumbers().getBaseList()) {
+            this.rouletteNumbers.add(new AmericanRouletteNumber(baseRouletteNumber));
         }
         this.rouletteNumbers.add(new AmericanRouletteNumber(_00_, Color.GREEN));
     }
     
     
-   // @Override
+    @Override
     public AmericanRouletteNumber get(final int index) {
         return this.rouletteNumbers.get(index);
     }
 
-//    @Override
-    public List<AmericanRouletteNumber> getList() {
+    @Override
+    public List<RouletteNumber> getList() {
+        return Collections.unmodifiableList(this.rouletteNumbers);
+    }
+    
+    public List<AmericanRouletteNumber> getAmericanList() {
         return Collections.unmodifiableList(this.rouletteNumbers);
     }
 
