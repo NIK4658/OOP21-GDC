@@ -4,7 +4,13 @@ import javax.swing.JPanel;
 
 public interface Game {
     
-    void endBetting();
+    enum Games{
+        BLACKJACK, ROULETTE, BACCARAT
+    }
+    
+    void confirmBet();
+    
+    void resetBet();
     
     JPanel getGame();
 
