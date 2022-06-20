@@ -126,7 +126,7 @@ public class AmericanRouletteTest {
     private void testPairPropertyBet(final Object property1, final Object property2, final double amountBet) {
         //scommetto sulla prima proprietà e testo la vincita e la perdita su tutti i numeri
         bets.add(new Pair<Object, Double>(property1, amountBet));
-        for (final AmericanRouletteNumber rouletteNumber : new AmericanRouletteNumbers().getList()) {
+        for (final AmericanRouletteNumber rouletteNumber : new AmericanRouletteNumbers().getAmericanList()) {
             if (rouletteNumber.isProperty(property1)) {
                 assertEquals(amountBet * 2, manageRoulette.calculateWin(bets, rouletteNumber));
             } else {
@@ -154,7 +154,7 @@ public class AmericanRouletteTest {
             final Object property3, final double amountBet) {
         //scommetto sulla prima proprietà e testo la vincita e la perdita su tutti i numeri
         bets.add(new Pair<Object, Double>(property1, amountBet));
-        for (final AmericanRouletteNumber rouletteNumber : new AmericanRouletteNumbers().getList()) {
+        for (final AmericanRouletteNumber rouletteNumber : new AmericanRouletteNumbers().getAmericanList()) {
             if (rouletteNumber.isProperty(property1)) {
                 assertEquals(amountBet * 3, manageRoulette.calculateWin(bets, rouletteNumber));
             } else {
