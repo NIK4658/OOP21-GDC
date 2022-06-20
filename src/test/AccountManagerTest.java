@@ -3,8 +3,6 @@ package test;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
-
-import account.AdvancedAccountManager;
 import account.AdvancedAccountManagerImpl;
 import account.AccountManager;
 import account.AccountManager.Fields;
@@ -20,7 +18,7 @@ import org.junit.Test;
 public class AccountManagerTest {
 
     private AccountManager simpleAccount;
-    private AdvancedAccountManager advancedAccount;
+    private AccountManager advancedAccount;
     
     @Before
     public void initAccount() {

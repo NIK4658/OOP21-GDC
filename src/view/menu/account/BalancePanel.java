@@ -16,11 +16,9 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
-import account.AdvancedAccountManager;
-import account.AdvancedBalanceManager;
+import account.AccountManager;
 import account.AdvancedBalanceManagerImpl;
-import account.SimpleAccountManager;
-import account.SimpleBalanceManager;
+import account.BalanceManager;
 import account.SimpleBalanceManagerImpl;
 import view.GridBagConstraintsConstructor;
 
@@ -31,9 +29,9 @@ public class BalancePanel extends JPanel {
 //    private static final int SCALE_COMPONENT = 20;
     private static final double MAX_IMPORT = 10000;
     private static final double MIN_IMPORT = 15;
-    private final AdvancedBalanceManager account;
+    private final BalanceManager account;
     
-    public BalancePanel(final AdvancedAccountManager account, final Dimension dimension) { //togliere dimension
+    public BalancePanel(final AccountManager account, final Dimension dimension) { //togliere dimension
         
 //        final int width = dimension.width;
 //        final int height = dimension.height;

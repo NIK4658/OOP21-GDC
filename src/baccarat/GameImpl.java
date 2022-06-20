@@ -1,8 +1,8 @@
 package baccarat;
 
-import account.AdvancedBalanceManager;
 import blackjack.Deck;
 import blackjack.DeckImpl;
+import account.BalanceManager;
 import blackjack.Card;
 import blackjack.CardImpl;
 
@@ -12,13 +12,13 @@ import blackjack.CardImpl;
  */
 public class GameImpl implements Game {
     
-    private final AdvancedBalanceManager account;
+    private final BalanceManager account;
     private final Deck deck;
     private double bet;
     private Hand player;
     private Hand dealer;
     
-    GameImpl(final AdvancedBalanceManager account) {
+    GameImpl(final BalanceManager account) {
         this.deck = new DeckImpl(6);
         this.deck.generateDeck();
         this.account = account;

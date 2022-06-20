@@ -17,7 +17,7 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
 import java.awt.Insets;
-import account.AdvancedBalanceManager;
+import account.BalanceManager;
 import view.MyGridBagConstraints;
 import java.awt.Image;
 import java.awt.GridBagLayout;
@@ -42,7 +42,7 @@ public class BaccaratGui extends JPanel implements Menu {
     /**
      * Costruttore.
      */
-    public BaccaratGui(final MenuManager frame, final AdvancedBalanceManager account) {
+    public BaccaratGui(final MenuManager frame, final BalanceManager account) {
         this.setLayout(new BorderLayout());
         game = new GameImpl(account);
         

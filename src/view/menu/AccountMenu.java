@@ -1,7 +1,5 @@
 package view.menu;
 
-import account.AdvancedAccountManager;
-import account.SimpleAccountManager;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -16,6 +14,8 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
+
+import account.AccountManager;
 import view.GridBagConstraintsConstructor;
 import view.MyGridBagConstraints;
 import view.gui.MenuManager;
@@ -36,7 +36,7 @@ public class AccountMenu implements Menu {
     
     
     private final MenuManager frame;
-    private final AdvancedAccountManager account;
+    private final AccountManager account;
     private final JPanel panel;
     private final JPanel panelAccount;
     private final JButton buttonBack;
@@ -45,7 +45,7 @@ public class AccountMenu implements Menu {
     
 
     
-    public AccountMenu(final MenuManager frame, final AdvancedAccountManager account) {
+    public AccountMenu(final MenuManager frame, final AccountManager account) {
         this.frame = frame;
         this.account = account;
         final Dimension dimension = frame.getSizeMenu();

@@ -2,8 +2,7 @@ package test;
 
 import static org.junit.Assert.assertTrue;
 
-import account.AdvancedAccountManager;
-import account.AdvancedBalanceManager;
+import account.AccountManager;
 import account.AdvancedBalanceManagerImpl;
 import account.BalanceManager;
 import account.SimpleBalanceManagerImpl;
@@ -16,9 +15,9 @@ import org.junit.Test;
  */
 public class BalanceManagerTest {
     
-    private AdvancedAccountManager account;
+    private AccountManager account;
     private BalanceManager simpleAccount;
-    private AdvancedBalanceManager advancedAccount;
+    private BalanceManager advancedAccount;
     
     @Before
     public void initAccount() {

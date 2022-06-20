@@ -5,8 +5,6 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
-
-import account.AdvancedAccountManager;
 import account.AdvancedBalanceManagerImpl;
 import blackjack.Gui;
 import java.awt.Color;

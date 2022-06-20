@@ -1,6 +1,4 @@
 package view.menu.access;
-
-import account.AdvancedAccountManager;
 import account.AdvancedAccountManagerImpl;
 import account.AccountManager;
 import account.SimpleAccountManagerImpl;
@@ -161,7 +159,7 @@ public class AccessPanel extends JPanel {
             registerButton.setPreferredSize(new Dimension(dimX / RATIOBTNACCESSAREAX, dimY / RATIOBTNACCESSAREAY));
             
             loginButton.addActionListener(e -> {
-                final AdvancedAccountManager account = new AdvancedAccountManagerImpl();
+                final AccountManager account = new AdvancedAccountManagerImpl();
                 if (account.logger(username.getText(), password.getText())) {
                     access.successfullyAccessed(account);
                 } else {
