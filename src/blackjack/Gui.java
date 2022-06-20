@@ -147,6 +147,14 @@ public class Gui extends JPanel implements Menu {
             game.stand();
             setCards(dcards, game.getDealerHand(), dealerCardsPanel, DIRECTION_DEALER);
             dpoints.setText(String.valueOf(game.getDealerPoints()));
+            if (game.checkWin() == 1) {
+                if (game.checkBlackjack(game.getPlayerHand())) {
+                    g.showWinMessage(true, bet.getBet() + ((bet.getBet() * 3) / 2));
+                } else {
+                    g.showWinMessage(true, bet.getBet() * 2);
+                }
+                
+            }
             
             //disattiva i pulsanti
             draw.setVisible(false);
@@ -183,7 +191,10 @@ public class Gui extends JPanel implements Menu {
        
         reset.addActionListener(e -> {  
             this.puntata = 0;
-           
+            g.setBetValue(0);
+            g.setBalanceValue();
+            //g.setWinValue();
+            
             bet.setEnabled(true);
             bet.resetBet();
             reset.setVisible(false);
@@ -191,6 +202,8 @@ public class Gui extends JPanel implements Menu {
             playerpoints.setText("");
             dpoints.setIcon(null);
             playerpoints.setIcon(null);
+            
+            g.showWinMessage(false, 0);
             
             for (final JLabel j : pcards) {
                 playerCardsPanel.remove(j);
@@ -210,10 +223,11 @@ public class Gui extends JPanel implements Menu {
         
         g.getConfirmButton().addActionListener(e -> { 
             if (bet.getBet() != 0) {
-                game.startGame(this.puntata);
+                game.startGame(bet.getBet());
                 g.showButtons(false);
                 bet.confirmBet();
-                
+                g.setBetValue(bet.getBet());
+                g.setBalanceValue();
 
                 draw.setVisible(true);
                 stand.setVisible(true);
@@ -231,6 +245,8 @@ public class Gui extends JPanel implements Menu {
                 dpoints.setHorizontalTextPosition(JLabel.CENTER);
                 playerpoints.setIcon(new ImageIcon(img));
                 playerpoints.setHorizontalTextPosition(JLabel.CENTER);
+
+                
             }
         });
     }
