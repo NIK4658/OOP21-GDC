@@ -7,17 +7,16 @@ import roulette.numbers.AmericanRouletteNumbers;
 
 public class AmericanRoulette implements Roulette {
     
-    protected final Random random;
+    private final Random random;
+    private final AmericanRouletteNumbers roulettenumbers;
     
     public AmericanRoulette() {
         this.random = new Random();
+        this.roulettenumbers = new AmericanRouletteNumbers();
     }
 
     @Override
     public AmericanRouletteNumber spin() {
-        return new AmericanRouletteNumbers().get(this.random.nextInt(AmericanRouletteNumbers.NUMBERS));
+        return roulettenumbers.get(this.random.nextInt(AmericanRouletteNumbers.NUMBERS));
     }
 }
-
-
-//Si possono eliminare tutte le classi *Roulette e implementare una interfaccia sul momento?
