@@ -1,4 +1,4 @@
-package view.menu.games.roulette.table;
+package view.menu.games.roulette;
 import java.awt.Image;
 import java.awt.Graphics;
 import java.awt.Component;
@@ -29,15 +29,18 @@ import roulette.number.BaseRouletteNumber.Parity;
 import roulette.number.BaseRouletteNumber.Row;
 import roulette.number.EuropeanRouletteNumber;
 import roulette.number.EuropeanRouletteNumber.Sector;
+import roulette.number.RouletteNumber;
+import roulette.numbers.AmericanRouletteNumbers;
 import roulette.numbers.BaseRouletteNumbers;
 import roulette.numbers.EuropeanRouletteNumbers;
+import roulette.numbers.RouletteNumbers;
 import utility.Pair;
 import view.ImageLoader;
 import view.MyGridBagConstraints;
 import view.menu.GeneralGui2;
-import view.menu.games.roulette.RouletteBetButton;
+import view.menu.games.roulette.RouletteGame.TypeRoulette;
 
-public class BaseTable extends JPanel implements Table {
+public class Table extends JPanel {
     
     private final Image img;
     private int x;
@@ -49,18 +52,35 @@ public class BaseTable extends JPanel implements Table {
     private final int height;
     private final List<RouletteBetButton> buttons;
     private final GeneralGui2 generalInterface;
+    private final TypeRoulette typeRoulette;
 //    private final ActionListener al;
     
-    public BaseTable(final GeneralGui2 generalInterface) {
-        this.img = ImageLoader.getImage("res/img/backgrounds/BaseRouletteTable.png");
+    public Table(final GeneralGui2 generalInterface, final TypeRoulette typeRoulette) {
+        
         width = this.getPreferredSize().width;
         height = this.getPreferredSize().height;
         this.setLayout(new GridBagLayout());
         
         this.generalInterface = generalInterface;
+        this.typeRoulette = typeRoulette;
         this.buttons = new LinkedList<>();
         
-        
+        this.x = 1;
+        this.y = 0;
+        switch (typeRoulette) {
+            case BASE_ROULETTE: 
+                this.img = ImageLoader.getImage("res/img/backgrounds/BaseRouletteTable.png");
+                break;
+            case AMERICAN_ROULETTE: 
+                this.img = ImageLoader.getImage("res/img/backgrounds/AmericanRouletteTable.png");
+                break;
+            case EUROPEAN_ROULETTE: 
+                this.img = ImageLoader.getImage("res/img/backgrounds/EuropeanRouletteTable.png");
+                this.addSectors();
+                break;
+            default: 
+                this.img = null; //lanciare eccezione?
+        }
         this.addNumbers();
         this.addRows();
         this.addColumns();
@@ -71,7 +91,6 @@ public class BaseTable extends JPanel implements Table {
         
     }
 
-    @Override
     public List<Pair<Object, Double>> endBetting() {
         final List<Pair<Object, Double>> bets = new LinkedList<>();
         for (final var b : buttons) {
@@ -80,17 +99,53 @@ public class BaseTable extends JPanel implements Table {
         }
         return bets;
     }
-    //fare in modo da avere più tipi di roulette
+    
+    private void addSectors() {
+        d = new Dimension(this.width / 14 * 3, this.height / 6);
+        gbc = new MyGridBagConstraints(x, y, 3, 1);
+        b = new RouletteBetButton(Sector.TIER);
+        b.setPreferredSize(d);
+        buttons.add(b);
+        this.add(b, gbc);
+        gbc.gridx += 3;
+        b = new RouletteBetButton(Sector.ORPHELINS);
+        b.setPreferredSize(d);
+        buttons.add(b);
+        this.add(b, gbc);
+        gbc.gridx += 3;
+        b = new RouletteBetButton(Sector.VOISINS);
+        b.setPreferredSize(d);
+        buttons.add(b);
+        this.add(b, gbc);
+        gbc.gridx += 3;
+        b = new RouletteBetButton(Sector.ZERO);
+        b.setPreferredSize(d);
+        buttons.add(b);
+        this.add(b, gbc);
+    }
+
     private void addNumbers() {
-        x = 1;
-        y = 3;
+        y += 3;
         gbc = new MyGridBagConstraints(x, y);
-        for (final BaseRouletteNumber n : new BaseRouletteNumbers().getBaseList()) {
+        
+        final List<RouletteNumber> list;
+        if (this.typeRoulette == TypeRoulette.AMERICAN_ROULETTE) {
+            list = new AmericanRouletteNumbers().getList();
+        } else {
+            list = new BaseRouletteNumbers().getList();
+        }
+        for (final RouletteNumber n : list) {
             final Integer value = n.getValue();
             b = new RouletteBetButton(value);
             b.setForeground(n.getColor());
             buttons.add(b);
-            if (value == 0) {
+            if (value == 0 && typeRoulette == TypeRoulette.AMERICAN_ROULETTE) {
+                b.setPreferredSize(new Dimension(width / 14, height / 6));
+                this.add(b, new MyGridBagConstraints(0, 1, 1, 1));
+            } else if (value == AmericanRouletteNumbers._00_) {
+                b.setPreferredSize(new Dimension(width / 14, height / 6));
+                this.add(b, new MyGridBagConstraints(0, 3, 1, 1));
+            } else if (value == 0) { 
                 b.setPreferredSize(new Dimension(width / 14, height / 2));
                 this.add(b, new MyGridBagConstraints(0, 1, 1, 3));
             } else {

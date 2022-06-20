@@ -24,7 +24,7 @@ public class DisplayWinningNumbers extends JPanel {
     
     public DisplayWinningNumbers(final Dimension dimension) {
         this.setLayout(new GridBagLayout());
-        this.setBackground(new Color(0, 118, 58));//creare una costante in comune del colore
+        this.setBackground(new Color(0, 118, 58));//creare una costante in comune del colore, è possibile settare il pannello come opaque false così che prende il colore del pannello sotto
         this.setPreferredSize(dimension);
         final int height = dimension.height / 8;
         final int width = dimension.width / 200;

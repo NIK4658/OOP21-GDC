@@ -7,7 +7,12 @@ import java.util.List;
 
 import javax.swing.JPanel;
 
+import ex.ExAmericanTable;
+import ex.ExBaseTable;
+import ex.ExEuropeanTable;
+import ex.ExTable;
 import roulette.AmericanRoulette;
+import roulette.BaseRoulette;
 import roulette.EuropeanRoulette;
 import roulette.Roulette;
 import roulette.manageRoulette.ManageRoulette;
@@ -19,10 +24,6 @@ import utility.Pair;
 import view.menu.GeneralGui2;
 import view.menu.games.Game;
 import view.menu.games.roulette.RouletteGame.TypeRoulette;
-import view.menu.games.roulette.table.AmericanTable;
-import view.menu.games.roulette.table.BaseTable;
-import view.menu.games.roulette.table.EuropeanTable;
-import view.menu.games.roulette.table.Table;
 
 
 //RouletteGame
@@ -46,25 +47,22 @@ public class RouletteGame extends JPanel implements Game {
         
         switch (typeRoulette) {
             case BASE_ROULETTE: 
-                this.roulette = new EuropeanRoulette();//sistemare
-                this.table = new BaseTable(generalInterface);
+                this.roulette = new BaseRoulette();//sistemare
                 break;
             case EUROPEAN_ROULETTE: 
                 this.roulette = new EuropeanRoulette();
-                this.table = new EuropeanTable(generalInterface);
                 break;
             case AMERICAN_ROULETTE: 
-                this.roulette = new AmericanRoulette();
-                this.table = new AmericanTable(generalInterface);// vedere come metterli in comune
+                this.roulette = new AmericanRoulette();// vedere come metterli in comune
                 break;
             default://lanciare un'eccezione?
                 this.roulette = new EuropeanRoulette();
-                this.table = new EuropeanTable(generalInterface);
         }
         
+        this.table = new Table(generalInterface, typeRoulette);
         this.winningNumbers = new DisplayWinningNumbers(new Dimension(dimension.width, dimension.height / 10));
         this.add(this.winningNumbers, BorderLayout.NORTH);
-        this.add((Component) table);//da risolvere
+        this.add(table);
 
     }
 
