@@ -3,7 +3,7 @@ package account;
 /**
  * Interfaccia principale che definisce le funzioni utili alla gestione del saldo.
  */
-public interface SimpleBalanceManager {
+public interface BalanceManager {
 
     boolean deposit(double amount);
 

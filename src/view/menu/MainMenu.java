@@ -1,8 +1,6 @@
 package view.menu;
 
-import account.AdvancedAccountManager;
-
-import account.SimpleAccountManager;
+import account.AccountManager;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -46,7 +44,7 @@ public class MainMenu extends JPanel implements Menu {
     /**
      * Costruttore.
      */
-    public MainMenu(final MenuManager frame, final AdvancedAccountManager account) {
+    public MainMenu(final MenuManager frame, final AccountManager account) {
 //        this.frame = frame;
 //        this.account = account;
         this.setLayout(new BorderLayout());

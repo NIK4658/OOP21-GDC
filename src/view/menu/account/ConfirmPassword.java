@@ -13,7 +13,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.Timer;
 
-import account.SimpleAccountManager;
+import account.AccountManager;
 import view.GridBagConstraintsConstructor;
 
 public class ConfirmPassword implements PasswordConfirmed {
@@ -22,7 +22,7 @@ public class ConfirmPassword implements PasswordConfirmed {
     private boolean isTrue;
     
     //cambiare var con enumerazione e sistemare ripetizione "Inserisci password per "
-    public ConfirmPassword(final Frame frame, final SimpleAccountManager account, final String operation) {//da eliminare dim
+    public ConfirmPassword(final Frame frame, final AccountManager account, final String operation) {//da eliminare dim
         final JDialog confirmDialog = new JDialog(frame, true);
         final JPanel confirmPanel = new JPanel(new GridBagLayout());//creare un qualche metodo che ritorna un pannello già settato
         confirmPanel.setBackground(new Color(68, 87, 96));//

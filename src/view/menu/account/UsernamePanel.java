@@ -11,15 +11,15 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-import account.SimpleAccountManager;
+import account.AccountManager;
 import view.GridBagConstraintsConstructor;
 
 //pannello CAMBIO USERNAME, sistemare ripetizioni
 public class UsernamePanel extends JPanel {
     
-    private final SimpleAccountManager account;
+    private final AccountManager account;
     
-    public UsernamePanel(final Frame frame, final SimpleAccountManager account) {
+    public UsernamePanel(final Frame frame, final AccountManager account) {
         this.account = account;
         this.setLayout(new GridBagLayout());
         this.setBackground(new Color(68, 87, 96));

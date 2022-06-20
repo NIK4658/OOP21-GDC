@@ -1,7 +1,7 @@
 package view.menu;
 
 import account.AdvancedAccountManager;
-import account.SimpleAccountManager;
+import account.AccountManager;
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.Dimension;

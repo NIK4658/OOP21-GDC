@@ -3,9 +3,9 @@ package account;
 /**
  * Classe principale AVANZATA gestione balance.
  */
-public class AdvancedBalanceManagerImpl extends SimpleBalanceManagerImpl implements AdvancedBalanceManager {
+public class AdvancedBalanceManagerImpl extends SimpleBalanceManagerImpl implements BalanceManager {
 
-    public AdvancedBalanceManagerImpl(final AdvancedAccountManager username) {
+    public AdvancedBalanceManagerImpl(final AccountManager username) {
         super(username);
     }
 
@@ -21,7 +21,7 @@ public class AdvancedBalanceManagerImpl extends SimpleBalanceManagerImpl impleme
 
     @Override
     public boolean withdraw(final double amount) {
-        if (getBalance() - amount >= 0) {
+        if (getBalance() - amount >= 0 && amount > 0) {
             return super.withdraw(amount);
         } else {
             //Impossibile ritirare "amount", non si dispone di tale cifra;

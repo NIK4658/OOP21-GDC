@@ -1,7 +1,6 @@
 package view.gui;
 
-import account.AdvancedAccountManager;
-import account.SimpleAccountManager;
+import account.AccountManager;
 import view.menu.games.roulette.RouletteGame.TypeRoulette;
 
 import java.awt.Dimension;
@@ -11,15 +10,15 @@ public interface MenuManager {
     
     void setAccessMenu();
 
-    void setMainMenu(AdvancedAccountManager account);
+    void setMainMenu(AccountManager account);
     
-    void setAccountMenu(AdvancedAccountManager account);
+    void setAccountMenu(AccountManager account);
     
-    void setRouletteMenu(final AdvancedAccountManager account, TypeRoulette typeRoulette);//serve il final nell'interfaccia? controllare
+    void setRouletteMenu(final AccountManager account, TypeRoulette typeRoulette);//serve il final nell'interfaccia? controllare
     
-    void setBlackjackMenu(final AdvancedAccountManager account);
+    void setBlackjackMenu(final AccountManager account);
     
-    void setBaccaratMenu(AdvancedAccountManager account);
+    void setBaccaratMenu(AccountManager account);
     
     Frame getFrame();
  

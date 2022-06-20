@@ -1,16 +1,16 @@
 package account;
 
-import account.SimpleAccountManager.Fields;
+import account.AccountManager.Fields;
 
 
 /**
  * Classe principale SEMPLICE gestione balance.
  */
-public class SimpleBalanceManagerImpl implements SimpleBalanceManager {
+public class SimpleBalanceManagerImpl implements BalanceManager {
 
-    protected final AdvancedAccountManager username;
+    protected final AccountManager username;
     
-    public SimpleBalanceManagerImpl(final AdvancedAccountManager username) {
+    public SimpleBalanceManagerImpl(final AccountManager username) {
         this.username = username;
     }
 

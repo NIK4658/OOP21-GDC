@@ -1,7 +1,7 @@
 package view.menu.access;
 
 import account.AdvancedAccountManager;
-import account.SimpleAccountManager;
+import account.AccountManager;
 
 public interface Access {
     

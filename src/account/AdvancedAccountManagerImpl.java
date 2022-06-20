@@ -3,7 +3,7 @@ package account;
 /**
  * Classe principale AVANZATA gestione account.
  */
-public class AdvancedAccountManagerImpl extends SimpleAccountManagerImpl implements AdvancedAccountManager {
+public class AdvancedAccountManagerImpl extends SimpleAccountManagerImpl implements AccountManager {
     
     @Override
     public boolean register(final String usr, final String psw, final String age) {

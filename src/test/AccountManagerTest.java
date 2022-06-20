@@ -6,8 +6,8 @@ import static org.junit.Assert.assertTrue;
 
 import account.AdvancedAccountManager;
 import account.AdvancedAccountManagerImpl;
-import account.SimpleAccountManager;
-import account.SimpleAccountManager.Fields;
+import account.AccountManager;
+import account.AccountManager.Fields;
 import account.SimpleAccountManagerImpl;
 import account.Utility;
 
@@ -19,7 +19,7 @@ import org.junit.Test;
  */
 public class AccountManagerTest {
 
-    private SimpleAccountManager simpleAccount;
+    private AccountManager simpleAccount;
     private AdvancedAccountManager advancedAccount;
     
     @Before

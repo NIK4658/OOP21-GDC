@@ -3,7 +3,7 @@ package account;
 /**
  * Interfaccia principale che definisce le funzioni utili alla gestione degli account.
  */
-public interface SimpleAccountManager {
+public interface AccountManager {
     
     /**
      * Campi di ogni account.

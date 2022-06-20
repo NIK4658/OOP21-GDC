@@ -1,6 +1,6 @@
 package view.menu;
 
-import account.AdvancedAccountManager;
+import account.AccountManager;
 import account.AdvancedBalanceManagerImpl;
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -30,7 +30,7 @@ import view.gui.MenuManager;
 public class GeneralGui extends JPanel implements Menu {
 
     
-    private final AdvancedAccountManager account;
+    private final AccountManager account;
     private int fichesvalue = 1;
     private final JButton reset;
     private final JButton confirm;
@@ -40,7 +40,7 @@ public class GeneralGui extends JPanel implements Menu {
     final JLayeredPane win2 = new JLayeredPane();
     private final JLabel winmessage = new JLabel("");
     
-    public GeneralGui(final MenuManager frame, final AdvancedAccountManager account){
+    public GeneralGui(final MenuManager frame, final AccountManager account){
         this.account = account;
         setLayout(new BorderLayout());
         this.setPreferredSize(frame.getSizeMenu());

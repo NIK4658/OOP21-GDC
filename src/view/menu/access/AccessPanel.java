@@ -2,7 +2,7 @@ package view.menu.access;
 
 import account.AdvancedAccountManager;
 import account.AdvancedAccountManagerImpl;
-import account.SimpleAccountManager;
+import account.AccountManager;
 import account.SimpleAccountManagerImpl;
 import java.awt.Color;
 import java.awt.Dimension;

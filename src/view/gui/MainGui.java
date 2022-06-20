@@ -1,6 +1,6 @@
 package view.gui;
 
-import account.AdvancedAccountManager;
+import account.AccountManager;
 import baccarat.BaccaratGui;
 import account.AdvancedBalanceManagerImpl;
 import blackjack.Gui;
@@ -62,18 +62,19 @@ public class MainGui implements MenuManager {
     }
 
     @Override
-    public void setMainMenu(final AdvancedAccountManager account) {
+    public void setMainMenu(final AccountManager account) {
         this.frame.setResizable(false);
         this.updateMenu(new MainMenu(this, account));
     }
 
     @Override
-    public void setAccountMenu(final AdvancedAccountManager account) {
+    public void setAccountMenu(final AccountManager account) {
         this.updateMenu(new AccountMenu(this, account));
     }
 
+    //CAMBIARE DA ACCOUNT MANAGER A BALANCE MANAGER (SEMPRE ADVANCED)
     @Override
-    public void setRouletteMenu(final AdvancedAccountManager account, final TypeRoulette typeRoulette) {
+    public void setRouletteMenu(final AccountManager account, final TypeRoulette typeRoulette) {
         this.frame.setResizable(true);
         this.updateMenu(new GeneralGui2(this, account, GeneralGui2.Game.ROULETTE, typeRoulette));
         //this.updateMenu(new GameImpl(this, account, new RouletteGame(this.getSizeMenu())));
@@ -81,13 +82,14 @@ public class MainGui implements MenuManager {
     }
 
     @Override
-    public void setBlackjackMenu(final AdvancedAccountManager account) {
+    public void setBlackjackMenu(final AccountManager account) {
         final GeneralGui g = new GeneralGui(this, account);
         this.updateMenu(new GameImpl(this, g, new Gui(this, new AdvancedBalanceManagerImpl(account), g)));
     }
 
+    //CAMBIARE DA ACCOUNT MANAGER A BALANCE MANAGER (SEMPRE ADVANCED)
     @Override
-    public void setBaccaratMenu(final AdvancedAccountManager account) {
+    public void setBaccaratMenu(final AccountManager account) {
         this.frame.setResizable(true);
         //this.updateMenu(new GameImpl(this, account, new BaccaratGui(this, new AdvancedBalanceManagerImpl(account))));
     }

@@ -5,7 +5,7 @@ import static org.junit.Assert.assertTrue;
 import account.AdvancedAccountManager;
 import account.AdvancedBalanceManager;
 import account.AdvancedBalanceManagerImpl;
-import account.SimpleBalanceManager;
+import account.BalanceManager;
 import account.SimpleBalanceManagerImpl;
 import org.junit.Before;
 import org.junit.Test;
@@ -17,7 +17,7 @@ import org.junit.Test;
 public class BalanceManagerTest {
     
     private AdvancedAccountManager account;
-    private SimpleBalanceManager simpleAccount;
+    private BalanceManager simpleAccount;
     private AdvancedBalanceManager advancedAccount;
     
     @Before

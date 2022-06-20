@@ -8,7 +8,7 @@ import org.json.simple.JSONObject;
 /**
  * Classe principale SEMPLICE gestione account.
  */
-public class SimpleAccountManagerImpl implements SimpleAccountManager {
+public class SimpleAccountManagerImpl implements AccountManager {
 
     protected String username;
     
@@ -25,7 +25,7 @@ public class SimpleAccountManagerImpl implements SimpleAccountManager {
 
     @Override
     public boolean register(final String usr, final String psw, final String age) {
-        final Map<SimpleAccountManager.Fields, String> m = new HashMap<>();
+        final Map<AccountManager.Fields, String> m = new HashMap<>();
         m.put(Fields.USERNAME, usr);
         m.put(Fields.PASSWORD, psw);
         m.put(Fields.BALANCE, "0.0");

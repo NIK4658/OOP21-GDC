@@ -1,6 +1,6 @@
 package view.menu;
 
-import account.AdvancedAccountManager;
+import account.AccountManager;
 import account.AdvancedBalanceManagerImpl;
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -33,14 +33,14 @@ public class GeneralGui2 extends JPanel implements Menu {
     }
 
     
-    private final AdvancedAccountManager account;
+    private final AccountManager account;
     private int fichesvalue = 1;
     private final JLabel betValue = new JLabel("0€");
     private final JLabel winValue = new JLabel("0€");
     private final JLabel balanceValue = new JLabel("0€");
     private final JLabel winmessage = new JLabel();
     
-    public GeneralGui2(final MenuManager frame, final AdvancedAccountManager account, final Game game, final TypeRoulette typeRoulette){
+    public GeneralGui2(final MenuManager frame, final AccountManager account, final Game game, final TypeRoulette typeRoulette){
        
         RouletteGame gamePanel;
         switch (game) {
