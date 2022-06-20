@@ -10,6 +10,7 @@ import java.awt.Toolkit;
 import javax.swing.JFrame;
 import javax.swing.JLayeredPane;
 
+import view.Resizer;
 import view.menu.AccessMenu;
 import view.menu.AccountMenu;
 import view.menu.MainMenu;
@@ -34,9 +35,13 @@ public class MainGui implements MenuManager {
     //vedere se meglio aggiungere campo private final AccountManager account;
     public MainGui() {
         this.frame = new JFrame();
-        final Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        this.widthMenu = screenSize.width * 2 / 3;
-        this.heightMenu = screenSize.height * 2 / 3;
+        final Resizer r = new Resizer();
+        //final Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        this.widthMenu =  (r.resize(1.5f)).width;
+        this.heightMenu = (r.resize(1.5f)).height;
+        
+        System.out.println(this.widthMenu);
+        System.out.println(this.heightMenu);
         this.sizeMenu = new Dimension(this.widthMenu, this.heightMenu);
         this.frame.setSize(this.sizeMenu);
         this.frame.setResizable(false);
@@ -83,7 +88,7 @@ public class MainGui implements MenuManager {
 
     @Override
     public void setBlackjackMenu(final AccountManager account) {
-        final GeneralGui g = new GeneralGui(this, account, Games.BLACKJACK );
+        final GeneralGui g = new GeneralGui(this, account, Games.BLACKJACK);
         this.updateMenu(new GameImpl(this, g, g.getGame()));
     }
 
