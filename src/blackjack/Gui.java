@@ -30,40 +30,37 @@ import view.menu.Menu;
  * GUI principale Blackjack.
  */
 public class Gui extends JPanel implements Menu {
-
+    
     private static final long serialVersionUID = 1L;
-    
+    private static final int DIRECTION_PLAYER = -1;
+    private static final int DIRECTION_DEALER = 1;
     private int puntata;
-    private int chipvalue = 1;
     private final Image img = ImageLoader.getImage("res/img/backgrounds/blackjacktableHDwithbet.png");
-    
     private List<JLabel> dcards;
     private List<JLabel> pcards;
     private final Game game;
+    
+    
     
     /**
      * Costruttore.
      */
     public Gui(final MenuManager frame, final AdvancedBalanceManager account, final GeneralGui g) {
         this.setLayout(new BorderLayout());
-        game = new GameImpl(account);
-        
         this.setPreferredSize(frame.getSizeMenu());
+        
+        game = new GameImpl(account);
         
         //Area Pulsanti in fondo SUD
         final JPanel south = new JPanel(new GridBagLayout());
+        final JPanel buttonsArea = new JPanel(new GridBagLayout()); 
         south.setPreferredSize(new Dimension(150, 150));
-        south.setOpaque(false);
-        final JPanel buttonsArea = new JPanel(new GridBagLayout());  
         buttonsArea.setPreferredSize(new Dimension(350, 150));
+        south.setOpaque(false);
         buttonsArea.setOpaque(false);
         south.add(buttonsArea);
         
-
-        
-        
-        
-        //codice ripetuto
+        //Bottoni Gioco (codice ripetuto)
         final JButton draw = new JButton(); 
         final JButton stand = new JButton();
         final JButton Double = new JButton();
@@ -96,10 +93,6 @@ public class Gui extends JPanel implements Menu {
         }
         //aggiungo il jpanel dei pulsanti al jpanel generale
         add(south, BorderLayout.SOUTH);
-
-        
-        
-        
         
         //JPanel a layer che mostra le carte del giocatore CENTER
         final JLayeredPane playerCardsPanel = new JLayeredPane();
@@ -108,39 +101,12 @@ public class Gui extends JPanel implements Menu {
         //Punteggio player
         final JLabel playerpoints = new JLabel();
         playerpoints.setForeground(Color.WHITE);
-        playerpoints.setBounds(510, 20, 150, 150);
+        playerpoints.setBounds(515, 70, 150, 150);
         playerpoints.setFont(new Font("Arial", Font.BOLD | Font.ITALIC, 20));
         
-        final JButton cancel = new JButton();
         final BetButton bet = new BetButton();
-        final JButton conferma = new JButton();
-        
-        cancel.setBounds(310, 110, 50, 50);
-        bet.setBounds(370, 130, 70, 70);
-        conferma.setBounds(310, 165, 50, 50);
-        
-        cancel.setIcon(new ImageIcon((ImageLoader.getImage("res/img/buttons/cancel.png"))
-                .getScaledInstance(50, 50, Image.SCALE_SMOOTH)));
-        conferma.setIcon(new ImageIcon((ImageLoader.getImage("res/img/buttons/confirm.png"))
-                .getScaledInstance(50, 50, Image.SCALE_SMOOTH)));
-
-        l.removeAll(l);
-        l.add(bet);
-        l.add(cancel);
-        l.add(conferma);
-        
-        for (final JButton jb : l) { 
-            jb.setVisible(false);
-            jb.setOpaque(false);
-            jb.setContentAreaFilled(false);
-            jb.setBorderPainted(false);
-            jb.setFocusPainted(false);
-        }
-        
-        bet.setVisible(true);
+        bet.setBounds(375, 155, 70, 70);
                 
-        playerCardsPanel.add(conferma, 0);
-        playerCardsPanel.add(cancel, 0);
         playerCardsPanel.add(bet, 0);
         playerCardsPanel.add(playerpoints, 0);
         //aggiunto il pannello con tutte le carte del player al pannello generale
@@ -153,7 +119,7 @@ public class Gui extends JPanel implements Menu {
         dcards = new LinkedList<>();
 
         final JLabel dpoints = new JLabel();
-        dpoints.setBounds(510, 25, 150, 150);
+        dpoints.setBounds(515, 70, 150, 150);
         dpoints.setForeground(Color.WHITE);
         dpoints.setFont(new Font("Arial", Font.BOLD | Font.ITALIC, 20));
         
@@ -169,7 +135,7 @@ public class Gui extends JPanel implements Menu {
         draw.addActionListener(e -> {   
             Double.setVisible(false);
             this.game.askCard();
-            setCards(pcards, game.getPlayerHand(), playerCardsPanel, -1); //da mettere costante direction
+            setCards(pcards, game.getPlayerHand(), playerCardsPanel, DIRECTION_PLAYER); //da mettere costante direction
             playerpoints.setText(String.valueOf(game.getPlayerPoints()));
             if (game.getPlayerPoints() >= 21) {
                 stand.doClick();
@@ -179,7 +145,7 @@ public class Gui extends JPanel implements Menu {
         //codice ripetuto
         stand.addActionListener(e -> {
             game.stand();
-            setCards(dcards, game.getDealerHand(), dealerCardsPanel, 1);
+            setCards(dcards, game.getDealerHand(), dealerCardsPanel, DIRECTION_DEALER);
             dpoints.setText(String.valueOf(game.getDealerPoints()));
             
             //disattiva i pulsanti
@@ -193,7 +159,7 @@ public class Gui extends JPanel implements Menu {
             if (this.puntata * 2 <= account.getBalance()) {
                 this.puntata *= 2;
                 game.askCard();
-                setCards(pcards, game.getPlayerHand(), playerCardsPanel, -1);
+                setCards(pcards, game.getPlayerHand(), playerCardsPanel, DIRECTION_PLAYER);
                 playerpoints.setText(String.valueOf(game.getPlayerPoints()));
                 stand.doClick();
             }
@@ -202,9 +168,7 @@ public class Gui extends JPanel implements Menu {
       
         
         bet.addActionListener(e -> {  
-            conferma.setVisible(true);
             g.showButtons(true);
-            cancel.setVisible(true);
             if ((this.puntata + g.getFichesValue()) <= account.getBalance()) {
                 bet.incrementBet(g.getFichesValue());
             }
@@ -212,18 +176,16 @@ public class Gui extends JPanel implements Menu {
         
         
         
-        cancel.addActionListener(e -> {  
+        g.getResetButton().addActionListener(e -> {  
             bet.resetBet();
-            conferma.setVisible(false);
-            cancel.setVisible(false);
+            g.showButtons(false);
         });
        
         reset.addActionListener(e -> {  
             this.puntata = 0;
            
             bet.setEnabled(true);
-            bet.removeAll();
-            bet.setIcon(null);
+            bet.resetBet();
             reset.setVisible(false);
             dpoints.setText("");
             playerpoints.setText("");
@@ -246,19 +208,19 @@ public class Gui extends JPanel implements Menu {
             dealerCardsPanel.repaint();
         });
         
-        conferma.addActionListener(e -> { 
+        g.getConfirmButton().addActionListener(e -> { 
             if (bet.getBet() != 0) {
                 game.startGame(this.puntata);
-                cancel.setVisible(false);
-                bet.setEnabled(false);
-                //bet.setDisabledIcon(chooseChip(this.puntata));
-                conferma.setVisible(false);
+                g.showButtons(false);
+                bet.confirmBet();
+                
+
                 draw.setVisible(true);
                 stand.setVisible(true);
                 Double.setVisible(true);
 
-                setCards(pcards, game.getPlayerHand(), playerCardsPanel, -1);
-                setCards(dcards, game.getDealerHand(), dealerCardsPanel, 1);
+                setCards(pcards, game.getPlayerHand(), playerCardsPanel, DIRECTION_PLAYER);
+                setCards(dcards, game.getDealerHand(), dealerCardsPanel, DIRECTION_DEALER);
                 
                 
                 dpoints.setText(String.valueOf(game.getDealerHand().getCard(0).getValue()));
@@ -283,7 +245,7 @@ public class Gui extends JPanel implements Menu {
         for (int i = 0; i < h.size(); i++) {
             cards.add(new JLabel());
             final JLabel jlabel = cards.get(i);
-            jlabel.setBounds(575 + (i * 25), 80 + ((i * 15) * direction), 150, 150);
+            jlabel.setBounds(575 + (i * 25), 110 + ((i * 15) * direction), 150, 150);
             jlabel.setIcon(new ImageIcon(h.getCard(i).getImg().getScaledInstance(100, 150, Image.SCALE_SMOOTH)));
             p.add(jlabel, 0);
         }
