@@ -2,7 +2,7 @@ package roulette.number;
 
 import java.awt.Color;
 
-public class EuropeanRouletteNumber extends BaseRouletteNumber { //devo mettere esplicitamente implements RouletteNumber o non serve? Controllare anche altre classi con caso simile 
+public class EuropeanRouletteNumber extends BaseRouletteNumber implements RouletteNumber{ //devo mettere esplicitamente implements RouletteNumber o non serve? Controllare anche altre classi con caso simile 
     
     private final Sector sector;
     
@@ -33,15 +33,6 @@ public class EuropeanRouletteNumber extends BaseRouletteNumber { //devo mettere 
         }
         return super.isProperty(property);
     }
-    
-    
-//    @Override
-//    public Object getProperty(final Class<?> classProperty) {
-//        if (classProperty == Sector.class) {
-//            return getSector();
-//        }
-//        return super.getProperty(classProperty);
-//    }
 
     //sistemare l'equals e hashcode
 }
