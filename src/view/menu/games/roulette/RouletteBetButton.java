@@ -9,8 +9,6 @@ public class RouletteBetButton extends BetButton {
     public RouletteBetButton(final Object property) {
         super();
         this.property = property;
-        this.setOpaque(false);
-        this.setBorderPainted(false);
     }
 
     public Object getProperty() {
