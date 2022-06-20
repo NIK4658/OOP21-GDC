@@ -8,14 +8,16 @@ import roulette.numbers.EuropeanRouletteNumbers;
 
 public class EuropeanRoulette implements Roulette {
     
-    protected final Random random;
+    private final Random random;
+    private final EuropeanRouletteNumbers rouletteNumbers;
     
     public EuropeanRoulette() {
         this.random = new Random();
+        this.rouletteNumbers = new EuropeanRouletteNumbers();
     }
 
     @Override
     public EuropeanRouletteNumber spin() {
-        return new EuropeanRouletteNumbers().get(this.random.nextInt(EuropeanRouletteNumbers.NUMBERS));
+        return this.rouletteNumbers.get(this.random.nextInt(EuropeanRouletteNumbers.NUMBERS));
     }
 }
