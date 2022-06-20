@@ -4,7 +4,7 @@ package blackjack;
 /**
  * Interfaccia principale gestione gioco blackjack.
  */
-public interface Game {
+public interface BlackJackLogic {
     
     void startGame(final double bet);
     
