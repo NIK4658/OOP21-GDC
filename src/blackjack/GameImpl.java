@@ -5,7 +5,7 @@ import account.BalanceManager;
 /**
  * Classe principale gestione gioco blackjack.
  */
-public class GameImpl implements Game {
+public class GameImpl implements BlackJackLogic {
     
     private final BalanceManager account;
     private final Deck deck;
