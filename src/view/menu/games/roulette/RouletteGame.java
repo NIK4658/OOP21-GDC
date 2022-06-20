@@ -55,7 +55,7 @@ public class RouletteGame extends JPanel implements Game {
                 this.roulette = null;
         }
         
-        this.table = new Table(generalInterface, game);
+        this.table = new Table(generalInterface, game, dimension);
         this.winningNumbers = new DisplayWinningNumbers(new Dimension(dimension.width, dimension.height / 10));
         this.add(this.winningNumbers, BorderLayout.NORTH);
         this.add(table);
