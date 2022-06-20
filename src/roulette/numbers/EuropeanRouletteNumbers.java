@@ -11,17 +11,18 @@ import java.util.TreeMap;
 import roulette.number.BaseRouletteNumber;
 import roulette.number.EuropeanRouletteNumber;
 import roulette.number.EuropeanRouletteNumber.Sector;
+import roulette.number.RouletteNumber;
 
 //Modificare la classe in statica
 public class EuropeanRouletteNumbers implements RouletteNumbers{
     
-    public static final int NUMBERS = 37;
+    public static final int NUMBERS = BaseRouletteNumbers.NUMBERS;
     
     private final List<EuropeanRouletteNumber> rouletteNumbers;
     
     public EuropeanRouletteNumbers() {
         this.rouletteNumbers = new ArrayList<>(NUMBERS);
-        final List<BaseRouletteNumber> baseRouletteNumbers = new BaseRouletteNumbers().getList();
+        final List<BaseRouletteNumber> baseRouletteNumbers = new BaseRouletteNumbers().getBaseList();
         this.rouletteNumbers.add(new EuropeanRouletteNumber(baseRouletteNumbers.get(0), Sector.ZERO));
         this.rouletteNumbers.add(new EuropeanRouletteNumber(baseRouletteNumbers.get(1), Sector.ORPHELINS));
         this.rouletteNumbers.add(new EuropeanRouletteNumber(baseRouletteNumbers.get(2), Sector.VOISINS));
@@ -67,7 +68,11 @@ public class EuropeanRouletteNumbers implements RouletteNumbers{
     }
 
     @Override
-    public List<EuropeanRouletteNumber> getList() {
+    public List<RouletteNumber> getList() {
+        return Collections.unmodifiableList(this.rouletteNumbers);
+    }
+    
+    public List<EuropeanRouletteNumber> getEuropeanList() {
         return Collections.unmodifiableList(this.rouletteNumbers);
     }
     
