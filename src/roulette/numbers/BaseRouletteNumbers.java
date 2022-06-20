@@ -5,8 +5,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import roulette.number.BaseRouletteNumber;
+import roulette.number.RouletteNumber;
 
-public class BaseRouletteNumbers /*implements RouletteNumbers*/ {
+public class BaseRouletteNumbers implements RouletteNumbers {
     
     public static final int NUMBERS = 37;
     
@@ -59,7 +60,11 @@ public class BaseRouletteNumbers /*implements RouletteNumbers*/ {
     }
 
     //@Override
-    public List<BaseRouletteNumber> getList() {
+    public List<RouletteNumber> getList() { //sistemare ripetizione del metodo getList
+        return Collections.unmodifiableList(this.rouletteNumbers);
+    }
+    
+    public List<BaseRouletteNumber> getBaseList() {
         return Collections.unmodifiableList(this.rouletteNumbers);
     }
 
