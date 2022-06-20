@@ -6,7 +6,7 @@ import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
 import account.AdvancedBalanceManagerImpl;
-import blackjack.Gui;
+import blackjack.BlackJackGui;
 import java.awt.Color;
 import view.gui.MenuManager;
 import view.menu.GeneralGui;

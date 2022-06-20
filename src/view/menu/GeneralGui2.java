@@ -188,7 +188,7 @@ public class GeneralGui2 extends JPanel implements Menu {
         fiches100.addActionListener(e -> fichesvalue = 100);
         fiches500.addActionListener(e -> fichesvalue = 500);
         
-        confirm.addActionListener(e -> gamePanel.endBetting());
+        confirm.addActionListener(e -> gamePanel.confirmBet());
         
         backToMenu.addActionListener(e -> frame.setMainMenu(account));
 

@@ -23,39 +23,51 @@ import java.awt.GridBagLayout;
 import view.gui.MenuManager;
 import view.menu.GeneralGui;
 import view.menu.Menu;
+import view.menu.games.Game;
 
 /**
  * GUI principale Blackjack.
  */
-public class Gui extends JPanel implements Menu {
+public class BlackJackGui extends JPanel implements Game {
     
     private static final long serialVersionUID = 1L;
     private static final int DIRECTION_PLAYER = -1;
     private static final int DIRECTION_DEALER = 1;
+    private final GeneralGui generalInterface;
+    private final BetButton bet;
+    private final JButton draw;
+    private final JButton stand;
+    private final JButton Double;
+    private final JButton restart; 
+    private final JLabel playerPoints;
+    private final JLabel dealerPoints;
+    private final JLayeredPane center;
+    private final JLayeredPane north;
     private final Image img = ImageLoader.getImage("res/img/backgrounds/blackjacktableHDwithbet.png");
     private List<JLabel> dealerCards;
     private List<JLabel> playerCards;
-    private final Game gameLogic;
+    private final BlackJackLogic gameLogic;
     private int puntata;
     
     /**
      * Costruttore.
      */
-    public Gui(final MenuManager frame, final BalanceManager account, final GeneralGui generalInterface) {
+    public BlackJackGui(final MenuManager frame, final BalanceManager account, final GeneralGui generalInterface) {
+        this.generalInterface = generalInterface;
         this.setLayout(new BorderLayout());
         this.setPreferredSize(frame.getSizeMenu());
-        gameLogic = new GameImpl(account);
+        gameLogic = new BlackJackLogicImpl(account);
 
-        final JButton draw = new JButton(); 
-        final JButton stand = new JButton();
-        final JButton Double = new JButton();
-        final JButton restart = new JButton();  
+        this.draw = new JButton(); 
+        this.stand = new JButton();
+        this.Double = new JButton();
+        this.restart = new JButton();  
         //aggiungo il jpanel dei pulsanti al jpanel generale
         add(generateSouth(draw, stand, Double, restart), BorderLayout.SOUTH);
         
         
-        final JLabel playerPoints = new JLabel();
-        final JLabel dealerPoints = new JLabel();
+        this.playerPoints = new JLabel();
+        this.dealerPoints = new JLabel();
         final List<JLabel> visualPoints = new ArrayList<>();
         visualPoints.add(playerPoints);
         visualPoints.add(dealerPoints);
@@ -64,7 +76,7 @@ public class Gui extends JPanel implements Menu {
         
         for (final JLabel points : visualPoints) {
             points.setForeground(Color.WHITE);
-            points.setBounds(515, 70, 150, 150);
+            points.setBounds(515, 50, 150, 150);
             points.setFont(new Font("Arial", Font.BOLD | Font.ITALIC, 20));
             points.setIcon(new ImageIcon(img));
             points.setHorizontalTextPosition(JLabel.CENTER);
@@ -72,9 +84,9 @@ public class Gui extends JPanel implements Menu {
         }
         
         //JPanel a layer che mostra le carte del giocatore CENTER
-        final JLayeredPane center = new JLayeredPane();
+        this.center = new JLayeredPane();
         playerCards = new LinkedList<>(); //lista di JLabel, ciascuna sarà una carta del giocatore
-        final BetButton bet = new BetButton();
+        this.bet = new BetButton();
         bet.setBounds(375, 155, 70, 70);
         center.add(bet, 0);
         center.add(playerPoints, 0);
@@ -82,7 +94,7 @@ public class Gui extends JPanel implements Menu {
         add(center, BorderLayout.CENTER);
         
         //JPanel a layer che mostra le carte del dealer NORTH
-        final JLayeredPane north = new JLayeredPane();
+        this.north = new JLayeredPane();
         dealerCards = new LinkedList<>();
         north.setPreferredSize(new Dimension(300, 300));
         north.add(dealerPoints, 0);
@@ -137,43 +149,6 @@ public class Gui extends JPanel implements Menu {
             }
         });
         
-        generalInterface.getResetButton().addActionListener(e -> {  
-            bet.resetBet();
-            generalInterface.showButtons(false);
-        });
-       
-        generalInterface.getConfirmButton().addActionListener(e -> { 
-            if (bet.getBet() != 0) {
-                gameLogic.startGame(bet.getBet());
-                bet.confirmBet();
-                
-                generalInterface.showButtons(false);
-                generalInterface.setBetValue(bet.getBet());
-                generalInterface.setBalanceValue();
-
-                draw.setVisible(true);
-                stand.setVisible(true);
-                Double.setVisible(true);
-                
-                dealerPoints.setVisible(true);
-                playerPoints.setVisible(true);
-
-                setCards(playerCards, gameLogic.getPlayerHand(), center, DIRECTION_PLAYER);
-                setCards(dealerCards, gameLogic.getDealerHand(), north, DIRECTION_DEALER);
-
-                dealerPoints.setText(String.valueOf(gameLogic.getDealerHand().getCard(0).getValue()));
-                playerPoints.setText(String.valueOf(gameLogic.getPlayerPoints()));
-
-               
-                gameLogic.checkInsurance();
-
-                
-                if (gameLogic.checkBlackjack(gameLogic.getPlayerHand())) {
-                    stand.doClick();
-                }
-                
-            }
-        });
         
 
         restart.addActionListener(e -> {  
@@ -260,7 +235,7 @@ public class Gui extends JPanel implements Menu {
         for (int i = 0; i < h.size(); i++) {
             cards.add(new JLabel());
             final JLabel visualCard = cards.get(i);
-            visualCard.setBounds(575 + (i * 25), 110 + ((i * 15) * direction), 150, 150);
+            visualCard.setBounds(575 + (i * 25), 90 + ((i * 15) * direction), 150, 150);
             visualCard.setIcon(new ImageIcon(h.getCard(i).getImg().getScaledInstance(100, 150, Image.SCALE_SMOOTH)));
             pane.add(visualCard, 0);
         }
@@ -273,7 +248,47 @@ public class Gui extends JPanel implements Menu {
     }
 
     @Override
-    public JPanel getMenu() {
+    public void confirmBet() {
+        if (this.bet.getBet() != 0) {
+            this.gameLogic.startGame(this.bet.getBet());
+            this.bet.confirmBet();
+            
+            this.generalInterface.showButtons(false);
+            this.generalInterface.setBetValue(this.bet.getBet());
+            this.generalInterface.setBalanceValue();
+
+            this.draw.setVisible(true);
+            this.stand.setVisible(true);
+            this.Double.setVisible(true);
+            
+            this.dealerPoints.setVisible(true);
+            this.playerPoints.setVisible(true);
+
+            setCards(playerCards, gameLogic.getPlayerHand(), center, DIRECTION_PLAYER);
+            setCards(dealerCards, gameLogic.getDealerHand(), north, DIRECTION_DEALER);
+
+            this.dealerPoints.setText(String.valueOf(gameLogic.getDealerHand().getCard(0).getValue()));
+            this.playerPoints.setText(String.valueOf(gameLogic.getPlayerPoints()));
+
+           
+            gameLogic.checkInsurance();
+
+            
+            if (gameLogic.checkBlackjack(gameLogic.getPlayerHand())) {
+                stand.doClick();
+            }
+        }
+    }
+
+
+    @Override
+    public void resetBet() {
+        this.bet.resetBet();
+        this.generalInterface.showButtons(false);
+    }
+
+    @Override
+    public JPanel getGame() {
         return this;
     }
 }

@@ -3,7 +3,7 @@ package view.gui;
 import account.AccountManager;
 import baccarat.BaccaratGui;
 import account.AdvancedBalanceManagerImpl;
-import blackjack.Gui;
+import blackjack.BlackJackGui;
 import java.awt.Dimension;
 import java.awt.Frame;
 import java.awt.Toolkit;
@@ -15,6 +15,7 @@ import view.menu.AccountMenu;
 import view.menu.MainMenu;
 import view.menu.Menu;
 import view.menu.games.Game;
+import view.menu.games.Game.Games;
 import view.menu.games.GameImpl;
 import view.menu.games.roulette.RouletteGame;
 import view.menu.games.roulette.RouletteGame.TypeRoulette;
@@ -83,8 +84,8 @@ public class MainGui implements MenuManager {
 
     @Override
     public void setBlackjackMenu(final AccountManager account) {
-        final GeneralGui g = new GeneralGui(this, account);
-        this.updateMenu(new GameImpl(this, g, new Gui(this, new AdvancedBalanceManagerImpl(account), g)));
+        final GeneralGui g = new GeneralGui(this, account, Games.BLACKJACK );
+        this.updateMenu(new GameImpl(this, g, g.getGame()));
     }
 
     //CAMBIARE DA ACCOUNT MANAGER A BALANCE MANAGER (SEMPRE ADVANCED)

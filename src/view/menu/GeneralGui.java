@@ -1,7 +1,10 @@
 package view.menu;
 
 import account.AccountManager;
+import view.menu.games.Game.Games;
 import account.AdvancedBalanceManagerImpl;
+import blackjack.BlackJackGui;
+
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -25,22 +28,35 @@ import javax.swing.SwingConstants;
 import view.ImageLoader;
 import view.MyGridBagConstraints;
 import view.gui.MenuManager;
+import view.menu.games.Game;
 
 
 public class GeneralGui extends JPanel implements Menu {
+    
 
     
     private final AccountManager account;
     private int fichesvalue = 1;
+    private final Game g;
     private final JButton reset;
     private final JButton confirm;
     private final JLabel betValue = new JLabel("0€");
     private final JLabel winValue = new JLabel("0€");
     private final JLabel balanceValue = new JLabel("0€");
-    final JLayeredPane win2 = new JLayeredPane();
+    private final JLayeredPane win2 = new JLayeredPane();
     private final JLabel winmessage = new JLabel("");
     
-    public GeneralGui(final MenuManager frame, final AccountManager account){
+    public GeneralGui(final MenuManager frame, final AccountManager account, Games game ){
+        
+        
+        switch (game) {
+            case BLACKJACK: this.g = new BlackJackGui(frame, new AdvancedBalanceManagerImpl(account), this);
+            break;
+        
+            default: this.g = null;
+        }
+
+        
         this.account = account;
         setLayout(new BorderLayout());
         this.setPreferredSize(frame.getSizeMenu());
@@ -176,6 +192,10 @@ public class GeneralGui extends JPanel implements Menu {
             i++;
         }
         
+        
+        this.reset.addActionListener(e -> this.g.resetBet());
+        this.confirm.addActionListener(e -> this.g.confirmBet());
+        
         //Adding Listener to set fiches value
         fiches1.addActionListener(e -> fichesvalue = 1);
         fiches5.addActionListener(e -> fichesvalue = 5);
@@ -215,6 +235,8 @@ public class GeneralGui extends JPanel implements Menu {
         setBalanceValue();
         showButtons(false);
         setVisible(true);
+         
+        
     }
         
     public final JButton getResetButton() {
@@ -241,6 +263,10 @@ public class GeneralGui extends JPanel implements Menu {
         balanceValue.setText(new AdvancedBalanceManagerImpl(this.account).getBalance() + "€");
     }
     
+    public void setActionListener(final Game game) {
+        
+    }
+    
     public void showWinMessage(final boolean val, final double value) {
         //win2.setVisible(val);
         if (val) {
@@ -248,7 +274,6 @@ public class GeneralGui extends JPanel implements Menu {
         } else {
             winmessage.setText("");
         }
-        
     }
     
     public void setWinMessage(final double value) {
@@ -263,5 +288,9 @@ public class GeneralGui extends JPanel implements Menu {
     @Override
     public JPanel getMenu() {
         return this;
+    }
+    
+    public JPanel getGame() {
+        return (JPanel) this.g;
     }
 }

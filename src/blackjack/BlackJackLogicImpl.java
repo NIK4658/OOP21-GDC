@@ -5,7 +5,7 @@ import account.BalanceManager;
 /**
  * Classe principale gestione gioco blackjack.
  */
-public class GameImpl implements Game {
+public class BlackJackLogicImpl implements BlackJackLogic {
     
     private final BalanceManager account;
     private final Deck deck;
@@ -13,7 +13,7 @@ public class GameImpl implements Game {
     private Hand player;
     private Hand dealer;
     
-    GameImpl(final BalanceManager account) {
+    BlackJackLogicImpl(final BalanceManager account) {
         this.deck = new DeckImpl(6);
         this.deck.generateDeck();
         this.account = account;
@@ -50,12 +50,6 @@ public class GameImpl implements Game {
     @Override
     public void stand() {
         nextDealerMove();
-    }
-
-    @Override
-    public void split() {
-        // TODO Auto-generated method stub
-        
     }
 
     @Override

@@ -67,7 +67,7 @@ public class RouletteGame extends JPanel implements Game {
     }
 
     @Override
-    public void endBetting() {
+    public void confirmBet() {
         final RouletteNumber rouletteNumber = roulette.spin();
         final List<Pair<Object, Double>> bets = table.endBetting();
         winningNumbers.update(rouletteNumber);
@@ -77,6 +77,12 @@ public class RouletteGame extends JPanel implements Game {
     @Override
     public JPanel getGame() {
         return this;
+    }
+
+    @Override
+    public void resetBet() {
+        // TODO Auto-generated method stub
+        
     }
 
 }
