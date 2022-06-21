@@ -1,19 +1,12 @@
 package view.menu.games;
 
-import view.MyGridBagConstraints;
-import view.menu.games.Game.Games;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.io.IOException;
-
-import javax.swing.BorderFactory;
-import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -22,10 +15,20 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.SwingConstants;
+import view.MyGridBagConstraints;
+import view.menu.games.Game.Games;
 
+/**
+ * Javadoc Comment.
+ */
 public class GuideGui extends JDialog {
     
-    public GuideGui(final Dimension dim, Games game) {
+    private static final long serialVersionUID = 1L;
+
+    /**
+     * Javadoc Comment.
+     */
+    public GuideGui(final Dimension dim, final Games game) {
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         this.setModal(true);
         this.setResizable(false);
