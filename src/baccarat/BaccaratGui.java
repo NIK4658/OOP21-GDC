@@ -27,7 +27,7 @@ import view.menu.Menu;
 import view.menu.games.Game;
 
 /**
- * GUI principale Blackjack.
+ * GUI principale Baccarat.
  */
 public class BaccaratGui extends JPanel implements Game {
     
@@ -39,7 +39,7 @@ public class BaccaratGui extends JPanel implements Game {
     private final int height;
     private final BetButton bet;
     //private final JButton draw;
-    private final JButton stand;
+    private final JButton next;
     //private final JButton Double;
     private final JButton restart; 
     private final JLabel playerPoints;
@@ -66,12 +66,12 @@ public class BaccaratGui extends JPanel implements Game {
         System.out.println(width);
 
         //this.draw = new JButton(); 
-        this.stand = new JButton();
+        this.next = new JButton();
         //this.Double = new JButton();
         this.restart = new JButton();  
         //aggiungo il jpanel dei pulsanti al jpanel generale
         //add(generateSouth(draw, stand, Double, restart), BorderLayout.SOUTH);
-        add(generateSouth(stand, restart), BorderLayout.SOUTH);
+        add(generateSouth(next, restart), BorderLayout.SOUTH);
         
         
         this.playerPoints = new JLabel();
@@ -114,25 +114,23 @@ public class BaccaratGui extends JPanel implements Game {
     
         
         //codice ripetuto
-        stand.addActionListener(e -> {
+        next.addActionListener(e -> {
             gameLogic.stand();
             setCards(dealerCards, gameLogic.getDealerHand(), north, DIRECTION_DEALER);
             dealerPoints.setText(String.valueOf(gameLogic.getDealerPoints()));
             setCards(playerCards, gameLogic.getPlayerHand(), center, DIRECTION_PLAYER);
             playerPoints.setText(String.valueOf(gameLogic.getPlayerPoints()));
             if (gameLogic.checkWin() == 1) {    	
-                generalInterface.showWinMessage(true, bet.getBet() + ((bet.getBet() * 3) / 2));
-                generalInterface.setWinValue(bet.getBet() + ((bet.getBet() * 3) / 2));
+            	generalInterface.showWinMessage(bet.getBet() * 2);
             } else if(gameLogic.checkWin() == 0){
-                 generalInterface.showWinMessage(true, bet.getBet() * 2);
-                    generalInterface.setWinValue(bet.getBet() * 2);
+            	generalInterface.showWinMessage(bet.getBet());
                 }
             //no win
             
             
             //disattiva i pulsanti
             //draw.setVisible(false);
-            stand.setVisible(false);
+            next.setVisible(false);
            // Double.setVisible(false);
             restart.setVisible(true);
         });
@@ -162,7 +160,7 @@ public class BaccaratGui extends JPanel implements Game {
             playerPoints.setVisible(false);
             
             
-            generalInterface.showWinMessage(false, 0);
+            generalInterface.showWinMessage(0);
             
             for (final JLabel j : playerCards) {
                 center.remove(j);
@@ -182,7 +180,7 @@ public class BaccaratGui extends JPanel implements Game {
     }
     
     
-    private JPanel generateSouth( final JButton stand ,final JButton restart) {
+    private JPanel generateSouth( final JButton next ,final JButton restart) {
         //Area Pulsanti in fondo SUD
         final JPanel south = new JPanel(new GridBagLayout());
         final JPanel buttonsArea = new JPanel(new GridBagLayout()); 
@@ -195,14 +193,14 @@ public class BaccaratGui extends JPanel implements Game {
         //Bottoni Gioco (codice ripetuto)
      
         
-        stand.setName("stand");
+        next.setName("next");
         
         restart.setName("restart");
         
         final List<JButton> buttonList = new ArrayList<>();
         buttonList.add(restart); 
         
-        buttonList.add(stand);
+        buttonList.add(next);
         
         
         int i = 0;
@@ -247,16 +245,11 @@ public class BaccaratGui extends JPanel implements Game {
     public void confirmBet() {
         if (this.bet.getBet() != 0) {
             this.gameLogic.startGame(this.bet.getBet());
-            this.bet.confirmBet();
-            
+            this.bet.confirmBet();            
             this.generalInterface.showButtons(false);
             this.generalInterface.setBetValue(this.bet.getBet());
             this.generalInterface.updateBalanceValue();
-
-            //this.draw.setVisible(true);
-            this.stand.setVisible(true);
-            //this.Double.setVisible(true);
-            
+            this.next.setVisible(true);
             this.dealerPoints.setVisible(true);
             this.playerPoints.setVisible(true);
 
@@ -266,12 +259,8 @@ public class BaccaratGui extends JPanel implements Game {
             this.dealerPoints.setText(String.valueOf(gameLogic.getDealerHand().getCard(0).getValue()));
             this.playerPoints.setText(String.valueOf(gameLogic.getPlayerPoints()));
 
-           
-            
-
-            
             if (gameLogic.checkBaccarat(gameLogic.getPlayerHand())) {
-                stand.doClick();
+                next.doClick();
             }
         }
     }
