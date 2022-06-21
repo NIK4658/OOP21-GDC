@@ -126,11 +126,9 @@ public class BlackJackGui extends JPanel implements Game {
             dealerPoints.setText(String.valueOf(gameLogic.getDealerPoints()));
             if (gameLogic.checkWin() == 1) {
                 if (gameLogic.checkBlackjack(gameLogic.getPlayerHand())) {
-                    generalInterface.showWinMessage(true, bet.getBet() + ((bet.getBet() * 3) / 2));
-                    generalInterface.setWinValue(bet.getBet() + ((bet.getBet() * 3) / 2));
+                    generalInterface.showWinMessage(bet.getBet() + ((bet.getBet() * 3) / 2));
                 } else {
-                    generalInterface.showWinMessage(true, bet.getBet() * 2);
-                    generalInterface.setWinValue(bet.getBet() * 2);
+                    generalInterface.showWinMessage(bet.getBet() * 2);
                 }
             }
             
@@ -173,7 +171,7 @@ public class BlackJackGui extends JPanel implements Game {
             playerPoints.setVisible(false);
             
             
-            generalInterface.showWinMessage(false, 0);
+            generalInterface.showWinMessage(0);
             
             for (final JLabel j : playerCards) {
                 center.remove(j);
