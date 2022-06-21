@@ -3,6 +3,7 @@ package view.menu;
 import account.AccountManager;
 import baccarat.BaccaratGui;
 import view.menu.games.Game.Games;
+import view.menu.games.GuideGui;
 import view.menu.games.roulette.RouletteGame;
 import account.AdvancedBalanceManagerImpl;
 import blackjack.BlackJackGui;
@@ -56,7 +57,7 @@ public class GeneralGui extends JPanel implements Menu {
     private final JLayeredPane win2 = new JLayeredPane();
     private final JLabel winmessage = new JLabel("");
     
-    public GeneralGui(final MenuManager frame, final AccountManager account, Games game ){
+    public GeneralGui(final MenuManager frame, final AccountManager account, final Games game ){
 
         this.account = account;
         setLayout(new BorderLayout());
@@ -132,6 +133,16 @@ public class GeneralGui extends JPanel implements Menu {
         listbutton1.add(help);
         listbutton1.add(backToMenu);
         
+        
+        for (final JButton jb : listbutton1) {
+            jb.setContentAreaFilled(false);
+            jb.setOpaque(true);
+            jb.setBackground(new Color(204, 208, 222));
+            jb.setBorderPainted(true); 
+            jb.setFocusPainted(false);
+            jb.setBorder(BorderFactory.createMatteBorder(2, 2, 2, 2, new Color(90, 106, 173)));
+            jb.setFont(new Font("Arial", Font.BOLD | Font.ITALIC, height / 40));
+        }
          
         //South
         final JLabel bet = new JLabel("BET");
@@ -257,7 +268,7 @@ public class GeneralGui extends JPanel implements Menu {
         });
         
         backToMenu.addActionListener(e -> frame.setMainMenu(account));
-
+        help.addActionListener(e -> new GuideGui(frame.getSizeMenu(), game));
 
         
 
@@ -313,7 +324,7 @@ public class GeneralGui extends JPanel implements Menu {
     }
         
     public void setSelectedFiches(final int fichesvalue) {
-        ArrayList<JButton> list = new ArrayList<>();
+        final ArrayList<JButton> list = new ArrayList<>();
         list.add(fiches1);
         list.add(fiches5);
         list.add(fiches25);
