@@ -16,17 +16,18 @@ import view.ImageLoader;
 
 public class BetButton extends JButton{
     
+    private static final long serialVersionUID = 1L;
     private double value;
-    private Dimension dim;
+    private final Dimension dim;
     
     public BetButton(final Dimension dim){
         super();
+        this.dim = dim;
         this.setVisible(true);
         this.setOpaque(false);
         this.setContentAreaFilled(false);
         this.setBorderPainted(false);
         this.setFocusPainted(false);
-        this.dim = dim;
     }
     
     public double getBet() {
@@ -68,22 +69,22 @@ public class BetButton extends JButton{
      
     private ImageIcon chooseChip(final double puntata) {
         if (puntata <  5) {
-            final Image img = ImageLoader.getImage("res/img/fiches/empty/1HD2.png");
-            return new ImageIcon(img.getScaledInstance(this.dim.width / 16, this.dim.height / 9, Image.SCALE_SMOOTH));
+            return new ImageIcon((ImageLoader.getImage("res/img/fiches/empty/1HD2.png"))
+                    .getScaledInstance(this.dim.width / 16, this.dim.height / 9, Image.SCALE_SMOOTH));
         }
         if (puntata < 25) {
-            final Image img = ImageLoader.getImage("res/img/fiches/empty/5HD2.png");
-            return new ImageIcon(img.getScaledInstance(this.dim.width / 16, this.dim.height / 9, Image.SCALE_SMOOTH));
+            return new ImageIcon((ImageLoader.getImage("res/img/fiches/empty/5HD2.png"))
+                    .getScaledInstance(this.dim.width / 16, this.dim.height / 9, Image.SCALE_SMOOTH));
         }
         if (puntata < 100) {
-            final Image img = ImageLoader.getImage("res/img/fiches/empty/25HD2.png");
-            return new ImageIcon(img.getScaledInstance(this.dim.width / 16, this.dim.height / 9, Image.SCALE_SMOOTH));
+            return new ImageIcon((ImageLoader.getImage("res/img/fiches/empty/25HD2.png"))
+                    .getScaledInstance(this.dim.width / 16, this.dim.height / 9, Image.SCALE_SMOOTH));
         }
         if (puntata < 500) {
-            final Image img = ImageLoader.getImage("res/img/fiches/empty/100HD2.png");
-            return new ImageIcon(img.getScaledInstance(this.dim.width / 16, this.dim.height / 9, Image.SCALE_SMOOTH));
+            return new ImageIcon((ImageLoader.getImage("res/img/fiches/empty/100HD2.png"))
+                    .getScaledInstance(this.dim.width / 16, this.dim.height / 9, Image.SCALE_SMOOTH));
         }
-        final Image img = ImageLoader.getImage("res/img/fiches/empty/500HD2.png");
-        return new ImageIcon(img.getScaledInstance(this.dim.width / 16, this.dim.height / 9, Image.SCALE_SMOOTH)); 
+        return new ImageIcon((ImageLoader.getImage("res/img/fiches/empty/500HD2.png"))
+                .getScaledInstance(this.dim.width / 16, this.dim.height / 9, Image.SCALE_SMOOTH));
     }
 }
