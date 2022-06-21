@@ -20,7 +20,11 @@ public interface BlackJackLogic {
     
     void dealerDraw();
     
+    boolean canInsurance();
+    
     boolean checkInsurance();
+    
+    boolean calculateInsurance(final boolean insurance);
     
     boolean checkBlackjack(Hand h);
     

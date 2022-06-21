@@ -126,8 +126,7 @@ public class BlackJackLogicImpl implements BlackJackLogic {
 
     @Override
     public boolean checkInsurance() {
-        if (this.dealer.getCard(0).getValue() == 1 && this.dealer.size() == 2) {
-            new InsuranceWindow();
+        if (this.dealer.getCard(0).getValue() == 1 && this.dealer.size() == 2 && !checkBlackjack(this.player)) {
             return true;
         } else {
             return false; 
@@ -154,5 +153,25 @@ public class BlackJackLogicImpl implements BlackJackLogic {
                 account.changeBalance(account.getBalance() + (this.bet));
             }
         }
+    }
+
+    @Override
+    public boolean calculateInsurance(final boolean insurance) {
+        if (insurance) {
+            if (checkBlackjack(this.dealer)) {
+                account.changeBalance(account.getBalance() + (this.bet));
+                return false;
+            } else {
+                account.changeBalance(account.getBalance() - (this.bet / 2));
+                return true;
+            }
+        } else {
+            return (!checkBlackjack(this.dealer));
+        }
+    }
+
+    @Override
+    public boolean canInsurance() {
+        return (account.getBalance() >= (this.bet / 2));
     }
 }
