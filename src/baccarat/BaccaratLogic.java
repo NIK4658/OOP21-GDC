@@ -4,17 +4,15 @@ package baccarat;
 /**
  * Interfaccia principale gestione gioco blackjack.
  */
-public interface Game {
+public interface BaccaratLogic {
     
-    void startGame(final int bet);
+    void startGame(final double bet);
     
-    void askCard();
+    //void askCard();
     
     void stand();
     
-    void askDouble();
-    
-    void split();
+    //void askDouble();
 
     int checkWin();
     

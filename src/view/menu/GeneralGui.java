@@ -1,6 +1,7 @@
 package view.menu;
 
 import account.AccountManager;
+import baccarat.BaccaratGui;
 import view.menu.games.Game.Games;
 import account.AdvancedBalanceManagerImpl;
 import blackjack.BlackJackGui;
@@ -58,6 +59,9 @@ public class GeneralGui extends JPanel implements Menu {
         
         switch (game) {
             case BLACKJACK: this.g = new BlackJackGui(frame, new AdvancedBalanceManagerImpl(account), this);
+            break;
+            
+            case BACCARAT: this.g = new BaccaratGui(frame, new AdvancedBalanceManagerImpl(account), this);
             break;
         
             default: this.g = null;

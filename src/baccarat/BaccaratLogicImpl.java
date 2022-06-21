@@ -1,16 +1,13 @@
 package baccarat;
 
+import account.BalanceManager;
 import blackjack.Deck;
 import blackjack.DeckImpl;
-import account.BalanceManager;
-import blackjack.Card;
-import blackjack.CardImpl;
-
 
 /**
  * Classe principale gestione gioco blackjack.
  */
-public class GameImpl implements Game {
+public class BaccaratLogicImpl implements BaccaratLogic {
     
     private final BalanceManager account;
     private final Deck deck;
@@ -18,7 +15,7 @@ public class GameImpl implements Game {
     private Hand player;
     private Hand dealer;
     
-    GameImpl(final BalanceManager account) {
+    BaccaratLogicImpl(final BalanceManager account) {
         this.deck = new DeckImpl(6);
         this.deck.generateDeck();
         this.account = account;
@@ -28,57 +25,49 @@ public class GameImpl implements Game {
     }
     
     @Override
-    public void startGame(final int bet) {
+    public void startGame(final double bet) {
         this.bet = bet;
         account.withdraw(this.bet);
         this.player = new HandImpl();
-        this.dealer = new HandImpl();    
+        this.dealer = new HandImpl();
         this.player.addCard(this.deck.drawRandomCard());
-        this.player.addCard(this.deck.drawRandomCard());   
+        this.player.addCard(this.deck.drawRandomCard());
         this.dealer.addCard(this.deck.drawRandomCard());
-        this.dealer.addCard(this.deck.drawRandomCard());  
+        this.dealer.addCard(this.deck.drawRandomCard());
+        this.dealer.getCard(0).turnOver();
         this.dealer.getCard(1).turnOver();
-        //System.out.println(this.dealer.getCard(1).isFaceDown());
         this.dealer.calculatePoints();
         this.player.calculatePoints();
         
-        checkInsurance();
-        checkBlackjack(this.player);
-        
-        
-        if (this.player.getPoints() == 21) {
-            System.out.println("Blackjack!");
-            checkWin();
+        if (checkBlackjack(this.player)) {
+            endGame();
         }
-        
     }
     
-    
-    
-    
     @Override
+    public void stand() {
+        nextDealerMove();
+    }
+    
+    /*@Override
     public void askCard() {
         this.player.addCard(this.deck.drawRandomCard()); 
         this.player.calculatePoints();
     }
+    
 
     @Override
     public void stand() {
         nextDealerMove();
     }
 
-    @Override
-    public void split() {
-        // TODO Auto-generated method stub
-        
-    }
-
-    @Override
+    /*@Override
     public void askDouble() {
         //raddoppio puntata
+        this.bet *= 2;
         askCard();
         stand();
-    }
+    }*/
 
 
 
@@ -111,8 +100,8 @@ public class GameImpl implements Game {
 
     @Override
     public void nextDealerMove() {
-        if (this.dealer.getCard(1).isFaceDown()) {
-            this.dealer.getCard(1).turnOver();
+        if (this.dealer.getCard(0).isFaceDown()) {
+            this.dealer.getCard(0).turnOver();
             nextDealerMove();
         } else {
             if (getDealerPoints() < 17) {
@@ -146,7 +135,12 @@ public class GameImpl implements Game {
 
     @Override
     public boolean checkInsurance() {
-        return (this.dealer.getCard(0).getValue() == 1 && this.dealer.size() == 2);
+        if (this.dealer.getCard(0).getValue() == 1 && this.dealer.size() == 2) {
+            new InsuranceWindow();
+            return true;
+        } else {
+            return false; 
+        }
     }
 
     @Override
@@ -156,13 +150,12 @@ public class GameImpl implements Game {
 
     @Override
     public void endGame() {
-        
         if (this.deck.size() <= (this.deck.getnDecks() * 13 * 4) / 2) {
             this.deck.shuffle();
         }
         
         if (checkBlackjack(this.player) && !checkBlackjack(this.dealer)) {
-            account.changeBalance(account.getBalance() + ((this.bet * 3) / 2));
+            account.changeBalance(account.getBalance() + ((this.bet + ((this.bet * 3) / 2))));
         } else {
             if (checkWin() == 1) {
                 account.changeBalance(account.getBalance() + (this.bet * 2));
