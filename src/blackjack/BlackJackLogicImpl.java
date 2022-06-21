@@ -10,6 +10,7 @@ public class BlackJackLogicImpl implements BlackJackLogic {
     private final BalanceManager account;
     private final Deck deck;
     private double bet;
+    private double lastwin;
     private Hand player;
     private Hand dealer;
     
@@ -23,7 +24,6 @@ public class BlackJackLogicImpl implements BlackJackLogic {
     @Override
     public void startGame(final double bet) {
         this.bet = bet;
-        account.withdraw(this.bet);
         this.player = new HandImpl();
         this.dealer = new HandImpl();
         this.player.addCard(this.deck.drawRandomCard());
@@ -134,12 +134,12 @@ public class BlackJackLogicImpl implements BlackJackLogic {
             this.deck.shuffle();
         }
         if (checkBlackjack(this.player) && !checkBlackjack(this.dealer)) {
-            account.changeBalance(account.getBalance() + ((this.bet + ((this.bet * 3) / 2))));
+            this.lastwin = (this.bet + ((this.bet * 3) / 2));
         } else {
             if (checkWin() == 1) {
-                account.changeBalance(account.getBalance() + (this.bet * 2));
+                this.lastwin = this.bet * 2;
             } else if (checkWin() == 0) {
-                account.changeBalance(account.getBalance() + (this.bet));
+                this.lastwin = this.bet;
             }
         }
     }
@@ -157,6 +157,10 @@ public class BlackJackLogicImpl implements BlackJackLogic {
         } else {
             return (!checkBlackjack(this.dealer));
         }
+    }
+    
+    public double getLastWin() {
+        return this.lastwin;
     }
 
     @Override

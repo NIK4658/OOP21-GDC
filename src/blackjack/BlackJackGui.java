@@ -22,9 +22,7 @@ import java.awt.Image;
 import java.awt.GridBagLayout;
 import view.gui.MenuManager;
 import view.menu.GeneralGui;
-import view.menu.Menu;
-import view.menu.games.Game;
-import view.menu.games.GuideGui;
+import view.menu.games.Game;;
 
 /**
  * GUI principale Blackjack.
@@ -111,8 +109,7 @@ public class BlackJackGui extends JPanel implements Game {
         
         draw.addActionListener(e -> {   
             this.gameLogic.askCard();
-            setCards(playerCards, gameLogic.getPlayerHand(), center, DIRECTION_PLAYER);
-            playerPoints.setText(String.valueOf(gameLogic.getPlayerPoints()));
+            setCards(DIRECTION_PLAYER);
             doubleUp.setVisible(false);
             if (gameLogic.getPlayerPoints() >= 21) {
                 stand.doClick();
@@ -122,15 +119,11 @@ public class BlackJackGui extends JPanel implements Game {
         //codice ripetuto
         stand.addActionListener(e -> {
             gameLogic.stand();
-            setCards(dealerCards, gameLogic.getDealerHand(), north, DIRECTION_DEALER);
-            dealerPoints.setText(String.valueOf(gameLogic.getDealerPoints()));
-            if (gameLogic.checkWin() == 1) {
-                if (gameLogic.checkBlackjack(gameLogic.getPlayerHand())) {
-                    generalInterface.showWinMessage(bet.getBet() + ((bet.getBet() * 3) / 2));
-                } else {
-                    generalInterface.showWinMessage(bet.getBet() * 2);
-                }
+            setCards(DIRECTION_DEALER);
+            if (gameLogic.checkWin() == 1 || gameLogic.checkBlackjack(gameLogic.getPlayerHand())) {
+                generalInterface.showWinMessage(gameLogic.getLastWin());
             }
+            generalInterface.setBetValue(bet.getBet());
             
             //disattiva i pulsanti
             draw.setVisible(false);
@@ -143,16 +136,16 @@ public class BlackJackGui extends JPanel implements Game {
             if (bet.getBet() * 2 <= account.getBalance()) {
                 bet.setBet(bet.getBet() * 2);
                 gameLogic.askCard();
-                setCards(playerCards, gameLogic.getPlayerHand(), center, DIRECTION_PLAYER);
-                playerPoints.setText(String.valueOf(gameLogic.getPlayerPoints()));
+                setCards(DIRECTION_PLAYER);
+                
                 stand.doClick();
             }
         });
         
         
-        bet.addActionListener(e -> {  
-            if ((this.bet.getBet() + generalInterface.getFichesValue()) <= account.getBalance()) {
-                bet.incrementBet(generalInterface.getFichesValue());
+        bet.addActionListener(e -> { 
+            if (generalInterface.addBetValue(generalInterface.getFichesValue())) {
+                this.bet.incrementBet(generalInterface.getFichesValue());
                 generalInterface.showButtons(true);
             }
         });
@@ -233,7 +226,19 @@ public class BlackJackGui extends JPanel implements Game {
         return south;
     }
 
-    private void setCards(final List<JLabel> cards, final Hand h, final JLayeredPane pane, final int direction) {
+    private void setCards(final int direction) {
+        final List<JLabel> cards;
+        final Hand h;
+        final JLayeredPane pane;
+        if (direction == -1) {
+            cards = this.playerCards;
+            h = this.gameLogic.getPlayerHand();
+            pane = this.center;
+        } else {
+            cards = this.dealerCards;
+            h = this.gameLogic.getDealerHand();
+            pane = this.north;
+        }
         for (final JLabel j : cards) {
             pane.remove(j);
         }
@@ -249,51 +254,33 @@ public class BlackJackGui extends JPanel implements Game {
             pane.add(visualCard, 0);
             pane.validate();
         }
+        playerPoints.setText(String.valueOf(gameLogic.getPlayerPoints()));
+        dealerPoints.setText(String.valueOf(gameLogic.getDealerPoints()));
     }
-    
-    @Override
-    protected void paintComponent(final Graphics g) {
-        super.paintComponent(g);
-        g.drawImage(this.img, 0, 0, getWidth(), getHeight(), null);
-    }
+
 
     @Override
     public void confirmBet() {
-        if (this.bet.getBet() != 0) {
-            this.gameLogic.startGame(this.bet.getBet());
-            this.bet.confirmBet();
-            
-            this.generalInterface.showButtons(false);
-            this.generalInterface.setBetValue(this.bet.getBet());
-            this.generalInterface.updateBalanceValue();
-            this.generalInterface.setWinValue(0);
-
-            this.draw.setVisible(true);
-            this.stand.setVisible(true);
-            this.doubleUp.setVisible(true);
-            
-            this.dealerPoints.setVisible(true);
-            this.playerPoints.setVisible(true);
-
-            setCards(playerCards, gameLogic.getPlayerHand(), center, DIRECTION_PLAYER);
-            setCards(dealerCards, gameLogic.getDealerHand(), north, DIRECTION_DEALER);
-
-            this.dealerPoints.setText(String.valueOf(gameLogic.getDealerHand().getCard(0).getValue()));
-            this.playerPoints.setText(String.valueOf(gameLogic.getPlayerPoints()));
-
-           
-            if (gameLogic.checkInsurance()) {
-                final InsuranceWindow ins = new InsuranceWindow(new Dimension(width, height), gameLogic.canInsurance());
-                if (!gameLogic.calculateInsurance(ins.isInsurance())) {
-                    stand.doClick();
-                }
-                this.generalInterface.updateBalanceValue();
-            }
-            
-
-            if (gameLogic.checkBlackjack(gameLogic.getPlayerHand())) {
+        this.gameLogic.startGame(this.bet.getBet());
+        this.bet.confirmBet();
+        this.generalInterface.showButtons(false);
+        this.draw.setVisible(true);
+        this.stand.setVisible(true);
+        this.doubleUp.setVisible(true);
+        this.dealerPoints.setVisible(true);
+        this.playerPoints.setVisible(true);
+        setCards(DIRECTION_PLAYER);
+        setCards(DIRECTION_DEALER);
+        this.dealerPoints.setText(String.valueOf(gameLogic.getDealerHand().getCard(0).getValue()));
+        if (gameLogic.checkBlackjack(gameLogic.getPlayerHand())) {
+            stand.doClick();
+        }
+        if (gameLogic.checkInsurance()) {
+            final InsuranceWindow ins = new InsuranceWindow(new Dimension(width, height), gameLogic.canInsurance());
+            if (!gameLogic.calculateInsurance(ins.isInsurance())) {
                 stand.doClick();
             }
+            this.generalInterface.updateBalanceValue();
         }
     }
 
@@ -307,4 +294,11 @@ public class BlackJackGui extends JPanel implements Game {
     public JPanel getGame() {
         return this;
     }
+
+    @Override
+    protected void paintComponent(final Graphics g) {
+        super.paintComponent(g);
+        g.drawImage(this.img, 0, 0, getWidth(), getHeight(), null);
+    }
+    
 }
