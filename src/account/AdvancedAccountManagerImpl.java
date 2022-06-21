@@ -1,5 +1,7 @@
 package account;
 
+import account.AccountManager.Fields;
+
 /**
  * Classe principale AVANZATA gestione account.
  */
@@ -12,8 +14,12 @@ public class AdvancedAccountManagerImpl extends SimpleAccountManagerImpl impleme
                 System.out.println("Account already existing");
                 return false;
             }   
-            if (usr.length() > 20) {
+            if (!checkValidField(usr)) {
                 System.out.println("Username too long");
+                return false;
+            }
+            if (!checkValidField(psw)) {
+                System.out.println("Password too long");
                 return false;
             }
             if (!(age.chars().allMatch(Character::isDigit))) {
@@ -23,6 +29,11 @@ public class AdvancedAccountManagerImpl extends SimpleAccountManagerImpl impleme
             if (Integer.parseInt(age) < 18) { 
                 System.out.println("Unable to complete registration, "
                         + "you must be at least 18 years old to register on this site");
+                return false;
+            }
+            if (age.length() > 3) { 
+                System.out.println("Unable to complete registration, "
+                        + "age invalid");
                 return false;
             }
             if (super.register(usr, psw, age)) {
@@ -58,5 +69,27 @@ public class AdvancedAccountManagerImpl extends SimpleAccountManagerImpl impleme
             System.out.println("The account could not be found");
             return false;
         }    
+    }
+    
+    @Override
+    public boolean changeUsr(final String usrnew) {
+        if (checkValidField(usrnew)) {
+            return super.changeUsr(usrnew);
+        } else {
+            return false;
+        }
+    }
+    
+    @Override
+    public boolean changePass(final String psw) {
+        if (checkValidField(psw)) {
+            return super.changePass(psw);
+        } else {
+            return false;
+        }
+    }  
+    
+    private boolean checkValidField(final String field) {
+        return field.length() <= 20;
     }
 }
