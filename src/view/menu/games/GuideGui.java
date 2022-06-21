@@ -8,6 +8,9 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -36,6 +39,16 @@ public class GuideGui extends JDialog {
         title.setPreferredSize(new Dimension(dim.width / 15, dim.width / 15));
         title.setFont(new Font("Arial", Font.BOLD, dim.width / 25));
         final JTextArea text = new JTextArea();
+        text.setFont(new Font("Arial", Font.PLAIN, dim.width / 95));
+        FileReader reader;
+        try {
+            reader = new FileReader("res/txt/" + game + ".txt");
+            text.read(reader, game + ".txt"); //Object of JTextArea
+            reader.close();
+        } catch (Exception e) {
+            System.out.println("File non trovato");
+            //e.printStackTrace();
+        }
         text.setEditable(false); // set textArea non-editable
         final JScrollPane scrollArea = new JScrollPane(text);
         scrollArea.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
