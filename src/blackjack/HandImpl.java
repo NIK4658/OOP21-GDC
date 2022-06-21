@@ -37,7 +37,6 @@ public class HandImpl extends LinkedList<Card> implements Hand {
             } else {
                 this.points += c.getValue();
             }
-
             if (this.points > 21 && ace && !converted) {
                 this.points -= 10;
                 converted = true;

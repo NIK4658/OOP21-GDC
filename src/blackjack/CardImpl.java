@@ -53,12 +53,8 @@ public class CardImpl implements Card {
     }
     
     @Override
-    public int getValue() {     
-        if (this.card.getY() >= 10) {
-            return 10;
-        } else {
-            return this.card.getY();
-        }   
+    public int getValue() {   
+        return (this.card.getY() >= 10) ? 10 : this.card.getY();
     }
     
     @Override

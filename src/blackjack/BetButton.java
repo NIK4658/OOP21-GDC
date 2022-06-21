@@ -2,10 +2,9 @@ package blackjack;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Image;
 import java.awt.Dimension;
 import java.awt.Font;
-
+import java.awt.Image;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -14,13 +13,19 @@ import javax.swing.SwingConstants;
 import view.ImageLoader;
 
 
-public class BetButton extends JButton{
+/**
+ * javadoc comment.
+ */
+public class BetButton extends JButton {
     
     private static final long serialVersionUID = 1L;
     private double value;
     private final Dimension dim;
     
-    public BetButton(final Dimension dim){
+    /**
+     * javadoc comment.
+     */
+    public BetButton(final Dimension dim) {
         super();
         this.dim = dim;
         this.setVisible(true);
@@ -38,6 +43,9 @@ public class BetButton extends JButton{
         return this.value = value;
     }
     
+    /**
+     * javadoc comment.
+     */
     public void resetBet() {
         this.value = 0;
         this.removeAll();
@@ -45,6 +53,9 @@ public class BetButton extends JButton{
         this.setEnabled(true);
     }
     
+    /**
+     * javadoc comment.
+     */
     public void incrementBet(final double fvalue) {
         this.value += fvalue;
         this.removeAll();
@@ -61,6 +72,9 @@ public class BetButton extends JButton{
         validate();
     }  
     
+    /**
+     * javadoc comment.
+     */
     public void confirmBet() {
         this.setEnabled(false);
         this.setDisabledIcon(chooseChip(this.value));

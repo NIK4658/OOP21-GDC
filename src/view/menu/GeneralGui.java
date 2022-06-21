@@ -67,10 +67,9 @@ public class GeneralGui extends JPanel implements Menu {
         
         final JPanel north = new JPanel(new GridBagLayout());
         final JPanel south = new JPanel(new BorderLayout());
-        JPanel center = new JPanel();
-
         final JPanel southleft = new JPanel(new GridBagLayout());
         final JPanel southright = new JPanel(new GridBagLayout());
+        final JPanel center = new JPanel();
         
         this.reset = new JButton();
         this.confirm = new JButton();
