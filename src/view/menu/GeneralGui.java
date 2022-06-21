@@ -155,7 +155,7 @@ public class GeneralGui extends JPanel implements Menu {
         this.fiches100 = new JButton();
         this.fiches500 = new JButton();
         this.reset.setName("cancel");
-        this.reset.setName("confirm");
+        this.confirm.setName("confirm");
         fiches1.setName("1new");
         fiches5.setName("5new");
         fiches25.setName("25new");
