@@ -18,11 +18,15 @@ public interface BaccaratLogic {
     
     void nextDealerMove();
     
+    void nextPlayerMove();
+    
     void dealerDraw();
     
-    boolean checkInsurance();
+    void playerDraw();
     
-    boolean checkBlackjack(Hand h);
+    //boolean checkBaccarat();
+    
+    boolean checkBaccarat(Hand h);
     
     void endGame();
     
