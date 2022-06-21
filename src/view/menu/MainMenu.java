@@ -21,7 +21,7 @@ import javax.swing.SwingConstants;
 import view.ImageLoader;
 import view.MyGridBagConstraints;
 import view.gui.MenuManager;
-import view.menu.games.roulette.RouletteGame;
+import view.menu.games.Game.Games;
 import view.menu.games.roulette.RouletteGame.TypeRoulette;
 
 import java.awt.Graphics;
@@ -94,9 +94,9 @@ public class MainMenu extends JPanel implements Menu {
         final JButton rouletteAmerican = new JButton();
         final JButton bacarat = new JButton();
         
-        rouletteBase.addActionListener(e -> frame.setRouletteMenu(account, TypeRoulette.BASE_ROULETTE));
-        rouletteEuropean.addActionListener(e -> frame.setRouletteMenu(account, TypeRoulette.EUROPEAN_ROULETTE));
-        rouletteAmerican.addActionListener(e -> frame.setRouletteMenu(account, TypeRoulette.AMERICAN_ROULETTE));
+        rouletteBase.addActionListener(e -> frame.setRouletteMenu(account, Games.ROULETTE_BASE));
+        rouletteEuropean.addActionListener(e -> frame.setRouletteMenu(account, Games.ROULETTE_EUROPEAN));
+        rouletteAmerican.addActionListener(e -> frame.setRouletteMenu(account, Games.ROULETTE_AMERICAN));
         blackjack.addActionListener(e -> frame.setBlackjackMenu(account));
         bacarat.addActionListener(e -> frame.setBaccaratMenu(account));
         accountman.addActionListener(e -> frame.setAccountMenu(account));

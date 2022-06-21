@@ -3,6 +3,7 @@ package view.menu;
 import account.AccountManager;
 import baccarat.BaccaratGui;
 import view.menu.games.Game.Games;
+import view.menu.games.roulette.RouletteGame;
 import account.AdvancedBalanceManagerImpl;
 import blackjack.BlackJackGui;
 
@@ -57,6 +58,7 @@ public class GeneralGui extends JPanel implements Menu {
     public GeneralGui(final MenuManager frame, final AccountManager account, Games game ){
         
         
+<<<<<<< HEAD
         switch (game) {
             case BLACKJACK: this.g = new BlackJackGui(frame, new AdvancedBalanceManagerImpl(account), this);
             break;
@@ -66,6 +68,9 @@ public class GeneralGui extends JPanel implements Menu {
         
             default: this.g = null;
         }
+=======
+
+>>>>>>> bc4754c0166e8c00b32dc99718be5d30129500ba
 
         
         this.account = account;
@@ -76,10 +81,36 @@ public class GeneralGui extends JPanel implements Menu {
         
         final JPanel north = new JPanel(new GridBagLayout());
         final JPanel south = new JPanel(new BorderLayout());
-        final JPanel center = new JPanel();
+        JPanel center = new JPanel();
 
         final JPanel southleft = new JPanel(new GridBagLayout());
         final JPanel southright = new JPanel(new GridBagLayout());
+        
+        switch (game) {
+            case BLACKJACK: 
+                this.g = new BlackJackGui(frame, new AdvancedBalanceManagerImpl(account), this);
+                //da vedere come migliorare
+                north.setOpaque(false);
+                center.setOpaque(false);
+                south.setOpaque(false);
+                southleft.setOpaque(false);
+                southright.setOpaque(false);
+                this.setOpaque(false);
+                break;
+//            case BACCARAT:
+//                
+//                break;
+            default: 
+                this.g = new RouletteGame(frame.getSizeMenu(), this, game);
+                //da migliorare
+                center = (JPanel) this.g;
+                this.setBackground(new Color(0, 118, 58));
+                north.setBackground(new Color(0, 118, 58));
+                south.setBackground(new Color(0, 118, 58));
+                southleft.setBackground(new Color(0, 118, 58));
+                southright.setBackground(new Color(0, 118, 58));
+        }
+        
         
         //south.setPreferredSize(new Dimension((int) (dimx / 12.8), (int) (dimy / 7.2)));
         north.setPreferredSize(new Dimension((int) (width / 12.8), (int) (height / 7.2)));
@@ -242,18 +273,12 @@ public class GeneralGui extends JPanel implements Menu {
         
         backToMenu.addActionListener(e -> frame.setMainMenu(account));
 
-        //da vedere come migliorare
-        north.setOpaque(false);
-        center.setOpaque(false);
-        south.setOpaque(false);
-        southleft.setOpaque(false);
-        southright.setOpaque(false);
-        this.setOpaque(false);
+
         
 
         final JLayeredPane southtotal = new JLayeredPane();
         southtotal.setPreferredSize(new Dimension((int) (width / 3.5) + width / 60, height / 10));
-        southleft.setBounds(width / 60, 0,(int) (width / 3.5), height / 10);
+        southleft.setBounds(width / 60, 0, (int) (width / 3.5), height / 10);
         
         final JLabel jl = new JLabel(new ImageIcon(ImageLoader.getImage("res/img/gui/ProvaSfondoLabel4.png")
                 .getScaledInstance((int) (width / 3.5), height / 10, Image.SCALE_SMOOTH)));
@@ -289,7 +314,8 @@ public class GeneralGui extends JPanel implements Menu {
     }
         
     public void setBetValue(final double value) {
-        betValue.setText(value + "€");
+        betValue.setText((value * 100 % 100 == 0 
+                ? String.valueOf((int) value) : String.valueOf(value)) + "€");
     }
         
     public void setSelectedFiches(final int fichesvalue) {
@@ -309,11 +335,15 @@ public class GeneralGui extends JPanel implements Menu {
         fichesList.add("500new");
         
         int i = 0;
-        for(JButton jb : list) {
-            if(fichesvalue==i) {
-                jb.setIcon(new ImageIcon((ImageLoader.getImage("res/img/fiches/numbers/new/"+fichesList.get(i)+"high.png")).getScaledInstance(width / 15, width / 15, Image.SCALE_SMOOTH)));   
+        for (final JButton jb : list) {
+            if (fichesvalue == i) {
+                jb.setIcon(new ImageIcon((ImageLoader
+                        .getImage("res/img/fiches/numbers/new/" + fichesList.get(i) + "high.png"))
+                        .getScaledInstance(width / 15, width / 15, Image.SCALE_SMOOTH)));   
             } else {
-                jb.setIcon(new ImageIcon((ImageLoader.getImage("res/img/fiches/numbers/new/"+fichesList.get(i)+".png")).getScaledInstance(width / 15, width / 15, Image.SCALE_SMOOTH)));
+                jb.setIcon(new ImageIcon((ImageLoader
+                        .getImage("res/img/fiches/numbers/new/" + fichesList.get(i) + ".png"))
+                        .getScaledInstance(width / 15, width / 15, Image.SCALE_SMOOTH)));
             }
             i++;
         }
@@ -321,11 +351,14 @@ public class GeneralGui extends JPanel implements Menu {
     
     
     public void setWinValue(final double value) {
-        winValue.setText(value + "€");
+        winValue.setText((value * 100 % 100 == 0 
+                ? String.valueOf((int) value) : String.valueOf(value)) + "€");
     }
         
     public void setBalanceValue() {
-        balanceValue.setText(new AdvancedBalanceManagerImpl(this.account).getBalance() + "€");
+        final double value = new AdvancedBalanceManagerImpl(this.account).getBalance();
+        balanceValue.setText((value * 100 % 100 == 0 
+                ? String.valueOf((int) value) : String.valueOf(value)) + "€");
     }
     
     public void setActionListener(final Game game) {
@@ -342,7 +375,8 @@ public class GeneralGui extends JPanel implements Menu {
     }
     
     public void setWinMessage(final double value) {
-        winmessage.setText("YOU WON " + value + "€!");
+        winmessage.setText("YOU WON " + (value * 100 % 100 == 0 
+                ? String.valueOf((int) value) : String.valueOf(value)) + "€!");
     }
     
     public void showButtons(final boolean val) {
