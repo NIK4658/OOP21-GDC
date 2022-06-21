@@ -2,10 +2,9 @@ package blackjack;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Image;
 import java.awt.Dimension;
 import java.awt.Font;
-
+import java.awt.Image;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -14,19 +13,26 @@ import javax.swing.SwingConstants;
 import view.ImageLoader;
 
 
-public class BetButton extends JButton{
+/**
+ * javadoc comment.
+ */
+public class BetButton extends JButton {
     
+    private static final long serialVersionUID = 1L;
     private double value;
-    private Dimension dim;
+    private final Dimension dim;
     
-    public BetButton(final Dimension dim){
+    /**
+     * javadoc comment.
+     */
+    public BetButton(final Dimension dim) {
         super();
+        this.dim = dim;
         this.setVisible(true);
         this.setOpaque(false);
         this.setContentAreaFilled(false);
         this.setBorderPainted(false);
         this.setFocusPainted(false);
-        this.dim = dim;
     }
     
     public double getBet() {
@@ -37,6 +43,9 @@ public class BetButton extends JButton{
         return this.value = value;
     }
     
+    /**
+     * javadoc comment.
+     */
     public void resetBet() {
         this.value = 0;
         this.removeAll();
@@ -44,6 +53,9 @@ public class BetButton extends JButton{
         this.setEnabled(true);
     }
     
+    /**
+     * javadoc comment.
+     */
     public void incrementBet(final double fvalue) {
         this.value += fvalue;
         this.removeAll();
@@ -60,6 +72,9 @@ public class BetButton extends JButton{
         validate();
     }  
     
+    /**
+     * javadoc comment.
+     */
     public void confirmBet() {
         this.setEnabled(false);
         this.setDisabledIcon(chooseChip(this.value));
@@ -68,22 +83,22 @@ public class BetButton extends JButton{
      
     private ImageIcon chooseChip(final double puntata) {
         if (puntata <  5) {
-            final Image img = ImageLoader.getImage("res/img/fiches/empty/1HD2.png");
-            return new ImageIcon(img.getScaledInstance(this.dim.width / 16, this.dim.height / 9, Image.SCALE_SMOOTH));
+            return new ImageIcon((ImageLoader.getImage("res/img/fiches/empty/1HD2.png"))
+                    .getScaledInstance(this.dim.width / 16, this.dim.height / 9, Image.SCALE_SMOOTH));
         }
         if (puntata < 25) {
-            final Image img = ImageLoader.getImage("res/img/fiches/empty/5HD2.png");
-            return new ImageIcon(img.getScaledInstance(this.dim.width / 16, this.dim.height / 9, Image.SCALE_SMOOTH));
+            return new ImageIcon((ImageLoader.getImage("res/img/fiches/empty/5HD2.png"))
+                    .getScaledInstance(this.dim.width / 16, this.dim.height / 9, Image.SCALE_SMOOTH));
         }
         if (puntata < 100) {
-            final Image img = ImageLoader.getImage("res/img/fiches/empty/25HD2.png");
-            return new ImageIcon(img.getScaledInstance(this.dim.width / 16, this.dim.height / 9, Image.SCALE_SMOOTH));
+            return new ImageIcon((ImageLoader.getImage("res/img/fiches/empty/25HD2.png"))
+                    .getScaledInstance(this.dim.width / 16, this.dim.height / 9, Image.SCALE_SMOOTH));
         }
         if (puntata < 500) {
-            final Image img = ImageLoader.getImage("res/img/fiches/empty/100HD2.png");
-            return new ImageIcon(img.getScaledInstance(this.dim.width / 16, this.dim.height / 9, Image.SCALE_SMOOTH));
+            return new ImageIcon((ImageLoader.getImage("res/img/fiches/empty/100HD2.png"))
+                    .getScaledInstance(this.dim.width / 16, this.dim.height / 9, Image.SCALE_SMOOTH));
         }
-        final Image img = ImageLoader.getImage("res/img/fiches/empty/500HD2.png");
-        return new ImageIcon(img.getScaledInstance(this.dim.width / 16, this.dim.height / 9, Image.SCALE_SMOOTH)); 
+        return new ImageIcon((ImageLoader.getImage("res/img/fiches/empty/500HD2.png"))
+                .getScaledInstance(this.dim.width / 16, this.dim.height / 9, Image.SCALE_SMOOTH));
     }
 }

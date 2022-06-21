@@ -17,8 +17,6 @@ public class BlackJackLogicImpl implements BlackJackLogic {
         this.deck = new DeckImpl(6);
         this.deck.generateDeck();
         this.account = account;
-        this.player = new HandImpl();
-        this.dealer = new HandImpl();
         this.bet = 0;
     }
     
@@ -54,7 +52,6 @@ public class BlackJackLogicImpl implements BlackJackLogic {
 
     @Override
     public void askDouble() {
-        //raddoppio puntata
         this.bet *= 2;
         askCard();
         stand();
@@ -67,15 +64,12 @@ public class BlackJackLogicImpl implements BlackJackLogic {
         if (this.player.getPoints() > 21) {
             return -1;
         }
-        
         if (this.dealer.getPoints() > 21) {
             return 1;
         }
-
         if (this.player.getPoints() == this.dealer.getPoints()) {
             return 0;
         } 
-        
         if (this.player.getPoints() < this.dealer.getPoints()) {
             return -1;
         } else {
@@ -126,11 +120,7 @@ public class BlackJackLogicImpl implements BlackJackLogic {
 
     @Override
     public boolean checkInsurance() {
-        if (this.dealer.getCard(0).getValue() == 1 && this.dealer.size() == 2 && !checkBlackjack(this.player)) {
-            return true;
-        } else {
-            return false; 
-        }
+        return (this.dealer.getCard(0).getValue() == 1 && this.dealer.size() == 2 && !checkBlackjack(this.player));
     }
 
     @Override
@@ -143,7 +133,6 @@ public class BlackJackLogicImpl implements BlackJackLogic {
         if (this.deck.size() <= (this.deck.getnDecks() * 13 * 4) / 2) {
             this.deck.shuffle();
         }
-        
         if (checkBlackjack(this.player) && !checkBlackjack(this.dealer)) {
             account.changeBalance(account.getBalance() + ((this.bet + ((this.bet * 3) / 2))));
         } else {

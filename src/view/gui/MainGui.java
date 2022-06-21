@@ -11,6 +11,7 @@ import java.awt.Toolkit;
 import javax.swing.JFrame;
 import javax.swing.JLayeredPane;
 
+import view.ImageLoader;
 import view.Resizer;
 import view.menu.AccessMenu;
 import view.menu.AccountMenu;
@@ -47,7 +48,10 @@ public class MainGui implements MenuManager {
         this.frame.setSize(this.sizeMenu);
         this.frame.setResizable(false);
         this.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
+        this.frame.setTitle("GIOCHI DEL COLOSSO");
+        
+        //DA VERIFICARE SE TENERE
+        this.frame.setIconImage(ImageLoader.getImage("res/img/logo/gdclogo3.png"));
         this.setAccessMenu();
         //this.setGameMenu(new AdvancedAccountManagerImpl());
         //this.setAccountMenu(new AdvancedAccountManagerImpl());

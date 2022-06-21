@@ -1,28 +1,32 @@
 package blackjack;
 
-import view.MyGridBagConstraints;
-
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import java.awt.GridBagLayout;
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Insets;
-
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
+import view.MyGridBagConstraints;
 
-import java.awt.Dimension;
-import java.awt.Font;
 
+/**
+ * javadoc comment.
+ */
 public class InsuranceWindow extends JDialog {
     
     private static final long serialVersionUID = 1L;
     private boolean insuranceValue;
 
+    /**
+     * javadoc comment.
+     */
     public InsuranceWindow(final Dimension dim, final boolean canInsurance) {
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         this.setPreferredSize(new Dimension(dim.width / 3, dim.height / 4));
@@ -75,7 +79,7 @@ public class InsuranceWindow extends JDialog {
     }
     
     
-    public boolean getInsurance() {
+    public boolean isInsurance() {
         return this.insuranceValue;
     }
 

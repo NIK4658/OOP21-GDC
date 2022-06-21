@@ -1,4 +1,4 @@
-package test;
+package BalanceManager;
 
 import static org.junit.Assert.assertTrue;
 

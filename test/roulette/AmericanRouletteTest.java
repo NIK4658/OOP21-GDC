@@ -1,4 +1,4 @@
-package test.roulette;
+package roulette;
 
 
 import static org.junit.jupiter.api.Assertions.assertEquals;

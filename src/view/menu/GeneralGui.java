@@ -3,6 +3,7 @@ package view.menu;
 import account.AccountManager;
 import baccarat.BaccaratGui;
 import view.menu.games.Game.Games;
+import view.menu.games.GuideGui;
 import view.menu.games.roulette.RouletteGame;
 import account.AdvancedBalanceManagerImpl;
 import blackjack.BlackJackGui;
@@ -56,7 +57,7 @@ public class GeneralGui extends JPanel implements Menu {
     private final JLayeredPane win2 = new JLayeredPane();
     private final JLabel winmessage = new JLabel("");
     
-    public GeneralGui(final MenuManager frame, final AccountManager account, Games game ){
+    public GeneralGui(final MenuManager frame, final AccountManager account, final Games game ){
 
         this.account = account;
         setLayout(new BorderLayout());
@@ -66,10 +67,9 @@ public class GeneralGui extends JPanel implements Menu {
         
         final JPanel north = new JPanel(new GridBagLayout());
         final JPanel south = new JPanel(new BorderLayout());
-        JPanel center = new JPanel();
-
         final JPanel southleft = new JPanel(new GridBagLayout());
         final JPanel southright = new JPanel(new GridBagLayout());
+        JPanel center = new JPanel();
         
         this.reset = new JButton();
         this.confirm = new JButton();
@@ -132,6 +132,16 @@ public class GeneralGui extends JPanel implements Menu {
         listbutton1.add(help);
         listbutton1.add(backToMenu);
         
+        
+        for (final JButton jb : listbutton1) {
+            jb.setContentAreaFilled(false);
+            jb.setOpaque(true);
+            jb.setBackground(new Color(204, 208, 222));
+            jb.setBorderPainted(true); 
+            jb.setFocusPainted(false);
+            jb.setBorder(BorderFactory.createMatteBorder(2, 2, 2, 2, new Color(90, 106, 173)));
+            jb.setFont(new Font("Arial", Font.BOLD | Font.ITALIC, height / 40));
+        }
          
         //South
         final JLabel bet = new JLabel("BET");
@@ -257,7 +267,7 @@ public class GeneralGui extends JPanel implements Menu {
         });
         
         backToMenu.addActionListener(e -> frame.setMainMenu(account));
-
+        help.addActionListener(e -> new GuideGui(frame.getSizeMenu(), game));
 
         
 
@@ -308,12 +318,11 @@ public class GeneralGui extends JPanel implements Menu {
     }
     
     public void setBetValue(final double value) {
-        betValue.setText((value * 100 % 100 == 0 
-                ? String.valueOf((int) value) : String.valueOf(value)) + "€");
+        betValue.setText(valueToText(value) + "€");
     }
         
     public void setSelectedFiches(final int fichesvalue) {
-        ArrayList<JButton> list = new ArrayList<>();
+        final ArrayList<JButton> list = new ArrayList<>();
         list.add(fiches1);
         list.add(fiches5);
         list.add(fiches25);
@@ -345,31 +354,13 @@ public class GeneralGui extends JPanel implements Menu {
     
     
     public void setWinValue(final double value) {
-        winValue.setText((value * 100 % 100 == 0 
-                ? String.valueOf((int) value) : String.valueOf(value)) + "€");
+        winValue.setText(valueToText(value) + "€");
     }
         
     public void updateBalanceValue() {
-        final double value = new AdvancedBalanceManagerImpl(this.account).getBalance();
-        balanceValue.setText((value * 100 % 100 == 0 
-                ? String.valueOf((int) value) : String.valueOf(value)) + "€");
+        balanceValue.setText(valueToText(new AdvancedBalanceManagerImpl(this.account).getBalance()) + "€");
     }
     
-
-    
-    public void setActionListener(final Game game) {
-        
-    }
-    
-    //DEPRECATO, da togliere il boolean, il check lo fa l'interfaccia generale
-    public void showWinMessage(final boolean val, final double value) {
-        //win2.setVisible(val);
-        if (val) {
-            setWinMessage(value);
-        } else {
-            winmessage.setText("");
-        }
-    }
     
     public void showWinMessage(final double value) {//cambiare nome metodo con setWin
         if (value > 0) {
@@ -385,13 +376,16 @@ public class GeneralGui extends JPanel implements Menu {
     }
     
     private void setWinMessage(final double value) {
-        winmessage.setText("YOU WON " + (value * 100 % 100 == 0 
-                ? String.valueOf((int) value) : String.valueOf(value)) + "€!");
+        winmessage.setText("YOU WON " + valueToText(value) + "€!");
     }
     
     public void showButtons(final boolean val) {
         this.reset.setVisible(val);
         this.confirm.setVisible(val);
+    }
+    
+    private String valueToText(final double value) {
+        return (value * 100 % 100 == 0 ? String.valueOf((int) value) : String.valueOf(value));
     }
 
     @Override
