@@ -138,7 +138,7 @@ public class MainMenu extends JPanel implements Menu {
         //meglio creare una funzione
         Image img, imgScaled;
         
-        img = ImageLoader.getImage("res/img/backgrounds/bj.jpg");
+        img = ImageLoader.getImage("res/img/backgrounds/BJLogo.png");
         imgScaled = img.getScaledInstance(buttonDimension.width, buttonDimension.height, Image.SCALE_SMOOTH);
         blackjack.setIcon(new ImageIcon((imgScaled)));
         
