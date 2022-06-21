@@ -1,4 +1,4 @@
-package test;
+package AccountManager;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertSame;
