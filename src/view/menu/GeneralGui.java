@@ -6,6 +6,7 @@ import view.menu.games.Game.Games;
 import view.menu.games.GuideGui;
 import view.menu.games.roulette.RouletteGame;
 import account.AdvancedBalanceManagerImpl;
+import account.BalanceManager;
 import blackjack.BlackJackGui;
 
 import java.awt.BorderLayout;
@@ -36,9 +37,8 @@ import view.menu.games.Game;
 
 public class GeneralGui extends JPanel implements Menu {
     
-
-    
     private final AccountManager account;
+    private final BalanceManager Balanceaccount;
     private double bet;
     private int fichesvalue = 1;
     private final Game g;
@@ -60,6 +60,7 @@ public class GeneralGui extends JPanel implements Menu {
     public GeneralGui(final MenuManager frame, final AccountManager account, final Games game ){
 
         this.account = account;
+        this.Balanceaccount = new AdvancedBalanceManagerImpl(this.account);
         setLayout(new BorderLayout());
         this.setPreferredSize(frame.getSizeMenu());
         this.width = frame.getWidthMenu();
@@ -234,10 +235,13 @@ public class GeneralGui extends JPanel implements Menu {
         
         
         this.reset.addActionListener(e -> {
+            new AdvancedBalanceManagerImpl(this.account).deposit(this.bet);
             this.g.resetBet();
             this.bet = 0;
+            updateBalanceValue();
             this.setBetValue(this.bet);
         });
+        
         this.confirm.addActionListener(e -> this.g.confirmBet());
         
         //Adding Listener to set fiches value
@@ -311,10 +315,10 @@ public class GeneralGui extends JPanel implements Menu {
         if (new AdvancedBalanceManagerImpl(this.account).withdraw(value)) {
             this.bet += value;
             setBetValue(this.bet);
+            updateBalanceValue();
             return true;
         }
         return false;
-        
     }
     
     public void setBetValue(final double value) {
@@ -360,9 +364,8 @@ public class GeneralGui extends JPanel implements Menu {
     public void updateBalanceValue() {
         balanceValue.setText(valueToText(new AdvancedBalanceManagerImpl(this.account).getBalance()) + "€");
     }
-    
-    
-    public void showWinMessage(final double value) {//cambiare nome metodo con setWin
+
+    public void showWinMessage(final double value) {
         if (value > 0) {
             setWinMessage(value);
             new AdvancedBalanceManagerImpl(this.account).deposit(value);
