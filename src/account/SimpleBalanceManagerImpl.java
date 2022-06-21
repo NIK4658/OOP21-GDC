@@ -1,5 +1,8 @@
 package account;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+
 import account.AccountManager.Fields;
 
 
@@ -26,7 +29,8 @@ public class SimpleBalanceManagerImpl implements BalanceManager {
     
     @Override
     public boolean changeBalance(final double balancenew) {
-        return Utility.changeField(Fields.BALANCE, String.valueOf(balancenew), username.getUsr(), username.getUsr());
+        return Utility.changeField(Fields.BALANCE, String.valueOf((new BigDecimal(balancenew)
+                .setScale(2, RoundingMode.HALF_UP)).doubleValue()), username.getUsr(), username.getUsr());
     }
     
     @Override
