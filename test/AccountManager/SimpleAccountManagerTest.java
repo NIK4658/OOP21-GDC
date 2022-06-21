@@ -45,11 +45,7 @@ public class SimpleAccountManagerTest {
         assertEquals(this.simpleAccount.getAge(), "20");    
         
         assertTrue(this.simpleAccount.changeUsr("Test2"));
-        assertEquals(this.simpleAccount.getUsr(), "Test2");
-        
-        
-        
-        
+        assertEquals(this.simpleAccount.getUsr(), "Test2");  
     }
 
     //test login
@@ -57,6 +53,26 @@ public class SimpleAccountManagerTest {
     public void testSimpleLogin() {
         assertTrue(this.simpleAccount.logger("Username", "Password")); //User exist, expected True.
         assertFalse(this.simpleAccount.logger("Usrnm", "Password"));   //User does not exist, expected false.
+    }
+    
+    @Test
+    public void testCheckExisting() {
+        
+    }
+    
+    @Test
+    public void testChangeUsr() {
+        
+    }
+    
+    @Test
+    public void testChangePass() {
+        
+    }
+    
+    @Test
+    public void testDeleteAcc() {
+        
     }
     
     @After
