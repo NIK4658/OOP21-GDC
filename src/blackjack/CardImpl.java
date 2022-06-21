@@ -96,7 +96,7 @@ public class CardImpl implements Card {
     
     @Override
     public int hashCode() {
-        return Objects.hash(card);
+        return Objects.hash(this.card, this.img, this.facedown);
     }
 
     @Override
