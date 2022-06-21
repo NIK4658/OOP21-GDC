@@ -69,7 +69,7 @@ public class GeneralGui extends JPanel implements Menu {
         final JPanel south = new JPanel(new BorderLayout());
         final JPanel southleft = new JPanel(new GridBagLayout());
         final JPanel southright = new JPanel(new GridBagLayout());
-        final JPanel center = new JPanel();
+        JPanel center = new JPanel();
         
         this.reset = new JButton();
         this.confirm = new JButton();
@@ -318,8 +318,7 @@ public class GeneralGui extends JPanel implements Menu {
     }
     
     public void setBetValue(final double value) {
-        betValue.setText((value * 100 % 100 == 0 
-                ? String.valueOf((int) value) : String.valueOf(value)) + "€");
+        betValue.setText(valueToText(value) + "€");
     }
         
     public void setSelectedFiches(final int fichesvalue) {
@@ -355,31 +354,13 @@ public class GeneralGui extends JPanel implements Menu {
     
     
     public void setWinValue(final double value) {
-        winValue.setText((value * 100 % 100 == 0 
-                ? String.valueOf((int) value) : String.valueOf(value)) + "€");
+        winValue.setText(valueToText(value) + "€");
     }
         
     public void updateBalanceValue() {
-        final double value = new AdvancedBalanceManagerImpl(this.account).getBalance();
-        balanceValue.setText((value * 100 % 100 == 0 
-                ? String.valueOf((int) value) : String.valueOf(value)) + "€");
+        balanceValue.setText(valueToText(new AdvancedBalanceManagerImpl(this.account).getBalance()) + "€");
     }
     
-
-    
-    public void setActionListener(final Game game) {
-        
-    }
-    
-    //DEPRECATO, da togliere il boolean, il check lo fa l'interfaccia generale
-    public void showWinMessage(final boolean val, final double value) {
-        //win2.setVisible(val);
-        if (val) {
-            setWinMessage(value);
-        } else {
-            winmessage.setText("");
-        }
-    }
     
     public void showWinMessage(final double value) {//cambiare nome metodo con setWin
         if (value > 0) {
@@ -395,13 +376,16 @@ public class GeneralGui extends JPanel implements Menu {
     }
     
     private void setWinMessage(final double value) {
-        winmessage.setText("YOU WON " + (value * 100 % 100 == 0 
-                ? String.valueOf((int) value) : String.valueOf(value)) + "€!");
+        winmessage.setText("YOU WON " + valueToText(value) + "€!");
     }
     
     public void showButtons(final boolean val) {
         this.reset.setVisible(val);
         this.confirm.setVisible(val);
+    }
+    
+    private String valueToText(final double value) {
+        return (value * 100 % 100 == 0 ? String.valueOf((int) value) : String.valueOf(value));
     }
 
     @Override
