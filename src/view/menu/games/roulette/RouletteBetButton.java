@@ -1,13 +1,14 @@
 package view.menu.games.roulette;
 
 import blackjack.BetButton;
+import java.awt.Dimension;
 
 public class RouletteBetButton extends BetButton {
     
     private final Object property;
     
-    public RouletteBetButton(final Object property) {
-        super();
+    public RouletteBetButton(final Dimension dimension, final Object property) {
+        super(dimension);
         this.property = property;
     }
 

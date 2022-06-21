@@ -5,7 +5,7 @@ import javax.swing.JPanel;
 public interface Game {
     
     enum Games{
-        BLACKJACK, ROULETTE, BACCARAT
+        BLACKJACK, ROULETTE_BASE, ROULETTE_EUROPEAN, ROULETTE_AMERICAN, BACCARAT
     }
     
     void confirmBet();

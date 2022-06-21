@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.Map;
 //import java.awt.Toolkit;
 import java.util.Random;
-
+import view.menu.games.Game.Games;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -37,7 +37,7 @@ import roulette.numbers.RouletteNumbers;
 import utility.Pair;
 import view.ImageLoader;
 import view.MyGridBagConstraints;
-import view.menu.GeneralGui2;
+import view.menu.GeneralGui;
 import view.menu.games.roulette.RouletteGame.TypeRoulette;
 
 public class Table extends JPanel {
@@ -51,30 +51,31 @@ public class Table extends JPanel {
     private final int width;
     private final int height;
     private final List<RouletteBetButton> buttons;
-    private final GeneralGui2 generalInterface;
-    private final TypeRoulette typeRoulette;
+    private final GeneralGui generalInterface;
+    private final Games game;
+    private final Dimension dimBut;
 //    private final ActionListener al;
     
-    public Table(final GeneralGui2 generalInterface, final TypeRoulette typeRoulette) {
+    public Table(final GeneralGui generalInterface, final Games game, final Dimension dimBut) {
         
         width = this.getPreferredSize().width;
         height = this.getPreferredSize().height;
         this.setLayout(new GridBagLayout());
-        
+        this.dimBut = dimBut;
         this.generalInterface = generalInterface;
-        this.typeRoulette = typeRoulette;
+        this.game = game;
         this.buttons = new LinkedList<>();
         
         this.x = 1;
         this.y = 0;
-        switch (typeRoulette) {
-            case BASE_ROULETTE: 
+        switch (game) {
+            case ROULETTE_BASE: 
                 this.img = ImageLoader.getImage("res/img/backgrounds/BaseRouletteTable.png");
                 break;
-            case AMERICAN_ROULETTE: 
+            case ROULETTE_AMERICAN: 
                 this.img = ImageLoader.getImage("res/img/backgrounds/AmericanRouletteTable.png");
                 break;
-            case EUROPEAN_ROULETTE: 
+            case ROULETTE_EUROPEAN: 
                 this.img = ImageLoader.getImage("res/img/backgrounds/EuropeanRouletteTable.png");
                 this.addSectors();
                 break;
@@ -103,22 +104,22 @@ public class Table extends JPanel {
     private void addSectors() {
         d = new Dimension(this.width / 14 * 3, this.height / 6);
         gbc = new MyGridBagConstraints(x, y, 3, 1);
-        b = new RouletteBetButton(Sector.TIER);
+        b = new RouletteBetButton(this.dimBut, Sector.TIER);
         b.setPreferredSize(d);
         buttons.add(b);
         this.add(b, gbc);
         gbc.gridx += 3;
-        b = new RouletteBetButton(Sector.ORPHELINS);
+        b = new RouletteBetButton(this.dimBut, Sector.ORPHELINS);
         b.setPreferredSize(d);
         buttons.add(b);
         this.add(b, gbc);
         gbc.gridx += 3;
-        b = new RouletteBetButton(Sector.VOISINS);
+        b = new RouletteBetButton(this.dimBut, Sector.VOISINS);
         b.setPreferredSize(d);
         buttons.add(b);
         this.add(b, gbc);
         gbc.gridx += 3;
-        b = new RouletteBetButton(Sector.ZERO);
+        b = new RouletteBetButton(this.dimBut, Sector.ZERO);
         b.setPreferredSize(d);
         buttons.add(b);
         this.add(b, gbc);
@@ -129,17 +130,17 @@ public class Table extends JPanel {
         gbc = new MyGridBagConstraints(x, y);
         
         final List<RouletteNumber> list;
-        if (this.typeRoulette == TypeRoulette.AMERICAN_ROULETTE) {
+        if (this.game == Games.ROULETTE_AMERICAN) {
             list = new AmericanRouletteNumbers().getList();
         } else {
             list = new BaseRouletteNumbers().getList();
         }
         for (final RouletteNumber n : list) {
             final Integer value = n.getValue();
-            b = new RouletteBetButton(value);
+            b = new RouletteBetButton(this.dimBut, value);
             b.setForeground(n.getColor());
             buttons.add(b);
-            if (value == 0 && typeRoulette == TypeRoulette.AMERICAN_ROULETTE) {
+            if (value == 0 && game == Games.ROULETTE_AMERICAN) {
                 b.setPreferredSize(new Dimension(width / 14, height / 6));
                 this.add(b, new MyGridBagConstraints(0, 1, 1, 1));
             } else if (value == AmericanRouletteNumbers._00_) {
@@ -173,7 +174,7 @@ public class Table extends JPanel {
                     break;
                 default: row = Row.THIRD;
             }
-            b = new RouletteBetButton(row);
+            b = new RouletteBetButton(this.dimBut, row);
             b.setPreferredSize(new Dimension(width / 14, height / 6));
             buttons.add(b);
             this.add(b, gbc);
@@ -186,17 +187,17 @@ public class Table extends JPanel {
         y += 4;
         gbc = new MyGridBagConstraints(x, y, 4, 1);
         d = new Dimension(width / 14 * 4, height / 6);
-        b = new RouletteBetButton(Column.FIRST);
+        b = new RouletteBetButton(this.dimBut, Column.FIRST);
         b.setPreferredSize(d);
         buttons.add(b);
         this.add(b, gbc);
         gbc.gridx += 4;
-        b = new RouletteBetButton(Column.SECOND);
+        b = new RouletteBetButton(this.dimBut, Column.SECOND);
         b.setPreferredSize(d);
         buttons.add(b);
         this.add(b, gbc);
         gbc.gridx += 4;
-        b = new RouletteBetButton(Column.THIRD);
+        b = new RouletteBetButton(this.dimBut, Column.THIRD);
         b.setPreferredSize(d);
         buttons.add(b);
         this.add(b, gbc);
@@ -207,12 +208,12 @@ public class Table extends JPanel {
         y += 1;
         gbc = new MyGridBagConstraints(x, y, 2, 1);
         d = new Dimension(width / 7, height / 6);
-        b = new RouletteBetButton(Included._1_18_);
+        b = new RouletteBetButton(this.dimBut, Included._1_18_);
         b.setPreferredSize(d);
         buttons.add(b);
         this.add(b, gbc);
         gbc.gridx += 10;
-        b = new RouletteBetButton(Included._19_36_);
+        b = new RouletteBetButton(this.dimBut, Included._19_36_);
         b.setPreferredSize(d);
         buttons.add(b);
         this.add(b, gbc);
@@ -221,12 +222,12 @@ public class Table extends JPanel {
     private void addParity() {
         x += 2;
         gbc.gridx = x;
-        b = new RouletteBetButton(Parity.EVEN);
+        b = new RouletteBetButton(this.dimBut, Parity.EVEN);
         b.setPreferredSize(d);
         buttons.add(b);
         this.add(b, gbc);
         gbc.gridx += 6;
-        b = new RouletteBetButton(Parity.ODD);
+        b = new RouletteBetButton(this.dimBut, Parity.ODD);
         b.setPreferredSize(d);
         buttons.add(b);
         this.add(b, gbc);
@@ -235,12 +236,12 @@ public class Table extends JPanel {
     private void addColors() {
         x += 2;
         gbc.gridx = x;
-        b = new RouletteBetButton(Color.RED);
+        b = new RouletteBetButton(this.dimBut, Color.RED);
         b.setPreferredSize(d);
         buttons.add(b);
         this.add(b, gbc);
         gbc.gridx += 2;
-        final RouletteBetButton ba = new RouletteBetButton(Color.BLACK);
+        final RouletteBetButton ba = new RouletteBetButton(this.dimBut, Color.BLACK);
         ba.setPreferredSize(d);
         buttons.add(ba);
         this.add(ba, gbc);

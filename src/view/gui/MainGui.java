@@ -22,7 +22,6 @@ import view.menu.games.GameImpl;
 import view.menu.games.roulette.RouletteGame;
 import view.menu.games.roulette.RouletteGame.TypeRoulette;
 import view.menu.GeneralGui;
-import view.menu.GeneralGui2;
 
 //forse meglio usare un unico metodo setMenu(Menu menu, AccountManager account);
 //da settare this.frame.setResizable(false) appena aggiunto torna indietro nei giochi
@@ -39,8 +38,8 @@ public class MainGui implements MenuManager {
         this.frame = new JFrame();
         final Resizer r = new Resizer();
         //final Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        this.widthMenu =  (r.resize(1.1f)).width;
-        this.heightMenu = (r.resize(1.1f)).height;
+        this.widthMenu =  (r.resize(1.5f)).width;
+        this.heightMenu = (r.resize(1.5f)).height;
         
         System.out.println(this.widthMenu);
         System.out.println(this.heightMenu);
@@ -81,9 +80,9 @@ public class MainGui implements MenuManager {
 
     //CAMBIARE DA ACCOUNT MANAGER A BALANCE MANAGER (SEMPRE ADVANCED)
     @Override
-    public void setRouletteMenu(final AccountManager account, final TypeRoulette typeRoulette) {
+    public void setRouletteMenu(final AccountManager account, final Games game) {
         this.frame.setResizable(true);
-        this.updateMenu(new GeneralGui2(this, account, GeneralGui2.Game.ROULETTE, typeRoulette));
+        this.updateMenu(new GeneralGui(this, account, game));
         //this.updateMenu(new GameImpl(this, account, new RouletteGame(this.getSizeMenu())));
         //this.updateMenu(new GameMenu(this, account));
     }

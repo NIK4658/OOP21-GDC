@@ -52,7 +52,6 @@ public class BetButton extends JButton{
         final String stringValue = this.value * 100 % 100 == 0 
                 ? String.valueOf((int) this.value) : String.valueOf(this.value);
         final JLabel punt = new JLabel(stringValue, SwingConstants.CENTER);
-        //punt.setPreferredSize(new Dimension(dim.width/10,dim.height/10));
         punt.setFont(new Font("Arial", Font.BOLD, dim.width / 100));
         punt.setForeground(Color.WHITE);
         jp.setOpaque(false);
