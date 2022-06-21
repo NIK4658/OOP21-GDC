@@ -62,8 +62,6 @@ public class BlackJackGui extends JPanel implements Game {
         this.width = frame.getWidthMenu();
         this.height = frame.getHeightMenu();
         
-        new GuideGui(frame.getSizeMenu(), Games.BLACKJACK);
-        
         System.out.println(width);
 
         this.draw = new JButton(); 
