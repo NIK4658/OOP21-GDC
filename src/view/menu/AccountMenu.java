@@ -54,6 +54,7 @@ public class AccountMenu implements Menu {
         this.panel = new JPanel(new BorderLayout());
         this.panel.setPreferredSize(this.frame.getSizeMenu());
         this.buttonBack = new JButton("BACK");
+        this.buttonBack.setFont(new Font("Arial", Font.PLAIN, minSize / SCALE_BUTTON));
         this.alBackMenu = this.getActionListenerBackMenu();
         this.buttonBack.addActionListener(alBackMenu);
         this.panel.add(buttonBack, BorderLayout.SOUTH);
@@ -85,19 +86,19 @@ public class AccountMenu implements Menu {
         }
 
         buttonBalance.addActionListener(e -> {
-            this.updatePanel(new BalancePanel(this.account, dimension));
+            this.updatePanel(new BalancePanel(this.account, minSize));
         });
 
         buttonUsername.addActionListener(e -> {
-            this.updatePanel(new UsernamePanel(this.frame.getFrame(), this.account));
+            this.updatePanel(new UsernamePanel(this.frame.getFrame(), this.account, minSize));
         });        
 
         buttonPassword.addActionListener(e -> {
-            this.updatePanel(new PasswordPanel(this.frame.getFrame(), this.account));
+            this.updatePanel(new PasswordPanel(this.frame.getFrame(), this.account, minSize));
         });
         
         buttonAccount.addActionListener(e -> {
-            if (new ConfirmPassword(frame.getFrame(), account, " to delete Account").isPasswordConfirmed()) {
+            if (new ConfirmPassword(frame.getFrame(), account, " to delete Account", minSize).isPasswordConfirmed()) {
                 this.account.deleteAcc(this.account.getUsr());
                 this.frame.setAccessMenu();
             }

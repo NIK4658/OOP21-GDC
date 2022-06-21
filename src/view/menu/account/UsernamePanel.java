@@ -3,6 +3,7 @@ package view.menu.account;
 import java.awt.Color;
 import java.awt.Frame;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
@@ -16,9 +17,11 @@ import account.AccountManager;
 //pannello CAMBIO USERNAME, sistemare ripetizioni
 public class UsernamePanel extends JPanel {
     
+    private static final int SCALE_COMPONENT = 30;
     private final AccountManager account;
     
-    public UsernamePanel(final Frame frame, final AccountManager account) {
+    
+    public UsernamePanel(final Frame frame, final AccountManager account, final int minSize) {
         this.account = account;
         this.setLayout(new GridBagLayout());
         this.setBackground(new Color(68, 87, 96));
@@ -32,7 +35,7 @@ public class UsernamePanel extends JPanel {
         
         final JButton buttonUsername = new JButton("Change");
         buttonUsername.addActionListener(e -> {//aggiungere username non valido/già presente
-            if (new ConfirmPassword(frame, account, " to change Username").isPasswordConfirmed()) {
+            if (new ConfirmPassword(frame, account, " to change Username", minSize).isPasswordConfirmed()) {
                 if (this.setUsername(fieldNewUsername.getText())) {
                     fieldUsername.setText(this.getUsername());
                     fieldNewUsername.setText("");
@@ -42,6 +45,20 @@ public class UsernamePanel extends JPanel {
                 }
             }
         });
+        
+        
+        
+        labelUsername.setFont(new Font("Arial", Font.PLAIN, minSize / SCALE_COMPONENT));
+        labelNewUsername.setFont(new Font("Arial", Font.PLAIN, minSize / SCALE_COMPONENT));
+        fieldUsername.setFont(new Font("Arial", Font.PLAIN, minSize / SCALE_COMPONENT));
+        fieldNewUsername.setFont(new Font("Arial", Font.PLAIN, minSize / SCALE_COMPONENT));
+        labelAlert.setFont(new Font("Arial", Font.PLAIN, minSize / SCALE_COMPONENT));
+        buttonUsername.setFont(new Font("Arial", Font.PLAIN, minSize / SCALE_COMPONENT));
+       
+        
+        
+        
+        
         
         final var c = new GridBagConstraints();
         this.add(labelUsername);
