@@ -51,10 +51,15 @@ public class BlackJackLogicImpl implements BlackJackLogic {
     }
 
     @Override
-    public void askDouble() {
-        this.bet *= 2;
-        askCard();
-        stand();
+    public boolean askDouble() {
+        if (account.withdraw(bet)) {
+            this.bet *= 2;
+            askCard();
+            stand();
+            return true;
+        } else {
+            return false;
+        }
     }
 
 
