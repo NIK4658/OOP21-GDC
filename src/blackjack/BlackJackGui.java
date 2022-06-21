@@ -101,7 +101,7 @@ public class BlackJackGui extends JPanel implements Game {
                 stand.doClick();
             }
         });
-
+        
         stand.addActionListener(e -> {
             gameLogic.stand();
             setCards(DIRECTION_DEALER);
@@ -204,7 +204,7 @@ public class BlackJackGui extends JPanel implements Game {
         setCards(DIRECTION_DEALER);
         this.dealerPoints.setText(String.valueOf(gameLogic.getDealerHand().getCard(0).getValue()));
         if (gameLogic.checkInsurance()) {
-            final InsuranceWindow ins = new InsuranceWindow(new Dimension(width, height), gameLogic.canInsurance());
+            final InsuranceWindow ins = new InsuranceWindow(new Dimension(this.width, this.height), gameLogic.canInsurance());
             if (!gameLogic.calculateInsurance(ins.isInsurance())) {
                 stand.doClick();
             }
