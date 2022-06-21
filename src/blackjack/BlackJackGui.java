@@ -24,6 +24,7 @@ import view.gui.MenuManager;
 import view.menu.GeneralGui;
 import view.menu.Menu;
 import view.menu.games.Game;
+import view.menu.games.GuideGui;
 
 /**
  * GUI principale Blackjack.
@@ -60,6 +61,8 @@ public class BlackJackGui extends JPanel implements Game {
         gameLogic = new BlackJackLogicImpl(account);
         this.width = frame.getWidthMenu();
         this.height = frame.getHeightMenu();
+        
+        new GuideGui(frame.getSizeMenu(), Games.BLACKJACK);
         
         System.out.println(width);
 
