@@ -56,12 +56,13 @@ public class Table extends JPanel {
     private final Dimension dimBut;
 //    private final ActionListener al;
     
-    public Table(final GeneralGui generalInterface, final Games game, final Dimension dimBut) {
+    public Table(final GeneralGui generalInterface, final Games game) {
         
+        this.dimBut = generalInterface.getMenu().getPreferredSize();
         width = this.getPreferredSize().width;
         height = this.getPreferredSize().height;
         this.setLayout(new GridBagLayout());
-        this.dimBut = dimBut;
+//        this.dimBut = dimBut;
         this.generalInterface = generalInterface;
         this.game = game;
         this.buttons = new LinkedList<>();

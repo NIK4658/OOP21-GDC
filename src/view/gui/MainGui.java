@@ -80,10 +80,7 @@ public class MainGui implements MenuManager {
     //CAMBIARE DA ACCOUNT MANAGER A BALANCE MANAGER (SEMPRE ADVANCED)
     @Override
     public void setRouletteMenu(final AccountManager account, final Games game) {
-        this.frame.setResizable(true);
         this.updateMenu(new GeneralGui(this, account, game));
-        //this.updateMenu(new GameImpl(this, account, new RouletteGame(this.getSizeMenu())));
-        //this.updateMenu(new GameMenu(this, account));
     }
 
     @Override

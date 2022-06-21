@@ -73,6 +73,9 @@ public class GeneralGui extends JPanel implements Menu {
         final JPanel southleft = new JPanel(new GridBagLayout());
         final JPanel southright = new JPanel(new GridBagLayout());
         
+        this.reset = new JButton();
+        this.confirm = new JButton();
+        southleft.setOpaque(false);
         switch (game) {
             case BLACKJACK: 
                 this.g = new BlackJackGui(frame, new AdvancedBalanceManagerImpl(account), this);
@@ -80,15 +83,12 @@ public class GeneralGui extends JPanel implements Menu {
                 north.setOpaque(false);
                 center.setOpaque(false);
                 south.setOpaque(false);
-                southleft.setOpaque(false);
                 southright.setOpaque(false);
                 this.setOpaque(false);
+                showButtons(false);
                 break;
-//            case BACCARAT:
-//                
-//                break;
             default: 
-                this.g = new RouletteGame(frame.getSizeMenu(), this, game);
+                this.g = new RouletteGame(this, game);
                 //da migliorare
                 center = (JPanel) this.g;
                 this.setBackground(new Color(0, 118, 58));
@@ -167,8 +167,7 @@ public class GeneralGui extends JPanel implements Menu {
             }
         }
         
-        this.reset = new JButton();
-        this.confirm = new JButton();
+        
         this.fiches1 = new JButton();
         this.fiches5 = new JButton();
         this.fiches25 = new JButton();
@@ -270,9 +269,9 @@ public class GeneralGui extends JPanel implements Menu {
         final JLabel jl = new JLabel(new ImageIcon(ImageLoader.getImage("res/img/gui/ProvaSfondoLabel4.png")
                 .getScaledInstance((int) (width / 3.5), height / 10, Image.SCALE_SMOOTH)));
         jl.setBounds(width / 60, 0, (int) (width / 3.5), height / 10);
-        
-        southtotal.add(southleft, 0);
         southtotal.add(jl, 1);
+        southtotal.add(southleft, 0);
+        
 
         //adding the panel to the Container 
         add(north, BorderLayout.NORTH);
@@ -282,10 +281,9 @@ public class GeneralGui extends JPanel implements Menu {
         add(south, BorderLayout.SOUTH);
 
         setBalanceValue();
-        showButtons(false);
+        this.setMinimumSize(this.getPreferredSize());
         setVisible(true);
          
-        
     }
         
     public final JButton getResetButton() {

@@ -35,9 +35,9 @@ public class RouletteGame extends JPanel implements Game {
     private final ManageRoulette win;
     private final GeneralGui generalInterface;
     
-    public RouletteGame(final Dimension dimension, final GeneralGui generalInterface, final Games game) {
+    public RouletteGame(final GeneralGui generalInterface, final Games game) {
         this.setLayout(new BorderLayout());
-        
+        Dimension dimension = generalInterface.getMenu().getPreferredSize();
         this.generalInterface = generalInterface;
         this.win = new ManageRoulette();
         
@@ -55,11 +55,10 @@ public class RouletteGame extends JPanel implements Game {
                 this.roulette = null;
         }
         
-        this.table = new Table(generalInterface, game, dimension);
+        this.table = new Table(generalInterface, game);
         this.winningNumbers = new DisplayWinningNumbers(new Dimension(dimension.width, dimension.height / 10));
         this.add(this.winningNumbers, BorderLayout.NORTH);
         this.add(table);
-
     }
 
     @Override
