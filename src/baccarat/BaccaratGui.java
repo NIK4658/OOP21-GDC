@@ -46,7 +46,7 @@ public class BaccaratGui extends JPanel implements Game {
     private final JLabel dealerPoints;
     private final JLayeredPane center;
     private final JLayeredPane north;
-    private final Image img = ImageLoader.getImage("res/img/backgrounds/blackjacktableHDwithbet.png");
+    private final Image img = ImageLoader.getImage("res/img/backgrounds/tavolo.jpg");
     private List<JLabel> dealerCards;
     private List<JLabel> playerCards;
     private final BaccaratLogic gameLogic;
@@ -95,7 +95,9 @@ public class BaccaratGui extends JPanel implements Game {
         this.center = new JLayeredPane();
         playerCards = new LinkedList<>(); //lista di JLabel, ciascuna sarà una carta del giocatore
         this.bet = new BetButton(frame.getSizeMenu());
+        JLabel bet1 = new JLabel("BET");
         bet.setBounds((int) (width / 3.41), width / 8, width / 18, width / 18);
+        center.add(bet1,0);
         center.add(bet, 0);
         center.add(playerPoints, 0);
         //aggiunto il pannello con tutte le carte del player al pannello generale
@@ -116,15 +118,17 @@ public class BaccaratGui extends JPanel implements Game {
             gameLogic.stand();
             setCards(dealerCards, gameLogic.getDealerHand(), north, DIRECTION_DEALER);
             dealerPoints.setText(String.valueOf(gameLogic.getDealerPoints()));
-            if (gameLogic.checkWin() == 1) {
-                if (gameLogic.checkBlackjack(gameLogic.getPlayerHand())) {
-                    generalInterface.showWinMessage(true, bet.getBet() + ((bet.getBet() * 3) / 2));
-                    generalInterface.setWinValue(bet.getBet() + ((bet.getBet() * 3) / 2));
-                } else {
-                    generalInterface.showWinMessage(true, bet.getBet() * 2);
+            setCards(playerCards, gameLogic.getPlayerHand(), center, DIRECTION_PLAYER);
+            playerPoints.setText(String.valueOf(gameLogic.getPlayerPoints()));
+            if (gameLogic.checkWin() == 1) {    	
+                generalInterface.showWinMessage(true, bet.getBet() + ((bet.getBet() * 3) / 2));
+                generalInterface.setWinValue(bet.getBet() + ((bet.getBet() * 3) / 2));
+            } else if(gameLogic.checkWin() == 0){
+                 generalInterface.showWinMessage(true, bet.getBet() * 2);
                     generalInterface.setWinValue(bet.getBet() * 2);
                 }
-            }
+            //no win
+            
             
             //disattiva i pulsanti
             //draw.setVisible(false);
@@ -190,16 +194,16 @@ public class BaccaratGui extends JPanel implements Game {
         
         //Bottoni Gioco (codice ripetuto)
      
-        //draw.setName("draw");
+        
         stand.setName("stand");
-        //doublebet.setName("Double");
+        
         restart.setName("restart");
         
         final List<JButton> buttonList = new ArrayList<>();
         buttonList.add(restart); 
-        //buttonList.add(draw);
+        
         buttonList.add(stand);
-        //buttonList.add(doublebet);
+        
         
         int i = 0;
         for (final JButton jb : buttonList) { 
@@ -263,10 +267,10 @@ public class BaccaratGui extends JPanel implements Game {
             this.playerPoints.setText(String.valueOf(gameLogic.getPlayerPoints()));
 
            
-            gameLogic.checkInsurance();
+            
 
             
-            if (gameLogic.checkBlackjack(gameLogic.getPlayerHand())) {
+            if (gameLogic.checkBaccarat(gameLogic.getPlayerHand())) {
                 stand.doClick();
             }
         }
