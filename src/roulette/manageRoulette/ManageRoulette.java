@@ -65,47 +65,7 @@ public class ManageRoulette {
                             break;
                     }
                 } 
-            } else {
-                win -= amount;
             }
-            
-            
-            
-            
-            
-//          final Class<? extends Object> classProperty = property.getClass();
-//            if (property == winningNumber.getProperty(classProperty)
-//                    || (property == Sector.VOISINS && winningNumber.getSector() == Sector.ZERO)) {
-//                if (classProperty == Integer.class) {
-//                    win += amount * NUMBER_PAYOUT;
-//                } else if (classProperty == Color.class || classProperty == Parity.class
-//                        || classProperty == Included.class) {
-//                    win += amount * COLOR_PAYOUT;
-//                } else if (classProperty == Row.class || classProperty == Column.class) {
-//                    win += amount * ROW_PAYOUT;
-//                } else if (classProperty == Sector.class) {
-//                    switch ((Sector) property) {
-//                        case ZERO:
-//                            win += amount * ZERO_PAYOUT;
-//                            break;
-//                        case VOISINS:
-//                            win += amount * VOISINS_PAYOUT;
-//                            break;
-//                        case TIER:
-//                            win += amount * TIER_PAYOUT;
-//                            break;
-//                        case ORPHELINS:
-//                            win += amount * ORPHELINS_PAYOUT;
-//                            break;
-//                        default:
-//                            break;
-//                    }
-//                }
-//            } else {
-//                win -= amount;
-//            }  
-            
-            
         }
         win = Math.round(win * 100.0) / 100.0;
         return win;

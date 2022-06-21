@@ -21,6 +21,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import account.BalanceManager;
 import blackjack.BetButton;
 import roulette.number.BaseRouletteNumber;
 import roulette.number.BaseRouletteNumber.Column;
@@ -54,15 +55,15 @@ public class Table extends JPanel {
     private final GeneralGui generalInterface;
     private final Games game;
     private final Dimension dimBut;
+    private final BalanceManager account;
 //    private final ActionListener al;
     
-    public Table(final GeneralGui generalInterface, final Games game) {
-        
+    public Table(final GeneralGui generalInterface, final Games game, final BalanceManager account) {
+        this.account = account;
         this.dimBut = generalInterface.getMenu().getPreferredSize();
         width = this.getPreferredSize().width;
         height = this.getPreferredSize().height;
         this.setLayout(new GridBagLayout());
-//        this.dimBut = dimBut;
         this.generalInterface = generalInterface;
         this.game = game;
         this.buttons = new LinkedList<>();
@@ -93,13 +94,20 @@ public class Table extends JPanel {
         
     }
 
-    public List<Pair<Object, Double>> endBetting() {
+    public List<Pair<Object, Double>> confirmBet() {
         final List<Pair<Object, Double>> bets = new LinkedList<>();
         for (final var b : buttons) {
             bets.add(new Pair<>(b.getProperty(), b.getBet()));
             b.resetBet();
         }
         return bets;
+    }
+    
+    public void resetBet() {
+        buttons.forEach(b -> {
+            b.resetBet();
+        });
+        generalInterface.updateBalanceValue();
     }
     
     private void addSectors() {
@@ -252,8 +260,10 @@ public class Table extends JPanel {
         for (final var button : buttons) {
             button.addActionListener(e -> {
                 final double fichesValue = this.generalInterface.getFichesValue();
-                button.incrementBet(fichesValue);
-                //settare bet in GeneralGui2
+                if (this.generalInterface.addBetValue(fichesValue)) {
+                    button.incrementBet(fichesValue);
+                    this.generalInterface.updateBalanceValue();
+                }
             });
         }
     }
@@ -264,6 +274,8 @@ public class Table extends JPanel {
         super.paintComponent(g);
         g.drawImage(this.img, 0, 0, getWidth(), getHeight(), null);
     }
+
+
     
 }
 //APPUNTI//

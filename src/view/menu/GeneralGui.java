@@ -38,6 +38,7 @@ public class GeneralGui extends JPanel implements Menu {
 
     
     private final AccountManager account;
+    private double bet;
     private int fichesvalue = 1;
     private final Game g;
     private final JButton reset;
@@ -86,7 +87,7 @@ public class GeneralGui extends JPanel implements Menu {
             case BACCARAT: this.g = new BaccaratGui(frame, new AdvancedBalanceManagerImpl(account), this);
                 break;
             default: 
-                this.g = new RouletteGame(this, game);
+                this.g = new RouletteGame(this, new AdvancedBalanceManagerImpl(account), game);
                 center = (JPanel) this.g;
                 this.setOpaque(true);
                 this.setBackground(new Color(0, 118, 58));
@@ -222,7 +223,11 @@ public class GeneralGui extends JPanel implements Menu {
         }
         
         
-        this.reset.addActionListener(e -> this.g.resetBet());
+        this.reset.addActionListener(e -> {
+            this.g.resetBet();
+            this.bet = 0;
+            this.setBetValue(this.bet);
+        });
         this.confirm.addActionListener(e -> this.g.confirmBet());
         
         //Adding Listener to set fiches value
@@ -274,7 +279,7 @@ public class GeneralGui extends JPanel implements Menu {
         south.add(southright, BorderLayout.EAST);
         add(south, BorderLayout.SOUTH);
 
-        setBalanceValue();
+        updateBalanceValue();
         this.setMinimumSize(this.getPreferredSize());
         setVisible(true);
          
@@ -291,7 +296,17 @@ public class GeneralGui extends JPanel implements Menu {
     public final int getFichesValue() {
         return this.fichesvalue;
     }
+    
+    public boolean addBetValue(final double value) {
+        if (new AdvancedBalanceManagerImpl(this.account).withdraw(value)) {
+            this.bet += value;
+            setBetValue(this.bet);
+            return true;
+        }
+        return false;
         
+    }
+    
     public void setBetValue(final double value) {
         betValue.setText((value * 100 % 100 == 0 
                 ? String.valueOf((int) value) : String.valueOf(value)) + "€");
@@ -334,16 +349,19 @@ public class GeneralGui extends JPanel implements Menu {
                 ? String.valueOf((int) value) : String.valueOf(value)) + "€");
     }
         
-    public void setBalanceValue() {
+    public void updateBalanceValue() {
         final double value = new AdvancedBalanceManagerImpl(this.account).getBalance();
         balanceValue.setText((value * 100 % 100 == 0 
                 ? String.valueOf((int) value) : String.valueOf(value)) + "€");
     }
     
+
+    
     public void setActionListener(final Game game) {
         
     }
     
+    //DEPRECATO, da togliere il boolean, il check lo fa l'interfaccia generale
     public void showWinMessage(final boolean val, final double value) {
         //win2.setVisible(val);
         if (val) {
@@ -353,7 +371,20 @@ public class GeneralGui extends JPanel implements Menu {
         }
     }
     
-    public void setWinMessage(final double value) {
+    public void showWinMessage(final double value) {//cambiare nome metodo con setWin
+        if (value > 0) {
+            setWinMessage(value);
+            new AdvancedBalanceManagerImpl(this.account).deposit(value);
+            this.updateBalanceValue();
+        } else {
+            winmessage.setText("");
+        }
+        setWinValue(value);
+        this.bet = 0;
+        this.setBetValue(this.bet);
+    }
+    
+    private void setWinMessage(final double value) {
         winmessage.setText("YOU WON " + (value * 100 % 100 == 0 
                 ? String.valueOf((int) value) : String.valueOf(value)) + "€!");
     }

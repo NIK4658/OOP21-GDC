@@ -6,6 +6,8 @@ import java.awt.Dimension;
 import java.util.List;
 
 import javax.swing.JPanel;
+
+import account.BalanceManager;
 import ex.ExTable;
 import roulette.AmericanRoulette;
 import roulette.BaseRoulette;
@@ -35,7 +37,7 @@ public class RouletteGame extends JPanel implements Game {
     private final ManageRoulette win;
     private final GeneralGui generalInterface;
     
-    public RouletteGame(final GeneralGui generalInterface, final Games game) {
+    public RouletteGame(final GeneralGui generalInterface, final BalanceManager account, final Games game) {
         this.setLayout(new BorderLayout());
         Dimension dimension = generalInterface.getMenu().getPreferredSize();
         this.generalInterface = generalInterface;
@@ -55,7 +57,7 @@ public class RouletteGame extends JPanel implements Game {
                 this.roulette = null;
         }
         
-        this.table = new Table(generalInterface, game);
+        this.table = new Table(generalInterface, game, account);
         this.winningNumbers = new DisplayWinningNumbers(new Dimension(dimension.width, dimension.height / 10));
         this.add(this.winningNumbers, BorderLayout.NORTH);
         this.add(table);
@@ -64,9 +66,9 @@ public class RouletteGame extends JPanel implements Game {
     @Override
     public void confirmBet() {
         final RouletteNumber rouletteNumber = roulette.spin();
-        final List<Pair<Object, Double>> bets = table.endBetting();
+        final List<Pair<Object, Double>> bets = table.confirmBet();
         winningNumbers.update(rouletteNumber);
-        generalInterface.setWinMessage(this.win.calculateWin(bets, rouletteNumber));
+        generalInterface.showWinMessage(this.win.calculateWin(bets, rouletteNumber));
     }
 
     @Override
@@ -76,8 +78,7 @@ public class RouletteGame extends JPanel implements Game {
 
     @Override
     public void resetBet() {
-        // TODO Auto-generated method stub
-        
+        table.resetBet();
     }
 
 }

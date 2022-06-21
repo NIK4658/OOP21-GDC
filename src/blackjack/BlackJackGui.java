@@ -161,7 +161,7 @@ public class BlackJackGui extends JPanel implements Game {
 
         restart.addActionListener(e -> {  
             generalInterface.setBetValue(0);
-            generalInterface.setBalanceValue();
+            generalInterface.updateBalanceValue();
             //g.setWinValue();
             
             bet.setEnabled(true);
@@ -262,7 +262,7 @@ public class BlackJackGui extends JPanel implements Game {
             
             this.generalInterface.showButtons(false);
             this.generalInterface.setBetValue(this.bet.getBet());
-            this.generalInterface.setBalanceValue();
+            this.generalInterface.updateBalanceValue();
 
             this.draw.setVisible(true);
             this.stand.setVisible(true);
