@@ -162,7 +162,6 @@ public class BlackJackGui extends JPanel implements Game {
         restart.addActionListener(e -> {  
             generalInterface.setBetValue(0);
             generalInterface.updateBalanceValue();
-            //g.setWinValue();
             
             bet.setEnabled(true);
             bet.resetBet();
@@ -245,6 +244,7 @@ public class BlackJackGui extends JPanel implements Game {
             visualCard.setBounds((int) (width / 2.23) + (i * (int) (width / 51.2)), (int) (width / 14.2) + ((i * (int) (width / 85.3)) * direction), (int) (width / 8.5), (int) (width / 8.5));
             visualCard.setIcon(new ImageIcon(h.getCard(i).getImg().getScaledInstance((int) (width / 12.8), (int) (width / 8.5), Image.SCALE_SMOOTH)));
             pane.add(visualCard, 0);
+            pane.validate();
         }
     }
     
@@ -263,6 +263,7 @@ public class BlackJackGui extends JPanel implements Game {
             this.generalInterface.showButtons(false);
             this.generalInterface.setBetValue(this.bet.getBet());
             this.generalInterface.updateBalanceValue();
+            this.generalInterface.setWinValue(0);
 
             this.draw.setVisible(true);
             this.stand.setVisible(true);
@@ -278,9 +279,15 @@ public class BlackJackGui extends JPanel implements Game {
             this.playerPoints.setText(String.valueOf(gameLogic.getPlayerPoints()));
 
            
-            gameLogic.checkInsurance();
-
+            if (gameLogic.checkInsurance()) {
+                final InsuranceWindow ins = new InsuranceWindow(new Dimension(width, height), gameLogic.canInsurance());
+                if (!gameLogic.calculateInsurance(ins.getInsurance())) {
+                    stand.doClick();
+                }
+                this.generalInterface.updateBalanceValue();
+            }
             
+
             if (gameLogic.checkBlackjack(gameLogic.getPlayerHand())) {
                 stand.doClick();
             }
