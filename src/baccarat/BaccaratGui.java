@@ -1,6 +1,7 @@
 package baccarat;
 
 import java.awt.BorderLayout;
+import blackjack.BetButton;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -14,267 +15,221 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
-import javax.swing.SwingConstants;
-
 import java.awt.Insets;
 import account.BalanceManager;
+import view.ImageLoader;
 import view.MyGridBagConstraints;
 import java.awt.Image;
 import java.awt.GridBagLayout;
 import view.gui.MenuManager;
+import view.menu.GeneralGui;
 import view.menu.Menu;
+import view.menu.games.Game;
 
 /**
  * GUI principale Blackjack.
  */
-public class BaccaratGui extends JPanel implements Menu {
-
+public class BaccaratGui extends JPanel implements Game {
+    
     private static final long serialVersionUID = 1L;
-    
-    private int puntata;
-    private int chipvalue = 1;
-    private final Image img = new ImageIcon("res/img/backgrounds/tavolo.jpg").getImage();
-    
-    private List<JLabel> dcards;
-    private List<JLabel> pcards;
-    private final Game game;
+    private static final int DIRECTION_PLAYER = -1;
+    private static final int DIRECTION_DEALER = 1;
+    private final GeneralGui generalInterface;
+    private final int width;
+    private final int height;
+    private final BetButton bet;
+    //private final JButton draw;
+    private final JButton stand;
+    //private final JButton Double;
+    private final JButton restart; 
+    private final JLabel playerPoints;
+    private final JLabel dealerPoints;
+    private final JLayeredPane center;
+    private final JLayeredPane north;
+    private final Image img = ImageLoader.getImage("res/img/backgrounds/blackjacktableHDwithbet.png");
+    private List<JLabel> dealerCards;
+    private List<JLabel> playerCards;
+    private final BaccaratLogic gameLogic;
     
     /**
      * Costruttore.
      */
-    public BaccaratGui(final MenuManager frame, final BalanceManager account) {
+    public BaccaratGui(final MenuManager frame, final BalanceManager account, final GeneralGui generalInterface) {
+        this.generalInterface = generalInterface;
         this.setLayout(new BorderLayout());
-        game = new GameImpl(account);
-        
         this.setPreferredSize(frame.getSizeMenu());
+		
+        gameLogic = new BaccaratLogicImpl(account);
+        this.width = frame.getWidthMenu();
+        this.height = frame.getHeightMenu();
         
-        //Area Pulsanti in fondo SUD
-        final JPanel buttonsArea = new JPanel(new GridBagLayout());
-        buttonsArea.setPreferredSize(new Dimension(150, 150));
-        buttonsArea.setOpaque(false);
+        System.out.println(width);
 
-        //codice ripetuto
-        final JButton draw = new JButton(); 
-        final JButton stand = new JButton();
-        final JButton Double = new JButton();
-        final JButton reset = new JButton();      
-        
-        final List<String> s = new ArrayList<>();
-        s.add("restart");
-        s.add("plus");
-        s.add("stay");
-        s.add("double");
-        
-        final List<JButton> l = new ArrayList<>();
-        l.add(reset); 
-        l.add(draw);
-        l.add(stand);
-        l.add(Double);
-        
-        int i = 0;
-        for (final JButton jb : l) { 
-            jb.setPreferredSize(new Dimension(110, 100));
-            jb.setVisible(false);
-            jb.setOpaque(false);
-            jb.setIcon(new ImageIcon((new ImageIcon("res/img/buttons/" + s.get(i) + ".png").getImage())
-                    .getScaledInstance(100, 100, Image.SCALE_SMOOTH)));
-            jb.setContentAreaFilled(false);
-            jb.setBorderPainted(false);
-            jb.setFocusPainted(false);
-            buttonsArea.add(jb, new MyGridBagConstraints(i, 0, new Insets(0, 0, 0, 0), GridBagConstraints.NONE));
-            i++;
-        }
+        //this.draw = new JButton(); 
+        this.stand = new JButton();
+        //this.Double = new JButton();
+        this.restart = new JButton();  
         //aggiungo il jpanel dei pulsanti al jpanel generale
-        add(buttonsArea, BorderLayout.SOUTH);
-
+        //add(generateSouth(draw, stand, Double, restart), BorderLayout.SOUTH);
+        add(generateSouth(stand, restart), BorderLayout.SOUTH);
         
         
+        this.playerPoints = new JLabel();
+        this.dealerPoints = new JLabel();
+        final List<JLabel> visualPoints = new ArrayList<>();
+        visualPoints.add(playerPoints);
+        visualPoints.add(dealerPoints);
+        final Image img = ((ImageLoader.getImage("res/img/buttons/points.png"))
+                .getScaledInstance(width / 25, width / 25, Image.SCALE_SMOOTH));
         
+        for (final JLabel points : visualPoints) {
+            points.setForeground(Color.WHITE);
+            points.setBounds((int) (width / 2.5), width / 25, width / 8, width / 8);
+            points.setFont(new Font("Arial", Font.BOLD | Font.ITALIC, width / 64));
+            points.setIcon(new ImageIcon(img));
+            points.setHorizontalTextPosition(JLabel.CENTER);
+            points.setVisible(false);
+        }
         
         //JPanel a layer che mostra le carte del giocatore CENTER
-        final JLayeredPane playerCardsPanel = new JLayeredPane();
-        pcards = new LinkedList<>(); //lista di JLabel, ciascuna sarà una carta del giocatore
-        
-        //Punteggio player
-        final JLabel playerpoints = new JLabel();
-        playerpoints.setForeground(Color.WHITE);
-        playerpoints.setBounds(510, 20, 150, 150);
-        playerpoints.setFont(new Font("Arial", Font.BOLD | Font.ITALIC, 20));
-        
-        final JButton cancel = new JButton();
-        final BetButton bet = new BetButton();
-        final JButton conferma = new JButton();
-        
-        cancel.setBounds(310, 110, 50, 50);
-        bet.setBounds(370, 130, 70, 70);
-        conferma.setBounds(310, 165, 50, 50);
-        
-        cancel.setIcon(new ImageIcon((new ImageIcon("res/img/buttons/cancel.png").getImage())
-                .getScaledInstance(50, 50, Image.SCALE_SMOOTH)));
-        conferma.setIcon(new ImageIcon((new ImageIcon("res/img/buttons/confirm.png").getImage())
-                .getScaledInstance(50, 50, Image.SCALE_SMOOTH)));
-
-        l.removeAll(l);
-        l.add(bet);
-        l.add(cancel);
-        l.add(conferma);
-        
-        for (final JButton jb : l) { 
-            jb.setVisible(false);
-            jb.setOpaque(false);
-            jb.setContentAreaFilled(false);
-            jb.setBorderPainted(false);
-            jb.setFocusPainted(false);
-        }
-        
-        bet.setVisible(true);
-                
-        playerCardsPanel.add(conferma, 0);
-        playerCardsPanel.add(cancel, 0);
-        playerCardsPanel.add(bet, 0);
-        playerCardsPanel.add(playerpoints, 0);
+        this.center = new JLayeredPane();
+        playerCards = new LinkedList<>(); //lista di JLabel, ciascuna sarà una carta del giocatore
+        this.bet = new BetButton(frame.getSizeMenu());
+        bet.setBounds((int) (width / 3.41), width / 8, width / 18, width / 18);
+        center.add(bet, 0);
+        center.add(playerPoints, 0);
         //aggiunto il pannello con tutte le carte del player al pannello generale
-        add(playerCardsPanel, BorderLayout.CENTER);
-        
+        add(center, BorderLayout.CENTER);
         
         //JPanel a layer che mostra le carte del dealer NORTH
-        final JLayeredPane dealerCardsPanel = new JLayeredPane();
-        dealerCardsPanel.setPreferredSize(new Dimension(300, 300));
-        dcards = new LinkedList<>();
-
-        final JLabel dpoints = new JLabel();
-        dpoints.setBounds(510, 25, 150, 150);
-        dpoints.setForeground(Color.WHITE);
-        dpoints.setFont(new Font("Arial", Font.BOLD | Font.ITALIC, 20));
-        
-        dealerCardsPanel.add(dpoints, 0);
+        this.north = new JLayeredPane();
+        dealerCards = new LinkedList<>();
+        north.setPreferredSize(new Dimension((int) (width / 4.3), (int) (width / 4.3)));
+        north.add(dealerPoints, 0);
         //aggiungo le carte del dealer al pannello generale NORTH
-        add(dealerCardsPanel, BorderLayout.NORTH);
+        add(north, BorderLayout.NORTH);
 
-        
-        
-        
-        
-        //da fare refactoring
-        draw.addActionListener(e -> {   
-            Double.setVisible(false);
-            this.game.askCard();
-            setCards(pcards, game.getPlayerHand(), playerCardsPanel, -1); //da mettere costante direction
-            playerpoints.setText(String.valueOf(game.getPlayerPoints()));
-            if (game.getPlayerPoints() >= 21) {
-                stand.doClick();
-            }
-        });
+    
         
         //codice ripetuto
         stand.addActionListener(e -> {
-            game.stand();
-            setCards(dcards, game.getDealerHand(), dealerCardsPanel, 1);
-            dpoints.setText(String.valueOf(game.getDealerPoints()));
+            gameLogic.stand();
+            setCards(dealerCards, gameLogic.getDealerHand(), north, DIRECTION_DEALER);
+            dealerPoints.setText(String.valueOf(gameLogic.getDealerPoints()));
+            if (gameLogic.checkWin() == 1) {
+                if (gameLogic.checkBlackjack(gameLogic.getPlayerHand())) {
+                    generalInterface.showWinMessage(true, bet.getBet() + ((bet.getBet() * 3) / 2));
+                    generalInterface.setWinValue(bet.getBet() + ((bet.getBet() * 3) / 2));
+                } else {
+                    generalInterface.showWinMessage(true, bet.getBet() * 2);
+                    generalInterface.setWinValue(bet.getBet() * 2);
+                }
+            }
             
             //disattiva i pulsanti
-            draw.setVisible(false);
+            //draw.setVisible(false);
             stand.setVisible(false);
-            reset.setVisible(true);
-            Double.setVisible(false);
+           // Double.setVisible(false);
+            restart.setVisible(true);
         });
         
-        Double.addActionListener(e -> {   
-            if (this.puntata * 2 <= account.getBalance()) {
-                this.puntata *= 2;
-                game.askCard();
-                setCards(pcards, game.getPlayerHand(), playerCardsPanel, -1);
-                playerpoints.setText(String.valueOf(game.getPlayerPoints()));
-                stand.doClick();
-            }
-        });
+
         
-      
         
         bet.addActionListener(e -> {  
-            conferma.setVisible(true);
-            cancel.setVisible(true);
-            if ((this.puntata + this.chipvalue) <= account.getBalance()) {
-                bet.incrementBet(this.chipvalue);
+            if ((this.bet.getBet() + generalInterface.getFichesValue()) <= account.getBalance()) {
+                bet.incrementBet(generalInterface.getFichesValue());
+                generalInterface.showButtons(true);
             }
         });
         
         
-        
-        cancel.addActionListener(e -> {  
-            bet.resetBet();
-            conferma.setVisible(false);
-            cancel.setVisible(false);
-        });
-       
-        reset.addActionListener(e -> {  
-            this.puntata = 0;
-           
+
+        restart.addActionListener(e -> {  
+            generalInterface.setBetValue(0);
+            generalInterface.setBalanceValue();
+            //g.setWinValue();
+            
             bet.setEnabled(true);
-            bet.removeAll();
-            bet.setIcon(null);
-            reset.setVisible(false);
-            dpoints.setText("");
-            playerpoints.setText("");
-            dpoints.setIcon(null);
-            playerpoints.setIcon(null);
+            bet.resetBet();
+            restart.setVisible(false);
             
-            for (final JLabel j : pcards) {
-                playerCardsPanel.remove(j);
+            dealerPoints.setVisible(false);
+            playerPoints.setVisible(false);
+            
+            
+            generalInterface.showWinMessage(false, 0);
+            
+            for (final JLabel j : playerCards) {
+                center.remove(j);
             }
             
-            for (final JLabel j : dcards) {
-                dealerCardsPanel.remove(j);
+            for (final JLabel j : dealerCards) {
+                north.remove(j);
             }
 
-            dcards = new LinkedList<>();
-            pcards = new LinkedList<>();     
-            playerCardsPanel.revalidate();
-            playerCardsPanel.repaint();
-            dealerCardsPanel.revalidate();
-            dealerCardsPanel.repaint();
-        });
-        
-        conferma.addActionListener(e -> { 
-            if (bet.getBet() != 0) {
-                game.startGame(this.puntata);
-                cancel.setVisible(false);
-                bet.setEnabled(false);
-                //bet.setDisabledIcon(chooseChip(this.puntata));
-                conferma.setVisible(false);
-                draw.setVisible(true);
-                stand.setVisible(true);
-                Double.setVisible(true);
-
-                setCards(pcards, game.getPlayerHand(), playerCardsPanel, -1);
-                setCards(dcards, game.getDealerHand(), dealerCardsPanel, 1);
-                
-                
-                dpoints.setText(String.valueOf(game.getDealerHand().getCard(0).getValue()));
-                playerpoints.setText(String.valueOf(game.getPlayerPoints()));
-                final Image img = ((new ImageIcon("res/img/buttons/points.png")
-                        .getImage()).getScaledInstance(50, 50, Image.SCALE_SMOOTH));
-                dpoints.setIcon(new ImageIcon(img));
-                dpoints.setHorizontalTextPosition(JLabel.CENTER);
-                playerpoints.setIcon(new ImageIcon(img));
-                playerpoints.setHorizontalTextPosition(JLabel.CENTER);
-            }
+            dealerCards = new LinkedList<>();
+            playerCards = new LinkedList<>();     
+            center.revalidate();
+            center.repaint();
+            north.revalidate();
+            north.repaint();
         });
     }
     
-
     
-    private void setCards(final List<JLabel> cards, final Hand h, final JLayeredPane p, final int direction) {
+    private JPanel generateSouth( final JButton stand ,final JButton restart) {
+        //Area Pulsanti in fondo SUD
+        final JPanel south = new JPanel(new GridBagLayout());
+        final JPanel buttonsArea = new JPanel(new GridBagLayout()); 
+        south.setPreferredSize(new Dimension((int) (width / 8.5), (int) (width / 8.5)));
+        buttonsArea.setPreferredSize(new Dimension((int) (width / 3.6), (int) (width / 8.5)));
+        south.setOpaque(false);
+        buttonsArea.setOpaque(false);
+        south.add(buttonsArea);
+        
+        //Bottoni Gioco (codice ripetuto)
+     
+        //draw.setName("draw");
+        stand.setName("stand");
+        //doublebet.setName("Double");
+        restart.setName("restart");
+        
+        final List<JButton> buttonList = new ArrayList<>();
+        buttonList.add(restart); 
+        //buttonList.add(draw);
+        buttonList.add(stand);
+        //buttonList.add(doublebet);
+        
+        int i = 0;
+        for (final JButton jb : buttonList) { 
+            jb.setPreferredSize(new Dimension((int) (width / 11.6), (int) (width / 12.8)));
+            jb.setVisible(false);
+            jb.setOpaque(false);
+            jb.setContentAreaFilled(false);
+            jb.setBorderPainted(false);
+            jb.setFocusPainted(false);
+
+            jb.setIcon(new ImageIcon((ImageLoader.getImage("res/img/buttons/" + buttonList.get(i).getName() + ".png"))
+                    .getScaledInstance((int) (width / 12.8), (int) (width / 12.8), Image.SCALE_SMOOTH)));
+
+            buttonsArea.add(jb, new MyGridBagConstraints(i, 0, new Insets(0, 0, 0, 0), GridBagConstraints.NONE));
+            i++;
+        }
+        return south;
+    }
+
+    private void setCards(final List<JLabel> cards, final Hand h, final JLayeredPane pane, final int direction) {
         for (final JLabel j : cards) {
-            p.remove(j);
+            pane.remove(j);
         }
         cards.removeAll(cards);
         for (int i = 0; i < h.size(); i++) {
             cards.add(new JLabel());
-            final JLabel jlabel = cards.get(i);
-            jlabel.setBounds(575 + (i * 25), 80 + ((i * 15) * direction), 150, 150);
-            jlabel.setIcon(new ImageIcon(h.getCard(i).getImg().getScaledInstance(100, 150, Image.SCALE_SMOOTH)));
-            p.add(jlabel, 0);
+            final JLabel visualCard = cards.get(i);
+            visualCard.setBounds((int) (width / 2.23) + (i * (int) (width / 51.2)), (int) (width / 14.2) + ((i * (int) (width / 85.3)) * direction), (int) (width / 8.5), (int) (width / 8.5));
+            visualCard.setIcon(new ImageIcon(h.getCard(i).getImg().getScaledInstance((int) (width / 12.8), (int) (width / 8.5), Image.SCALE_SMOOTH)));
+            pane.add(visualCard, 0);
         }
     }
     
@@ -284,9 +239,48 @@ public class BaccaratGui extends JPanel implements Menu {
         g.drawImage(this.img, 0, 0, getWidth(), getHeight(), null);
     }
 
+    @Override
+    public void confirmBet() {
+        if (this.bet.getBet() != 0) {
+            this.gameLogic.startGame(this.bet.getBet());
+            this.bet.confirmBet();
+            
+            this.generalInterface.showButtons(false);
+            this.generalInterface.setBetValue(this.bet.getBet());
+            this.generalInterface.setBalanceValue();
+
+            //this.draw.setVisible(true);
+            this.stand.setVisible(true);
+            //this.Double.setVisible(true);
+            
+            this.dealerPoints.setVisible(true);
+            this.playerPoints.setVisible(true);
+
+            setCards(playerCards, gameLogic.getPlayerHand(), center, DIRECTION_PLAYER);
+            setCards(dealerCards, gameLogic.getDealerHand(), north, DIRECTION_DEALER);
+
+            this.dealerPoints.setText(String.valueOf(gameLogic.getDealerHand().getCard(0).getValue()));
+            this.playerPoints.setText(String.valueOf(gameLogic.getPlayerPoints()));
+
+           
+            gameLogic.checkInsurance();
+
+            
+            if (gameLogic.checkBlackjack(gameLogic.getPlayerHand())) {
+                stand.doClick();
+            }
+        }
+    }
+
 
     @Override
-    public JPanel getMenu() {
+    public void resetBet() {
+        this.bet.resetBet();
+        this.generalInterface.showButtons(false);
+    }
+
+    @Override
+    public JPanel getGame() {
         return this;
     }
 }

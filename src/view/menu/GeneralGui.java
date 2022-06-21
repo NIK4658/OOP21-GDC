@@ -1,6 +1,7 @@
 package view.menu;
 
 import account.AccountManager;
+import baccarat.BaccaratGui;
 import view.menu.games.Game.Games;
 import view.menu.games.roulette.RouletteGame;
 import account.AdvancedBalanceManagerImpl;
@@ -57,7 +58,19 @@ public class GeneralGui extends JPanel implements Menu {
     public GeneralGui(final MenuManager frame, final AccountManager account, Games game ){
         
         
+<<<<<<< HEAD
+        switch (game) {
+            case BLACKJACK: this.g = new BlackJackGui(frame, new AdvancedBalanceManagerImpl(account), this);
+            break;
+            
+            case BACCARAT: this.g = new BaccaratGui(frame, new AdvancedBalanceManagerImpl(account), this);
+            break;
+        
+            default: this.g = null;
+        }
+=======
 
+>>>>>>> bc4754c0166e8c00b32dc99718be5d30129500ba
 
         
         this.account = account;
