@@ -1,5 +1,6 @@
 package AccountManager;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
@@ -31,7 +32,7 @@ public class AccountManagerTest {
     public void testSimpleRegister() {
         assertTrue(this.simpleAccount.register("Username", "Password", "20"));
         assertTrue(this.simpleAccount.logger("Username", "Password"));
-        assertSame(this.simpleAccount.getUsr(), "Username");
+        assertEquals(this.simpleAccount.getUsr(), "Username");
         assertSame(this.simpleAccount.getPsw(), "Password");
         assertSame(this.simpleAccount.getAge(), "20");        
     }
