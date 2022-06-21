@@ -56,23 +56,7 @@ public class GeneralGui extends JPanel implements Menu {
     private final JLabel winmessage = new JLabel("");
     
     public GeneralGui(final MenuManager frame, final AccountManager account, Games game ){
-        
-        
-<<<<<<< HEAD
-        switch (game) {
-            case BLACKJACK: this.g = new BlackJackGui(frame, new AdvancedBalanceManagerImpl(account), this);
-            break;
-            
-            case BACCARAT: this.g = new BaccaratGui(frame, new AdvancedBalanceManagerImpl(account), this);
-            break;
-        
-            default: this.g = null;
-        }
-=======
 
->>>>>>> bc4754c0166e8c00b32dc99718be5d30129500ba
-
-        
         this.account = account;
         setLayout(new BorderLayout());
         this.setPreferredSize(frame.getSizeMenu());
@@ -89,26 +73,23 @@ public class GeneralGui extends JPanel implements Menu {
         this.reset = new JButton();
         this.confirm = new JButton();
         southleft.setOpaque(false);
+        north.setOpaque(false);
+        center.setOpaque(false);
+        south.setOpaque(false);
+        southright.setOpaque(false);
+        this.setOpaque(false);
         switch (game) {
             case BLACKJACK: 
                 this.g = new BlackJackGui(frame, new AdvancedBalanceManagerImpl(account), this);
-                //da vedere come migliorare
-                north.setOpaque(false);
-                center.setOpaque(false);
-                south.setOpaque(false);
-                southright.setOpaque(false);
-                this.setOpaque(false);
                 showButtons(false);
+                break;
+            case BACCARAT: this.g = new BaccaratGui(frame, new AdvancedBalanceManagerImpl(account), this);
                 break;
             default: 
                 this.g = new RouletteGame(this, game);
-                //da migliorare
                 center = (JPanel) this.g;
+                this.setOpaque(true);
                 this.setBackground(new Color(0, 118, 58));
-                north.setBackground(new Color(0, 118, 58));
-                south.setBackground(new Color(0, 118, 58));
-                southleft.setBackground(new Color(0, 118, 58));
-                southright.setBackground(new Color(0, 118, 58));
         }
         
         
