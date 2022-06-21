@@ -24,62 +24,46 @@ import account.SimpleBalanceManagerImpl;
 //pannello GESTIONE SALDO, sistemare ripetizioni e creare funzioni per check amount
 public class BalancePanel extends JPanel {
     
-//    private static final int SCALE_TITLE = 7;
-//    private static final int SCALE_COMPONENT = 20;
+    private static final int SCALE_TITLE = 7;
+    private static final int SCALE_COMPONENT = 30;
     private static final double MAX_IMPORT = 10000;
     private static final double MIN_IMPORT = 15;
     private final BalanceManager account;
     
-    public BalancePanel(final AccountManager account, final Dimension dimension) { //togliere dimension
-        
-//        final int width = dimension.width;
-//        final int height = dimension.height;
-//        final int minSize = Math.min(width, height);
-        
+    public BalancePanel(final AccountManager account, final int minSize) {
         
         this.account = new AdvancedBalanceManagerImpl(account);
         final String currencySymbol = Currency.getInstance(getLocale()).getSymbol();
         this.setLayout(new GridBagLayout());
-        this.setBackground(new Color(68, 87, 96));//da cambiare is opaque
-        
+        this.setBackground(new Color(68, 87, 96)); //risolvere ripetizione        
 
-        //inserire title???
-//        final JLabel title = new JLabel("BALANCE", SwingConstants.CENTER);
-//        title.setForeground(Color.WHITE);
-//        title.setFont(new Font("Arial", Font.BOLD, minSize / SCALE_TITLE));
-        final JLabel labelDeposit = new JLabel(currencySymbol);
-        final JLabel labelWithdraw = new JLabel(currencySymbol);
+
+
+        final JLabel labelImport = new JLabel(currencySymbol);
         final JLabel labelBalance = new JLabel("Balance: ");
         final JLabel labelAlert = new JLabel();
-//        labelDeposit.setFont(new Font("Arial", Font.PLAIN, minSize / SCALE_COMPONENT));
-//        labelWithdraw.setFont(new Font("Arial", Font.PLAIN, minSize / SCALE_COMPONENT));
-//        labelBalance.setFont(new Font("Arial", Font.PLAIN, minSize / SCALE_COMPONENT));
-//        labelAlert.setFont(new Font("Arial", Font.PLAIN, minSize / SCALE_COMPONENT));
+
     
         final NumberFormat format = DecimalFormat.getInstance();
         final NumberFormat formatBalance = DecimalFormat.getCurrencyInstance();
         format.setMinimumFractionDigits(2);
         format.setMaximumFractionDigits(2);
         format.setRoundingMode(RoundingMode.HALF_UP);
-        final JFormattedTextField fieldDeposit = new JFormattedTextField(format);
-        final JFormattedTextField fieldWithdraw = new JFormattedTextField(format);
+        final JFormattedTextField fieldImport = new JFormattedTextField(format);
         final JFormattedTextField fieldBalance = new JFormattedTextField(formatBalance);
-        fieldDeposit.setColumns(10);
-        fieldDeposit.setValue(0);
-        fieldWithdraw.setColumns(10);
-        fieldWithdraw.setValue(0);
+        fieldImport.setColumns(10);
+        fieldImport.setValue(0);
         fieldBalance.setColumns(10);
         fieldBalance.setEditable(false);
         fieldBalance.setValue(this.getBalance());
         
-//        fieldDeposit.setPreferredSize(new Dimension(width / SCALE_COMPONENT, height / SCALE_COMPONENT));
         
         
         
         //Eliminare rep con altro bottone(es. crea funzione)
         final JButton buttonDeposit = new JButton("Deposit");
         buttonDeposit.addActionListener(e -> {
-            final String deposit = fieldDeposit.getText().replace(".", "").replace(",", ".");
+            final String deposit = fieldImport.getText().replace(".", "").replace(",", ".");
             final double amount = Double.parseDouble(deposit);
             if (this.setDeposit(amount)) {
                 fieldBalance.setValue(this.getBalance());
@@ -91,7 +75,7 @@ public class BalancePanel extends JPanel {
         
         final JButton buttonWithdraw = new JButton("Withdraw");
         buttonWithdraw.addActionListener(e -> {
-            final String withdraw = fieldWithdraw.getText().replace(".", "").replace(",", ".");
+            final String withdraw = fieldImport.getText().replace(".", "").replace(",", ".");
             final double amount = Double.parseDouble(withdraw);
             if (this.setWithdraw(amount)) {
                 fieldBalance.setValue(this.getBalance());
@@ -100,23 +84,37 @@ public class BalancePanel extends JPanel {
                 labelAlert.setText("Unsuccessful withdraw");
             }
         });
+        
+        final JLabel title = new JLabel("BALANCE", SwingConstants.CENTER);
+        title.setForeground(Color.WHITE);
+        title.setFont(new Font("Arial", Font.BOLD, minSize / SCALE_TITLE));
+        labelImport.setFont(new Font("Arial", Font.PLAIN, minSize / SCALE_COMPONENT));
+        labelBalance.setFont(new Font("Arial", Font.PLAIN, minSize / SCALE_COMPONENT));
+        labelAlert.setFont(new Font("Arial", Font.PLAIN, minSize / SCALE_COMPONENT));
+        fieldImport.setFont(new Font("Arial", Font.PLAIN, minSize / SCALE_COMPONENT));
+        fieldBalance.setFont(new Font("Arial", Font.PLAIN, minSize / SCALE_COMPONENT));
+        buttonDeposit.setFont(new Font("Arial", Font.PLAIN, minSize / SCALE_COMPONENT));
+        buttonWithdraw.setFont(new Font("Arial", Font.PLAIN, minSize / SCALE_COMPONENT));
+        
+        
+        
         final var c = new GridBagConstraints();
-        this.add(labelDeposit);
-        this.add(fieldDeposit);
-        this.add(buttonDeposit);
-        c.gridy = 1;
-        this.add(labelWithdraw, c);
-        c.gridx = 1;
-        this.add(fieldWithdraw, c);
-        c.gridx = 2;
+        c.gridx = 0;
+        c.gridy = 0;
+        this.add(labelImport, c);
+        c.gridx++;
+        this.add(fieldImport, c);
+        c.gridx++;
+        this.add(buttonDeposit, c);
+        c.gridx = 0;
+        c.gridy++;
+        this.add(labelBalance, c);
+        c.gridx++;
+        this.add(fieldBalance, c);
+        c.gridx++;
         this.add(buttonWithdraw, c);
         c.gridx = 0;
-        c.gridy = 2;
-        this.add(labelBalance, c);
-        c.gridx = 1;
-        this.add(fieldBalance, c);
-        c.gridy = 3;
-        c.gridx = 0;
+        c.gridy++;
         c.gridwidth = 3;
         this.add(labelAlert, c);
     }

@@ -3,6 +3,7 @@ package view.menu.account;
 import java.awt.Color;
 import java.awt.Frame;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
@@ -17,11 +18,12 @@ import account.AccountManager;
 
 public class ConfirmPassword implements PasswordConfirmed {
     
+    private static final int SCALE_COMPONENT = 30;
     private static final int CLOSING_DELAY = 2000;
     private boolean isConfirm;
     
     //cambiare var con enumerazione e sistemare ripetizione "Inserisci password per "
-    public ConfirmPassword(final Frame frame, final AccountManager account, final String operation) {//da eliminare dim
+    public ConfirmPassword(final Frame frame, final AccountManager account, final String operation, final int minSize) {//da eliminare dim
         final JDialog confirmDialog = new JDialog(frame, true);
         final JPanel confirmPanel = new JPanel(new GridBagLayout());//creare un qualche metodo che ritorna un pannello già settato
         confirmPanel.setBackground(new Color(68, 87, 96));//
@@ -54,6 +56,12 @@ public class ConfirmPassword implements PasswordConfirmed {
         confirmPanel.add(passwordField, c);
         c.gridy = 2;
         confirmPanel.add(validLabel, c);
+        
+        confirmLabel.setFont(new Font("Arial", Font.PLAIN, minSize / SCALE_COMPONENT));
+        passwordLabel.setFont(new Font("Arial", Font.PLAIN, minSize / SCALE_COMPONENT));
+        passwordField.setFont(new Font("Arial", Font.PLAIN, minSize / SCALE_COMPONENT));
+        validLabel.setFont(new Font("Arial", Font.PLAIN, minSize / SCALE_COMPONENT));
+        
         
         
         confirmDialog.setContentPane(confirmPanel);

@@ -3,6 +3,7 @@ package view.menu.account;
 import java.awt.Color;
 import java.awt.Frame;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
@@ -16,9 +17,10 @@ import account.AccountManager;
 //pannello CAMBIO PASSWORD, sistemare ripetizioni
 public class PasswordPanel extends JPanel {
     
+    private static final int SCALE_COMPONENT = 30;
     private final AccountManager account;
 
-    public PasswordPanel(final Frame frame, final AccountManager account) {
+    public PasswordPanel(final Frame frame, final AccountManager account, final int minSize) {
         this.account = account;
         this.setLayout(new GridBagLayout());
         this.setBackground(new Color(68, 87, 96));     
@@ -33,7 +35,7 @@ public class PasswordPanel extends JPanel {
         
         buttonPassword.addActionListener(e -> {//aggiungere password non valida
             if (fieldPassword.getText().equals(fieldNewPassword.getText())) {
-                if (new ConfirmPassword(frame, account, " to change Password").isPasswordConfirmed()) {
+                if (new ConfirmPassword(frame, account, " to change Password", minSize).isPasswordConfirmed()) {
                     if (this.setPassword(fieldNewPassword.getText())) {
                         labelAlert.setText("Password changed");
                         fieldPassword.setText("");
@@ -45,6 +47,17 @@ public class PasswordPanel extends JPanel {
             }
             
         });
+        
+        
+        labelPassword.setFont(new Font("Arial", Font.PLAIN, minSize / SCALE_COMPONENT));
+        labelNewPassword.setFont(new Font("Arial", Font.PLAIN, minSize / SCALE_COMPONENT));
+        fieldPassword.setFont(new Font("Arial", Font.PLAIN, minSize / SCALE_COMPONENT));
+        fieldNewPassword.setFont(new Font("Arial", Font.PLAIN, minSize / SCALE_COMPONENT));
+        buttonPassword.setFont(new Font("Arial", Font.PLAIN, minSize / SCALE_COMPONENT));
+        labelAlert.setFont(new Font("Arial", Font.PLAIN, minSize / SCALE_COMPONENT));
+        
+        
+        
         
         final var c = new GridBagConstraints();
         this.add(labelPassword);
