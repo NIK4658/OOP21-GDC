@@ -8,11 +8,7 @@ public interface BaccaratLogic {
     
     void startGame(final double bet);
     
-    //void askCard();
-    
-    void stand();
-    
-    //void askDouble();
+    void nextMove();
 
     int checkWin();
     
@@ -23,8 +19,6 @@ public interface BaccaratLogic {
     void dealerDraw();
     
     void playerDraw();
-    
-    //boolean checkBaccarat();
     
     boolean checkBaccarat(Hand h);
     

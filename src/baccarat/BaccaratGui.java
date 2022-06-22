@@ -38,15 +38,13 @@ public class BaccaratGui extends JPanel implements Game {
     private final int width;
     private final int height;
     private final BetButton bet;
-    //private final JButton draw;
     private final JButton next;
-    //private final JButton Double;
     private final JButton restart; 
     private final JLabel playerPoints;
     private final JLabel dealerPoints;
     private final JLayeredPane center;
     private final JLayeredPane north;
-    private final Image img = ImageLoader.getImage("res/img/backgrounds/tavolo.jpg");
+    private final Image img = ImageLoader.getImage("res/img/backgrounds/bacTable.png");
     private List<JLabel> dealerCards;
     private List<JLabel> playerCards;
     private final BaccaratLogic gameLogic;
@@ -64,13 +62,10 @@ public class BaccaratGui extends JPanel implements Game {
         this.height = frame.getHeightMenu();
         
         System.out.println(width);
-
-        //this.draw = new JButton(); 
+ 
         this.next = new JButton();
-        //this.Double = new JButton();
         this.restart = new JButton();  
         //aggiungo il jpanel dei pulsanti al jpanel generale
-        //add(generateSouth(draw, stand, Double, restart), BorderLayout.SOUTH);
         add(generateSouth(next, restart), BorderLayout.SOUTH);
         
         
@@ -115,7 +110,7 @@ public class BaccaratGui extends JPanel implements Game {
         
         //codice ripetuto
         next.addActionListener(e -> {
-            gameLogic.stand();
+            gameLogic.nextMove();
             setCards(dealerCards, gameLogic.getDealerHand(), north, DIRECTION_DEALER);
             dealerPoints.setText(String.valueOf(gameLogic.getDealerPoints()));
             setCards(playerCards, gameLogic.getPlayerHand(), center, DIRECTION_PLAYER);

@@ -15,9 +15,7 @@ public class BaccaratLogicImpl implements BaccaratLogic {
     private Hand player;
     private Hand dealer;
     private int baccaratcard;
-    
-    
-    
+
     BaccaratLogicImpl(final BalanceManager account) {
         this.deck = new DeckImpl(6);
         this.deck.generateDeck();
@@ -41,21 +39,12 @@ public class BaccaratLogicImpl implements BaccaratLogic {
         this.dealer.getCard(1).turnOver();
         this.dealer.calculatePoints();
         this.player.calculatePoints();
-        
-        
-        
-        
-        
-        
-      
     }
     
     @Override
-    public void stand() {
-    	nextPlayerMove();
-    	
-        nextDealerMove();
-        
+    public void nextMove() {
+    	nextPlayerMove();   	
+        nextDealerMove();        
     }
     
     @Override
@@ -64,32 +53,17 @@ public class BaccaratLogicImpl implements BaccaratLogic {
         this.player.calculatePoints();    
     }
     
-    
-
-   
-
-    /*@Override
-    public void askDouble() {
-        //raddoppio puntata
-        this.bet *= 2;
-        askCard();
-        stand();
-    }*/
-
-
-
     @Override
     public int checkWin() { 
     	
-    	
-
         if (getPlayerPoints() == getDealerPoints()) {
             return 0;
         } 
         
         if (getPlayerPoints() <= getDealerPoints()) {
             return -1;
-        } else {
+        } 
+        else {
             return 1;
         }
     }
@@ -165,8 +139,6 @@ public class BaccaratLogicImpl implements BaccaratLogic {
         return this.dealer.getPoints();
     }
 
-    
- 
 
     @Override
     public boolean checkBaccarat(final Hand h) {
@@ -178,10 +150,7 @@ public class BaccaratLogicImpl implements BaccaratLogic {
         if (this.deck.size() <= (this.deck.getnDecks() * 13 * 4) / 2) {
             this.deck.shuffle();
         }
-        
-        //if (checkBlackjack(this.player) && !checkBlackjack(this.dealer)) {
-           // account.changeBalance(account.getBalance() + ((this.bet + ((this.bet * 3) / 2))));
-       // } else {
+
             if (checkWin() == 1) {
                 account.changeBalance(account.getBalance() + (this.bet * 2));
             } else if (checkWin() == 0) {
@@ -191,4 +160,4 @@ public class BaccaratLogicImpl implements BaccaratLogic {
 
 	
     }
-//}
+
