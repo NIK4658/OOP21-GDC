@@ -238,6 +238,7 @@ public class GeneralGui extends JPanel implements Menu {
         south.add(southtotal, BorderLayout.WEST);
         south.add(southright, BorderLayout.EAST);
         add(south, BorderLayout.SOUTH);
+        setSelectedFiches(0);
         updateBalanceValue();
         this.setMinimumSize(this.getPreferredSize());
         setVisible(true);
