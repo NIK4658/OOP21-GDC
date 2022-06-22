@@ -1,6 +1,7 @@
 package blackjack;
 
 import java.awt.Image;
+import utility.Pair;
 
 /**
  * Interfaccia per classe gestione carte.
@@ -15,6 +16,8 @@ public interface Card {
     }
 
     void turnOver();
+    
+    Pair<Suits, Integer> getCard();
     
     Suits getSuit();
     
