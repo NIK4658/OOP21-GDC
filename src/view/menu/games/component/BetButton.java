@@ -62,8 +62,8 @@ public class BetButton extends JButton {
     /**
      * javadoc comment.
      */
-    public void incrementBet(final double fvalue) {
-        this.value += fvalue;
+    public void incrementBet(final double value) {
+        this.value += value;
         this.removeAll();
         this.setIcon(chooseChip(this.value));
         final JPanel jp = new JPanel(new BorderLayout());
