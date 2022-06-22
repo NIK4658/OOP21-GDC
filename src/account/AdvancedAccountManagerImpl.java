@@ -1,7 +1,5 @@
 package account;
 
-import account.AccountManager.Fields;
-
 /**
  * Classe principale AVANZATA gestione account.
  */
@@ -31,7 +29,7 @@ public class AdvancedAccountManagerImpl extends SimpleAccountManagerImpl impleme
                         + "you must be at least 18 years old to register on this site");
                 return false;
             }
-            if (age.length() > 3) { 
+            if (age.length() > 2) { 
                 System.out.println("Unable to complete registration, "
                         + "age invalid");
                 return false;
@@ -56,13 +54,13 @@ public class AdvancedAccountManagerImpl extends SimpleAccountManagerImpl impleme
             final String password = Utility.getField(Fields.PASSWORD, usr);
             final String balance = Utility.getField(Fields.BALANCE, usr);
             final String age = Utility.getField(Fields.AGE, usr);
-            if (usr.equals(this.username) && psw.equals(password)) {
-                System.out.println(("Welcome back: " + this.username + ". Your password is: " + password
+            if (usr.equals(getUsername()) && psw.equals(password)) {
+                System.out.println(("Welcome back: " + getUsername() + ". Your password is: " + password
                         + ", your balance is: " + balance + " and you're " + age + " years old"));
                 return true;
             } else {
                 System.out.println("Wrong password");
-                this.username = null;
+                resetUsername();
                 return false;
             }
         } else {
