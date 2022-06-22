@@ -1,4 +1,4 @@
-package roulette.numbers;
+package model.roulette.numbers;
 
 import java.awt.Color;
 import java.util.ArrayList;
@@ -8,10 +8,10 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.TreeMap;
 
-import roulette.number.BaseRouletteNumber;
-import roulette.number.EuropeanRouletteNumber;
-import roulette.number.EuropeanRouletteNumber.Sector;
-import roulette.number.RouletteNumber;
+import model.roulette.number.BaseRouletteNumber;
+import model.roulette.number.EuropeanRouletteNumber;
+import model.roulette.number.RouletteNumber;
+import model.roulette.number.EuropeanRouletteNumber.Sector;
 
 //Modificare la classe in statica
 public class EuropeanRouletteNumbers implements RouletteNumbers{

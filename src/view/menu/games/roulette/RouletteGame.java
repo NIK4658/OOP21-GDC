@@ -1,35 +1,22 @@
 package view.menu.games.roulette;
 
+import account.BalanceManager;
 import java.awt.BorderLayout;
-import java.awt.Component;
 import java.awt.Dimension;
 import java.util.List;
-
 import javax.swing.JPanel;
-
-import account.BalanceManager;
-import ex.ExTable;
-import roulette.AmericanRoulette;
-import roulette.BaseRoulette;
-import roulette.EuropeanRoulette;
-import roulette.Roulette;
-import roulette.manageRoulette.ManageRoulette;
-import roulette.number.EuropeanRouletteNumber;
-import roulette.number.RouletteNumber;
-import roulette.number.BaseRouletteNumber;
-import roulette.numbers.EuropeanRouletteNumbers;
+import model.roulette.AmericanRoulette;
+import model.roulette.BaseRoulette;
+import model.roulette.EuropeanRoulette;
+import model.roulette.Roulette;
+import model.roulette.manageRoulette.ManageRoulette;
+import model.roulette.number.RouletteNumber;
 import utility.Pair;
 import view.menu.GeneralGui;
 import view.menu.games.Game;
-import view.menu.games.roulette.RouletteGame.TypeRoulette;
 
 
-//RouletteGame
 public class RouletteGame extends JPanel implements Game {
-    
-    public enum TypeRoulette{
-        EUROPEAN_ROULETTE, AMERICAN_ROULETTE, BASE_ROULETTE
-    }
   
     private final Roulette roulette;
     private final DisplayWinningNumbers winningNumbers;
@@ -45,13 +32,13 @@ public class RouletteGame extends JPanel implements Game {
         
         switch (game) {
             case ROULETTE_BASE: 
-                this.roulette = new BaseRoulette();//sistemare
+                this.roulette = new BaseRoulette();
                 break;
             case ROULETTE_EUROPEAN: 
                 this.roulette = new EuropeanRoulette();
                 break;
             case ROULETTE_AMERICAN: 
-                this.roulette = new AmericanRoulette();// vedere come metterli in comune
+                this.roulette = new AmericanRoulette();
                 break;
             default://lanciare un'eccezione?
                 this.roulette = null;

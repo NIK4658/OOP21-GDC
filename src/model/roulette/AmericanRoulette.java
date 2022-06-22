@@ -1,8 +1,9 @@
-package roulette;
+package model.roulette;
 
 import java.util.Random;
-import roulette.number.AmericanRouletteNumber;
-import roulette.numbers.AmericanRouletteNumbers;
+
+import model.roulette.number.AmericanRouletteNumber;
+import model.roulette.numbers.AmericanRouletteNumbers;
 
 
 public class AmericanRoulette implements Roulette {

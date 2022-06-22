@@ -1,10 +1,9 @@
 package view.gui;
 
 import account.AccountManager;
-import view.menu.games.Game.Games;
-
 import java.awt.Dimension;
 import java.awt.Frame;
+import view.menu.games.Game.Games;//cambiare nome classe Games
 
 public interface MenuManager {
     
@@ -13,7 +12,7 @@ public interface MenuManager {
     void setMainMenu(AccountManager account);
     
     void setAccountMenu(AccountManager account);
-    
+    //setAccountMenu, roulette, bj come unico metodo setMenu?
     void setRouletteMenu(final AccountManager account, Games game);//serve il final nell'interfaccia? controllare
     
     void setBlackjackMenu(final AccountManager account);
@@ -26,10 +25,6 @@ public interface MenuManager {
     
     int getHeightMenu();
     
-    Dimension getSizeMenu();
-
-    
-
-    
+    Dimension getSizeMenu();    
     
 }

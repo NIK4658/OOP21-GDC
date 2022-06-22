@@ -1,16 +1,16 @@
-package roulette.manageRoulette;
+package model.roulette.manageRoulette;
 
 import java.awt.Color;
 import java.util.List;
 
-import roulette.number.BaseRouletteNumber;
-import roulette.number.BaseRouletteNumber.Column;
-import roulette.number.BaseRouletteNumber.Included;
-import roulette.number.BaseRouletteNumber.Parity;
-import roulette.number.BaseRouletteNumber.Row;
-import roulette.number.EuropeanRouletteNumber;
-import roulette.number.EuropeanRouletteNumber.Sector;
-import roulette.number.RouletteNumber;
+import model.roulette.number.BaseRouletteNumber;
+import model.roulette.number.EuropeanRouletteNumber;
+import model.roulette.number.RouletteNumber;
+import model.roulette.number.BaseRouletteNumber.Column;
+import model.roulette.number.BaseRouletteNumber.Included;
+import model.roulette.number.BaseRouletteNumber.Parity;
+import model.roulette.number.BaseRouletteNumber.Row;
+import model.roulette.number.EuropeanRouletteNumber.Sector;
 import utility.Pair;
 
 

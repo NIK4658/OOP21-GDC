@@ -1,8 +1,8 @@
-package roulette.numbers;
+package model.roulette.numbers;
 
 import java.util.List;
 
-import roulette.number.RouletteNumber;
+import model.roulette.number.RouletteNumber;
 
 public interface RouletteNumbers {
 

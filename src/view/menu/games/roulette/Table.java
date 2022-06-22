@@ -23,23 +23,22 @@ import javax.swing.JPanel;
 
 import account.BalanceManager;
 import blackjack.BetButton;
-import roulette.number.BaseRouletteNumber;
-import roulette.number.BaseRouletteNumber.Column;
-import roulette.number.BaseRouletteNumber.Included;
-import roulette.number.BaseRouletteNumber.Parity;
-import roulette.number.BaseRouletteNumber.Row;
-import roulette.number.EuropeanRouletteNumber;
-import roulette.number.EuropeanRouletteNumber.Sector;
-import roulette.number.RouletteNumber;
-import roulette.numbers.AmericanRouletteNumbers;
-import roulette.numbers.BaseRouletteNumbers;
-import roulette.numbers.EuropeanRouletteNumbers;
-import roulette.numbers.RouletteNumbers;
+import model.roulette.number.BaseRouletteNumber;
+import model.roulette.number.EuropeanRouletteNumber;
+import model.roulette.number.RouletteNumber;
+import model.roulette.number.BaseRouletteNumber.Column;
+import model.roulette.number.BaseRouletteNumber.Included;
+import model.roulette.number.BaseRouletteNumber.Parity;
+import model.roulette.number.BaseRouletteNumber.Row;
+import model.roulette.number.EuropeanRouletteNumber.Sector;
+import model.roulette.numbers.AmericanRouletteNumbers;
+import model.roulette.numbers.BaseRouletteNumbers;
+import model.roulette.numbers.EuropeanRouletteNumbers;
+import model.roulette.numbers.RouletteNumbers;
 import utility.Pair;
 import view.ImageLoader;
 import view.MyGridBagConstraints;
 import view.menu.GeneralGui;
-import view.menu.games.roulette.RouletteGame.TypeRoulette;
 
 public class Table extends JPanel {
     

@@ -1,8 +1,8 @@
-package roulette.number;
+package model.roulette.number;
 
 import java.awt.Color;
 
-import roulette.numbers.AmericanRouletteNumbers;
+import model.roulette.numbers.AmericanRouletteNumbers;
 
 public class AmericanRouletteNumber extends BaseRouletteNumber {
 

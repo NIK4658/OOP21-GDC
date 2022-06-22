@@ -1,4 +1,4 @@
-package roulette.number;
+package model.roulette.number;
 
 import java.awt.Color;
 

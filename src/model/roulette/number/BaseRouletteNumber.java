@@ -1,9 +1,9 @@
-package roulette.number;
+package model.roulette.number;
 
 import java.awt.Color;
 import java.util.Objects;
 
-import roulette.numbers.BaseRouletteNumbers;
+import model.roulette.numbers.BaseRouletteNumbers;
 
 public class BaseRouletteNumber implements RouletteNumber {
     

@@ -1,11 +1,12 @@
-package roulette.numbers;
+package model.roulette.numbers;
 
 import java.awt.Color;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import roulette.number.BaseRouletteNumber;
-import roulette.number.RouletteNumber;
+
+import model.roulette.number.BaseRouletteNumber;
+import model.roulette.number.RouletteNumber;
 
 public class BaseRouletteNumbers implements RouletteNumbers {
     

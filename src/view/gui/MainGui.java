@@ -1,44 +1,33 @@
 package view.gui;
 
 import account.AccountManager;
-
-
-import account.AdvancedBalanceManagerImpl;
-import blackjack.BlackJackGui;
 import java.awt.Dimension;
 import java.awt.Frame;
-import java.awt.Toolkit;
 import javax.swing.JFrame;
-import javax.swing.JLayeredPane;
-
 import view.ImageLoader;
 import view.Resizer;
 import view.menu.AccessMenu;
 import view.menu.AccountMenu;
+import view.menu.GeneralGui;
 import view.menu.MainMenu;
 import view.menu.Menu;
-import view.menu.games.Game;
 import view.menu.games.Game.Games;
 import view.menu.games.GameImpl;
-import view.menu.games.roulette.RouletteGame;
-import view.menu.games.roulette.RouletteGame.TypeRoulette;
-import view.menu.GeneralGui;
+
 
 //forse meglio usare un unico metodo setMenu(Menu menu, AccountManager account);
 //da settare this.frame.setResizable(false) appena aggiunto torna indietro nei giochi
 public class MainGui implements MenuManager {
 
-//    private static final int SCALE = 2 / 3;
     private final JFrame frame;
     private final int widthMenu;
     private final int heightMenu;
     private final Dimension sizeMenu;
 
-    //vedere se meglio aggiungere campo private final AccountManager account;
+
     public MainGui() {
         this.frame = new JFrame();
         final Resizer r = new Resizer();
-        //final Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         this.widthMenu =  (r.resize(1.5f)).width;
         this.heightMenu = (r.resize(1.5f)).height;
         
@@ -49,12 +38,10 @@ public class MainGui implements MenuManager {
         this.frame.setResizable(false);
         this.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.frame.setTitle("GIOCHI DEL COLOSSO");
+        this.frame.setIconImage(ImageLoader.getImage("res/img/logo/gdclogo3.png"));
         
         //DA VERIFICARE SE TENERE
-        this.frame.setIconImage(ImageLoader.getImage("res/img/logo/gdclogo3.png"));
         this.setAccessMenu();
-        //this.setGameMenu(new AdvancedAccountManagerImpl());
-        //this.setAccountMenu(new AdvancedAccountManagerImpl());
 
         this.frame.setLocationRelativeTo(null);
         this.frame.setVisible(true);
@@ -73,7 +60,6 @@ public class MainGui implements MenuManager {
 
     @Override
     public void setMainMenu(final AccountManager account) {
-        this.frame.setResizable(false);
         this.updateMenu(new MainMenu(this, account));
     }
 
@@ -97,7 +83,7 @@ public class MainGui implements MenuManager {
     //CAMBIARE DA ACCOUNT MANAGER A BALANCE MANAGER (SEMPRE ADVANCED)
     @Override
     public void setBaccaratMenu(final AccountManager account) {
-    	final GeneralGui g = new GeneralGui(this, account, Games.BACCARAT);
+        final GeneralGui g = new GeneralGui(this, account, Games.BACCARAT);
         this.updateMenu(new GameImpl(this, g, g.getGame()));
         
     }
@@ -121,7 +107,5 @@ public class MainGui implements MenuManager {
     public Dimension getSizeMenu() {
         return this.sizeMenu;
     }
-
-
 
 }

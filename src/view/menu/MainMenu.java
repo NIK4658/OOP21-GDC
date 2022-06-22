@@ -22,7 +22,6 @@ import view.ImageLoader;
 import view.MyGridBagConstraints;
 import view.gui.MenuManager;
 import view.menu.games.Game.Games;
-import view.menu.games.roulette.RouletteGame.TypeRoulette;
 
 import java.awt.Graphics;
 
