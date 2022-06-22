@@ -1,13 +1,14 @@
 package view.menu.account;
 
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.Font;
 import java.awt.GridBagLayout;
 import javax.swing.JPanel;
-import view.menu.AccountMenu;
 
 public class AccountPanel extends JPanel {
     
+    private static final Color COLOR_BACKGROUND = new Color(68, 87, 96);
     protected static final int N_COLUMNS_FIELD = 10;
     private static final int SCALE_COMPONENT = 30;
     private final Font font;
@@ -15,7 +16,7 @@ public class AccountPanel extends JPanel {
     public AccountPanel(final int minSize) {
         super();
         this.setLayout(new GridBagLayout());
-        this.setBackground(AccountMenu.COLOR_BACKGROUND);
+        this.setBackground(COLOR_BACKGROUND);
         this.font = new Font("Arial", Font.PLAIN, minSize / SCALE_COMPONENT);
     }
 

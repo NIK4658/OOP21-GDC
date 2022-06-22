@@ -7,7 +7,7 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 
-//pannello CAMBIO USERNAME, sistemare ripetizioni
+
 public class UsernamePanel extends AccountPanel {
     
     private final AccountManager account;
