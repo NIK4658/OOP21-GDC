@@ -4,14 +4,15 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-import account.AccountManager;
-import account.AdvancedAccountManagerImpl;
-import account.AdvancedBalanceManagerImpl;
-import account.BalanceManager;
 import java.io.File;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+
+import model.account.AccountManager;
+import model.account.AdvancedAccountManagerImpl;
+import model.account.AdvancedBalanceManagerImpl;
+import model.account.BalanceManager;
 
 public class AdvancedBalanceManagerTest {
 

@@ -3,14 +3,15 @@ package balancemanager;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-import account.AccountManager;
-import account.AdvancedAccountManagerImpl;
-import account.BalanceManager;
-import account.SimpleBalanceManagerImpl;
 import java.io.File;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+
+import model.account.AccountManager;
+import model.account.AdvancedAccountManagerImpl;
+import model.account.BalanceManager;
+import model.account.SimpleBalanceManagerImpl;
 
 public class SimpleBalanceManagerTest {
 

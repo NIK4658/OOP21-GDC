@@ -5,12 +5,13 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
 
-import account.AccountManager;
-import account.SimpleAccountManagerImpl;
 import java.io.File;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+
+import model.account.AccountManager;
+import model.account.SimpleAccountManagerImpl;
 
 /**
  * Test per manager semplici dell'account.
@@ -85,7 +86,7 @@ public class SimpleAccountManagerTest {
     
     
     @Test
-    public void testChangeUsr() {
+    public void testSimpleChangeUsr() {
         logIn();
         assertTrue(this.file.exists() && !file.isDirectory());
         assertTrue(this.simpleAccount.changeUsr(this.usernamenew));
@@ -101,7 +102,7 @@ public class SimpleAccountManagerTest {
     }
     
     @Test
-    public void testChangePass() {
+    public void testSimpleChangePass() {
         logIn();
         assertTrue(this.simpleAccount.changePass(this.passwordnew));
         assertNotEquals(this.simpleAccount.getPsw(), this.password); 

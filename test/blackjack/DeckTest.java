@@ -10,7 +10,11 @@ import java.util.ArrayList;
 import org.junit.Before;
 import org.junit.Test;
 
-import blackjack.Card.Suits;
+import model.blackjack.Card;
+import model.blackjack.CardImpl;
+import model.blackjack.Deck;
+import model.blackjack.DeckImpl;
+import model.blackjack.Card.Suits;
 import utility.Pair;
 
 
@@ -20,7 +24,7 @@ public class DeckTest {
     private int ndeck;
     
     @Before
-    public void initAccount() {
+    public void initDeck() {
         this.deck = new DeckImpl(6);
     }
     

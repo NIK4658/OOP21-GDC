@@ -5,12 +5,13 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
 
-import account.AccountManager;
-import account.AdvancedAccountManagerImpl;
 import java.io.File;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+
+import model.account.AccountManager;
+import model.account.AdvancedAccountManagerImpl;
 
 
 public class AdvancedAccountManagerTest {
@@ -49,7 +50,7 @@ public class AdvancedAccountManagerTest {
     }
 
     @Test
-    public void testSimpleRegister() {
+    public void testAdvancedRegister() {
         this.file.delete();
         assertFalse(this.file.exists() && !file.isDirectory()); //File inizialmente non esiste
         assertFalse(this.advancedAccount.register(this.username + LONGSTRING, this.password, this.age));
@@ -67,7 +68,7 @@ public class AdvancedAccountManagerTest {
     }
 
     @Test
-    public void testSimpleLogin() {
+    public void testAdvancedLogin() {
         this.advancedAccount.register(this.username, this.password, this.age);
         assertFalse(this.advancedAccount.logger("Usrnm", "12345"));   //User does not exist, expected false.
         assertFalse(this.advancedAccount.logger(this.username, this.password + "a"));
@@ -75,7 +76,7 @@ public class AdvancedAccountManagerTest {
     }
     
     @Test
-    public void testChangeUsr() {
+    public void testAdvancedChangeUsr() {
         logIn();
         assertTrue(this.file.exists() && !file.isDirectory());
         assertTrue(this.advancedAccount.changeUsr(this.usernamenew));
@@ -97,7 +98,7 @@ public class AdvancedAccountManagerTest {
     }
     
     @Test
-    public void testChangePass() {
+    public void testAdvancedChangePass() {
         logIn();
         assertFalse(this.advancedAccount.changePass(this.passwordnew + LONGSTRING));
         assertEquals(this.advancedAccount.getPsw(), this.password); 

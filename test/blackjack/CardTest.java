@@ -12,8 +12,10 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import account.AccountManager;
-import blackjack.Card.Suits;
+import model.account.AccountManager;
+import model.blackjack.Card;
+import model.blackjack.CardImpl;
+import model.blackjack.Card.Suits;
 
 public class CardTest {
 
