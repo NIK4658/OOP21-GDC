@@ -1,0 +1,23 @@
+Le regole del baccarat vedono sostanzialmente solo due protagonisti: il banco e il giocatore.
+In generale le regole del baccarat sono piuttosto schematiche. 
+Il croupier, dopo aver mischiato i mazzi, distribuisce due carte al giocatore e due a sé. 
+A questo punto si calcola la somma delle due carte: le figure valgono 10, mentre le altre carte
+hanno il loro valore nominale.
+Dalla somma va estrapolata soltanto l’unità. 
+Ad esempio, se le carte in possesso del banco sono ad esempio un 9 e un 6, il risultato è 
+9+6=15 e quindi si considera 5, rimuovendo la decina. 
+Se le carte sono un 7 e un 3, il risultato è 10=0.
+Se uno tra banco e giocatore ha totalizzato 8 o 9 (detto baccarat), le mani vengono 
+scoperte e chi dei due ha totalizzato il punteggio più alto vince: 
+in caso di punteggio identico, la mano viene considerata in parità.
+Se non è stato raggiunto un baccarat, si procede secondo altre regole. 
+Se il giocatore ha realizzato un 6 o un 7, non pesca nessuna carta. 
+Se invece il suo risultato è inferiore, ne riceverà un’altra scoperta.
+A questo punto è il turno del banco, che agisce in base al valore delle proprie carte:
+
+- Se ha totalizzato 7, “sta” e non pesca nessuna carta;
+- Se ha totalizzato 6, pesca una carta se la carta scoperta del giocatore è un 6 o un 7;
+- Se ha totalizzato 5, pesca una carta se la carta scoperta del giocatore è 4, 5, 6 o 7;
+- Se ha totalizzato 4, pesca una carta se quella scoperta del giocatore ha un valore tra 2 e 7;
+- Se ha totalizzato 3, pesca una carta a meno che quella scoperta dal giocatore sia 8 o 9;
+- Se ha totalizzato 2, 1 o baccarat, pesca sempre una carta.
