@@ -86,7 +86,7 @@ public class GeneralGui extends JPanel implements Menu {
             case BACCARAT: this.g = new BaccaratGui(frame, new AdvancedBalanceManagerImpl(account), this);
                 break;
             default: 
-                this.g = new RouletteGame(this, new AdvancedBalanceManagerImpl(account), game);
+                this.g = new RouletteGame(this, game);
                 center = (JPanel) this.g;
                 this.setOpaque(true);
                 this.setBackground(new Color(0, 118, 58));

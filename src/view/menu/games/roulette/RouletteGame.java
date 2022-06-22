@@ -18,15 +18,16 @@ import view.menu.games.Game;
 
 public class RouletteGame extends JPanel implements Game {
   
+    private static final int SCALE_HEIGHT_WINNINGNUMBERS = 10;
+    private final GeneralGui generalInterface;
     private final Roulette roulette;
     private final DisplayWinningNumbers winningNumbers;
     private final Table table;
     private final ManageRoulette win;
-    private final GeneralGui generalInterface;
     
-    public RouletteGame(final GeneralGui generalInterface, final BalanceManager account, final Games game) {
+    public RouletteGame(final GeneralGui generalInterface, final Games game) {
         this.setLayout(new BorderLayout());
-        Dimension dimension = generalInterface.getMenu().getPreferredSize();
+        final Dimension dimension = generalInterface.getMenu().getPreferredSize();
         this.generalInterface = generalInterface;
         this.win = new ManageRoulette();
         
@@ -44,8 +45,9 @@ public class RouletteGame extends JPanel implements Game {
                 this.roulette = null;
         }
         
-        this.table = new Table(generalInterface, game, account);
-        this.winningNumbers = new DisplayWinningNumbers(new Dimension(dimension.width, dimension.height / 10));
+        this.winningNumbers = new DisplayWinningNumbers(new Dimension(dimension.width, 
+                dimension.height / SCALE_HEIGHT_WINNINGNUMBERS));
+        this.table = new Table(generalInterface, game);
         this.add(this.winningNumbers, BorderLayout.NORTH);
         this.add(table);
     }
