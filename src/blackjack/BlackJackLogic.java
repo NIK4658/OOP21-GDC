@@ -12,7 +12,7 @@ public interface BlackJackLogic {
     
     void stand();
     
-    void askDouble();
+    boolean askDouble();
 
     int checkWin();
     
