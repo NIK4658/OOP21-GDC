@@ -10,7 +10,7 @@ import org.json.simple.JSONObject;
  */
 public class SimpleAccountManagerImpl implements AccountManager {
 
-    protected String username;
+    private String username;
     
     @Override
     public boolean logger(final String usr, final String psw) {
@@ -74,4 +74,12 @@ public class SimpleAccountManagerImpl implements AccountManager {
     public String getAge() {
         return Utility.getField(Fields.AGE, this.username);
     }    
+    
+    protected String getUsername() {
+        return this.username;
+    }
+    
+    protected void resetUsername() {
+        this.username = null;
+    }
 }

@@ -11,7 +11,7 @@ import account.AccountManager.Fields;
  */
 public class SimpleBalanceManagerImpl implements BalanceManager {
 
-    protected final AccountManager username;
+    private final AccountManager username;
     
     public SimpleBalanceManagerImpl(final AccountManager username) {
         this.username = username;
@@ -36,5 +36,9 @@ public class SimpleBalanceManagerImpl implements BalanceManager {
     @Override
     public double getBalance() { 
         return Double.valueOf(Utility.getField(Fields.BALANCE, username.getUsr()));
+    }
+    
+    protected AccountManager getUsername() {
+        return this.username;
     }
 }
