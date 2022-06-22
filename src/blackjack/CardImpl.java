@@ -58,6 +58,11 @@ public class CardImpl implements Card {
     }
     
     @Override
+    public Pair<Suits, Integer> getCard() {   
+        return this.card;
+    }
+    
+    @Override
     public Image getImg() {
         return this.img;
     }
