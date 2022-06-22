@@ -51,9 +51,9 @@ public class AdvancedAccountManagerImpl extends SimpleAccountManagerImpl impleme
     public boolean logger(final String usr, final String psw) {
         if (super.logger(usr, psw)) {
             //this.username = Utility.getField(Fields.USERNAME, usr);
-            final String password = Utility.getField(Fields.PASSWORD, usr);
-            final String balance = Utility.getField(Fields.BALANCE, usr);
-            final String age = Utility.getField(Fields.AGE, usr);
+            final String password = ManagerUtility.getField(Fields.PASSWORD, usr);
+            final String balance = ManagerUtility.getField(Fields.BALANCE, usr);
+            final String age = ManagerUtility.getField(Fields.AGE, usr);
             if (usr.equals(getUsername()) && psw.equals(password)) {
                 System.out.println(("Welcome back: " + getUsername() + ". Your password is: " + password
                         + ", your balance is: " + balance + " and you're " + age + " years old"));

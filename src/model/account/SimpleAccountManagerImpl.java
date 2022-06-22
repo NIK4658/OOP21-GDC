@@ -14,7 +14,7 @@ public class SimpleAccountManagerImpl implements AccountManager {
     
     @Override
     public boolean logger(final String usr, final String psw) {
-        final JSONObject jo = Utility.getJsonObject(usr);
+        final JSONObject jo = ManagerUtility.getJsonObject(usr);
         if (jo != null) {
             this.username = jo.get(Fields.USERNAME).toString();
             return true;
@@ -31,18 +31,18 @@ public class SimpleAccountManagerImpl implements AccountManager {
         m.put(Fields.BALANCE, "0.0");
         m.put(Fields.AGE, age);
         final JSONObject jo = new JSONObject(m);
-        return Utility.writeOnFile(usr, jo);
+        return ManagerUtility.writeOnFile(usr, jo);
     }
 
     @Override
     public boolean checkExisting(final String usr) {
-        final File f = new File(Utility.getPath(usr));
+        final File f = new File(ManagerUtility.getPath(usr));
         return (f.exists() && !f.isDirectory());
     }
 
     @Override
     public boolean changeUsr(final String usrnew) {
-        if (Utility.changeField(Fields.USERNAME, usrnew, usrnew, this.username) && deleteAcc(this.username)) {
+        if (ManagerUtility.changeField(Fields.USERNAME, usrnew, usrnew, this.username) && deleteAcc(this.username)) {
             this.username = usrnew;
             return true;
         } else {
@@ -52,27 +52,27 @@ public class SimpleAccountManagerImpl implements AccountManager {
 
     @Override
     public boolean changePass(final String psw) {
-        return Utility.changeField(Fields.PASSWORD, psw, this.username, this.username);
+        return ManagerUtility.changeField(Fields.PASSWORD, psw, this.username, this.username);
     }
 
     @Override
     public boolean deleteAcc(final String usr) {
-        return (new File(Utility.getPath(usr))).delete();
+        return (new File(ManagerUtility.getPath(usr))).delete();
     }
 
     @Override
     public String getUsr() {
-        return Utility.getField(Fields.USERNAME, this.username);
+        return ManagerUtility.getField(Fields.USERNAME, this.username);
     }
 
     @Override
     public String getPsw() {
-        return Utility.getField(Fields.PASSWORD, this.username);
+        return ManagerUtility.getField(Fields.PASSWORD, this.username);
     }
 
     @Override
     public String getAge() {
-        return Utility.getField(Fields.AGE, this.username);
+        return ManagerUtility.getField(Fields.AGE, this.username);
     }    
     
     protected String getUsername() {

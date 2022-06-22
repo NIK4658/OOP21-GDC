@@ -29,13 +29,13 @@ public class SimpleBalanceManagerImpl implements BalanceManager {
     
     @Override
     public boolean changeBalance(final double balancenew) {
-        return Utility.changeField(Fields.BALANCE, String.valueOf((new BigDecimal(balancenew)
+        return ManagerUtility.changeField(Fields.BALANCE, String.valueOf((new BigDecimal(balancenew)
                 .setScale(2, RoundingMode.HALF_UP)).doubleValue()), username.getUsr(), username.getUsr());
     }
     
     @Override
     public double getBalance() { 
-        return Double.valueOf(Utility.getField(Fields.BALANCE, username.getUsr()));
+        return Double.valueOf(ManagerUtility.getField(Fields.BALANCE, username.getUsr()));
     }
     
     protected AccountManager getUsername() {

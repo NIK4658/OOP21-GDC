@@ -11,7 +11,7 @@ import org.json.simple.parser.JSONParser;
 /**
  * Classe di utility per funzioni statiche in comune necessarie ai manager.
  */
-public class Utility {
+public class ManagerUtility {
     
     /**
      * Funzione utile a creare File JSON da JSONObject.
@@ -70,8 +70,8 @@ public class Utility {
      */
     public static boolean changeField(final AccountManager.Fields field, 
             final String newValue, final String targetUsr, final String usr) {
-        final JSONObject jo = Utility.getJsonObject(usr);
+        final JSONObject jo = ManagerUtility.getJsonObject(usr);
         jo.replace(field, newValue);
-        return Utility.writeOnFile(targetUsr, jo);
+        return ManagerUtility.writeOnFile(targetUsr, jo);
     }
 }
