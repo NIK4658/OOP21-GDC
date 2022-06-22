@@ -103,6 +103,7 @@ public class BlackJackGui extends JPanel implements Game {
         draw.addActionListener(e -> {   
             gameLogic.askCard();
             setCards(DIRECTION_PLAYER);
+            dealerPoints.setText(String.valueOf(gameLogic.getDealerHand().getCard(0).getValue()));
             doubleUp.setVisible(false);
             if (gameLogic.getPlayerPoints() >= 21) {
                 stand.doClick();
