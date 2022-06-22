@@ -2,34 +2,34 @@ package baccarat;
 
 
 /**
- * Interfaccia principale gestione gioco blackjack.
+ * Baccarat game logic interface
  */
 public interface BaccaratLogic {
     
-    void startGame(final double bet);
+  void startGame(final double bet);
     
-    void nextMove();
+  void nextMove();
 
-    int checkWin();
+  int checkWin();
     
-    void nextDealerMove();
+  void nextDealerMove();
     
-    void nextPlayerMove();
+  void nextPlayerMove();
     
-    void dealerDraw();
+  void dealerDraw();
     
-    void playerDraw();
+  void playerDraw();
     
-    boolean checkBaccarat(Hand h);
+  boolean checkBaccarat(Hand h);
     
-    void endGame();
+  void endGame();
     
-    Hand getPlayerHand();
+  Hand getPlayerHand();
     
-    Hand getDealerHand();
+  Hand getDealerHand();
     
-    int getPlayerPoints();
+  int getPlayerPoints();
     
-    int getDealerPoints();
+  int getDealerPoints();
     
 }

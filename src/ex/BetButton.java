@@ -1,4 +1,4 @@
-package baccarat;
+package ex;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
