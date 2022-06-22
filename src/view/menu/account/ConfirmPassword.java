@@ -1,6 +1,5 @@
 package view.menu.account;
 
-import account.AccountManager;
 import java.awt.Dimension;
 import java.awt.Frame;
 import java.awt.GridBagConstraints;
@@ -10,6 +9,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.Timer;
+
+import model.account.AccountManager;
 
 
 public class ConfirmPassword {

@@ -1,11 +1,12 @@
 package view.menu.account;
 
-import account.AccountManager;
 import java.awt.Frame;
 import java.awt.GridBagConstraints;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
+
+import model.account.AccountManager;
 
 
 public class UsernamePanel extends AccountPanel {

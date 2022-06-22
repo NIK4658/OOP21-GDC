@@ -18,8 +18,8 @@ import model.roulette.number.RouletteNumber;
 import model.roulette.numbers.AmericanRouletteNumbers;
 import model.roulette.numbers.BaseRouletteNumbers;
 import utility.Pair;
-import view.ImageLoader;
 import view.MyGridBagConstraints;
+import view.Utilities;
 import view.menu.GeneralGui;
 import view.menu.games.Game.Games;
 
@@ -45,13 +45,13 @@ public class Table extends JPanel {
         this.gridy = 0;
         switch (game) {
             case ROULETTE_BASE: 
-                this.img = ImageLoader.getImage("res/img/backgrounds/BaseRouletteTable.png");
+                this.img = Utilities.getImage("res/img/backgrounds/BaseRouletteTable.png");
                 break;
             case ROULETTE_AMERICAN: 
-                this.img = ImageLoader.getImage("res/img/backgrounds/AmericanRouletteTable.png");
+                this.img = Utilities.getImage("res/img/backgrounds/AmericanRouletteTable.png");
                 break;
             case ROULETTE_EUROPEAN: 
-                this.img = ImageLoader.getImage("res/img/backgrounds/EuropeanRouletteTable.png");
+                this.img = Utilities.getImage("res/img/backgrounds/EuropeanRouletteTable.png");
                 this.addSectors();
                 break;
             default: 

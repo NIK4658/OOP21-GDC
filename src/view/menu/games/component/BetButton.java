@@ -1,4 +1,4 @@
-package blackjack;
+package view.menu.games.component;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -10,7 +10,8 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
-import view.ImageLoader;
+
+import view.Utilities;
 
 
 /**
@@ -88,22 +89,22 @@ public class BetButton extends JButton {
      
     private ImageIcon chooseChip(final double puntata) {
         if (puntata <  5) {
-            return new ImageIcon((ImageLoader.getImage("res/img/fiches/empty/1HD2.png"))
+            return new ImageIcon((Utilities.getImage("res/img/fiches/empty/1HD2.png"))
                     .getScaledInstance(this.dim.width / 16, this.dim.height / 9, Image.SCALE_SMOOTH));
         }
         if (puntata < 25) {
-            return new ImageIcon((ImageLoader.getImage("res/img/fiches/empty/5HD2.png"))
+            return new ImageIcon((Utilities.getImage("res/img/fiches/empty/5HD2.png"))
                     .getScaledInstance(this.dim.width / 16, this.dim.height / 9, Image.SCALE_SMOOTH));
         }
         if (puntata < 100) {
-            return new ImageIcon((ImageLoader.getImage("res/img/fiches/empty/25HD2.png"))
+            return new ImageIcon((Utilities.getImage("res/img/fiches/empty/25HD2.png"))
                     .getScaledInstance(this.dim.width / 16, this.dim.height / 9, Image.SCALE_SMOOTH));
         }
         if (puntata < 500) {
-            return new ImageIcon((ImageLoader.getImage("res/img/fiches/empty/100HD2.png"))
+            return new ImageIcon((Utilities.getImage("res/img/fiches/empty/100HD2.png"))
                     .getScaledInstance(this.dim.width / 16, this.dim.height / 9, Image.SCALE_SMOOTH));
         }
-        return new ImageIcon((ImageLoader.getImage("res/img/fiches/empty/500HD2.png"))
+        return new ImageIcon((Utilities.getImage("res/img/fiches/empty/500HD2.png"))
                 .getScaledInstance(this.dim.width / 16, this.dim.height / 9, Image.SCALE_SMOOTH));
     }
 }

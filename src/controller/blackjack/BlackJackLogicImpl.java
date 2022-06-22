@@ -1,6 +1,10 @@
-package blackjack;
+package controller.blackjack;
 
-import account.BalanceManager;
+import model.account.BalanceManager;
+import model.blackjack.Deck;
+import model.blackjack.DeckImpl;
+import model.blackjack.Hand;
+import model.blackjack.HandImpl;
 
 /**
  * Classe principale gestione gioco blackjack.
@@ -14,7 +18,7 @@ public class BlackJackLogicImpl implements BlackJackLogic {
     private Hand player;
     private Hand dealer;
     
-    BlackJackLogicImpl(final BalanceManager account) {
+    public BlackJackLogicImpl(final BalanceManager account) {
         this.deck = new DeckImpl(6);
         this.deck.generateDeck();
         this.account = account;

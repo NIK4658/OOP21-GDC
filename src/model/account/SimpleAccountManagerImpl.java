@@ -1,4 +1,4 @@
-package account;
+package model.account;
 
 import java.io.File;
 import java.util.HashMap;

@@ -1,10 +1,11 @@
 package view.menu.games.roulette;
 
-import account.BalanceManager;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.util.List;
 import javax.swing.JPanel;
+
+import model.account.BalanceManager;
 import model.roulette.AmericanRoulette;
 import model.roulette.BaseRoulette;
 import model.roulette.EuropeanRoulette;

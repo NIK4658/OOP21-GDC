@@ -1,8 +1,9 @@
-package blackjack;
+package model.blackjack;
 
-import blackjack.Card.Suits;
 import java.util.ArrayList;
 import java.util.Random;
+
+import model.blackjack.Card.Suits;
 
 /**
  * Classe principale gestione mazzi.

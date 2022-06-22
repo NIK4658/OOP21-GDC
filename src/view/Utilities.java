@@ -1,30 +1,27 @@
 package view;
 
 import java.awt.Dimension;
+import java.awt.Image;
 import java.awt.Toolkit;
+
+import javax.swing.ImageIcon;
 
 /**
  * Class useful to resize all windows with a factor scale.
  */
-public class Resizer {
+public class Utilities {
 
-    private int width;
-    private int height;
-
-    /**
-     * Main function.
-     */
-    public Dimension resize(final float factor) {
+    public static Dimension resize(final float factor) {
         final Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        width = screenSize.width;
-        height = screenSize.height;
+        final int width = screenSize.width;
+        final int height = screenSize.height;
         
-        if (checkVertical()) {
+        if (checkVertical(height, width)) {
             System.out.println("verticale");
             return new Dimension(Math.round(width / factor), Math.round(width * 16 / 9 / factor));
         }
         System.out.println("orizzontale");
-        if (checkRatio()) {
+        if (checkRatio(height, width)) {
             System.out.println("RatioCorretto 16/9");
             return new Dimension(Math.round(width / factor), Math.round(height / factor));
         } else {
@@ -33,11 +30,15 @@ public class Resizer {
         }
     }
 
-    private boolean checkRatio() {
+    private static boolean checkRatio(final int height, final int width) {
         return (height * 16 / 9) == width;
     }
 
-    private boolean checkVertical() {
+    private static boolean checkVertical(final int height, final int width) {
         return width < height;
+    }
+
+    public static Image getImage(final String path) {
+        return new ImageIcon(path).getImage();
     }
 }

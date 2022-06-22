@@ -1,4 +1,4 @@
-package blackjack;
+package model.blackjack;
 
 import java.util.LinkedList;
 
@@ -10,7 +10,7 @@ public class HandImpl extends LinkedList<Card> implements Hand {
     private static final long serialVersionUID = 1L;
     private int points;
 
-    HandImpl() {
+    public HandImpl() {
         this.points = 0;
     }
 

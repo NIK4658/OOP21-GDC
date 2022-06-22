@@ -5,12 +5,14 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
-import account.AdvancedBalanceManagerImpl;
-import blackjack.BlackJackGui;
+
+import model.account.AdvancedBalanceManagerImpl;
+
 import java.awt.Color;
 import view.gui.MenuManager;
 import view.menu.GeneralGui;
 import view.menu.Menu;
+import view.menu.games.blackjack.BlackJackGui;
 
 public class GameImpl extends JPanel implements Menu {
 

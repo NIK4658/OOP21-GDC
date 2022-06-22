@@ -1,8 +1,9 @@
 package view.gui;
 
-import account.AccountManager;
 import java.awt.Dimension;
 import java.awt.Frame;
+
+import model.account.AccountManager;
 import view.menu.games.Game.Games;//cambiare nome classe Games
 
 public interface MenuManager {

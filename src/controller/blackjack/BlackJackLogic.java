@@ -1,5 +1,6 @@
-package blackjack;
+package controller.blackjack;
 
+import model.blackjack.Hand;
 
 /**
  * Interfaccia principale gestione gioco blackjack.

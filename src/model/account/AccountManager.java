@@ -1,4 +1,4 @@
-package account;
+package model.account;
 
 /**
  * Interfaccia principale che definisce le funzioni utili alla gestione degli account.

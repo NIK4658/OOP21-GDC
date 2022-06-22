@@ -1,4 +1,4 @@
-package account;
+package model.account;
 
 /**
  * Classe principale AVANZATA gestione balance.

@@ -1,4 +1,4 @@
-package blackjack;
+package model.blackjack;
 
 /**
  * Interfaccia per classe gestione mazzi.

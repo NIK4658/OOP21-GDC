@@ -1,9 +1,9 @@
-package account;
+package model.account;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
-import account.AccountManager.Fields;
+import model.account.AccountManager.Fields;
 
 
 /**

@@ -1,4 +1,4 @@
-package account;
+package model.account;
 
 import java.io.FileReader;
 import java.io.PrintWriter;

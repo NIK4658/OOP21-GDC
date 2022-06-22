@@ -1,8 +1,5 @@
 package view.menu.account;
 
-import account.AccountManager;
-import account.AdvancedBalanceManagerImpl;
-import account.BalanceManager;
 import java.awt.GridBagConstraints;
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
@@ -12,6 +9,10 @@ import java.util.Locale;
 import javax.swing.JButton;
 import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
+
+import model.account.AccountManager;
+import model.account.AdvancedBalanceManagerImpl;
+import model.account.BalanceManager;
 
 public class BalancePanel extends AccountPanel {
     

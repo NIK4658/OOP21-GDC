@@ -1,4 +1,4 @@
-package blackjack;
+package view.menu.games.blackjack;
 
 import java.awt.BorderLayout;
 import java.awt.Color;

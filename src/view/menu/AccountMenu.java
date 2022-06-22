@@ -1,6 +1,5 @@
 package view.menu;
 
-import account.AccountManager;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Font;
@@ -13,6 +12,8 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
+
+import model.account.AccountManager;
 import view.gui.MenuManager;
 import view.menu.account.AccountPanel;
 import view.menu.account.BalancePanel;

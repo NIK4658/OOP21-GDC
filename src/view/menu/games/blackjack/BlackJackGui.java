@@ -1,6 +1,10 @@
-package blackjack;
+package view.menu.games.blackjack;
 
-import account.BalanceManager;
+import controller.blackjack.BlackJackLogic;
+import controller.blackjack.BlackJackLogicImpl;
+import model.account.BalanceManager;
+import model.blackjack.Hand;
+
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -18,11 +22,13 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
-import view.ImageLoader;
+
 import view.MyGridBagConstraints;
+import view.Utilities;
 import view.gui.MenuManager;
 import view.menu.GeneralGui;
 import view.menu.games.Game;
+import view.menu.games.component.BetButton;
 
 /**
  * GUI principale Blackjack.
@@ -36,7 +42,7 @@ public class BlackJackGui extends JPanel implements Game {
     private final BlackJackLogic gameLogic;
     private List<JLabel> dealerCards;
     private List<JLabel> playerCards;
-    private final Image img = ImageLoader.getImage("res/img/backgrounds/blackjacktableHDwithbet.png");
+    private final Image img = Utilities.getImage("res/img/backgrounds/blackjacktableHDwithbet.png");
     private final int width;
     private final int height;
     private final BetButton bet;
@@ -52,11 +58,12 @@ public class BlackJackGui extends JPanel implements Game {
     /**
      * Costruttore.
      */
-    public BlackJackGui(final MenuManager frame, final BalanceManager account, final GeneralGui generalInterface) {
+    public BlackJackGui(final BalanceManager account, final GeneralGui generalInterface) {
         this.generalInterface = generalInterface;
+        final MenuManager frame = generalInterface.getFrame();
         this.setLayout(new BorderLayout());
-        this.setPreferredSize(frame.getSizeMenu());
         this.gameLogic = new BlackJackLogicImpl(account);
+        this.setPreferredSize(frame.getSizeMenu());
         this.width = frame.getWidthMenu();
         this.height = frame.getHeightMenu();
         this.draw = new JButton(); 
@@ -72,7 +79,7 @@ public class BlackJackGui extends JPanel implements Game {
         final List<JLabel> visualPoints = new ArrayList<>();
         visualPoints.add(playerPoints);
         visualPoints.add(dealerPoints);
-        final Image img = ((ImageLoader.getImage("res/img/buttons/points.png"))
+        final Image img = ((Utilities.getImage("res/img/buttons/points.png"))
                 .getScaledInstance(width / 25, width / 25, Image.SCALE_SMOOTH));
         for (final JLabel points : visualPoints) {
             points.setForeground(Color.WHITE);
@@ -182,7 +189,7 @@ public class BlackJackGui extends JPanel implements Game {
             jb.setContentAreaFilled(false);
             jb.setBorderPainted(false);
             jb.setFocusPainted(false);
-            jb.setIcon(new ImageIcon((ImageLoader.getImage("res/img/buttons/" + buttonList.get(i).getName() + ".png"))
+            jb.setIcon(new ImageIcon((Utilities.getImage("res/img/buttons/" + buttonList.get(i).getName() + ".png"))
                     .getScaledInstance((int) (this.width / 12.8), (int) (this.width / 12.8), Image.SCALE_SMOOTH)));
             buttonsArea.add(jb, new MyGridBagConstraints(i, 0, new Insets(0, 0, 0, 0), GridBagConstraints.NONE));
             i++;
