@@ -172,6 +172,10 @@ public class BlackJackLogicImpl implements BlackJackLogic {
         return this.lastwin;
     }
 
+    public double getBet() {
+        return this.bet;
+    }
+    
     @Override
     public boolean canInsurance() {
         return (account.getBalance() >= (this.bet / 2));

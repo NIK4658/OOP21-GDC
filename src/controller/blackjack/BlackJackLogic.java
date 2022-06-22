@@ -39,6 +39,8 @@ public interface BlackJackLogic {
     
     int getDealerPoints();
     
+    double getBet();
+    
     double getLastWin();
     
 }
