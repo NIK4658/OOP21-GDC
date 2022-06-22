@@ -1,122 +1,93 @@
 package view.menu.account;
 
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Font;
+import account.AccountManager;
+import account.AdvancedBalanceManagerImpl;
+import account.BalanceManager;
 import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.Insets;
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.Currency;
+import java.util.Locale;
 import javax.swing.JButton;
 import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.SwingConstants;
 
-import account.AccountManager;
-import account.AdvancedBalanceManagerImpl;
-import account.BalanceManager;
-import account.SimpleBalanceManagerImpl;
-
-//pannello GESTIONE SALDO, sistemare ripetizioni e creare funzioni per check amount
-public class BalancePanel extends JPanel {
+public class BalancePanel extends AccountPanel {
     
-    private static final int SCALE_TITLE = 7;
-    private static final int SCALE_COMPONENT = 30;
-    private static final double MAX_IMPORT = 10000;
-    private static final double MIN_IMPORT = 15;
+    private static final Locale LOCALE = Locale.ITALY; //vedere se metterla in comune tra altre classi o se togliere la constante e usare locale.italy direttamente
+    private static final int N_FRACTION_DIGITS = 2;
+    private static final int N_MAX_INTEGER_DIGITS = 6;
+    
     private final BalanceManager account;
+    private final JFormattedTextField importField;
     
     public BalancePanel(final AccountManager account, final int minSize) {
-        
+        super(minSize);
         this.account = new AdvancedBalanceManagerImpl(account);
-        final String currencySymbol = Currency.getInstance(getLocale()).getSymbol();
-        this.setLayout(new GridBagLayout());
-        this.setBackground(new Color(68, 87, 96)); //risolvere ripetizione        
-
-
-
-        final JLabel labelImport = new JLabel(currencySymbol);
-        final JLabel labelBalance = new JLabel("Balance: ");
-        final JLabel labelAlert = new JLabel();
-
-    
-        final NumberFormat format = DecimalFormat.getInstance();
-        final NumberFormat formatBalance = DecimalFormat.getCurrencyInstance();
-        format.setMinimumFractionDigits(2);
-        format.setMaximumFractionDigits(2);
+        
+        final JLabel importLabel = new JLabel(Currency.getInstance(LOCALE).getSymbol());
+        final JLabel balanceLabel = new JLabel("Balance: ");
+        final JLabel alertLabel = new JLabel();
+        final NumberFormat format = DecimalFormat.getInstance(LOCALE);
+        final NumberFormat balanceFormat = DecimalFormat.getCurrencyInstance(LOCALE);
+        format.setMinimumFractionDigits(N_FRACTION_DIGITS);
+        format.setMaximumFractionDigits(N_FRACTION_DIGITS);
+        format.setMaximumIntegerDigits(N_MAX_INTEGER_DIGITS);
         format.setRoundingMode(RoundingMode.HALF_UP);
-        final JFormattedTextField fieldImport = new JFormattedTextField(format);
-        final JFormattedTextField fieldBalance = new JFormattedTextField(formatBalance);
-        fieldImport.setColumns(10);
-        fieldImport.setValue(0);
-        fieldBalance.setColumns(10);
-        fieldBalance.setEditable(false);
-        fieldBalance.setValue(this.getBalance());
+        importField = new JFormattedTextField(format);
+        final JFormattedTextField balanceField = new JFormattedTextField(balanceFormat);
+        importField.setColumns(N_COLUMNS_FIELD);
+        importField.setValue(0);
+        balanceField.setColumns(N_COLUMNS_FIELD);
+        balanceField.setEditable(false);
+        balanceField.setValue(this.getBalance());
         
-        
-        
-        
-        //Eliminare rep con altro bottone(es. crea funzione)
-        final JButton buttonDeposit = new JButton("Deposit");
-        buttonDeposit.addActionListener(e -> {
-            final String deposit = fieldImport.getText().replace(".", "").replace(",", ".");
-            final double amount = Double.parseDouble(deposit);
+        final JButton depositButton = new JButton("Deposit");
+        depositButton.addActionListener(e -> {
+            final double amount = this.getImport();
             if (this.setDeposit(amount)) {
-                fieldBalance.setValue(this.getBalance());
-                labelAlert.setText("Successful deposit of " + formatBalance.format(amount));
+                balanceField.setValue(this.getBalance());
+                alertLabel.setText("Successful deposit of " + balanceFormat.format(amount));
             } else {
-                labelAlert.setText("Unsuccessful deposit");
+                alertLabel.setText("Unsuccessful deposit");
             }
         });
         
-        final JButton buttonWithdraw = new JButton("Withdraw");
-        buttonWithdraw.addActionListener(e -> {
-            final String withdraw = fieldImport.getText().replace(".", "").replace(",", ".");
-            final double amount = Double.parseDouble(withdraw);
+        final JButton withdrawButton = new JButton("Withdraw");
+        withdrawButton.addActionListener(e -> {
+            final double amount = this.getImport();
             if (this.setWithdraw(amount)) {
-                fieldBalance.setValue(this.getBalance());
-                labelAlert.setText("Successful withdraw of " + formatBalance.format(amount));
+                balanceField.setValue(this.getBalance());
+                alertLabel.setText("Successful withdraw of " + balanceFormat.format(amount));
             } else {
-                labelAlert.setText("Unsuccessful withdraw");
+                alertLabel.setText("Unsuccessful withdraw");
             }
         });
-        
-        final JLabel title = new JLabel("BALANCE", SwingConstants.CENTER);
-        title.setForeground(Color.WHITE);
-        title.setFont(new Font("Arial", Font.BOLD, minSize / SCALE_TITLE));
-        labelImport.setFont(new Font("Arial", Font.PLAIN, minSize / SCALE_COMPONENT));
-        labelBalance.setFont(new Font("Arial", Font.PLAIN, minSize / SCALE_COMPONENT));
-        labelAlert.setFont(new Font("Arial", Font.PLAIN, minSize / SCALE_COMPONENT));
-        fieldImport.setFont(new Font("Arial", Font.PLAIN, minSize / SCALE_COMPONENT));
-        fieldBalance.setFont(new Font("Arial", Font.PLAIN, minSize / SCALE_COMPONENT));
-        buttonDeposit.setFont(new Font("Arial", Font.PLAIN, minSize / SCALE_COMPONENT));
-        buttonWithdraw.setFont(new Font("Arial", Font.PLAIN, minSize / SCALE_COMPONENT));
-        
-        
         
         final var c = new GridBagConstraints();
         c.gridx = 0;
         c.gridy = 0;
-        this.add(labelImport, c);
+        this.add(importLabel, c);
         c.gridx++;
-        this.add(fieldImport, c);
+        this.add(importField, c);
         c.gridx++;
-        this.add(buttonDeposit, c);
+        this.add(depositButton, c);
         c.gridx = 0;
         c.gridy++;
-        this.add(labelBalance, c);
+        this.add(balanceLabel, c);
         c.gridx++;
-        this.add(fieldBalance, c);
+        this.add(balanceField, c);
         c.gridx++;
-        this.add(buttonWithdraw, c);
+        this.add(withdrawButton, c);
         c.gridx = 0;
         c.gridy++;
         c.gridwidth = 3;
-        this.add(labelAlert, c);
+        this.add(alertLabel, c);
+    }
+    
+    private double getImport() {
+        return Double.parseDouble(importField.getText().replace(".", "").replace(",", "."));
     }
 
     private double getBalance() {
@@ -126,7 +97,6 @@ public class BalancePanel extends JPanel {
     private boolean setDeposit(final double deposit) {
         return this.account.deposit(deposit);
     }
-    
     
     private boolean setWithdraw(final double withdraw) {
         return this.account.withdraw(withdraw);

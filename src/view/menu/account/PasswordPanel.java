@@ -1,78 +1,67 @@
 package view.menu.account;
 
-import java.awt.Color;
+import account.AccountManager;
 import java.awt.Frame;
-import java.awt.Dimension;
-import java.awt.Font;
 import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.Insets;
 import javax.swing.JButton;
 import javax.swing.JLabel;
-import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-import account.AccountManager;
-
 //pannello CAMBIO PASSWORD, sistemare ripetizioni
-public class PasswordPanel extends JPanel {
+public class PasswordPanel extends AccountPanel {
     
-    private static final int SCALE_COMPONENT = 30;
     private final AccountManager account;
+    private final JTextField passwordField;
+    private final JTextField newPasswordField;
 
     public PasswordPanel(final Frame frame, final AccountManager account, final int minSize) {
+        super(minSize);
         this.account = account;
-        this.setLayout(new GridBagLayout());
-        this.setBackground(new Color(68, 87, 96));     
         
-        final JLabel labelPassword = new JLabel("Insert new Password: ");
-        final JLabel labelNewPassword = new JLabel("Confirm new Password: ");
-        final JTextField fieldPassword = new JTextField(10);
-//        fieldPassword.setEditable(false);//momentaneamente disabilitato, bisogna implementare una JDialog 
-        final JTextField fieldNewPassword = new JTextField(10);
+        final JLabel passwordLabel = new JLabel("Insert new Password: ");
+        final JLabel newPasswordLabel = new JLabel("Confirm new Password: ");
+        passwordField = new JTextField(10);
+        newPasswordField = new JTextField(10);
         final JButton buttonPassword = new JButton("Change");
         final JLabel labelAlert = new JLabel();
         
-        buttonPassword.addActionListener(e -> {//aggiungere password non valida
-            if (fieldPassword.getText().equals(fieldNewPassword.getText())) {
-                if (new ConfirmPassword(frame, account, " to change Password", minSize).isPasswordConfirmed()) {
-                    if (this.setPassword(fieldNewPassword.getText())) {
+        buttonPassword.addActionListener(e -> {
+            if (passwordField.getText().equals(newPasswordField.getText())) {
+                if (new ConfirmPassword(frame, account, minSize).isConfirmed()) {
+                    if (this.setPassword(newPasswordField.getText())) {
                         labelAlert.setText("Password changed");
-                        fieldPassword.setText("");
-                        fieldNewPassword.setText("");
+                        this.updatePasswordFields();
+                    } else {
+                        labelAlert.setText("Password not valid");
                     }
                 }
             } else {
                 labelAlert.setText("Different passwords entered in the fields");
             }
-            
         });
         
-        
-        labelPassword.setFont(new Font("Arial", Font.PLAIN, minSize / SCALE_COMPONENT));
-        labelNewPassword.setFont(new Font("Arial", Font.PLAIN, minSize / SCALE_COMPONENT));
-        fieldPassword.setFont(new Font("Arial", Font.PLAIN, minSize / SCALE_COMPONENT));
-        fieldNewPassword.setFont(new Font("Arial", Font.PLAIN, minSize / SCALE_COMPONENT));
-        buttonPassword.setFont(new Font("Arial", Font.PLAIN, minSize / SCALE_COMPONENT));
-        labelAlert.setFont(new Font("Arial", Font.PLAIN, minSize / SCALE_COMPONENT));
-        
-        
-        
-        
         final var c = new GridBagConstraints();
-        this.add(labelPassword);
-        c.gridx = 1;
-        this.add(fieldPassword, c);
         c.gridx = 0;
-        c.gridy = 1;
-        this.add(labelNewPassword, c);
-        c.gridx = 1;
-        this.add(fieldNewPassword, c);
-        c.gridx = 1;
-        c.gridy = 2;
+        c.gridy = 0;
+        this.add(passwordLabel, c);
+        c.gridx++;
+        this.add(passwordField, c);
+        c.gridx = 0;
+        c.gridy++;
+        this.add(newPasswordLabel, c);
+        c.gridx++;
+        this.add(newPasswordField, c);
+        c.gridy++;
         this.add(buttonPassword, c);
-        c.gridy = 3;
+        c.gridx = 0;
+        c.gridy++;
+        c.gridwidth = 3;
         this.add(labelAlert, c);
+    }
+    
+    private void updatePasswordFields() {
+        this.passwordField.setText("");
+        this.newPasswordField.setText("");
     }
 
     private boolean setPassword(final String password) {
