@@ -29,33 +29,62 @@ public class DeckImpl extends ArrayList<Card> implements Deck {
     
     @Override
     public void shuffle() {
+        System.out.println(this.size());
+        System.out.println("RIGENERO IL MAZZO");
         this.removeAll(this);
         generateDeck();
+        System.out.println(this.size());
     }
 
     @Override
     public boolean removePreciseCard(final Card card) {
-        return (this.remove(card));
+        int i = 0;
+        for (final Card c : this) {
+            if (c.getSuit() == card.getSuit() && c.getCard().getY() == card.getCard().getY()) {
+                this.remove(i);
+                return true;
+            }
+            i++;   
+        }
+        return false;
     }
 
     @Override
     public boolean removeRandomCard() {
-        return (this.remove(new CardImpl()));
+        if (this.size() != 0) {
+            return this.remove(this.get(new Random().ints(0, this.size()).findFirst().getAsInt()));
+        } else {
+            return false;
+        }
     }
 
 
     @Override
     public Card drawPreciseCard(final Card card) {
-        this.remove(card);
-        return card;
+        if (this.size() != 0) {
+            int i = 0;
+            for (final Card c : this) {
+                if (c.getSuit() == card.getSuit() && c.getCard().getY() == card.getCard().getY()) {
+                    return this.remove(i);
+                }
+                i++;   
+            }
+            return null;
+        } else {
+            return null;
+        }
     }
 
 
     @Override
     public Card drawRandomCard() {
-        final Card c = this.get(new Random().ints(0, this.size()).findFirst().getAsInt());
-        this.remove(c);
-        return c;
+        if (this.size() != 0) {
+            final Card c = this.get(new Random().ints(0, this.size()).findFirst().getAsInt());
+            this.remove(c);
+            return c;
+        } else {
+            return null;
+        }
     }
 
     @Override
