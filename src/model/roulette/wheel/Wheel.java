@@ -6,7 +6,7 @@ import model.roulette.number.RouletteNumber;
 
 public interface Wheel {
 
-    RouletteNumber get(int index);
+//    RouletteNumber get(int index);
     
     List<RouletteNumber> getList();
     

@@ -1,7 +1,8 @@
 package model.roulette;
 
 import java.util.Random;
-import model.roulette.number.AmericanRouletteNumber;
+
+import model.roulette.number.RouletteNumber;
 import model.roulette.wheel.AmericanWheel;
 
 
@@ -16,8 +17,8 @@ public class AmericanRoulette implements Roulette {
     }
 
     @Override
-    public AmericanRouletteNumber spin() {
-        return roulettenumbers.get(this.random.nextInt(AmericanWheel.NUMBERS));
+    public RouletteNumber spin() {
+        return roulettenumbers.getList().get(this.random.nextInt(AmericanWheel.NUMBERS));
     }
     
 }

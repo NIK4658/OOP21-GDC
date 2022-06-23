@@ -23,12 +23,6 @@ public class AmericanWheel implements Wheel {
         }
         this.rouletteNumbers.add(new AmericanRouletteNumber(_00_, Color.GREEN));
     }
-    
-    
-    @Override
-    public AmericanRouletteNumber get(final int index) {
-        return this.rouletteNumbers.get(index);
-    }
 
     @Override
     public List<RouletteNumber> getList() {

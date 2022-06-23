@@ -55,11 +55,6 @@ public class BaseWheel implements Wheel {
     }
 
     @Override
-    public BaseRouletteNumber get(final int index) {
-        return this.rouletteNumbers.get(index);
-    }
-
-    @Override
     public List<RouletteNumber> getList() {
         return Collections.unmodifiableList(this.rouletteNumbers);
     }

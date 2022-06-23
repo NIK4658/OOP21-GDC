@@ -17,7 +17,7 @@ public class BaseRoulette implements Roulette {
 
     @Override
     public RouletteNumber spin() {
-        return this.wheel.get(this.random.nextInt(BaseWheel.NUMBERS));
+        return this.wheel.getList().get(this.random.nextInt(BaseWheel.NUMBERS));
     }
 
 }

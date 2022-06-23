@@ -5,6 +5,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.util.List;
 import javax.swing.JPanel;
+
 import model.roulette.AmericanRoulette;
 import model.roulette.BaseRoulette;
 import model.roulette.EuropeanRoulette;
@@ -14,6 +15,8 @@ import model.roulette.number.RouletteNumber;
 import utility.Pair;
 import view.menu.GeneralGui;
 import view.menu.games.Game;
+import model.roulette.RouletteFactory;
+import model.roulette.RouletteFactoryImpl;
 
 
 public class RouletteGame extends JPanel implements Game {
@@ -31,16 +34,17 @@ public class RouletteGame extends JPanel implements Game {
         this.setLayout(new BorderLayout());
         this.generalInterface = generalInterface;
         this.win = new Wins();
+        final RouletteFactory rouletteFactory = new RouletteFactoryImpl();
         
         switch (game) {
             case ROULETTE_BASE: 
-                this.roulette = new BaseRoulette();
+                this.roulette = rouletteFactory.createBaseRoulette();//new BaseRoulette();
                 break;
             case ROULETTE_EUROPEAN: 
-                this.roulette = new EuropeanRoulette();
+                this.roulette = rouletteFactory.createEuropeanRoulette();//new EuropeanRoulette();
                 break;
             case ROULETTE_AMERICAN: 
-                this.roulette = new AmericanRoulette();
+                this.roulette = rouletteFactory.createAmericanRoulette();//new AmericanRoulette();
                 break;
             default:
                 throw new IllegalArgumentException();
