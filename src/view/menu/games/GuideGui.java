@@ -44,10 +44,9 @@ public class GuideGui extends JDialog {
         title.setFont(new Font("Arial", Font.BOLD, dim.width / 25));
         final JTextArea text = new JTextArea();
         text.setFont(new Font("Arial", Font.PLAIN, dim.width / 95));
-        FileReader reader;
         try {
             final String nameFile = this.getGameName(game) + ".txt";
-            reader = new FileReader("res/txt/" + nameFile);
+            final FileReader reader = new FileReader("res/txt/" + nameFile);
             text.read(reader, nameFile); //Object of JTextArea
             reader.close();
         } catch (Exception e) {
