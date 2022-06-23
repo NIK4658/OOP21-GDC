@@ -101,7 +101,7 @@ public class GeneralGui extends JPanel implements Menu {
         this.winMessageText.setHorizontalAlignment(SwingConstants.CENTER);
         this.winMessageText.setFont(new Font("Arial", Font.PLAIN | Font.ITALIC, height / 25));
         winmsg.setPreferredSize(new Dimension(width / 4, height / 10));
-        final JLabel backgrnd = new JLabel(new ImageIcon(Utilities.getImage("res/img/gui/ProvaSfondoLabel4.png")
+        final JLabel backgrnd = new JLabel(new ImageIcon(Utilities.getImage("img/gui/ProvaSfondoLabel4.png")
                 .getScaledInstance(width / 5, height / 12, Image.SCALE_SMOOTH)));
         backgrnd.setBounds(width / 50, height / 120, width / 5, height / 12);
         this.winMessageText.setBounds(0, 0, width / 4, height / 10);
@@ -179,7 +179,7 @@ public class GeneralGui extends JPanel implements Menu {
             jb.setContentAreaFilled(false);
             jb.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
             if (i <= 1) {
-                jb.setIcon(new ImageIcon((Utilities.getImage("res/img/buttons/"
+                jb.setIcon(new ImageIcon((Utilities.getImage("img/buttons/"
                         + jb.getName() + ".png"))
                         .getScaledInstance(width / 20, width / 20, Image.SCALE_SMOOTH)));
                 if (i == 0) {
@@ -190,7 +190,7 @@ public class GeneralGui extends JPanel implements Menu {
                             new MyGridBagConstraints(i, 0, 1, 2, new Insets(0, 0, height / 200, height / 30)));
                 }
             } else {
-                jb.setIcon(new ImageIcon((Utilities.getImage("res/img/fiches/numbers/new/"
+                jb.setIcon(new ImageIcon((Utilities.getImage("img/fiches/numbers/new/"
                         + jb.getName() + ".png"))
                         .getScaledInstance(width / 15, width / 15, Image.SCALE_SMOOTH)));
                 southright.add(jb, new MyGridBagConstraints(i, 0, 1, 2, new Insets(0, 0, height / 100, 0)));
@@ -230,7 +230,7 @@ public class GeneralGui extends JPanel implements Menu {
         final JLayeredPane southtotal = new JLayeredPane();
         southtotal.setPreferredSize(new Dimension((int) (width / 3.5) + width / 60, height / 10));
         southleft.setBounds(width / 60, 0, (int) (width / 3.5), height / 10);
-        final JLabel bckgnd = new JLabel(new ImageIcon(Utilities.getImage("res/img/gui/ProvaSfondoLabel4.png")
+        final JLabel bckgnd = new JLabel(new ImageIcon(Utilities.getImage("img/gui/ProvaSfondoLabel4.png")
                 .getScaledInstance((int) (width / 3.5), height / 10, Image.SCALE_SMOOTH)));
         bckgnd.setBounds(width / 60, 0, (int) (width / 3.5), height / 10);
         southtotal.add(bckgnd, 1);
@@ -280,7 +280,7 @@ public class GeneralGui extends JPanel implements Menu {
                 s = jb.getName();
             }
             jb.setIcon(new ImageIcon((Utilities
-                    .getImage("res/img/fiches/numbers/new/" + s + ".png"))
+                    .getImage("img/fiches/numbers/new/" + s + ".png"))
                     .getScaledInstance(width / 15, width / 15, Image.SCALE_SMOOTH)));
             i++;
         }

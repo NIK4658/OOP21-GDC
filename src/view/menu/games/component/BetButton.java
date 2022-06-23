@@ -87,7 +87,7 @@ public class BetButton extends JButton {
     } 
      
     private ImageIcon chooseChip(final double puntata) {
-        final String path = "res/img/fiches/empty/";
+        final String path = "img/fiches/empty/";
         final int widthfiches = this.dim.width / 16;
         final int heightfiches = this.dim.height / 9;
         String fichesname = "500";

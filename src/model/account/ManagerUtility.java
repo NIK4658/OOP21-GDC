@@ -1,5 +1,6 @@
 package model.account;
 
+import java.io.File;
 import java.io.FileReader;
 import java.io.PrintWriter;
 import java.util.HashMap;
@@ -17,6 +18,10 @@ public class ManagerUtility {
      * Funzione utile a creare File JSON da JSONObject.
      */
     public static boolean writeOnFile(final String usr, final JSONObject jo) {
+        final File theDir = new File("users");
+        if (!theDir.exists()) {
+            theDir.mkdirs();
+        }
         try {
             final PrintWriter pw = new PrintWriter(getPath(usr));
             pw.write(jo.toJSONString());
@@ -28,7 +33,7 @@ public class ManagerUtility {
     }
     
     public static String getPath(final String usr) {
-        return ("res/json/users/" + usr + ".json"); 
+        return ("users/" + usr + ".json"); 
     }
     
     /**

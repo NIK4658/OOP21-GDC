@@ -40,7 +40,7 @@ public class BlackJackGui extends JPanel implements Game {
     private final BlackJackLogic gameLogic;
     private List<JLabel> dealerCards;
     private List<JLabel> playerCards;
-    private final Image img = Utilities.getImage("res/img/backgrounds/blackjacktableHDwithbet.png");
+    private final Image img = Utilities.getImage("img/backgrounds/blackjacktableHDwithbet.png");
     private final int width;
     private final int height;
     private final BetButton bet;
@@ -76,7 +76,7 @@ public class BlackJackGui extends JPanel implements Game {
         final List<JLabel> visualPoints = new ArrayList<>();
         visualPoints.add(playerPoints);
         visualPoints.add(dealerPoints);
-        final Image img = ((Utilities.getImage("res/img/buttons/points.png"))
+        final Image img = ((Utilities.getImage("img/buttons/points.png"))
                 .getScaledInstance(width / 25, width / 25, Image.SCALE_SMOOTH));
         for (final JLabel points : visualPoints) {
             points.setForeground(Color.WHITE);
@@ -186,7 +186,7 @@ public class BlackJackGui extends JPanel implements Game {
             jb.setContentAreaFilled(false);
             jb.setBorderPainted(false);
             jb.setFocusPainted(false);
-            jb.setIcon(new ImageIcon((Utilities.getImage("res/img/buttons/" + buttonList.get(i).getName() + ".png"))
+            jb.setIcon(new ImageIcon((Utilities.getImage("img/buttons/" + buttonList.get(i).getName() + ".png"))
                     .getScaledInstance((int) (this.width / 12.8), (int) (this.width / 12.8), Image.SCALE_SMOOTH)));
             buttonsArea.add(jb, new MyGridBagConstraints(i, 0, new Insets(0, 0, 0, 0), GridBagConstraints.NONE));
             i++;

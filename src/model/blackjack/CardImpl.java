@@ -3,7 +3,6 @@ package model.blackjack;
 import java.awt.Image;
 import java.util.Objects;
 import java.util.Random;
-
 import utility.Pair;
 import view.Utilities;
 
@@ -21,7 +20,7 @@ public class CardImpl implements Card {
     */
     public CardImpl(final Suits s, final int value) {
         this.card = new Pair<>(s, value);
-        this.img = Utilities.getImage("res/img/cards/" + this.card.getX() + "/" + this.card.getY() + ".png");
+        this.img = Utilities.getImage("img/cards/" + this.card.getX() + "/" + this.card.getY() + ".png");
         this.facedown = false;
     }
     
@@ -88,13 +87,13 @@ public class CardImpl implements Card {
     @Override
     public void turnOver() {
         if (this.facedown) {
-            this.img = Utilities.getImage("res/img/cards/" + this.card.getX() + "/" + this.card.getY() + ".png");
+            this.img = Utilities.getImage("img/cards/" + this.card.getX() + "/" + this.card.getY() + ".png");
             this.facedown = false;
         } else {
             if (isRedColored()) {
-                this.img = Utilities.getImage("res/img/cards/back/red.png");
+                this.img = Utilities.getImage("img/cards/back/red.png");
             } else {
-                this.img = Utilities.getImage("res/img/cards/back/black.png");
+                this.img = Utilities.getImage("img/cards/back/black.png");
             } 
             this.facedown = true;
         }

@@ -3,15 +3,26 @@ package view;
 import java.awt.Dimension;
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+
+import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 
 /**
- * Class.
+ * 
+ * 
+ *
  */
 public class Utilities {
 
     /**
-     * Class.
+     * 
+     * 
      */
     public static Dimension resize(final float factor) {
         final Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
@@ -36,6 +47,28 @@ public class Utilities {
     }
 
     public static Image getImage(final String path) {
-        return new ImageIcon(path).getImage();
+        return new ImageIcon(ClassLoader.getSystemResource(path)).getImage();
     }
+    
+    public static String getFileText(final String path) {
+        final InputStream in = ClassLoader.getSystemResourceAsStream(path);
+        final BufferedReader br = new BufferedReader(new InputStreamReader(in));
+        String st = "";
+        String total = "";
+        try {
+            while ((st = br.readLine()) != null) {
+                total = total + "\n" + st;
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        } 
+        return total;
+    }
+
+    
+            
+
+        
+        
 }
+
