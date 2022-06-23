@@ -11,14 +11,13 @@ import org.junit.Before;
 import org.junit.Test;
 
 import model.roulette.EuropeanRoulette;
-import model.roulette.manageRoulette.Wins;
-import model.roulette.number.EuropeanRouletteNumber;
+import model.roulette.checkwin.Wins;
 import model.roulette.number.BaseRouletteNumber.Column;
 import model.roulette.number.BaseRouletteNumber.Included;
 import model.roulette.number.BaseRouletteNumber.Parity;
 import model.roulette.number.BaseRouletteNumber.Row;
-import model.roulette.number.EuropeanRouletteNumber.Sector;
-import model.roulette.numbers.EuropeanRouletteNumbers;
+import model.roulette.property.SectorRoulette;
+import model.roulette.wheel.EuropeanRouletteNumbers;
 import utility.Pair;
 
 
@@ -107,7 +106,7 @@ public class EuropeanRouletteTest {
     public void testParityBet() {
         //scommetto sul pari e testo la vincita su tutti i numeri pari e la perdita su tutti gli altri 
         //scommetto sul nero e sul rosso ma esce lo zero(neutro)
-        testPairPropertyBet(Parity.EVEN, Parity.ODD, amountBet);
+        testPairPropertyBet(ParityNumber.EVEN, ParityNumber.ODD, amountBet);
     }
     
     
@@ -123,7 +122,7 @@ public class EuropeanRouletteTest {
     private void testPairPropertyBet(final Object property1, final Object property2, final double amountBet) {
         //scommetto sulla prima proprietà e testo la vincita e la perdita su tutti i numeri
         bets.add(new Pair<Object, Double>(property1, amountBet));
-        for (final EuropeanRouletteNumber rouletteNumber : new EuropeanRouletteNumbers().getEuropeanList()) {
+        for (final SectorRoulette rouletteNumber : new EuropeanRouletteNumbers().getEuropeanList()) {
             if (rouletteNumber.isProperty(property1)) {
                 assertEquals(amountBet * 2, manageRoulette.win(bets, rouletteNumber));
             } else {
@@ -149,7 +148,7 @@ public class EuropeanRouletteTest {
             final Object property3, final double amountBet) {
         //scommetto sulla prima proprietà e testo la vincita e la perdita su tutti i numeri
         bets.add(new Pair<Object, Double>(property1, amountBet));
-        for (final EuropeanRouletteNumber rouletteNumber : new EuropeanRouletteNumbers().getEuropeanList()) {
+        for (final SectorRoulette rouletteNumber : new EuropeanRouletteNumbers().getEuropeanList()) {
             if (rouletteNumber.isProperty(property1)) {
                 assertEquals(amountBet * 3, manageRoulette.win(bets, rouletteNumber));
             } else {
@@ -176,7 +175,7 @@ public class EuropeanRouletteTest {
     public void testSectorBet() {
         //scommetto sul settore zero ed esce il 3, vinco 36/7 volte la bet
         bets.add(new Pair<Object, Double>(Sector.ZERO, amountBet));
-        EuropeanRouletteNumber rouletteNumber = new EuropeanRouletteNumbers().get(3);
+        SectorRoulette rouletteNumber = new EuropeanRouletteNumbers().get(3);
         assertEquals(rounding(amountBet * Wins.ZERO_PAYOUT),
                 manageRoulette.win(bets, rouletteNumber));
         

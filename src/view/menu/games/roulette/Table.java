@@ -9,14 +9,15 @@ import java.awt.Image;
 import java.util.LinkedList;
 import java.util.List;
 import javax.swing.JPanel;
-import model.roulette.number.BaseRouletteNumber.Column;
-import model.roulette.number.BaseRouletteNumber.Included;
-import model.roulette.number.BaseRouletteNumber.Parity;
-import model.roulette.number.BaseRouletteNumber.Row;
-import model.roulette.number.EuropeanRouletteNumber.Sector;
+
+import model.roulette.property.Property.Column;
+import model.roulette.property.Property.Included;
+import model.roulette.property.Property.Parity;
+import model.roulette.property.Property.Row;
+import model.roulette.property.Property.Sector;
+import model.roulette.wheel.AmericanWheel;
+import model.roulette.wheel.BaseWheel;
 import model.roulette.number.RouletteNumber;
-import model.roulette.numbers.AmericanRouletteNumbers;
-import model.roulette.numbers.BaseRouletteNumbers;
 import utility.Pair;
 import view.MyGridBagConstraints;
 import view.Utilities;
@@ -120,9 +121,9 @@ public class Table extends JPanel {
         
         final List<RouletteNumber> list;
         if (this.game == Games.ROULETTE_AMERICAN) {
-            list = new AmericanRouletteNumbers().getList();
+            list = new AmericanWheel().getList();
         } else {
-            list = new BaseRouletteNumbers().getList();
+            list = new BaseWheel().getList();
         }
         for (final RouletteNumber n : list) {
             final Integer value = n.getValue();
@@ -132,7 +133,7 @@ public class Table extends JPanel {
             if (value == 0 && game == Games.ROULETTE_AMERICAN) {
                 button.setPreferredSize(new Dimension(width / 14, height / 6));
                 this.add(button, new MyGridBagConstraints(0, 1, 1, 1));
-            } else if (value == AmericanRouletteNumbers._00_) {
+            } else if (value == AmericanWheel._00_) {
                 button.setPreferredSize(new Dimension(width / 14, height / 6));
                 this.add(button, new MyGridBagConstraints(0, 3, 1, 1));
             } else if (value == 0) { 

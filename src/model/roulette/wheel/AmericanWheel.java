@@ -1,4 +1,4 @@
-package model.roulette.numbers;
+package model.roulette.wheel;
 
 import java.awt.Color;
 import java.util.ArrayList;
@@ -9,25 +9,19 @@ import model.roulette.number.AmericanRouletteNumber;
 import model.roulette.number.BaseRouletteNumber;
 import model.roulette.number.RouletteNumber;
 
-public class AmericanRouletteNumbers implements RouletteNumbers {
+public class AmericanWheel implements Wheel {
 
     public static final int NUMBERS = 38;
     public static final int _00_ = 37;
     
     private final List<AmericanRouletteNumber> rouletteNumbers;
     
-    public AmericanRouletteNumbers() {
+    public AmericanWheel() {
         this.rouletteNumbers = new ArrayList<>(NUMBERS);
-        for (final var baseRouletteNumber : new BaseRouletteNumbers().getList()) {
+        for (final var baseRouletteNumber : new BaseWheel().getList()) {
             this.rouletteNumbers.add(new AmericanRouletteNumber(baseRouletteNumber));
         }
         this.rouletteNumbers.add(new AmericanRouletteNumber(_00_, Color.GREEN));
-    }
-    
-    
-    @Override
-    public AmericanRouletteNumber get(final int index) {
-        return this.rouletteNumbers.get(index);
     }
 
     @Override

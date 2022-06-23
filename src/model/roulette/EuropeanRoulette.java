@@ -1,23 +1,24 @@
 package model.roulette;
 
-import java.util.Random;
-import model.roulette.number.EuropeanRouletteNumber;
-import model.roulette.numbers.EuropeanRouletteNumbers;
+import model.roulette.number.RouletteNumber;
+import model.roulette.property.EuropeanSectors;
+import model.roulette.property.Property.Sector;
+import model.roulette.property.SectorRoulette;
 
-
-public class EuropeanRoulette implements Roulette {
-    
-    private final Random random;
-    private final EuropeanRouletteNumbers rouletteNumbers;
+public class EuropeanRoulette extends BaseRoulette {
     
     public EuropeanRoulette() {
-        this.random = new Random();
-        this.rouletteNumbers = new EuropeanRouletteNumbers();
-    }
-
-    @Override
-    public EuropeanRouletteNumber spin() {
-        return this.rouletteNumbers.get(this.random.nextInt(EuropeanRouletteNumbers.NUMBERS));
+        super();
     }
     
+    @Override
+    public RouletteNumber spin() {
+        return new SectorRoulette(super.spin()) {
+            @Override
+            protected Sector getSector(final RouletteNumber rouletteNumber) {
+                return new EuropeanSectors().getList().get(rouletteNumber.getValue());
+            }
+        };
+    }
+  
 }
