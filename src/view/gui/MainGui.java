@@ -27,9 +27,8 @@ public class MainGui implements MenuManager {
 
     public MainGui() {
         this.frame = new JFrame();
-        final Utilities r = new Utilities();
-        this.widthMenu =  (r.resize(1.5f)).width;
-        this.heightMenu = (r.resize(1.5f)).height;
+        this.widthMenu =  (Utilities.resize(1.5f)).width;
+        this.heightMenu = (Utilities.resize(1.5f)).height;
         
         System.out.println(this.widthMenu);
         System.out.println(this.heightMenu);

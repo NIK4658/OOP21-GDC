@@ -3,11 +3,10 @@ package view;
 import java.awt.Dimension;
 import java.awt.Image;
 import java.awt.Toolkit;
-
 import javax.swing.ImageIcon;
 
 /**
- * Class useful to resize all windows with a factor scale.
+ * Class.
  */
 public class Utilities {
 
