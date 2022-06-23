@@ -1,5 +1,7 @@
 package model.account;
 
+import java.io.File;
+
 /**
  * Classe principale AVANZATA gestione account.
  */
@@ -49,7 +51,7 @@ public class AdvancedAccountManagerImpl extends SimpleAccountManagerImpl impleme
     
     @Override
     public boolean changeUsr(final String usrnew) {
-        if (checkValidField(usrnew)) {
+        if (checkValidField(usrnew) && !(new File(ManagerUtility.getPath(usrnew)).exists())) {
             return super.changeUsr(usrnew);
         } else {
             return false;
@@ -66,6 +68,6 @@ public class AdvancedAccountManagerImpl extends SimpleAccountManagerImpl impleme
     }  
     
     private boolean checkValidField(final String field) {
-        return field.length() <= 20;
+        return field.length() <= 20 && field.length() >= 1;
     }
 }
