@@ -1,27 +1,22 @@
-package model.roulette.number;
+package model.roulette.property;
 
-import java.awt.Color;
 import java.util.Objects;
 
-public class EuropeanRouletteNumber extends BaseRouletteNumber { 
+import model.roulette.number.RouletteNumber;
+import model.roulette.property.Property.Sector;
+
+public abstract class SectorRoulette extends PropertyDecorator { //da camb nome
     
     private final Sector sector;
     
-    public enum Sector{
-        TIER, ORPHELINS, VOISINS, ZERO
-    }
-
-    public EuropeanRouletteNumber(final int value, final Color color, final Sector sector) {
-        super(value, color);
-        this.sector = sector;
+    public SectorRoulette(final RouletteNumber rouletteNumber) {
+        super(rouletteNumber);
+        this.sector = this.getSector(rouletteNumber);
     }
     
-    public EuropeanRouletteNumber(final RouletteNumber rouletteNumber, final Sector sector) {
-        super(rouletteNumber.getValue(), rouletteNumber.getColor());
-        this.sector = sector;
-    }
+    protected abstract Sector getSector(final RouletteNumber rouletteNumber);
     
-    public Sector getSector() {
+    private Sector getSector() {
         return this.sector;
     }
     
@@ -54,7 +49,7 @@ public class EuropeanRouletteNumber extends BaseRouletteNumber {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final EuropeanRouletteNumber other = (EuropeanRouletteNumber) obj;
+        final SectorRoulette other = (SectorRoulette) obj;
         return sector == other.sector;
     }
 

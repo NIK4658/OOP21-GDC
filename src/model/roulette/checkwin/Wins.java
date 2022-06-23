@@ -1,13 +1,13 @@
-package model.roulette.manageRoulette;
+package model.roulette.checkwin;
 
 import java.awt.Color;
 import java.util.List;
-import model.roulette.number.BaseRouletteNumber.Column;
-import model.roulette.number.BaseRouletteNumber.Included;
-import model.roulette.number.BaseRouletteNumber.Parity;
-import model.roulette.number.BaseRouletteNumber.Row;
-import model.roulette.number.EuropeanRouletteNumber.Sector;
 import model.roulette.number.RouletteNumber;
+import model.roulette.property.Property.Column;
+import model.roulette.property.Property.Included;
+import model.roulette.property.Property.Parity;
+import model.roulette.property.Property.Row;
+import model.roulette.property.Property.Sector;
 import utility.Pair;
 
 

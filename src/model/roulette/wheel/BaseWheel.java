@@ -1,4 +1,4 @@
-package model.roulette.numbers;
+package model.roulette.wheel;
 
 import java.awt.Color;
 import java.util.ArrayList;
@@ -7,13 +7,13 @@ import java.util.List;
 import model.roulette.number.BaseRouletteNumber;
 import model.roulette.number.RouletteNumber;
 
-public class BaseRouletteNumbers implements RouletteNumbers {
+public class BaseWheel implements Wheel {
     
     public static final int NUMBERS = 37;
     
     private final List<BaseRouletteNumber> rouletteNumbers;
     
-    public BaseRouletteNumbers() {
+    public BaseWheel() {
         this.rouletteNumbers = new ArrayList<>(NUMBERS);
         this.rouletteNumbers.add(new BaseRouletteNumber(0, Color.GREEN));
         this.rouletteNumbers.add(new BaseRouletteNumber(1, Color.RED));
