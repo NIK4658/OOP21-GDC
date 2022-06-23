@@ -47,13 +47,13 @@ public class GuideGui extends JDialog {
         try {
             final String nameFile = this.getGameName(game) + ".txt";
             final FileReader reader = new FileReader("res/txt/" + nameFile);
-            text.read(reader, nameFile); //Object of JTextArea
+            text.read(reader, nameFile);
             reader.close();
         } catch (Exception e) {
             System.out.println("File non trovato");
             //e.printStackTrace();
         }
-        text.setEditable(false); // set textArea non-editable
+        text.setEditable(false);
         final JScrollPane scrollArea = new JScrollPane(text);
         scrollArea.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
         final int insetsVertical = dim.width / 64;
