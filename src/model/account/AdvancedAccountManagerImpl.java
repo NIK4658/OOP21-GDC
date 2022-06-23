@@ -51,7 +51,7 @@ public class AdvancedAccountManagerImpl extends SimpleAccountManagerImpl impleme
     
     @Override
     public boolean changeUsr(final String usrnew) {
-        if (checkValidField(usrnew) && !(new File(ManagerUtility.getPath(usrnew)).exists())) {
+        if (checkValidField(usrnew) && !(checkExisting(usrnew))) {
             return super.changeUsr(usrnew);
         } else {
             return false;
