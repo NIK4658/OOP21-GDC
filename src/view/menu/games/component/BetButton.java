@@ -10,7 +10,6 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
-
 import view.Utilities;
 
 
@@ -88,23 +87,20 @@ public class BetButton extends JButton {
     } 
      
     private ImageIcon chooseChip(final double puntata) {
+        final String path = "res/img/fiches/empty/";
+        final int widthfiches = this.dim.width / 16;
+        final int heightfiches = this.dim.height / 9;
+        String fichesname = "500";
         if (puntata <  5) {
-            return new ImageIcon((Utilities.getImage("res/img/fiches/empty/1HD2.png"))
-                    .getScaledInstance(this.dim.width / 16, this.dim.height / 9, Image.SCALE_SMOOTH));
+            fichesname = "1";
+        } else if (puntata < 25) {
+            fichesname = "5";
+        } else if (puntata < 100) {
+            fichesname = "25";
+        } else if (puntata < 500) {
+            fichesname = "100";
         }
-        if (puntata < 25) {
-            return new ImageIcon((Utilities.getImage("res/img/fiches/empty/5HD2.png"))
-                    .getScaledInstance(this.dim.width / 16, this.dim.height / 9, Image.SCALE_SMOOTH));
-        }
-        if (puntata < 100) {
-            return new ImageIcon((Utilities.getImage("res/img/fiches/empty/25HD2.png"))
-                    .getScaledInstance(this.dim.width / 16, this.dim.height / 9, Image.SCALE_SMOOTH));
-        }
-        if (puntata < 500) {
-            return new ImageIcon((Utilities.getImage("res/img/fiches/empty/100HD2.png"))
-                    .getScaledInstance(this.dim.width / 16, this.dim.height / 9, Image.SCALE_SMOOTH));
-        }
-        return new ImageIcon((Utilities.getImage("res/img/fiches/empty/500HD2.png"))
-                .getScaledInstance(this.dim.width / 16, this.dim.height / 9, Image.SCALE_SMOOTH));
+        return new ImageIcon((Utilities.getImage(path + fichesname + "HD2.png"))
+                .getScaledInstance(widthfiches, heightfiches, Image.SCALE_SMOOTH));
     }
 }

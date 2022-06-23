@@ -10,25 +10,23 @@ import javax.swing.ImageIcon;
  */
 public class Utilities {
 
+    /**
+     * Class.
+     */
     public static Dimension resize(final float factor) {
         final Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         final int width = screenSize.width;
         final int height = screenSize.height;
-        
         if (checkVertical(height, width)) {
-            System.out.println("verticale");
             return new Dimension(Math.round(width / factor), Math.round(width * 16 / 9 / factor));
         }
-        System.out.println("orizzontale");
         if (checkRatio(height, width)) {
-            System.out.println("RatioCorretto 16/9");
             return new Dimension(Math.round(width / factor), Math.round(height / factor));
         } else {
-            System.out.println("RatioSbagliato != 16/9");  
             return new Dimension(Math.round(height * 16 / 9 / factor), Math.round(height / factor));
         }
     }
-
+    
     private static boolean checkRatio(final int height, final int width) {
         return (height * 16 / 9) == width;
     }

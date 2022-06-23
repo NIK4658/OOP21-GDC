@@ -39,7 +39,6 @@ public class MainGui implements MenuManager {
         this.frame.setTitle("GIOCHI DEL COLOSSO");
         this.frame.setIconImage(Utilities.getImage("res/img/logo/gdclogo3.png"));
         
-        //DA VERIFICARE SE TENERE
         this.setAccessMenu();
 
         this.frame.setLocationRelativeTo(null);

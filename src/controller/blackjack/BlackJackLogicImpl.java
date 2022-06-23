@@ -70,16 +70,16 @@ public class BlackJackLogicImpl implements BlackJackLogic {
 
     @Override
     public int checkWin() { 
-        if (this.player.getPoints() > 21) {
+        if (this.player.getBlackJackPoints() > 21) {
             return -1;
         }
-        if (this.dealer.getPoints() > 21) {
+        if (this.dealer.getBlackJackPoints() > 21) {
             return 1;
         }
-        if (this.player.getPoints() == this.dealer.getPoints()) {
+        if (this.player.getBlackJackPoints() == this.dealer.getBlackJackPoints()) {
             return 0;
         } 
-        if (this.player.getPoints() < this.dealer.getPoints()) {
+        if (this.player.getBlackJackPoints() < this.dealer.getBlackJackPoints()) {
             return -1;
         } else {
             return 1;
@@ -119,12 +119,12 @@ public class BlackJackLogicImpl implements BlackJackLogic {
 
     @Override
     public int getPlayerPoints() {
-        return this.player.getPoints();
+        return this.player.getBlackJackPoints();
     }
 
     @Override
     public int getDealerPoints() {
-        return this.dealer.getPoints();
+        return this.dealer.getBlackJackPoints();
     }
 
     @Override
@@ -134,7 +134,7 @@ public class BlackJackLogicImpl implements BlackJackLogic {
 
     @Override
     public boolean checkBlackjack(final Hand h) {
-        return (h.getPoints() == 21 && h.size() == 2);
+        return (h.getBlackJackPoints() == 21 && h.size() == 2);
     }
 
     @Override

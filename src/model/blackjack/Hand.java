@@ -17,7 +17,9 @@ public interface Hand {
     
     Hand getHand();
     
-    int getPoints();
+    int getBaccaratPoints();
+    
+    int getBlackJackPoints();
     
     int size();
     

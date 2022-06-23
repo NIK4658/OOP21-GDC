@@ -7,8 +7,6 @@ import view.gui.MainGui;
  */
 public final class ApplicationStart {
     public static void main(final String[] args) {
-        //new FedeProva();
         new MainGui();
     }
-    
 }

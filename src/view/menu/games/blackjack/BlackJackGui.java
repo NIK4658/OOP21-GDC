@@ -2,9 +2,6 @@ package view.menu.games.blackjack;
 
 import controller.blackjack.BlackJackLogic;
 import controller.blackjack.BlackJackLogicImpl;
-import model.account.BalanceManager;
-import model.blackjack.Hand;
-
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -22,7 +19,8 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
-
+import model.account.BalanceManager;
+import model.blackjack.Hand;
 import view.MyGridBagConstraints;
 import view.Utilities;
 import view.gui.MenuManager;
@@ -73,7 +71,6 @@ public class BlackJackGui extends JPanel implements Game {
         this.playerCards = new LinkedList<>();
         this.dealerCards = new LinkedList<>();
         add(generateSouth(), BorderLayout.SOUTH);
-        ///tolti tutti i this
         playerPoints = new JLabel();
         dealerPoints = new JLabel();
         final List<JLabel> visualPoints = new ArrayList<>();
@@ -99,7 +96,7 @@ public class BlackJackGui extends JPanel implements Game {
         north.setPreferredSize(new Dimension((int) (width / 4.3), (int) (width / 4.3)));
         north.add(dealerPoints, 0);
         add(north, BorderLayout.NORTH);
-        ///in teoria da qui sotto tutto ok
+        
         draw.addActionListener(e -> {   
             gameLogic.askCard();
             setCards(DIRECTION_PLAYER);
@@ -132,7 +129,6 @@ public class BlackJackGui extends JPanel implements Game {
                 stand.doClick();
             }
         });
-        
         
         bet.addActionListener(e -> { 
             if (generalInterface.addBetValue(generalInterface.getFichesValue())) {
@@ -212,7 +208,8 @@ public class BlackJackGui extends JPanel implements Game {
         setCards(DIRECTION_DEALER);
         this.dealerPoints.setText(String.valueOf(gameLogic.getDealerHand().getCard(0).getValue()));
         if (gameLogic.checkInsurance()) {
-            final InsuranceWindow ins = new InsuranceWindow(new Dimension(this.width, this.height), gameLogic.canInsurance());
+            final InsuranceWindow ins = new InsuranceWindow(
+                    new Dimension(this.width, this.height), gameLogic.canInsurance());
             if (!gameLogic.calculateInsurance(ins.isInsurance())) {
                 stand.doClick();
             }

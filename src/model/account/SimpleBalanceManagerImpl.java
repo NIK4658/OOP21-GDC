@@ -2,7 +2,6 @@ package model.account;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-
 import model.account.AccountManager.Fields;
 
 

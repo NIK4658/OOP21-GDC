@@ -50,7 +50,7 @@ public class HandTest {
         for (int i = 0; i <= 50; i++) {
             this.hand.addCard(card);
             this.hand.calculatePoints();
-            assertEquals(this.hand.getPoints(), card.getValue() * (i + 1));
+            assertEquals(this.hand.getBlackJackPoints(), card.getValue() * (i + 1));
         }
         
         this.hand = new HandImpl();
@@ -58,7 +58,7 @@ public class HandTest {
         for (int i = 0; i < 10; i++) {
             this.hand.addCard(ace);
             this.hand.calculatePoints();
-            assertEquals(this.hand.getPoints(), 11 + (1 * i));
+            assertEquals(this.hand.getBlackJackPoints(), 11 + (1 * i));
         }
         
         this.hand = new HandImpl();
@@ -66,7 +66,7 @@ public class HandTest {
         for (int i = 0; i < 10; i++) {
             this.hand.addCard(king);
             this.hand.calculatePoints();
-            assertEquals(this.hand.getPoints(), 10 * (i + 1));
+            assertEquals(this.hand.getBlackJackPoints(), 10 * (i + 1));
         }
     }
     
@@ -80,7 +80,7 @@ public class HandTest {
         assertEquals(this.hand.getCard(0), card);
         assertEquals(this.hand.getLastCard(), card2);
         this.hand.calculatePoints();
-        assertEquals(this.hand.getPoints(), 15);
+        assertEquals(this.hand.getBlackJackPoints(), 15);
         assertEquals(this.hand.getHand(), this.hand);
         assertEquals(this.hand.size(), 2);
     }
