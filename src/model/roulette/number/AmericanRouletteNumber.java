@@ -10,13 +10,8 @@ public class AmericanRouletteNumber extends BaseRouletteNumber {
         super(value, color);
     }
     
-    public AmericanRouletteNumber(final BaseRouletteNumber baseRouletteNumber) {
-        super(baseRouletteNumber.getValue(), baseRouletteNumber.getColor());
-    }
-    
-    @Override
-    public String getNumber() {
-        return this.getValue() == AmericanRouletteNumbers._00_ ? "00" : super.getNumber();
+    public AmericanRouletteNumber(final RouletteNumber rouletteNumber) {
+        super(rouletteNumber.getValue(), rouletteNumber.getColor());
     }
     
     @Override
@@ -37,6 +32,11 @@ public class AmericanRouletteNumber extends BaseRouletteNumber {
     @Override
     public Row getRow() {
         return this.getValue() == AmericanRouletteNumbers._00_ ? Row.NOT : super.getRow();
+    }
+    
+    @Override
+    public String toString() {
+        return this.getValue() == AmericanRouletteNumbers._00_ ? "00" : super.toString();
     }
 
 }

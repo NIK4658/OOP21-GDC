@@ -6,7 +6,7 @@ import model.roulette.number.RouletteNumber;
 
 public interface RouletteNumbers {
 
-    RouletteNumber get(final int index); //ci va final?
+    RouletteNumber get(int index);
     
     List<RouletteNumber> getList();
     

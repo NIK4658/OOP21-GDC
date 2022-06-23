@@ -8,8 +8,6 @@ public interface RouletteNumber {
 
     Color getColor();
     
-    String getNumber();
-    
     <P> boolean isProperty(P property);
     
 }

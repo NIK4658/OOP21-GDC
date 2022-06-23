@@ -84,13 +84,14 @@ public class GeneralGui extends JPanel implements Menu {
                 this.g = new BlackJackGui(new AdvancedBalanceManagerImpl(account), this);
                 showButtons(false);
                 break;
-            case BACCARAT: this.g = new BaccaratGui(frame, new AdvancedBalanceManagerImpl(account), this);
+            case BACCARAT: 
+                this.g = new BaccaratGui(frame, new AdvancedBalanceManagerImpl(account), this);
                 break;
             default: 
                 this.g = new RouletteGame(this, game);
                 center = (JPanel) this.g;
                 this.setOpaque(true);
-                this.setBackground(new Color(0, 118, 58));
+                this.setBackground(RouletteGame.BACKGROUND_COLOR);
         }
         north.setPreferredSize(new Dimension((int) (width / 12.8), (int) (height / 7.2)));
         final JButton backToMenu = new JButton("Back to Menu");

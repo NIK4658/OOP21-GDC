@@ -2,19 +2,16 @@ package model.roulette.manageRoulette;
 
 import java.awt.Color;
 import java.util.List;
-
-import model.roulette.number.BaseRouletteNumber;
-import model.roulette.number.EuropeanRouletteNumber;
-import model.roulette.number.RouletteNumber;
 import model.roulette.number.BaseRouletteNumber.Column;
 import model.roulette.number.BaseRouletteNumber.Included;
 import model.roulette.number.BaseRouletteNumber.Parity;
 import model.roulette.number.BaseRouletteNumber.Row;
 import model.roulette.number.EuropeanRouletteNumber.Sector;
+import model.roulette.number.RouletteNumber;
 import utility.Pair;
 
 
-public class ManageRoulette {
+public class Wins {
     public static final double NUMBER_PAYOUT = 36.0;
     public static final double COLOR_PAYOUT = 2.0;
     public static final double PARITY_PAYOUT = 2.0;
@@ -26,13 +23,11 @@ public class ManageRoulette {
     public static final double TIER_PAYOUT = 36.0 / 12;
     public static final double ORPHELINS_PAYOUT = 36.0 / 8;
     
-    public double calculateWin(final List<Pair<Object, Double>> bets, final RouletteNumber winningNumber) {
+    public double win(final List<Pair<Object, Double>> bets, final RouletteNumber winningNumber) {
         double win = 0.0;
         for (final Pair<Object, Double> p : bets) {
             final Object property = p.getX();
             final double amount = p.getY();
-
-            
             
             if (winningNumber.isProperty(property)) {
                 if (property instanceof Integer) {
@@ -70,6 +65,5 @@ public class ManageRoulette {
         win = Math.round(win * 100.0) / 100.0;
         return win;
     }
-    
 
 }

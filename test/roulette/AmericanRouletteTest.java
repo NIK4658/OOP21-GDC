@@ -12,7 +12,7 @@ import org.junit.Test;
 
 import model.roulette.AmericanRoulette;
 import model.roulette.EuropeanRoulette;
-import model.roulette.manageRoulette.ManageRoulette;
+import model.roulette.manageRoulette.Wins;
 import model.roulette.number.AmericanRouletteNumber;
 import model.roulette.number.EuropeanRouletteNumber;
 import model.roulette.number.BaseRouletteNumber.Column;
@@ -29,7 +29,7 @@ public class AmericanRouletteTest {
 
     private static final int TESTCASE = 1000;
     private final AmericanRoulette roulette = new AmericanRoulette();
-    private final ManageRoulette manageRoulette = new ManageRoulette();
+    private final Wins manageRoulette = new Wins();
     private List<Pair<Object, Double>> bets;
     private double amountBet;
     
@@ -73,23 +73,23 @@ public class AmericanRouletteTest {
         //Scommetto sullo 0 e il numero vincente è lo zero, vinco 36eur
         Integer betNumber = 0;
         bets.add(new Pair<>(betNumber, amountBet));
-        assertEquals(amountBet * 36, manageRoulette.calculateWin(bets, new EuropeanRouletteNumbers().get(0)));
+        assertEquals(amountBet * 36, manageRoulette.win(bets, new EuropeanRouletteNumbers().get(0)));
         
         //Scommetto sullo 0 e il numero vincente è l'1, perdo la scommessa
-        assertEquals(-amountBet, manageRoulette.calculateWin(bets, new EuropeanRouletteNumbers().get(1)));
+        assertEquals(-amountBet, manageRoulette.win(bets, new EuropeanRouletteNumbers().get(1)));
         
         //Scommetto tutti i numeri ma solo lo 0 sarà vincente, perdo la bet 37 volte e vinco una volta la bet * 36
         for (betNumber++; betNumber < AmericanRouletteNumbers.NUMBERS; betNumber++) {
             bets.add(new Pair<Object, Double>(betNumber, amountBet)); 
         }
-        assertEquals(-1, manageRoulette.calculateWin(bets, new EuropeanRouletteNumbers().get(0)));
+        assertEquals(-1, manageRoulette.win(bets, new EuropeanRouletteNumbers().get(0)));
         
         //Scommetto 2.22eur sul numero vincente
         betNumber = 0;
         amountBet = 2.22;
         bets = new LinkedList<Pair<Object, Double>>();
         bets.add(new Pair<>(betNumber, amountBet));
-        assertEquals(amountBet * 36, manageRoulette.calculateWin(bets, new AmericanRouletteNumbers().get(betNumber)));
+        assertEquals(amountBet * 36, manageRoulette.win(bets, new AmericanRouletteNumbers().get(betNumber)));
     }
     
     
@@ -128,17 +128,17 @@ public class AmericanRouletteTest {
         bets.add(new Pair<Object, Double>(property1, amountBet));
         for (final AmericanRouletteNumber rouletteNumber : new AmericanRouletteNumbers().getAmericanList()) {
             if (rouletteNumber.isProperty(property1)) {
-                assertEquals(amountBet * 2, manageRoulette.calculateWin(bets, rouletteNumber));
+                assertEquals(amountBet * 2, manageRoulette.win(bets, rouletteNumber));
             } else {
-                assertEquals(-amountBet, manageRoulette.calculateWin(bets, rouletteNumber));
+                assertEquals(-amountBet, manageRoulette.win(bets, rouletteNumber));
             }
         }
         
         //scommetto sulle due proprietà ma esce lo zero(neutro)       
         bets.add(new Pair<Object, Double>(property2, amountBet));
-        assertEquals(-amountBet * 2, manageRoulette.calculateWin(bets, new AmericanRouletteNumbers().get(0)));
+        assertEquals(-amountBet * 2, manageRoulette.win(bets, new AmericanRouletteNumbers().get(0)));
         //scommetto sulle due proprietà ma esce il doppio zero(neutro) 
-        assertEquals(-amountBet * 2, manageRoulette.calculateWin(bets, new AmericanRouletteNumbers().get(37)));
+        assertEquals(-amountBet * 2, manageRoulette.win(bets, new AmericanRouletteNumbers().get(37)));
     }
     
     
@@ -156,16 +156,16 @@ public class AmericanRouletteTest {
         bets.add(new Pair<Object, Double>(property1, amountBet));
         for (final AmericanRouletteNumber rouletteNumber : new AmericanRouletteNumbers().getAmericanList()) {
             if (rouletteNumber.isProperty(property1)) {
-                assertEquals(amountBet * 3, manageRoulette.calculateWin(bets, rouletteNumber));
+                assertEquals(amountBet * 3, manageRoulette.win(bets, rouletteNumber));
             } else {
-                assertEquals(-amountBet, manageRoulette.calculateWin(bets, rouletteNumber));
+                assertEquals(-amountBet, manageRoulette.win(bets, rouletteNumber));
             }
         }
         
         //scommetto sulle tre proprietà ma esce lo zero(neutro)
         bets.add(new Pair<Object, Double>(property2, amountBet));
         bets.add(new Pair<Object, Double>(property3, amountBet));
-        assertEquals(-amountBet * 3, manageRoulette.calculateWin(bets, new AmericanRouletteNumbers().get(0)));
+        assertEquals(-amountBet * 3, manageRoulette.win(bets, new AmericanRouletteNumbers().get(0)));
     }
     
     //testa la paga sulla riga

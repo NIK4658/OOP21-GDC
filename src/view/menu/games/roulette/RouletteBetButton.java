@@ -17,8 +17,4 @@ public class RouletteBetButton extends BetButton {
         return this.property;
     }
     
-    public void incrementBet(final double fvalue) {
-        super.incrementBet(fvalue);
-    }
-
 }

@@ -4,7 +4,6 @@ import java.awt.Color;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-
 import model.roulette.number.BaseRouletteNumber;
 import model.roulette.number.RouletteNumber;
 
@@ -55,17 +54,13 @@ public class BaseRouletteNumbers implements RouletteNumbers {
         this.rouletteNumbers.add(new BaseRouletteNumber(36, Color.RED));
     }
 
-    //@Override
+    @Override
     public BaseRouletteNumber get(final int index) {
         return this.rouletteNumbers.get(index);
     }
 
-    //@Override
-    public List<RouletteNumber> getList() { //sistemare ripetizione del metodo getList
-        return Collections.unmodifiableList(this.rouletteNumbers);
-    }
-    
-    public List<BaseRouletteNumber> getBaseList() {
+    @Override
+    public List<RouletteNumber> getList() {
         return Collections.unmodifiableList(this.rouletteNumbers);
     }
 

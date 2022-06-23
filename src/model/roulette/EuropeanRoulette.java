@@ -1,7 +1,6 @@
 package model.roulette;
 
 import java.util.Random;
-
 import model.roulette.number.EuropeanRouletteNumber;
 import model.roulette.numbers.EuropeanRouletteNumbers;
 
@@ -20,4 +19,5 @@ public class EuropeanRoulette implements Roulette {
     public EuropeanRouletteNumber spin() {
         return this.rouletteNumbers.get(this.random.nextInt(EuropeanRouletteNumbers.NUMBERS));
     }
+    
 }

@@ -1,13 +1,8 @@
 package model.roulette;
 
 import java.util.Random;
-
 import model.roulette.number.BaseRouletteNumber;
-import model.roulette.number.EuropeanRouletteNumber;
-import model.roulette.number.RouletteNumber;
 import model.roulette.numbers.BaseRouletteNumbers;
-import model.roulette.numbers.EuropeanRouletteNumbers;
-import model.roulette.numbers.RouletteNumbers;
 
 public class BaseRoulette implements Roulette {
     
