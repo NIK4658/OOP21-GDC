@@ -14,7 +14,7 @@ public interface AccountManager {
 
     boolean logger(String usr, String psw);
 
-    boolean register(String usr, String psw, String eta);
+    boolean register(String usr, String psw, String age);
 
     boolean changeUsr(String usrnew);
 
