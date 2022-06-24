@@ -21,7 +21,18 @@ import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
 
 public class Warning extends JDialog {
-    public static void main(String args[]) {
+	
+		private static final long serialVersionUID = 1L;
+    	
+	    private static JDialog warning;
+	    Warning(){
+	    	
+	    
+
+		
+		final JFrame frame = new JFrame("WARNING");
+		
+		warning = new JDialog(frame, "WARNING", true);
         
         //Definition of center and south JPanel
     	
@@ -31,7 +42,7 @@ public class Warning extends JDialog {
 
         // Definition of a Text area with terms and condiction
 
-        JTextArea textArea = new JTextArea(15, 30);
+        final JTextArea textArea = new JTextArea(15, 30);
         textArea.setBackground(Color.RED);
         
         //lettura da file
@@ -55,7 +66,7 @@ public class Warning extends JDialog {
         
         //Putting the Text area on a scroll panel
         
-        JScrollPane scrollText = new JScrollPane(textArea);
+        final JScrollPane scrollText = new JScrollPane(textArea);
         
         //Setting scroll option only vertical
         
@@ -72,11 +83,11 @@ public class Warning extends JDialog {
         //the button "avanti" is not enabled until the checkbox is selected
 
         final ActionListener actionListener = new ActionListener() {
-            public void actionPerformed(ActionEvent actionEvent) {
-                AbstractButton abstractButton = (AbstractButton) actionEvent.getSource();
-                boolean selected = abstractButton.getModel().isSelected();
+            public void actionPerformed(final ActionEvent actionEvent) {
+                final AbstractButton abstractButton = (AbstractButton) actionEvent.getSource();
+                final boolean selected = abstractButton.getModel().isSelected();
               
-                if (selected == true) {
+                if (selected) {
                     accept.setEnabled(true); 
                 } else {
                     accept.setEnabled(false);
@@ -95,13 +106,16 @@ public class Warning extends JDialog {
         
         // Setting Frame
         ceckbox.addActionListener(actionListener);
-        JFrame frame = new JFrame("WARNING");
         frame.add(center, BorderLayout.CENTER);
         frame.add(south, BorderLayout.SOUTH);
         frame.pack();
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
     }
+	    public static void main(String[] a) {
+	        Warning dialog = new Warning();
+	        
+	    }
 }
     	
 
