@@ -9,9 +9,6 @@ import java.io.File;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-
-import controller.blackjack.BlackJackLogic;
-import controller.blackjack.BlackJackLogicImpl;
 import model.account.AccountManager;
 import model.account.AdvancedAccountManagerImpl;
 import model.account.AdvancedBalanceManagerImpl;

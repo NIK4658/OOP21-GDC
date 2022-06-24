@@ -10,6 +10,7 @@ import javax.swing.JPanel;
 
 import controller.MenuController;
 import model.account.AccountManager;
+import start.Warning;
 import view.Utilities;
 import view.gui.MenuManager;
 import view.menu.access.Access;
@@ -55,6 +56,7 @@ public class AccessMenu extends JPanel implements Access, Menu {
     @Override
     public void successfullyAccessed() {
         viewController.setMainMenu();
+        new Warning();
     }
     
     @Override
