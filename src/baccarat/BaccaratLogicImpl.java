@@ -151,6 +151,12 @@ public class BaccaratLogicImpl implements BaccaratLogic {
     } else if (checkWin() == 0) {
       account.changeBalance(account.getBalance() + (this.bet));
     }
-  }	
+  }
+
+@Override
+public double getBet() {
+	// TODO Auto-generated method stub
+	return this.bet;
+}	
 }
 

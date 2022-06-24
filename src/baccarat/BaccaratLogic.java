@@ -31,5 +31,7 @@ public interface BaccaratLogic {
   int getPlayerPoints();
     
   int getDealerPoints();
+  
+  double getBet();
     
 }
