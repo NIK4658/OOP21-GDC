@@ -18,6 +18,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
+import controller.MenuController;
 import model.account.AccountManager;
 import view.MyGridBagConstraints;
 import view.Utilities;
@@ -43,7 +44,7 @@ public class MainMenu extends JPanel implements Menu {
     /**
      * Costruttore.
      */
-    public MainMenu(final MenuManager frame, final AccountManager account) {
+    public MainMenu(final MenuManager frame, final MenuController menuController) {
 //        this.frame = frame;
 //        this.account = account;
         this.setLayout(new BorderLayout());
@@ -94,12 +95,12 @@ public class MainMenu extends JPanel implements Menu {
         final JButton rouletteAmerican = new JButton();
         final JButton bacarat = new JButton();
         
-        rouletteBase.addActionListener(e -> frame.setRouletteMenu(account, Games.ROULETTE_BASE));
-        rouletteEuropean.addActionListener(e -> frame.setRouletteMenu(account, Games.ROULETTE_EUROPEAN));
-        rouletteAmerican.addActionListener(e -> frame.setRouletteMenu(account, Games.ROULETTE_AMERICAN));
-        blackjack.addActionListener(e -> frame.setBlackjackMenu(account));
-        bacarat.addActionListener(e -> frame.setBaccaratMenu(account));
-        accountman.addActionListener(e -> frame.setAccountMenu(account));
+        rouletteBase.addActionListener(e -> menuController.setRouletteMenu(Games.ROULETTE_BASE));
+        rouletteEuropean.addActionListener(e -> menuController.setRouletteMenu(Games.ROULETTE_EUROPEAN));
+        rouletteAmerican.addActionListener(e -> menuController.setRouletteMenu(Games.ROULETTE_AMERICAN));
+        blackjack.addActionListener(e -> menuController.setBlackjackMenu());
+        bacarat.addActionListener(e -> menuController.setBaccaratMenu());
+        accountman.addActionListener(e -> menuController.setAccountMenu());
         
 
         
