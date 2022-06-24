@@ -1,12 +1,10 @@
 package view.menu;
 
-import account.AdvancedAccountManager;
-import account.SimpleAccountManager;
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.Font;
-import java.awt.GridBagLayout;
+import java.awt.GridBagConstraints;
+import java.awt.Insets;
 import java.awt.event.ActionListener;
 import java.util.LinkedList;
 import java.util.List;
@@ -14,111 +12,124 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
-import view.GridBagConstraintsConstructor;
+
+import controller.MenuController;
+import model.account.AccountManager;
 import view.gui.MenuManager;
+import view.menu.account.AccountPanel;
 import view.menu.account.BalancePanel;
 import view.menu.account.ConfirmPassword;
 import view.menu.account.PasswordPanel;
 import view.menu.account.UsernamePanel;
-//vedere se possibile sostituire panel con estensione della classe con JPanel
-//e se possibile creare un'altra classe per panelAccount.
+
+
 public class AccountMenu implements Menu {
 
-    /**
-     * 
-     **/
-    private static final long serialVersionUID = 1L;
-    private final MenuManager frame;
-    private final AdvancedAccountManager account;
+    private static final int SCALE_TITLE = 7;
+    private static final int SPACE_TITLE = 15;
+    private static final int SCALE_BUTTON = 15;
+    private static final int SPACE_BUTTON = 30;
+    private final MenuController menuController;
     private final JPanel panel;
-    private final JPanel panelAccount;
-    private final JButton buttonBack;
-    private final ActionListener alBackMenu;
-    private ActionListener alBackPanel;
+    private final JPanel accountPanel;
+    private final JButton backButton;
+    private final ActionListener backMenuAl;
+    private ActionListener backPanelAl;
     
-    public AccountMenu(final MenuManager frame, final AdvancedAccountManager account) {
-        this.frame = frame;
-        this.account = account;
+    
+    public AccountMenu(final MenuManager menuManager, final MenuController menuController) {
+        this.menuController = menuController;
+        final int width = menuManager.getWidthMenu();
+        final int height = menuManager.getHeightMenu();
+        final int minSize = Math.min(width, height);
         this.panel = new JPanel(new BorderLayout());
-        this.panel.setPreferredSize(this.frame.getSizeMenu());
-        this.buttonBack = new JButton("BACK");
-        this.alBackMenu = this.getActionListenerBackMenu();
-        this.buttonBack.addActionListener(alBackMenu);
-        this.panel.add(buttonBack, BorderLayout.SOUTH);
+        this.panel.setPreferredSize(menuManager.getSizeMenu());
+        this.backButton = new JButton("BACK");
+        this.backButton.setFont(new Font("Arial", Font.PLAIN, minSize / SCALE_BUTTON));
+        this.backMenuAl = this.getActionListenerBackMenu();
+        this.backButton.addActionListener(backMenuAl);
+        this.panel.add(backButton, BorderLayout.SOUTH);
         
-//pannello PRINCIPALE
-        this.panelAccount = new JPanel(new GridBagLayout());
-        this.panelAccount.setBackground(new Color(68, 87, 96));
-        this.panelAccount.setPreferredSize(frame.getSizeMenu());
-        this.panel.add(panelAccount);
+        //Account panel
+        this.accountPanel = new AccountPanel(minSize);
+        this.panel.add(this.accountPanel);
         final JLabel title = new JLabel("ACCOUNT", SwingConstants.CENTER);
-        title.setForeground(Color.WHITE);
-        title.setFont(new Font("Arial", Font.BOLD, frame.getWidthMenu() / 20));
-        int index = 0;
-        this.panelAccount.add(title, GridBagConstraintsConstructor.get(0, index++, 40));
-        final JButton buttonBalance = new JButton("BALANCE");
-        final JButton buttonUsername = new JButton("CHANGE USERNAME");
-        final JButton buttonPassword = new JButton("CHANGE PASSWORD");
-        final JButton buttonAccount = new JButton("DELETE ACCOUNT");
+        final JButton balanceButton = new JButton("BALANCE");
+        final JButton usernameButton = new JButton("CHANGE USERNAME");
+        final JButton passwordButton = new JButton("CHANGE PASSWORD");
+        final JButton accountButton = new JButton("DELETE ACCOUNT");
         final List<JButton> list = new LinkedList<>();
-        list.add(buttonBalance);
-        list.add(buttonUsername);
-        list.add(buttonPassword);
-        list.add(buttonAccount);
-        for (final JButton jb : list) {
-            jb.setPreferredSize(new Dimension(frame.getWidthMenu() / 4, frame.getHeightMenu() / 20));
-            jb.setFont(new Font("Arial", Font.PLAIN, frame.getWidthMenu() / 50));
-            panelAccount.add(jb, GridBagConstraintsConstructor.get(0, index++, 5));
+        list.add(balanceButton);
+        list.add(usernameButton);
+        list.add(passwordButton);
+        list.add(accountButton);
+        int index = 0;
+        this.accountPanel.add(title, this.gridBagConstraints(index, height / SPACE_TITLE));
+        index++;
+        title.setForeground(Color.WHITE);
+        title.setFont(new Font("Arial", Font.BOLD, minSize / SCALE_TITLE));
+        for (final JButton b : list) {
+            accountPanel.add(b, this.gridBagConstraints(index, height / SPACE_BUTTON));
+            b.setFont(new Font("Arial", Font.PLAIN, minSize / SCALE_BUTTON));
+            index++;
         }
-
-        buttonBalance.addActionListener(e -> {
-            this.updatePanel(new BalancePanel(this.account));
+        
+        balanceButton.addActionListener(e -> {
+            this.updatePanel(new BalancePanel(this.menuController, minSize));
         });
 
-        buttonUsername.addActionListener(e -> {
-            this.updatePanel(new UsernamePanel(this.frame.getFrame(), this.account));
+        usernameButton.addActionListener(e -> {
+            this.updatePanel(new UsernamePanel(menuManager.getFrame(), this.menuController, minSize));
         });        
 
-        buttonPassword.addActionListener(e -> {
-            this.updatePanel(new PasswordPanel(this.frame.getFrame(), this.account));
+        passwordButton.addActionListener(e -> {
+            this.updatePanel(new PasswordPanel(menuManager.getFrame(), this.menuController, minSize));
         });
         
-        buttonAccount.addActionListener(e -> {
-            if (new ConfirmPassword(frame.getFrame(), account, " to delete Account").isPasswordConfirmed()) {
-                this.account.deleteAcc(this.account.getUsr());
-                this.frame.setAccessMenu();
+        accountButton.addActionListener(e -> {
+            if (new ConfirmPassword(menuManager.getFrame(), this.menuController, minSize).isConfirmed()) {
+                this.menuController.deleteAccount();
+                this.menuController.setAccessMenu();
             }
         });
         
     }
-    
-    private void updatePanel(final JPanel panelToAdd) {
-        this.changePanel(panelToAdd, this.panelAccount);
-        this.alBackPanel = getActionListenerBackPanel(panelToAdd);
-        changeActionListenerButtonBack(this.alBackPanel, this.alBackMenu);
+   
+    private void updatePanel(final JPanel addPanel) {
+        this.changePanel(addPanel, this.accountPanel);
+        this.backPanelAl = getActionListenerBackPanel(addPanel);
+        changeActionListenerButtonBack(this.backPanelAl, this.backMenuAl);
     }
     
-    private void changePanel(final JPanel panelToAdd, final JPanel panelToRemove) {
-        this.panel.remove(panelToRemove);
-        this.panel.add(panelToAdd);
-        this.panel.revalidate();//controllare se serve
+    private void changePanel(final JPanel addPanel, final JPanel removePanel) {
+        this.panel.remove(removePanel);
+        this.panel.add(addPanel);
+        this.panel.revalidate();
         this.panel.repaint();
     }
     
-    private ActionListener getActionListenerBackPanel(final JPanel panelAdded) {
+    private void changeActionListenerButtonBack(final ActionListener addAl, final ActionListener removeAl) {
+        this.backButton.addActionListener(addAl);
+        this.backButton.removeActionListener(removeAl);
+    }
+    
+    private ActionListener getActionListenerBackPanel(final JPanel addedPanel) {
         return e -> {
-            this.changePanel(this.panelAccount, panelAdded);
-            this.changeActionListenerButtonBack(this.alBackMenu, this.alBackPanel);
+            this.changePanel(this.accountPanel, addedPanel);
+            this.changeActionListenerButtonBack(this.backMenuAl, this.backPanelAl);
         };
     }
-    
-    private void changeActionListenerButtonBack(final ActionListener alToAdd, final ActionListener alToRemove) {
-        this.buttonBack.addActionListener(alToAdd);
-        this.buttonBack.removeActionListener(alToRemove);
+
+    private ActionListener getActionListenerBackMenu() {
+        return e -> menuController.setMainMenu();
     }
     
-    private ActionListener getActionListenerBackMenu() {
-        return e -> frame.setMainMenu(account);
+    private GridBagConstraints gridBagConstraints(final int gridy, final int spacedown) {
+        final GridBagConstraints c = new GridBagConstraints();
+        c.gridy = gridy;
+        c.insets = new Insets(0, 0, spacedown, 0);
+        c.fill = GridBagConstraints.BOTH;
+        return c;
     }
 
     @Override
@@ -127,10 +138,3 @@ public class AccountMenu implements Menu {
     }
     
 }
-/*Appunti*/
-//final NumberFormat format = NumberFormat.getNumberInstance();
-//final NumberFormat format = NumberFormat.getCurrencyInstance();
-//final NumberFormat format = DecimalFormat.getCurrencyInstance();
-//fieldRicarica.setName("Ricarica");
-//fieldRicarica.setEditable(false); 
-//labelRicarica.setLabelFor(fieldRicarica);

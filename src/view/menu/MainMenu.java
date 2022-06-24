@@ -1,11 +1,10 @@
 package view.menu;
 
-import account.AdvancedAccountManager;
-
-import account.SimpleAccountManager;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Insets;
+import java.awt.GridBagConstraints;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.Font;
@@ -18,8 +17,14 @@ import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
-import view.GridBagConstraintsConstructor;
+
+import controller.MenuController;
+import model.account.AccountManager;
+import view.MyGridBagConstraints;
+import view.Utilities;
 import view.gui.MenuManager;
+import view.menu.games.Game.Games;
+
 import java.awt.Graphics;
 
 /**
@@ -34,12 +39,12 @@ public class MainMenu extends JPanel implements Menu {
 //    private final AccountManager account;
     
     
-    private final Image img = new ImageIcon("res/img/backgrounds/MainBG.jpg").getImage();
+    private final Image img = Utilities.getImage("img/backgrounds/MainBG.jpg");
 
     /**
      * Costruttore.
      */
-    public MainMenu(final MenuManager frame, final AdvancedAccountManager account) {
+    public MainMenu(final MenuManager frame, final MenuController menuController) {
 //        this.frame = frame;
 //        this.account = account;
         this.setLayout(new BorderLayout());
@@ -85,58 +90,89 @@ public class MainMenu extends JPanel implements Menu {
         
         
         final JButton blackjack = new JButton();
-        final JButton roulette = new JButton();
+        final JButton rouletteBase = new JButton();
+        final JButton rouletteEuropean = new JButton();
+        final JButton rouletteAmerican = new JButton();
         final JButton bacarat = new JButton();
         
-        roulette.addActionListener(e -> frame.setGameMenu(account));
-        blackjack.addActionListener(e -> frame.setBlackjackMenu(account));
-        bacarat.addActionListener(e -> frame.setBaccaratMenu(account));
-        accountman.addActionListener(e -> frame.setAccountMenu(account));
-        
-        //meglio creare una funzione
-        final Dimension dimButton = new Dimension(width / 5, height / 3);
-        Image img, imgScaled;
-        
-        img = new ImageIcon("res/img/backgrounds/bj.jpg").getImage();
-        imgScaled = img.getScaledInstance(dimButton.width, dimButton.height, Image.SCALE_SMOOTH);
-        blackjack.setIcon(new ImageIcon((imgScaled)));
-        
-        img = new ImageIcon("res/img/backgrounds/rou2.jpg").getImage();
-        imgScaled = img.getScaledInstance(dimButton.width, dimButton.height, Image.SCALE_SMOOTH);
-        roulette.setIcon(new ImageIcon((imgScaled)));
-        
-        img = new ImageIcon("res/img/backgrounds/bac.jpg").getImage();
-        imgScaled = img.getScaledInstance(dimButton.width, dimButton.height, Image.SCALE_SMOOTH);
-        bacarat.setIcon(new ImageIcon((imgScaled)));
+        rouletteBase.addActionListener(e -> menuController.setRouletteMenu(Games.ROULETTE_BASE));
+        rouletteEuropean.addActionListener(e -> menuController.setRouletteMenu(Games.ROULETTE_EUROPEAN));
+        rouletteAmerican.addActionListener(e -> menuController.setRouletteMenu(Games.ROULETTE_AMERICAN));
+        blackjack.addActionListener(e -> menuController.setBlackjackMenu());
+        bacarat.addActionListener(e -> menuController.setBaccaratMenu());
+        accountman.addActionListener(e -> menuController.setAccountMenu());
         
 
-        //la lista non serve, basta usare una funzione
-        final ArrayList<JComponent> list = new ArrayList<>();
-        list.add(blackjack);
-        list.add(roulette);
-        list.add(bacarat);
-        int i = 0;
-        for (final JComponent jc : list) {
-            jc.setPreferredSize(new Dimension(width / 5, height / 3));
-            jc.setFont(new Font("Arial", Font.PLAIN, width / 50));
-            center.add(jc, GridBagConstraintsConstructor.get(i, 0, 0, 50, 50));
-            i++;
-        }
+        
+        final Dimension buttonDimension = new Dimension(width / 5, height / 3); //eliminare magic numbers
+        final Dimension buttonRouletteDimension = new Dimension(buttonDimension.width / 3, buttonDimension.height);
+        final GridBagConstraints c = new GridBagConstraints();
+        
+        c.gridx = 0;
+        c.insets = new Insets(0, 50, 0, 50);
+        blackjack.setPreferredSize(buttonDimension);
+        center.add(blackjack, c);
+        
+        
+        rouletteAmerican.setPreferredSize(buttonRouletteDimension);
+        c.gridx++;
+        c.insets = new Insets(0, 50, 0, 0);
+        center.add(rouletteAmerican, c);
+        
+        
+        rouletteBase.setPreferredSize(buttonRouletteDimension);
+        c.gridx++;
+        c.insets = new Insets(0, 0, 0, 0);
+        center.add(rouletteBase, c);
+        
+        rouletteEuropean.setPreferredSize(buttonRouletteDimension);
+        c.gridx++;
+        c.insets = new Insets(0, 0, 0, 50);
+        center.add(rouletteEuropean, c);
+        
+        bacarat.setPreferredSize(buttonDimension);
+        c.gridx++;
+        c.insets = new Insets(0, 50, 0, 50);
+        center.add(bacarat, c);
+        
+        
+        //meglio creare una funzione
+        Image img, imgScaled;
+        
+        img = Utilities.getImage("img/backgrounds/BJLogo.png");
+        imgScaled = img.getScaledInstance(buttonDimension.width, buttonDimension.height, Image.SCALE_SMOOTH);
+        blackjack.setIcon(new ImageIcon((imgScaled)));
+        
+        img = Utilities.getImage("img/backgrounds/BaseRoulette.png");
+        imgScaled = img.getScaledInstance(buttonRouletteDimension.width, buttonRouletteDimension.height, Image.SCALE_SMOOTH);
+        rouletteBase.setIcon(new ImageIcon((imgScaled)));
+        img = Utilities.getImage("img/backgrounds/EuropeanRoulette.png");
+        imgScaled = img.getScaledInstance(buttonRouletteDimension.width, buttonRouletteDimension.height, Image.SCALE_SMOOTH);
+        rouletteEuropean.setIcon(new ImageIcon((imgScaled)));
+        img = Utilities.getImage("img/backgrounds/AmericanRoulette.png");
+        imgScaled = img.getScaledInstance(buttonRouletteDimension.width, buttonRouletteDimension.height, Image.SCALE_SMOOTH);
+        rouletteAmerican.setIcon(new ImageIcon((imgScaled)));
+        
+        img = Utilities.getImage("img/backgrounds/bac.jpg");
+        imgScaled = img.getScaledInstance(buttonDimension.width, buttonDimension.height, Image.SCALE_SMOOTH);
+        bacarat.setIcon(new ImageIcon((imgScaled)));
+        
         
         this.add(north, BorderLayout.NORTH);
         this.add(center, BorderLayout.CENTER);
         
         
-  }
+    }
 
     @Override
     public JPanel getMenu() {
         return this;
     }
+    
     @Override
     protected void paintComponent(final Graphics g) {
-    	super.paintComponent(g);
-    	g.drawImage(this.img,0,0, getWidth(), getHeight(), null);
+        super.paintComponent(g);
+        g.drawImage(this.img, 0, 0, getWidth(), getHeight(), null);
     }
     
 }

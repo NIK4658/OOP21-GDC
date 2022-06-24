@@ -1,50 +1,50 @@
 package view.menu.games.roulette;
 
 import java.awt.Color;
-import java.awt.Component;
-import java.awt.Container;
 import java.awt.Dimension;
-import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.util.LinkedList;
 import java.util.List;
 import javax.swing.JButton;
 import javax.swing.JPanel;
-import roulette.Roulette;
-import roulette.RouletteNumber;
-import roulette.WinningNumbers;
+import model.roulette.number.RouletteNumber;
 import view.MyGridBagConstraints;
 
 public class DisplayWinningNumbers extends JPanel {
     
-    private final Roulette roulette;
+    private static final int DISPLAYED_NUMBERS = 12;
+    private static final int SCALE_SPACE_HEIGHT_NUMBERS = 8;
+    private static final int SCALE_SPACE_WIDTH_NUMBERS = 200;
     private final List<JButton> winningNumbers;
     
-    public DisplayWinningNumbers(final Roulette roulette, final Dimension dimension) {
+    public DisplayWinningNumbers(final Dimension dimension) {
         this.setLayout(new GridBagLayout());
-//        this.setBackground(new Color(0, 118, 58));    //VERDE COME IL TAVOLO DELLA ROULETTE
+        this.setBackground(RouletteGame.BACKGROUND_COLOR);
+        this.setPreferredSize(dimension);
+        final int heightSpace = dimension.height / SCALE_SPACE_HEIGHT_NUMBERS;
+        final int widthSpace = dimension.width / SCALE_SPACE_WIDTH_NUMBERS;
+        
         this.winningNumbers = new LinkedList<>();
-        this.roulette = roulette;
-       
-        for (int i = 0; i < WinningNumbers.MAX_NUM_DISPLAYED; i++) {
+        for (int i = 0; i < DISPLAYED_NUMBERS; i++) {
             final JButton b = new JButton();
-            dimension.width /= WinningNumbers.MAX_NUM_DISPLAYED;
-            b.setPreferredSize(dimension);
-            winningNumbers.add(b);
-            this.add(b, new MyGridBagConstraints(i, 0));
+            b.setOpaque(true);
+            b.setBorderPainted(false);
+            b.setForeground(Color.WHITE);
+            b.setBackground(this.getBackground());
+            this.winningNumbers.add(b);
+            this.add(b, new MyGridBagConstraints(i, 0, 1, 1, 
+                    new Insets(heightSpace, widthSpace, heightSpace, widthSpace)));
         }
     }
     
-    public void display() {
-        int i = 0;
-//        for (final RouletteNumber n : this.roulette.spin()) {
-//            final JButton b = this.winningNumbers.get(i);
-//            b.setText(String.valueOf(n.getValue()));
-//            b.setForeground(n.getColor());
-//            i++;
-//        }
-        
+    public void update(final RouletteNumber rouletteNumber) {
+        for (int i = DISPLAYED_NUMBERS - 2; i >= 0; i--) {
+            winningNumbers.get(i + 1).setText(winningNumbers.get(i).getText());
+            winningNumbers.get(i + 1).setBackground(winningNumbers.get(i).getBackground());
+        }
+        winningNumbers.get(0).setText(rouletteNumber.toString());
+        winningNumbers.get(0).setBackground(rouletteNumber.getColor());
     }
 
 }

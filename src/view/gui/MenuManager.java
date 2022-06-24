@@ -1,23 +1,25 @@
 package view.gui;
 
-import account.AdvancedAccountManager;
-import account.SimpleAccountManager;
 import java.awt.Dimension;
 import java.awt.Frame;
+
+import controller.MenuController;
+import model.account.AccountManager;
+import view.menu.games.Game.Games;//cambiare nome classe Games
 
 public interface MenuManager {
     
     void setAccessMenu();
 
-    void setMainMenu(AdvancedAccountManager account);
+    void setMainMenu();
     
-    void setAccountMenu(AdvancedAccountManager account);
+    void setAccountMenu();
+    //setAccountMenu, roulette, bj come unico metodo setMenu?
+    void setRouletteMenu(final AccountManager account, Games game, MenuController menuController);//serve il final nell'interfaccia? controllare
     
-    void setGameMenu(final AdvancedAccountManager account);
+    void setBlackjackMenu(final AccountManager accountfinal, MenuController menuController);
     
-    void setBlackjackMenu(final AdvancedAccountManager account);
-    
-    void setBaccaratMenu(AdvancedAccountManager account);
+    void setBaccaratMenu(AccountManager account, MenuController menuController);
     
     Frame getFrame();
  
@@ -25,10 +27,6 @@ public interface MenuManager {
     
     int getHeightMenu();
     
-    Dimension getSizeMenu();
-
-    
-
-    
+    Dimension getSizeMenu();    
     
 }

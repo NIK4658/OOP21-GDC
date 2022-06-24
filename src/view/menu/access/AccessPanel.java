@@ -1,13 +1,10 @@
 package view.menu.access;
-
-import account.AdvancedAccountManager;
-import account.AdvancedAccountManagerImpl;
-import account.SimpleAccountManager;
-import account.SimpleAccountManagerImpl;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.Insets;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
@@ -18,12 +15,13 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
-import view.GridBagConstraintsConstructor;
+
+import controller.MenuController;
 import view.menu.access.Access.AccessType;
 
 
 /**
- * //DA SISTEMARE I MAGIC NUMBERS.
+ * Initial login GUI.
  */
 public class AccessPanel extends JPanel {
 
@@ -38,11 +36,15 @@ public class AccessPanel extends JPanel {
     private static final int SPACINGTITLE = 60;
     private static final int SPACINGBTN = 5;
     
-    
     /**
-     * Main function.
+     * Constructor of the class that generates the JPanel.
+     * 
+     * @param access
+     * @param dim           Dimension of the window.
+     * @param accessType    Enum that defines whether access is login or registration.
+     * @param al
      */
-    public AccessPanel(final Access access, final Dimension dim, final AccessType accessType, final ActionListener al) {
+    public AccessPanel(final Access access, final Dimension dim, final AccessType accessType, final ActionListener al, final MenuController menuController) {
         this.setLayout(new GridBagLayout());
         this.setBackground(new Color(68, 87, 96));
         this.setPreferredSize(dim);
@@ -50,15 +52,11 @@ public class AccessPanel extends JPanel {
         final JLabel warning = new JLabel("", SwingConstants.CENTER);
         final JTextField username = new JTextField("Username");
         final JTextField password = new JTextField("Password");                        
-        final JTextField age = new JTextField("Età"); 
+        final JTextField age = new JTextField("Age"); 
         final JButton loginButton;
         final JButton registerButton;
         final ArrayList<JComponent> list = new ArrayList<>();
-        //warning.setText("ciao");
         
-        //da eliminare
-        username.setForeground(new Color(150, 150, 150));
-        password.setForeground(new Color(150, 150, 150));
         
         list.add(warning);
         list.add(username);
@@ -66,12 +64,12 @@ public class AccessPanel extends JPanel {
         
         if (accessType.equals(AccessType.LOGIN)) {
             loginButton = new JButton("Login");
-            registerButton = new JButton("<html>Non hai un Account? <br/>Registrati!<html>");
+            registerButton = new JButton("<html>\nDon't have an Account?<br/>Sign in!<html>");
             list.add(loginButton);
             list.add(registerButton);
         } else {
-            registerButton = new JButton("Registrati");
-            loginButton = new JButton("<html>Hai già un account? <br/>Esegui il Login</html>");
+            registerButton = new JButton("Sign In");
+            loginButton = new JButton("<html>Already got an account?<br/>Log in!</html>");
             list.add(age);
             list.add(registerButton);
             list.add(loginButton);
@@ -84,30 +82,39 @@ public class AccessPanel extends JPanel {
         title.setForeground(Color.WHITE);
         title.setPreferredSize(new Dimension(dimX, dimY / RATIOTITLEAREAY));
         title.setFont(new Font("Arial", Font.BOLD | Font.ITALIC, dimX / RATIOTITLEFONT));
-
-        this.add(title, GridBagConstraintsConstructor.get(0, 0, SPACINGTITLE));
+        final GridBagConstraints c = new GridBagConstraints();
+        c.insets = new Insets(0, 0, SPACINGTITLE, 0);
+        this.add(title, c);
         
         // Modifiche generali
         int i = 1;
+        c.insets = new Insets(0, 0, SPACINGBTN, 0);
         for (final JComponent jc : list) {
             jc.setPreferredSize(new Dimension(dimX / RATIOBTNAREAX, dimY / RATIOBTNAREAY));
             jc.setFont(new Font("Arial", Font.PLAIN, dimX / RATIOBTNFONT));
-            this.add(jc, GridBagConstraintsConstructor.get(0, i, SPACINGBTN));
+            jc.setForeground(new Color(150, 150, 150));
+            c.gridy = i;
+            this.add(jc, c);
             i++;
         }
         
-        //warning.setFont(new Font("Arial", Font.PLAIN, dimX/(RATIOBTNFONT-2)));
+        loginButton.setForeground(Color.BLACK);
+        registerButton.setForeground(Color.BLACK);
+        
+        warning.setFont(new Font("Arial", Font.PLAIN, dimX/((RATIOBTNFONT))));
         
        
         username.addFocusListener(new FocusListener() {  
             @Override  
-            public void focusGained(FocusEvent e) {  
-                username.setText("");  
-                username.setForeground(new Color(50, 50, 50));  
+            public void focusGained(final FocusEvent e) {  
+                if (username.getText().equals("Username")) {  
+                    username.setText("");  
+                    username.setForeground(new Color(50, 50, 50));   
+                }  
             }  
             
             @Override
-            public void focusLost(FocusEvent e) { 
+            public void focusLost(final FocusEvent e) { 
 
                 if (username.getText().length() == 0) {  
                     username.setText("Username");  
@@ -118,17 +125,37 @@ public class AccessPanel extends JPanel {
         
         password.addFocusListener(new FocusListener() {  
             @Override  
-            public void focusGained(FocusEvent e) {  
-                password.setText("");  
-                password.setForeground(new Color(50, 50, 50));  
+            public void focusGained(final FocusEvent e) {  
+                if (password.getText().equals("Password")) {  
+                    password.setText("");  
+                    password.setForeground(new Color(50, 50, 50));  
+                }  
             }  
             
             @Override
-            public void focusLost(FocusEvent e) { 
-
+            public void focusLost(final FocusEvent e) { 
                 if (password.getText().length() == 0) {  
                     password.setText("Password");  
                     password.setForeground(new Color(150, 150, 150));  
+                }
+            }
+        });
+        
+        
+        age.addFocusListener(new FocusListener() {  
+            @Override  
+            public void focusGained(final FocusEvent e) {  
+                if (age.getText().equals("Age")) {  
+                    age.setText("");  
+                    age.setForeground(new Color(50, 50, 50));  
+                }  
+            }  
+            
+            @Override
+            public void focusLost(final FocusEvent e) { 
+                if (age.getText().length() == 0) {  
+                    age.setText("Age");  
+                    age.setForeground(new Color(150, 150, 150));  
                 }
             }
         });
@@ -139,27 +166,22 @@ public class AccessPanel extends JPanel {
             registerButton.setPreferredSize(new Dimension(dimX / RATIOBTNACCESSAREAX, dimY / RATIOBTNACCESSAREAY));
             
             loginButton.addActionListener(e -> {
-                final AdvancedAccountManager account = new AdvancedAccountManagerImpl();
-                if (account.logger(username.getText(), password.getText())) {
-                    access.successfullyAccessed(account);
+                if (menuController.login(username.getText(), password.getText())) {
+                    access.successfullyAccessed();
                 } else {
-                    warning.setText("Login errato");
+                    warning.setText("Wrong Credentials");
                 }
-                //aggiungere else: login errato, magari aggiungere JLabel("Credenziali errate")
-                //o Username non trovato, Password non trovata: sono da cambiare i metodi dela classe Account
             });
             
         } else {
             loginButton.addActionListener(al);
             loginButton.setPreferredSize(new Dimension(dimX / RATIOBTNACCESSAREAX, dimY / RATIOBTNACCESSAREAY));
-            
             registerButton.addActionListener(e -> {
-                if (new AdvancedAccountManagerImpl().register(username.getText(), password.getText(), age.getText())) {
-                    //JLabel "registrazione completata esegui il login"
+                if (menuController.signup(username.getText(), password.getText(), age.getText())) {
+                    warning.setText("Signed up");
                 } else {
-                    warning.setText("Impossibile registrarsi");
+                    warning.setText("Unable to sign up");
                 }
-                //else: JLabel "...."
             });
             
         }

@@ -1,7 +1,7 @@
-package view.menu.account;
-
-public interface PasswordConfirmed {
-    
-    boolean isPasswordConfirmed();
-
-}
+//package view.menu.account;
+//
+//public interface PasswordConfirmed {
+//    
+//    boolean isConfirmed();
+//
+//}

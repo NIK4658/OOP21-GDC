@@ -1,7 +1,6 @@
 package view.menu.access;
 
-import account.AdvancedAccountManager;
-import account.SimpleAccountManager;
+import model.account.AccountManager;
 
 public interface Access {
     
@@ -9,6 +8,6 @@ public interface Access {
         LOGIN, REGISTER 
     } 
     
-    void successfullyAccessed(AdvancedAccountManager account);
+    void successfullyAccessed();
 
 }

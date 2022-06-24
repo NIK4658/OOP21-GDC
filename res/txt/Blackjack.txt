@@ -1,0 +1,38 @@
+What's Blackjack:
+Blackjack is a casino banking game. The most widely played casino banking game in the world, it uses 6 decks of 52 cards and descends from a global family of casino banking games known as Twenty-One.
+The game is a comparing card game where the player competes against the dealer.
+
+Starting game:
+To start each round, player need to place bet in the "betting box".
+The player gets an initial hand of two visible cards.
+The dealer's hand gets its first card face up, and immediately gets a second card face down (the hole card), 
+which the dealer peeks at but only reveals when it makes the dealer's hand a blackjack. 
+
+How the game works:
+The object of the game is to win money by creating card totals higher than those of the dealer's hand but not exceeding 21,
+or by stopping at a total in the hope that dealer will bust. 
+On their turn, players choose to "hit" (take a card), "stand" (end their turn and stop without taking a card) or
+"double" (double their wager, take a single card, and finish).
+Number cards count as their number, the jack, queen, and king ("face cards" or "pictures") count as 10, and aces count as either 1 or 11.
+If the total exceeds 21 points, it busts, and all bets on it immediately lose.
+After the player has finished playing, the dealer's hand is resolved by drawing cards until the hand achieves a total of 17 or higher.
+The dealer never doubles. If the dealer busts, all remaining player hands win. If the dealer does not bust, each remaining bet wins if its hand is higher than the dealer's and loses if it is lower.
+
+Blackjack:
+A player total of 21 on the first two cards is a "natural" or "blackjack," and the player wins immediately unless dealer also has one, in which case the hand ties. 
+In the case of a tie ("push" or "standoff"), bets are returned without adjustment. But a blackjack beats any hand that is not a blackjack, even one with a value of 21.
+Wins are paid out at even money, except for player blackjacks, which are traditionally paid out at 3 to 2 odds.
+
+Player decisions:
+Hit: Take another card. (Plus button)
+Stand: Take no more cards, let dealer take his turn. (Stop button)
+Double down: Increase the initial bet by 100% and take exactly ONE more card. The additional bet is placed on the table. (x2 Button)
+
+Insurance
+Blackjack games usually offer a side bet called insurance, which may be placed when the dealer's face up card is an ace. 
+If the dealer shows an ace, an "insurance" bet is allowed. Insurance is a side bet that the dealer has a blackjack. 
+The dealer asks for insurance bets before the player plays. The Insurance bet amount is equal to half of the bet at the start of the game.
+If the dealer has a blackjack, insurance pays 2 to 1.
+If the dealer has no blackjack, insurance pays 0 to 1.
+If the dealer has blackjack, the player win the insurance bet.
+Players with blackjack can also take insurance.
