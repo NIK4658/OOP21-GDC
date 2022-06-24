@@ -24,6 +24,8 @@ public interface AccountManager {
 
     boolean checkExisting(String usr);
     
+    boolean isPsw(String psw);
+    
     String getUsr();
     
     String getPsw();

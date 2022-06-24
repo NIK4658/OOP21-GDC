@@ -61,6 +61,11 @@ public class SimpleAccountManagerImpl implements AccountManager {
     }
 
     @Override
+    public boolean isPsw(final String psw) {
+        return getPsw().equals(psw);
+    }
+    
+    @Override
     public String getUsr() {
         return ManagerUtility.getField(Fields.USERNAME, this.username);
     }

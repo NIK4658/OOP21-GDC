@@ -30,7 +30,7 @@ public interface MenuController {
     
     boolean changeUsername(String username);
 
-    String getPassword();
+    boolean isPassword(String psw);
 
     boolean setPassword(String password);
 
