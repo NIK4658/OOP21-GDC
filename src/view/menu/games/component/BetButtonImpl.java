@@ -37,16 +37,29 @@ public class BetButtonImpl extends JButton implements BetButton {
         this.setFocusPainted(false);
     }
     
+    /**
+     * Get the value of the bet. 
+     * 
+     * @return the amount of money wagered by the user.
+     */
     public double getBet() {
         return this.value;
     }
     
+    /**
+     * Assign a certain bet value to the component.
+     * 
+     * @param value Value to set.
+     */
     public void setBet(final double value) {
         resetBet();
         incrementBet(value);
         this.value = value;
     }
     
+    /**
+     * Reset the bet values.
+     */
     public void resetBet() {
         this.value = 0;
         this.removeAll();
@@ -54,6 +67,12 @@ public class BetButtonImpl extends JButton implements BetButton {
         this.setEnabled(true);
     }
     
+    
+    /**
+     * It increases the values ​​of the bet and generates an image relating to the amount of the bet.
+     * 
+     * @param value Increment value.
+     */
     public void incrementBet(final double value) {
         this.value += value;
         this.removeAll();
@@ -70,6 +89,9 @@ public class BetButtonImpl extends JButton implements BetButton {
         validate();
     }  
     
+    /**
+     * Confirm the user's bet. He will no longer be able to increase this bet until the start of the next game.
+     */
     public void confirmBet() {
         this.setEnabled(false);
         this.setDisabledIcon(chooseChip(this.value));
