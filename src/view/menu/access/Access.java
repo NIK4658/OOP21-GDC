@@ -1,6 +1,6 @@
 package view.menu.access;
 
-import account.AccountManager;
+import model.account.AccountManager;
 
 public interface Access {
     

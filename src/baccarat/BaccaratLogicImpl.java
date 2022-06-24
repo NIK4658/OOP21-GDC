@@ -1,8 +1,8 @@
 package baccarat;
 
-import account.BalanceManager;
-import blackjack.Deck;
-import blackjack.DeckImpl;
+import model.account.BalanceManager;
+import model.blackjack.Deck;
+import model.blackjack.DeckImpl;
 
 /**
  * baccarat logic implementation

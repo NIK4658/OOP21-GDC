@@ -1,13 +1,14 @@
 package view.menu.account;
 
-import account.AccountManager;
 import java.awt.Frame;
 import java.awt.GridBagConstraints;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 
-//pannello CAMBIO USERNAME, sistemare ripetizioni
+import model.account.AccountManager;
+
+
 public class UsernamePanel extends AccountPanel {
     
     private final AccountManager account;

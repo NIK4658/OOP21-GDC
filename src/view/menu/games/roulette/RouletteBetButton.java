@@ -1,7 +1,8 @@
 package view.menu.games.roulette;
 
-import blackjack.BetButton;
 import java.awt.Dimension;
+
+import view.menu.games.component.BetButton;
 
 public class RouletteBetButton extends BetButton {
     

@@ -38,15 +38,17 @@ public class GuideGui extends JDialog {
         final JPanel textareaPanel = new JPanel(new GridBagLayout());
         container.setBackground(new Color(167, 183, 250));
         textareaPanel.setBackground(new Color(167, 183, 250));
-        final JLabel title = new JLabel(game.name() + " GUIDE", SwingConstants.CENTER);
+        final JLabel title;
+        title = new JLabel(this.getGameName(game) + " GUIDE", SwingConstants.CENTER);
         title.setPreferredSize(new Dimension(dim.width / 15, dim.width / 15));
         title.setFont(new Font("Arial", Font.BOLD, dim.width / 25));
         final JTextArea text = new JTextArea();
         text.setFont(new Font("Arial", Font.PLAIN, dim.width / 95));
         FileReader reader;
         try {
-            reader = new FileReader("res/txt/" + game + ".txt");
-            text.read(reader, game + ".txt"); //Object of JTextArea
+            final String nameFile = this.getGameName(game) + ".txt";
+            reader = new FileReader("res/txt/" + nameFile);
+            text.read(reader, nameFile); //Object of JTextArea
             reader.close();
         } catch (Exception e) {
             System.out.println("File non trovato");
@@ -66,5 +68,10 @@ public class GuideGui extends JDialog {
         this.pack();
         this.setLocationRelativeTo(null);
         this.setVisible(true);
+    }
+    
+    private String getGameName(final Games game) {
+        return game.toString().split("_")[0];
+        
     }
 }

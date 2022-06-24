@@ -10,18 +10,18 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 
-import roulette.AmericanRoulette;
-import roulette.EuropeanRoulette;
-import roulette.manageRoulette.ManageRoulette;
-import roulette.number.AmericanRouletteNumber;
-import roulette.number.BaseRouletteNumber.Column;
-import roulette.number.BaseRouletteNumber.Included;
-import roulette.number.BaseRouletteNumber.Parity;
-import roulette.number.BaseRouletteNumber.Row;
-import roulette.number.EuropeanRouletteNumber;
-import roulette.number.EuropeanRouletteNumber.Sector;
-import roulette.numbers.AmericanRouletteNumbers;
-import roulette.numbers.EuropeanRouletteNumbers;
+import model.roulette.AmericanRoulette;
+import model.roulette.EuropeanRoulette;
+import model.roulette.manageRoulette.ManageRoulette;
+import model.roulette.number.AmericanRouletteNumber;
+import model.roulette.number.EuropeanRouletteNumber;
+import model.roulette.number.BaseRouletteNumber.Column;
+import model.roulette.number.BaseRouletteNumber.Included;
+import model.roulette.number.BaseRouletteNumber.Parity;
+import model.roulette.number.BaseRouletteNumber.Row;
+import model.roulette.number.EuropeanRouletteNumber.Sector;
+import model.roulette.numbers.AmericanRouletteNumbers;
+import model.roulette.numbers.EuropeanRouletteNumbers;
 import utility.Pair;
 
 

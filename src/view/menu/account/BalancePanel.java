@@ -1,8 +1,5 @@
 package view.menu.account;
 
-import account.AccountManager;
-import account.AdvancedBalanceManagerImpl;
-import account.BalanceManager;
 import java.awt.GridBagConstraints;
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
@@ -13,12 +10,15 @@ import javax.swing.JButton;
 import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
 
+import model.account.AccountManager;
+import model.account.AdvancedBalanceManagerImpl;
+import model.account.BalanceManager;
+
 public class BalancePanel extends AccountPanel {
     
     private static final Locale LOCALE = Locale.ITALY; //vedere se metterla in comune tra altre classi o se togliere la constante e usare locale.italy direttamente
     private static final int N_FRACTION_DIGITS = 2;
     private static final int N_MAX_INTEGER_DIGITS = 6;
-    
     private final BalanceManager account;
     private final JFormattedTextField importField;
     

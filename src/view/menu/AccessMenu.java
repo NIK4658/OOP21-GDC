@@ -1,6 +1,5 @@
 package view.menu;
 
-import account.AccountManager;
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.Dimension;
@@ -8,10 +7,12 @@ import java.awt.Image;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+
+import model.account.AccountManager;
+import view.Utilities;
 import view.gui.MenuManager;
 import view.menu.access.Access;
 import view.menu.access.AccessPanel;
-import view.ImageLoader;
 
 /**
  * //DA SISTEMARE I MAGIC NUMBERS.
@@ -30,7 +31,7 @@ public class AccessMenu extends JPanel implements Access, Menu {
         
         // Zona di destra
         final Dimension dimImg = new Dimension(frame.getWidthMenu() * 2 / 3, frame.getHeightMenu());
-        final Image img = ImageLoader.getImage("res/img/backgrounds/HQcasinoCroppedWithTitle.gif");
+        final Image img = Utilities.getImage("res/img/backgrounds/HQcasinoCroppedWithTitle.gif");
         final Image imgScaled = img.getScaledInstance(dimImg.width, dimImg.height, Image.SCALE_DEFAULT);
         this.add(new JLabel(new ImageIcon(imgScaled)), BorderLayout.EAST);
         

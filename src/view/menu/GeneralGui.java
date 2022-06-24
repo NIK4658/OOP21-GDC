@@ -1,13 +1,13 @@
 package view.menu;
 
-import account.AccountManager;
 import baccarat.BaccaratGui;
+import model.account.AccountManager;
+import model.account.AdvancedBalanceManagerImpl;
+import model.account.BalanceManager;
 import view.menu.games.Game.Games;
+import view.menu.games.blackjack.BlackJackGui;
 import view.menu.games.GuideGui;
 import view.menu.games.roulette.RouletteGame;
-import account.AdvancedBalanceManagerImpl;
-import account.BalanceManager;
-import blackjack.BlackJackGui;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -29,8 +29,8 @@ import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
-import view.ImageLoader;
 import view.MyGridBagConstraints;
+import view.Utilities;
 import view.gui.MenuManager;
 import view.menu.games.Game;
 
@@ -39,6 +39,7 @@ public class GeneralGui extends JPanel implements Menu {
     
     private final AccountManager account;
     private final BalanceManager Balanceaccount;
+    private final MenuManager frame;
     private double bet;
     private int fichesvalue = 1;
     private final Game g;
@@ -58,7 +59,7 @@ public class GeneralGui extends JPanel implements Menu {
     private final JLabel winMessageText = new JLabel("");
     
     public GeneralGui(final MenuManager frame, final AccountManager account, final Games game ){
-
+        this.frame = frame;
         this.account = account;
         this.Balanceaccount = new AdvancedBalanceManagerImpl(this.account);
         setLayout(new BorderLayout());
@@ -80,13 +81,13 @@ public class GeneralGui extends JPanel implements Menu {
         this.setOpaque(false);
         switch (game) {
             case BLACKJACK: 
-                this.g = new BlackJackGui(frame, new AdvancedBalanceManagerImpl(account), this);
+                this.g = new BlackJackGui(new AdvancedBalanceManagerImpl(account), this);
                 showButtons(false);
                 break;
             case BACCARAT: this.g = new BaccaratGui(frame, new AdvancedBalanceManagerImpl(account), this);
                 break;
             default: 
-                this.g = new RouletteGame(this, new AdvancedBalanceManagerImpl(account), game);
+                this.g = new RouletteGame(this, game);
                 center = (JPanel) this.g;
                 this.setOpaque(true);
                 this.setBackground(new Color(0, 118, 58));
@@ -99,7 +100,7 @@ public class GeneralGui extends JPanel implements Menu {
         this.winMessageText.setHorizontalAlignment(SwingConstants.CENTER);
         this.winMessageText.setFont(new Font("Arial", Font.PLAIN | Font.ITALIC, height / 25));
         winmsg.setPreferredSize(new Dimension(width / 4, height / 10));
-        final JLabel backgrnd = new JLabel(new ImageIcon(ImageLoader.getImage("res/img/gui/ProvaSfondoLabel4.png")
+        final JLabel backgrnd = new JLabel(new ImageIcon(Utilities.getImage("res/img/gui/ProvaSfondoLabel4.png")
                 .getScaledInstance(width / 5, height / 12, Image.SCALE_SMOOTH)));
         backgrnd.setBounds(width / 50, height / 120, width / 5, height / 12);
         this.winMessageText.setBounds(0, 0, width / 4, height / 10);
@@ -177,7 +178,7 @@ public class GeneralGui extends JPanel implements Menu {
             jb.setContentAreaFilled(false);
             jb.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
             if (i <= 1) {
-                jb.setIcon(new ImageIcon((ImageLoader.getImage("res/img/buttons/"
+                jb.setIcon(new ImageIcon((Utilities.getImage("res/img/buttons/"
                         + jb.getName() + ".png"))
                         .getScaledInstance(width / 20, width / 20, Image.SCALE_SMOOTH)));
                 if (i == 0) {
@@ -188,7 +189,7 @@ public class GeneralGui extends JPanel implements Menu {
                             new MyGridBagConstraints(i, 0, 1, 2, new Insets(0, 0, height / 200, height / 30)));
                 }
             } else {
-                jb.setIcon(new ImageIcon((ImageLoader.getImage("res/img/fiches/numbers/new/"
+                jb.setIcon(new ImageIcon((Utilities.getImage("res/img/fiches/numbers/new/"
                         + jb.getName() + ".png"))
                         .getScaledInstance(width / 15, width / 15, Image.SCALE_SMOOTH)));
                 southright.add(jb, new MyGridBagConstraints(i, 0, 1, 2, new Insets(0, 0, height / 100, 0)));
@@ -228,7 +229,7 @@ public class GeneralGui extends JPanel implements Menu {
         final JLayeredPane southtotal = new JLayeredPane();
         southtotal.setPreferredSize(new Dimension((int) (width / 3.5) + width / 60, height / 10));
         southleft.setBounds(width / 60, 0, (int) (width / 3.5), height / 10);
-        final JLabel bckgnd = new JLabel(new ImageIcon(ImageLoader.getImage("res/img/gui/ProvaSfondoLabel4.png")
+        final JLabel bckgnd = new JLabel(new ImageIcon(Utilities.getImage("res/img/gui/ProvaSfondoLabel4.png")
                 .getScaledInstance((int) (width / 3.5), height / 10, Image.SCALE_SMOOTH)));
         bckgnd.setBounds(width / 60, 0, (int) (width / 3.5), height / 10);
         southtotal.add(bckgnd, 1);
@@ -238,6 +239,7 @@ public class GeneralGui extends JPanel implements Menu {
         south.add(southtotal, BorderLayout.WEST);
         south.add(southright, BorderLayout.EAST);
         add(south, BorderLayout.SOUTH);
+        setSelectedFiches(0);
         updateBalanceValue();
         this.setMinimumSize(this.getPreferredSize());
         setVisible(true);
@@ -276,7 +278,7 @@ public class GeneralGui extends JPanel implements Menu {
             } else {
                 s = jb.getName();
             }
-            jb.setIcon(new ImageIcon((ImageLoader
+            jb.setIcon(new ImageIcon((Utilities
                     .getImage("res/img/fiches/numbers/new/" + s + ".png"))
                     .getScaledInstance(width / 15, width / 15, Image.SCALE_SMOOTH)));
             i++;
@@ -317,6 +319,10 @@ public class GeneralGui extends JPanel implements Menu {
         return (value * 100 % 100 == 0 ? String.valueOf((int) value) : String.valueOf(value));
     }
 
+    public MenuManager getFrame() {
+        return this.frame;
+    }
+    
     @Override
     public JPanel getMenu() {
         return this;

@@ -1,5 +1,5 @@
 package baccarat;
-import blackjack.Card;
+import model.blackjack.Card;
 
 /**
  * ..

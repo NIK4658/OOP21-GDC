@@ -1,7 +1,4 @@
 package view.menu.access;
-import account.AdvancedAccountManagerImpl;
-import account.AccountManager;
-import account.SimpleAccountManagerImpl;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -18,6 +15,10 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
+
+import model.account.AccountManager;
+import model.account.AdvancedAccountManagerImpl;
+import model.account.SimpleAccountManagerImpl;
 import view.menu.access.Access.AccessType;
 
 

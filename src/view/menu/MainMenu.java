@@ -1,6 +1,5 @@
 package view.menu;
 
-import account.AccountManager;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -18,11 +17,12 @@ import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
-import view.ImageLoader;
+
+import model.account.AccountManager;
 import view.MyGridBagConstraints;
+import view.Utilities;
 import view.gui.MenuManager;
 import view.menu.games.Game.Games;
-import view.menu.games.roulette.RouletteGame.TypeRoulette;
 
 import java.awt.Graphics;
 
@@ -38,7 +38,7 @@ public class MainMenu extends JPanel implements Menu {
 //    private final AccountManager account;
     
     
-    private final Image img = ImageLoader.getImage("res/img/backgrounds/MainBG.jpg");
+    private final Image img = Utilities.getImage("res/img/backgrounds/MainBG.jpg");
 
     /**
      * Costruttore.
@@ -138,21 +138,21 @@ public class MainMenu extends JPanel implements Menu {
         //meglio creare una funzione
         Image img, imgScaled;
         
-        img = ImageLoader.getImage("res/img/backgrounds/BJLogo.png");
+        img = Utilities.getImage("res/img/backgrounds/BJLogo.png");
         imgScaled = img.getScaledInstance(buttonDimension.width, buttonDimension.height, Image.SCALE_SMOOTH);
         blackjack.setIcon(new ImageIcon((imgScaled)));
         
-        img = ImageLoader.getImage("res/img/backgrounds/BaseRoulette.png");
+        img = Utilities.getImage("res/img/backgrounds/BaseRoulette.png");
         imgScaled = img.getScaledInstance(buttonRouletteDimension.width, buttonRouletteDimension.height, Image.SCALE_SMOOTH);
         rouletteBase.setIcon(new ImageIcon((imgScaled)));
-        img = ImageLoader.getImage("res/img/backgrounds/EuropeanRoulette.png");
+        img = Utilities.getImage("res/img/backgrounds/EuropeanRoulette.png");
         imgScaled = img.getScaledInstance(buttonRouletteDimension.width, buttonRouletteDimension.height, Image.SCALE_SMOOTH);
         rouletteEuropean.setIcon(new ImageIcon((imgScaled)));
-        img = ImageLoader.getImage("res/img/backgrounds/AmericanRoulette.png");
+        img = Utilities.getImage("res/img/backgrounds/AmericanRoulette.png");
         imgScaled = img.getScaledInstance(buttonRouletteDimension.width, buttonRouletteDimension.height, Image.SCALE_SMOOTH);
         rouletteAmerican.setIcon(new ImageIcon((imgScaled)));
         
-        img = ImageLoader.getImage("res/img/backgrounds/bac.jpg");
+        img = Utilities.getImage("res/img/backgrounds/bac.jpg");
         imgScaled = img.getScaledInstance(buttonDimension.width, buttonDimension.height, Image.SCALE_SMOOTH);
         bacarat.setIcon(new ImageIcon((imgScaled)));
         

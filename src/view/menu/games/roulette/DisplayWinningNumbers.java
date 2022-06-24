@@ -11,10 +11,11 @@ import java.util.LinkedList;
 import java.util.List;
 import javax.swing.JButton;
 import javax.swing.JPanel;
-import roulette.EuropeanRoulette;
-import roulette.number.BaseRouletteNumber;
-import roulette.number.EuropeanRouletteNumber;
-import roulette.number.RouletteNumber;
+
+import model.roulette.EuropeanRoulette;
+import model.roulette.number.BaseRouletteNumber;
+import model.roulette.number.EuropeanRouletteNumber;
+import model.roulette.number.RouletteNumber;
 import view.MyGridBagConstraints;
 
 public class DisplayWinningNumbers extends JPanel {
