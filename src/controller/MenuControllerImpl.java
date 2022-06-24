@@ -95,7 +95,7 @@ public class MenuControllerImpl implements MenuController {
     
     @Override
     public boolean deleteAccount() {
-        return this.account.deleteAcc(this.getUsername());//NICO per rimuovere l'account non deve servire il nome dell'account
+        return this.account.deleteAcc(this.getUsername());
     }
 
 
