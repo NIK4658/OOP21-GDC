@@ -1,4 +1,4 @@
-package model.roulette.checkwin;
+package model.roulette.win;
 
 import java.awt.Color;
 import java.util.List;

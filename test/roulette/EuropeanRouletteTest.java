@@ -11,13 +11,13 @@ import org.junit.Before;
 import org.junit.Test;
 
 import model.roulette.EuropeanRoulette;
-import model.roulette.checkwin.Wins;
 import model.roulette.number.BaseRouletteNumber.Column;
 import model.roulette.number.BaseRouletteNumber.Included;
 import model.roulette.number.BaseRouletteNumber.Parity;
 import model.roulette.number.BaseRouletteNumber.Row;
 import model.roulette.property.SectorRoulette;
 import model.roulette.wheel.EuropeanRouletteNumbers;
+import model.roulette.win.Wins;
 import utility.Pair;
 
 

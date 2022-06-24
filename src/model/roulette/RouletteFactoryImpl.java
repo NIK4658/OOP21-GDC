@@ -2,11 +2,10 @@ package model.roulette;
 
 import java.util.List;
 import java.util.Random;
-
 import model.roulette.number.RouletteNumber;
 import model.roulette.property.EuropeanSectors;
-import model.roulette.property.SectorRoulette;
 import model.roulette.property.Property.Sector;
+import model.roulette.property.SectorRoulette;
 import model.roulette.wheel.WheelFactory;
 import model.roulette.wheel.WheelFactoryImpl;
 

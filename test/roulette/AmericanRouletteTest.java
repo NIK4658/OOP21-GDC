@@ -12,7 +12,6 @@ import org.junit.Test;
 
 import model.roulette.AmericanRoulette;
 import model.roulette.EuropeanRoulette;
-import model.roulette.checkwin.Wins;
 import model.roulette.number.AmericanRouletteNumber;
 import model.roulette.number.BaseRouletteNumber.Column;
 import model.roulette.number.BaseRouletteNumber.Included;
@@ -21,6 +20,7 @@ import model.roulette.number.BaseRouletteNumber.Row;
 import model.roulette.property.SectorRoulette.Sector;
 import model.roulette.wheel.AmericanWheel;
 import model.roulette.wheel.EuropeanRouletteNumbers;
+import model.roulette.win.Wins;
 import utility.Pair;
 
 
