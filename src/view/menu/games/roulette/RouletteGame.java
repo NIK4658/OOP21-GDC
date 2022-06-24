@@ -5,13 +5,9 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.util.List;
 import javax.swing.JPanel;
-
-import model.roulette.AmericanRoulette;
-import model.roulette.BaseRoulette;
-import model.roulette.EuropeanRoulette;
 import model.roulette.Roulette;
-import model.roulette.checkwin.Wins;
 import model.roulette.number.RouletteNumber;
+import model.roulette.win.Wins;
 import utility.Pair;
 import view.menu.GeneralGui;
 import view.menu.games.Game;

@@ -9,12 +9,10 @@ import model.roulette.number.RouletteNumber;
 
 public class BaseWheel implements Wheel {
     
-    public static final int NUMBERS = 37;
-    
     private final List<BaseRouletteNumber> rouletteNumbers;
     
     public BaseWheel() {
-        this.rouletteNumbers = new ArrayList<>(NUMBERS);
+        this.rouletteNumbers = new ArrayList<>();
         this.rouletteNumbers.add(new BaseRouletteNumber(0, Color.GREEN));
         this.rouletteNumbers.add(new BaseRouletteNumber(1, Color.RED));
         this.rouletteNumbers.add(new BaseRouletteNumber(2, Color.BLACK));
