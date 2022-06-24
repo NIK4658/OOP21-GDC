@@ -7,6 +7,8 @@ public interface BalanceController {
     boolean deposit(double deposit);
     
     boolean withdraw(double withdraw);
+    
+    boolean changeBalance(double balancenew);
 
     
 }

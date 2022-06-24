@@ -1,5 +1,8 @@
 package view.menu.games.blackjack;
 
+import controller.BalanceController;
+import controller.blackjack.BlackJackController;
+import controller.blackjack.BlackJackControllerImpl;
 import controller.blackjack.BlackJackLogic;
 import controller.blackjack.BlackJackLogicImpl;
 import java.awt.BorderLayout;
@@ -37,7 +40,7 @@ public class BlackJackGui extends JPanel implements Game {
     private static final int DIRECTION_PLAYER = -1;
     private static final int DIRECTION_DEALER = 1;
     private final GeneralGui generalInterface;
-    private final BlackJackLogic gameLogic;
+    private final BlackJackController gameController;
     private List<JLabel> dealerCards;
     private List<JLabel> playerCards;
     private final Image img = Utilities.getImage("img/backgrounds/blackjacktableHDwithbet.png");
@@ -56,14 +59,14 @@ public class BlackJackGui extends JPanel implements Game {
     /**
      * Constructor that generate the JPanel. 
      * 
-     * @param account   Balance manager useful for carrying out movements in the balance.
+     * @param bController   Balance manager useful for carrying out movements in the balance.
      * @param generalInterface      JPanel with shared items across all games.
      */
-    public BlackJackGui(final BalanceManager account, final GeneralGui generalInterface) {
+    public BlackJackGui(final BalanceController bController, final GeneralGui generalInterface) {
         this.generalInterface = generalInterface;
         final MenuManager frame = generalInterface.getFrame();
         this.setLayout(new BorderLayout());
-        this.gameLogic = new BlackJackLogicImpl(account);
+        this.gameController = new BlackJackControllerImpl(bController);
         this.setPreferredSize(frame.getSizeMenu());
         this.width = frame.getWidthMenu();
         this.height = frame.getHeightMenu();
@@ -101,20 +104,20 @@ public class BlackJackGui extends JPanel implements Game {
         add(north, BorderLayout.NORTH);
         
         draw.addActionListener(e -> {   
-            gameLogic.askCard();
+            gameController.askCard();
             setCards(DIRECTION_PLAYER);
-            dealerPoints.setText(String.valueOf(gameLogic.getDealerHand().getCard(0).getValue()));
+            dealerPoints.setText(String.valueOf(gameController.getDealerHand().getCard(0).getValue()));
             doubleUp.setVisible(false);
-            if (gameLogic.getPlayerPoints() >= 21) {
+            if (gameController.getPlayerPoints() >= 21) {
                 stand.doClick();
             }
         });
         
         stand.addActionListener(e -> {
-            gameLogic.stand();
+            gameController.stand();
             setCards(DIRECTION_DEALER);
-            if (gameLogic.checkWin() != -1 || gameLogic.checkBlackjack(gameLogic.getPlayerHand())) {
-                generalInterface.showWinMessage(gameLogic.getLastWin());
+            if (gameController.checkWin() != -1 || gameController.checkBlackjack(gameController.getPlayerHand())) {
+                generalInterface.showWinMessage(gameController.getLastWin());
                 generalInterface.setBetValue(bet.getBet());
             }
             draw.setVisible(false);
@@ -124,7 +127,7 @@ public class BlackJackGui extends JPanel implements Game {
         });
         
         doubleUp.addActionListener(e -> {   
-            if (gameLogic.askDouble()) {
+            if (gameController.askDouble()) {
                 bet.setBet(bet.getBet() * 2);
                 setCards(DIRECTION_PLAYER);
                 generalInterface.updateBalanceValue();
@@ -199,7 +202,7 @@ public class BlackJackGui extends JPanel implements Game {
 
     @Override
     public void confirmBet() {
-        this.gameLogic.startGame(this.bet.getBet());
+        this.gameController.startGame(this.bet.getBet());
         this.bet.confirmBet();
         this.generalInterface.showButtons(false);
         this.draw.setVisible(true);
@@ -209,16 +212,16 @@ public class BlackJackGui extends JPanel implements Game {
         this.playerPoints.setVisible(true);
         setCards(DIRECTION_PLAYER);
         setCards(DIRECTION_DEALER);
-        this.dealerPoints.setText(String.valueOf(gameLogic.getDealerHand().getCard(0).getValue()));
-        if (gameLogic.checkInsurance()) {
+        this.dealerPoints.setText(String.valueOf(gameController.getDealerHand().getCard(0).getValue()));
+        if (gameController.checkInsurance()) {
             final InsuranceWindow ins = new InsuranceWindow(
-                    new Dimension(this.width, this.height), gameLogic.canInsurance());
-            if (!gameLogic.calculateInsurance(ins.isInsurance())) {
+                    new Dimension(this.width, this.height), gameController.canInsurance());
+            if (!gameController.calculateInsurance(ins.isInsurance())) {
                 stand.doClick();
             }
             this.generalInterface.updateBalanceValue();
         }
-        if (gameLogic.checkBlackjack(gameLogic.getPlayerHand())) {
+        if (gameController.checkBlackjack(gameController.getPlayerHand())) {
             stand.doClick();
         }
     }
@@ -236,11 +239,11 @@ public class BlackJackGui extends JPanel implements Game {
         final JLayeredPane pane;
         if (direction == -1) {
             cards = this.playerCards;
-            h = this.gameLogic.getPlayerHand();
+            h = this.gameController.getPlayerHand();
             pane = this.center;
         } else {
             cards = this.dealerCards;
-            h = this.gameLogic.getDealerHand();
+            h = this.gameController.getDealerHand();
             pane = this.north;
         }
         for (final JLabel j : cards) {
@@ -258,8 +261,8 @@ public class BlackJackGui extends JPanel implements Game {
             pane.add(visualCard, 0);
             pane.validate();
         }
-        playerPoints.setText(String.valueOf(gameLogic.getPlayerPoints()));
-        dealerPoints.setText(String.valueOf(gameLogic.getDealerPoints()));
+        playerPoints.setText(String.valueOf(gameController.getPlayerPoints()));
+        dealerPoints.setText(String.valueOf(gameController.getDealerPoints()));
     }
 
     @Override

@@ -1,10 +1,11 @@
 package controller;
 
+import model.account.AccountManager;
 import model.account.AdvancedAccountManagerImpl;
 
 public class AccountControllerImpl implements AccountController {
 
-    
+    private AccountManager account;
     
     @Override
     public boolean login(final String username, final String password) {

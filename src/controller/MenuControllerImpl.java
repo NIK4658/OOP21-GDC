@@ -26,7 +26,6 @@ public class MenuControllerImpl implements MenuController {
     @Override
     public void setMainMenu() {
         this.gui.setMainMenu();
-        new Warning();
     }
     
     @Override
