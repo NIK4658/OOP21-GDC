@@ -47,7 +47,7 @@ public class ManagerUtility {
             final Map<AccountManager.Fields, String> m = new HashMap<>();
             for (final Object o : jo.keySet()) {
                 for (final AccountManager.Fields f : AccountManager.Fields.values()) {
-                    if (o.equals(f.toString())) {
+                    if (o.equals(f.name())) {
                         m.put(f, jo.get(o).toString());
                     }
                 }

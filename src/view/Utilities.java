@@ -57,7 +57,7 @@ public class Utilities {
         String total = "";
         try {
             while ((st = br.readLine()) != null) {
-                total = total + "\n" + st;
+                total = total + st + "\n";
             }
         } catch (IOException e) {
             e.printStackTrace();
