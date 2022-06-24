@@ -2,9 +2,9 @@ package view.menu.games.roulette;
 
 import java.awt.Dimension;
 
-import view.menu.games.component.BetButton;
+import view.menu.games.component.BetButtonImpl;
 
-public class RouletteBetButton extends BetButton {
+public class RouletteBetButton extends BetButtonImpl {
     
     private final Object property;
     

@@ -28,7 +28,7 @@ import view.gui.MenuManager;
 import view.menu.GeneralGui;
 import view.menu.Menu;
 import view.menu.games.Game;
-import view.menu.games.component.BetButton;
+import view.menu.games.component.BetButtonImpl;
 
 /**
  * GUI principale Baccarat.
@@ -40,7 +40,7 @@ public class BaccaratGui extends JPanel implements Game {
   private static final int DIRECTION_DEALER = 1;
   private final GeneralGui generalInterface;
   private final int width;
-  private final BetButton bet;
+  private final BetButtonImpl bet;
   private final JButton next;
   private final JButton restart; 
   private final JLabel playerPoints;
@@ -88,7 +88,7 @@ public class BaccaratGui extends JPanel implements Game {
     //JPanel with player cards
     this.center = new JLayeredPane();
     playerCards = new LinkedList<>();
-    this.bet = new BetButton(frame.getSizeMenu());
+    this.bet = new BetButtonImpl(frame.getSizeMenu());
     bet.setBounds((int) (width / 3.41), width / 8, width / 18, width / 18);
     center.add(bet, 0);
     center.add(playerPoints, 0);

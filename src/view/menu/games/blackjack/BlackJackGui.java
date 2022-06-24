@@ -26,7 +26,7 @@ import view.Utilities;
 import view.gui.MenuManager;
 import view.menu.GeneralGui;
 import view.menu.games.Game;
-import view.menu.games.component.BetButton;
+import view.menu.games.component.BetButtonImpl;
 
 /**
  * Main GUI for "Blackjack" game.
@@ -43,7 +43,7 @@ public class BlackJackGui extends JPanel implements Game {
     private final Image img = Utilities.getImage("img/backgrounds/blackjacktableHDwithbet.png");
     private final int width;
     private final int height;
-    private final BetButton bet;
+    private final BetButtonImpl bet;
     private final JButton draw;
     private final JButton stand;
     private final JButton doubleUp;
@@ -90,7 +90,7 @@ public class BlackJackGui extends JPanel implements Game {
             points.setVisible(false);
         }
         center = new JLayeredPane();
-        bet = new BetButton(frame.getSizeMenu());
+        bet = new BetButtonImpl(frame.getSizeMenu());
         bet.setBounds((int) (width / 3.41), width / 8, width / 18, width / 18);
         center.add(bet, 0);
         center.add(playerPoints, 0);
