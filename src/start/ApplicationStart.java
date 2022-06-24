@@ -1,14 +1,12 @@
 package start;
 
-import controller.ViewControllerImpl;
-import view.gui.MainGui;
+import controller.MenuControllerImpl;
 
 /**
  * Starts the application.
  */
 public final class ApplicationStart {
     public static void main(final String[] args) {
-        //new ViewControllerImpl().StartGame();
-        new MainGui();
+        new MenuControllerImpl();
     }
 }

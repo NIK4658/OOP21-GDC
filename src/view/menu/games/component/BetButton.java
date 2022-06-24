@@ -6,7 +6,6 @@ package view.menu.games.component;
  */
 public interface BetButton {
 
-    
     /**
      * Get the value of the bet. 
      * 

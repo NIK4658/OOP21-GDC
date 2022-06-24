@@ -8,6 +8,6 @@ public interface Access {
         LOGIN, REGISTER 
     } 
     
-    void successfullyAccessed(AccountManager account);
+    void successfullyAccessed();
 
 }

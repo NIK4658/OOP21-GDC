@@ -13,6 +13,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
+import controller.MenuController;
 import model.account.AccountManager;
 import view.gui.MenuManager;
 import view.menu.account.AccountPanel;
@@ -28,8 +29,7 @@ public class AccountMenu implements Menu {
     private static final int SPACE_TITLE = 15;
     private static final int SCALE_BUTTON = 15;
     private static final int SPACE_BUTTON = 30;
-    private final MenuManager menuManager;
-    private final AccountManager account;
+    private final MenuController menuController;
     private final JPanel panel;
     private final JPanel accountPanel;
     private final JButton backButton;
@@ -37,14 +37,13 @@ public class AccountMenu implements Menu {
     private ActionListener backPanelAl;
     
     
-    public AccountMenu(final MenuManager menuManager, final AccountManager account) {
-        this.menuManager = menuManager;
-        this.account = account;
+    public AccountMenu(final MenuManager menuManager, final MenuController menuController) {
+        this.menuController = menuController;
         final int width = menuManager.getWidthMenu();
         final int height = menuManager.getHeightMenu();
         final int minSize = Math.min(width, height);
         this.panel = new JPanel(new BorderLayout());
-        this.panel.setPreferredSize(this.menuManager.getSizeMenu());
+        this.panel.setPreferredSize(menuManager.getSizeMenu());
         this.backButton = new JButton("BACK");
         this.backButton.setFont(new Font("Arial", Font.PLAIN, minSize / SCALE_BUTTON));
         this.backMenuAl = this.getActionListenerBackMenu();
@@ -76,21 +75,21 @@ public class AccountMenu implements Menu {
         }
         
         balanceButton.addActionListener(e -> {
-            this.updatePanel(new BalancePanel(this.account, minSize));
+            this.updatePanel(new BalancePanel(this.menuController, minSize));
         });
 
         usernameButton.addActionListener(e -> {
-            this.updatePanel(new UsernamePanel(this.menuManager.getFrame(), this.account, minSize));
+            this.updatePanel(new UsernamePanel(menuManager.getFrame(), this.menuController, minSize));
         });        
 
         passwordButton.addActionListener(e -> {
-            this.updatePanel(new PasswordPanel(this.menuManager.getFrame(), this.account, minSize));
+            this.updatePanel(new PasswordPanel(menuManager.getFrame(), this.menuController, minSize));
         });
         
         accountButton.addActionListener(e -> {
-            if (new ConfirmPassword(menuManager.getFrame(), account, minSize).isConfirmed()) {
-                this.account.deleteAcc(this.account.getUsr());
-                this.menuManager.setAccessMenu();
+            if (new ConfirmPassword(menuManager.getFrame(), this.menuController, minSize).isConfirmed()) {
+                this.menuController.deleteAccount();
+                this.menuController.setAccessMenu();
             }
         });
         
@@ -122,7 +121,7 @@ public class AccountMenu implements Menu {
     }
 
     private ActionListener getActionListenerBackMenu() {
-        return e -> menuManager.setMainMenu(account);
+        return e -> menuController.setMainMenu();
     }
     
     private GridBagConstraints gridBagConstraints(final int gridy, final int spacedown) {

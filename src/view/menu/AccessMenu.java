@@ -8,7 +8,9 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import controller.MenuController;
 import model.account.AccountManager;
+import start.Warning;
 import view.Utilities;
 import view.gui.MenuManager;
 import view.menu.access.Access;
@@ -20,13 +22,13 @@ import view.menu.access.AccessPanel;
 public class AccessMenu extends JPanel implements Access, Menu {
 
     private static final long serialVersionUID = 1L;
-    private final MenuManager frame;
+    private final MenuController viewController;
     
     /**
      * //DA SISTEMARE I MAGIC NUMBERS.
      */
-    public AccessMenu(final MenuManager frame) {
-        this.frame = frame;
+    public AccessMenu(final MenuManager frame, final MenuController menuController) {
+        this.viewController = menuController;
         this.setLayout(new BorderLayout());
         
         // Zona di destra
@@ -41,9 +43,9 @@ public class AccessMenu extends JPanel implements Access, Menu {
         final JPanel west = new JPanel(cl);
         final Dimension dimAccessPanel = new Dimension(frame.getWidthMenu() * 1 / 3, frame.getHeightMenu());
         final AccessPanel login = new AccessPanel(this, dimAccessPanel, AccessType.LOGIN,
-                e -> cl.show(west, AccessType.REGISTER.toString()));
+                e -> cl.show(west, AccessType.REGISTER.toString()), menuController);
         final AccessPanel register = new AccessPanel(this, dimAccessPanel, AccessType.REGISTER, 
-                e -> cl.show(west, AccessType.LOGIN.toString()));
+                e -> cl.show(west, AccessType.LOGIN.toString()), menuController);
         west.add(login, AccessType.LOGIN.toString());
         west.add(register, AccessType.REGISTER.toString());
         cl.show(west, AccessType.LOGIN.toString());
@@ -52,8 +54,9 @@ public class AccessMenu extends JPanel implements Access, Menu {
     }
     
     @Override
-    public void successfullyAccessed(final AccountManager account) {
-        frame.setMainMenu(account);
+    public void successfullyAccessed() {
+        viewController.setMainMenu();
+        new Warning();
     }
     
     @Override
