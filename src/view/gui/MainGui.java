@@ -4,7 +4,7 @@ import java.awt.Dimension;
 import java.awt.Frame;
 import javax.swing.JFrame;
 
-import control.ViewController;
+import controller.ViewController;
 import model.account.AccountManager;
 import view.Utilities;
 import view.menu.AccessMenu;

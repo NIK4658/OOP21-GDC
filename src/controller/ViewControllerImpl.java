@@ -1,4 +1,4 @@
-package control;
+package controller;
 
 import view.gui.MainGui;
 import view.gui.MenuManager;
@@ -10,8 +10,5 @@ public class ViewControllerImpl implements ViewController {
     public ViewControllerImpl() {
         this.gui = new MainGui(this);
     }
-    
-    
-    
 
 }
