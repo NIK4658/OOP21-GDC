@@ -24,15 +24,9 @@ public class Warning extends JDialog {
 	
 		private static final long serialVersionUID = 1L;
     	
-	    private static JDialog warning;
 	    Warning(){
-	    	
-	    
 
-		
 		final JFrame frame = new JFrame("WARNING");
-		
-		warning = new JDialog(frame, "WARNING", true);
         
         //Definition of center and south JPanel
     	
