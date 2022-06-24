@@ -84,8 +84,8 @@ public class MenuControllerImpl implements MenuController {
     }
     
     @Override
-    public boolean isPassword(final String psw) {
-        return this.account.isPsw(psw);
+    public boolean isPassword(final String password) {
+        return this.account.isPsw(password);
     }
     
     @Override
