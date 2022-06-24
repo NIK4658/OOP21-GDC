@@ -29,7 +29,7 @@ public class ConfirmPassword {
         final ActionListener closeDialog = e -> confirmDialog.dispose();
         
         passwordField.addActionListener(e -> {
-            if (passwordField.getText().equals(menuController.getPassword())) {
+            if (menuController.isPassword(passwordField.getText())) {
                 this.isValid = true;
                 validLabel.setText("Password confirmed");
                 new Timer(CLOSING_DELAY, closeDialog).start();
