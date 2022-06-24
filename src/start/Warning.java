@@ -37,7 +37,7 @@ public class Warning extends JDialog {
         final JTextArea textArea = new JTextArea(15, 30);
         textArea.setForeground(Color.BLACK);
         textArea.setBackground(new Color(247, 99, 79));
-        //lettura da file
+        //file lecture
         textArea.append(Utilities.getFileText("txt/WarningTest.txt"));
         // set textArea non-editable
         textArea.setEditable(false); 
