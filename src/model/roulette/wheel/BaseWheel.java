@@ -1,21 +1,18 @@
-package model.roulette.numbers;
+package model.roulette.wheel;
 
 import java.awt.Color;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-
 import model.roulette.number.BaseRouletteNumber;
 import model.roulette.number.RouletteNumber;
 
-public class BaseRouletteNumbers implements RouletteNumbers {
-    
-    public static final int NUMBERS = 37;
+public class BaseWheel implements Wheel {
     
     private final List<BaseRouletteNumber> rouletteNumbers;
     
-    public BaseRouletteNumbers() {
-        this.rouletteNumbers = new ArrayList<>(NUMBERS);
+    public BaseWheel() {
+        this.rouletteNumbers = new ArrayList<>();
         this.rouletteNumbers.add(new BaseRouletteNumber(0, Color.GREEN));
         this.rouletteNumbers.add(new BaseRouletteNumber(1, Color.RED));
         this.rouletteNumbers.add(new BaseRouletteNumber(2, Color.BLACK));
@@ -55,17 +52,8 @@ public class BaseRouletteNumbers implements RouletteNumbers {
         this.rouletteNumbers.add(new BaseRouletteNumber(36, Color.RED));
     }
 
-    //@Override
-    public BaseRouletteNumber get(final int index) {
-        return this.rouletteNumbers.get(index);
-    }
-
-    //@Override
-    public List<RouletteNumber> getList() { //sistemare ripetizione del metodo getList
-        return Collections.unmodifiableList(this.rouletteNumbers);
-    }
-    
-    public List<BaseRouletteNumber> getBaseList() {
+    @Override
+    public List<RouletteNumber> getList() {
         return Collections.unmodifiableList(this.rouletteNumbers);
     }
 

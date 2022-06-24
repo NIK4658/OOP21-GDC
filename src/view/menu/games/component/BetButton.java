@@ -10,12 +10,11 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
-
 import view.Utilities;
 
 
 /**
- * javadoc comment.
+ * Useful component to define the amount of money wagered by the user.
  */
 public class BetButton extends JButton {
     
@@ -24,7 +23,9 @@ public class BetButton extends JButton {
     private final Dimension dim;
     
     /**
-     * javadoc comment.
+     * Main Constructor of this class.
+     * 
+     * @param dim   Dimension of the main Window.
      */
     public BetButton(final Dimension dim) {
         super();
@@ -41,7 +42,9 @@ public class BetButton extends JButton {
     }
     
     /**
-     * javadoc comment.
+     * Assign a certain bet value to the component.
+     * 
+     * @param value Value to set.
      */
     public void setBet(final double value) {
         resetBet();
@@ -50,7 +53,7 @@ public class BetButton extends JButton {
     }
     
     /**
-     * javadoc comment.
+     * Reset the bet values.
      */
     public void resetBet() {
         this.value = 0;
@@ -60,7 +63,9 @@ public class BetButton extends JButton {
     }
     
     /**
-     * javadoc comment.
+     * It increases the values ​​of the bet and generates an image relating to the amount of the bet.
+     * 
+     * @param value Increment value.
      */
     public void incrementBet(final double value) {
         this.value += value;
@@ -79,7 +84,7 @@ public class BetButton extends JButton {
     }  
     
     /**
-     * javadoc comment.
+     * Confirm the user's bet. He will no longer be able to increase this bet until the start of the next game.
      */
     public void confirmBet() {
         this.setEnabled(false);
@@ -88,23 +93,20 @@ public class BetButton extends JButton {
     } 
      
     private ImageIcon chooseChip(final double puntata) {
+        final String path = "img/fiches/empty/";
+        final int widthfiches = this.dim.width / 16;
+        final int heightfiches = this.dim.height / 9;
+        String fichesname = "500";
         if (puntata <  5) {
-            return new ImageIcon((Utilities.getImage("res/img/fiches/empty/1HD2.png"))
-                    .getScaledInstance(this.dim.width / 16, this.dim.height / 9, Image.SCALE_SMOOTH));
+            fichesname = "1";
+        } else if (puntata < 25) {
+            fichesname = "5";
+        } else if (puntata < 100) {
+            fichesname = "25";
+        } else if (puntata < 500) {
+            fichesname = "100";
         }
-        if (puntata < 25) {
-            return new ImageIcon((Utilities.getImage("res/img/fiches/empty/5HD2.png"))
-                    .getScaledInstance(this.dim.width / 16, this.dim.height / 9, Image.SCALE_SMOOTH));
-        }
-        if (puntata < 100) {
-            return new ImageIcon((Utilities.getImage("res/img/fiches/empty/25HD2.png"))
-                    .getScaledInstance(this.dim.width / 16, this.dim.height / 9, Image.SCALE_SMOOTH));
-        }
-        if (puntata < 500) {
-            return new ImageIcon((Utilities.getImage("res/img/fiches/empty/100HD2.png"))
-                    .getScaledInstance(this.dim.width / 16, this.dim.height / 9, Image.SCALE_SMOOTH));
-        }
-        return new ImageIcon((Utilities.getImage("res/img/fiches/empty/500HD2.png"))
-                .getScaledInstance(this.dim.width / 16, this.dim.height / 9, Image.SCALE_SMOOTH));
+        return new ImageIcon((Utilities.getImage(path + fichesname + "HD2.png"))
+                .getScaledInstance(widthfiches, heightfiches, Image.SCALE_SMOOTH));
     }
 }

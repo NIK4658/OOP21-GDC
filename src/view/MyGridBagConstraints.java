@@ -6,6 +6,11 @@ import java.awt.Insets;
 //renderla statica?
 public class MyGridBagConstraints extends GridBagConstraints {
     
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 1L;
+
     public MyGridBagConstraints(final int gridx, final int gridy, final int gridwidth, 
             final int gridheight, final Insets insets, final int ipadx, final int ipady) {
         super(gridx, gridy, gridwidth, gridheight, 1, 1, 

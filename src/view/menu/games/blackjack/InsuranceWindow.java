@@ -17,7 +17,7 @@ import view.MyGridBagConstraints;
 
 
 /**
- * javadoc comment.
+ * JDialog useful for managing insurance in the "Blackjack" game.
  */
 public class InsuranceWindow extends JDialog {
     
@@ -25,7 +25,10 @@ public class InsuranceWindow extends JDialog {
     private boolean insuranceValue;
 
     /**
-     * javadoc comment.
+     * Main Constructor. 
+     * 
+     * @param dim   Dimension of the main game window.
+     * @param canInsurance  True if the user has enough money to carry out the insurance, false otherwhise.
      */
     public InsuranceWindow(final Dimension dim, final boolean canInsurance) {
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);

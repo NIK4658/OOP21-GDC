@@ -2,9 +2,6 @@ package view.menu.games.blackjack;
 
 import controller.blackjack.BlackJackLogic;
 import controller.blackjack.BlackJackLogicImpl;
-import model.account.BalanceManager;
-import model.blackjack.Hand;
-
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -22,7 +19,8 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
-
+import model.account.BalanceManager;
+import model.blackjack.Hand;
 import view.MyGridBagConstraints;
 import view.Utilities;
 import view.gui.MenuManager;
@@ -31,7 +29,7 @@ import view.menu.games.Game;
 import view.menu.games.component.BetButton;
 
 /**
- * GUI principale Blackjack.
+ * Main GUI for "Blackjack" game.
  */
 public class BlackJackGui extends JPanel implements Game {
     
@@ -42,7 +40,7 @@ public class BlackJackGui extends JPanel implements Game {
     private final BlackJackLogic gameLogic;
     private List<JLabel> dealerCards;
     private List<JLabel> playerCards;
-    private final Image img = Utilities.getImage("res/img/backgrounds/blackjacktableHDwithbet.png");
+    private final Image img = Utilities.getImage("img/backgrounds/blackjacktableHDwithbet.png");
     private final int width;
     private final int height;
     private final BetButton bet;
@@ -56,7 +54,10 @@ public class BlackJackGui extends JPanel implements Game {
     private final JLayeredPane north;
     
     /**
-     * Costruttore.
+     * Constructor that generate the JPanel. 
+     * 
+     * @param account   Balance manager useful for carrying out movements in the balance.
+     * @param generalInterface      JPanel with shared items across all games.
      */
     public BlackJackGui(final BalanceManager account, final GeneralGui generalInterface) {
         this.generalInterface = generalInterface;
@@ -73,13 +74,12 @@ public class BlackJackGui extends JPanel implements Game {
         this.playerCards = new LinkedList<>();
         this.dealerCards = new LinkedList<>();
         add(generateSouth(), BorderLayout.SOUTH);
-        ///tolti tutti i this
         playerPoints = new JLabel();
         dealerPoints = new JLabel();
         final List<JLabel> visualPoints = new ArrayList<>();
         visualPoints.add(playerPoints);
         visualPoints.add(dealerPoints);
-        final Image img = ((Utilities.getImage("res/img/buttons/points.png"))
+        final Image img = ((Utilities.getImage("img/buttons/points.png"))
                 .getScaledInstance(width / 25, width / 25, Image.SCALE_SMOOTH));
         for (final JLabel points : visualPoints) {
             points.setForeground(Color.WHITE);
@@ -99,7 +99,7 @@ public class BlackJackGui extends JPanel implements Game {
         north.setPreferredSize(new Dimension((int) (width / 4.3), (int) (width / 4.3)));
         north.add(dealerPoints, 0);
         add(north, BorderLayout.NORTH);
-        ///in teoria da qui sotto tutto ok
+        
         draw.addActionListener(e -> {   
             gameLogic.askCard();
             setCards(DIRECTION_PLAYER);
@@ -132,7 +132,6 @@ public class BlackJackGui extends JPanel implements Game {
                 stand.doClick();
             }
         });
-        
         
         bet.addActionListener(e -> { 
             if (generalInterface.addBetValue(generalInterface.getFichesValue())) {
@@ -190,7 +189,7 @@ public class BlackJackGui extends JPanel implements Game {
             jb.setContentAreaFilled(false);
             jb.setBorderPainted(false);
             jb.setFocusPainted(false);
-            jb.setIcon(new ImageIcon((Utilities.getImage("res/img/buttons/" + buttonList.get(i).getName() + ".png"))
+            jb.setIcon(new ImageIcon((Utilities.getImage("img/buttons/" + buttonList.get(i).getName() + ".png"))
                     .getScaledInstance((int) (this.width / 12.8), (int) (this.width / 12.8), Image.SCALE_SMOOTH)));
             buttonsArea.add(jb, new MyGridBagConstraints(i, 0, new Insets(0, 0, 0, 0), GridBagConstraints.NONE));
             i++;
@@ -212,7 +211,8 @@ public class BlackJackGui extends JPanel implements Game {
         setCards(DIRECTION_DEALER);
         this.dealerPoints.setText(String.valueOf(gameLogic.getDealerHand().getCard(0).getValue()));
         if (gameLogic.checkInsurance()) {
-            final InsuranceWindow ins = new InsuranceWindow(new Dimension(this.width, this.height), gameLogic.canInsurance());
+            final InsuranceWindow ins = new InsuranceWindow(
+                    new Dimension(this.width, this.height), gameLogic.canInsurance());
             if (!gameLogic.calculateInsurance(ins.isInsurance())) {
                 stand.doClick();
             }

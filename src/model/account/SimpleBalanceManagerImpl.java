@@ -2,12 +2,11 @@ package model.account;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-
 import model.account.AccountManager.Fields;
 
 
 /**
- * Classe principale SEMPLICE gestione balance.
+ * SIMPLE class for balance management.
  */
 public class SimpleBalanceManagerImpl implements BalanceManager {
 

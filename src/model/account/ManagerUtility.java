@@ -1,5 +1,6 @@
 package model.account;
 
+import java.io.File;
 import java.io.FileReader;
 import java.io.PrintWriter;
 import java.util.HashMap;
@@ -9,14 +10,22 @@ import org.json.simple.parser.JSONParser;
 
 
 /**
- * Classe di utility per funzioni statiche in comune necessarie ai manager.
+ * Utility class with shared static functions needed by managers.
  */
 public class ManagerUtility {
     
     /**
-     * Funzione utile a creare File JSON da JSONObject.
+     * Function useful to create JSON files from JSONObject.
+     * 
+     * @param usr   Username of the user.
+     * @param jo    JSONObject previously created.
+     * @return      True if the writing was successful, false otherwise
      */
     public static boolean writeOnFile(final String usr, final JSONObject jo) {
+        final File theDir = new File("users");
+        if (!theDir.exists()) {
+            theDir.mkdirs();
+        }
         try {
             final PrintWriter pw = new PrintWriter(getPath(usr));
             pw.write(jo.toJSONString());
@@ -28,11 +37,14 @@ public class ManagerUtility {
     }
     
     public static String getPath(final String usr) {
-        return ("res/json/users/" + usr + ".json"); 
+        return ("users/" + usr + ".json"); 
     }
     
     /**
-     * Funzione utile a creare JSONObject da File JSON precedentemente creati.
+     * Useful function to read JSON files to create JSONObject objects.
+     * 
+     * @param usr   Username of the user.
+     * @return      A JSONOBject object with user fiels.
      */
     public static JSONObject getJsonObject(final String usr) {
         try {
@@ -42,7 +54,7 @@ public class ManagerUtility {
             final Map<AccountManager.Fields, String> m = new HashMap<>();
             for (final Object o : jo.keySet()) {
                 for (final AccountManager.Fields f : AccountManager.Fields.values()) {
-                    if (o.equals(f.toString())) {
+                    if (o.equals(f.name())) {
                         m.put(f, jo.get(o).toString());
                     }
                 }
@@ -54,7 +66,11 @@ public class ManagerUtility {
     }
     
     /**
-     * Funzione utile a trovare i valodi dei campi dei File JSON precedentemente creati.
+     * Function to find the values ​​of the fields of the previously created JSON files.
+     * 
+     * @param field     Field of which you are interested in knowing the value.
+     * @param usr       Username of the user.
+     * @return          A String that contains the field value.
      */
     public static String getField(final AccountManager.Fields field, final String usr) {
         final JSONObject jo = getJsonObject(usr);  
@@ -66,7 +82,13 @@ public class ManagerUtility {
     }
     
     /**
-     * Funzione utile a cambiare i valodi dei campi dei File JSON precedentemente creati.
+     * Function to change the field values ​​of a previously created JSON file.
+     * 
+     * @param field     Field of which you are interested in changing the value.
+     * @param newValue  New Value of the field.
+     * @param targetUsr Username of the target User.
+     * @param usr       Username of the user.
+     * @return          True if the writing was successful, false otherwise
      */
     public static boolean changeField(final AccountManager.Fields field, 
             final String newValue, final String targetUsr, final String usr) {

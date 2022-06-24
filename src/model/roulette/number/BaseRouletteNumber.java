@@ -2,30 +2,15 @@ package model.roulette.number;
 
 import java.awt.Color;
 import java.util.Objects;
-
-import model.roulette.numbers.BaseRouletteNumbers;
+import model.roulette.property.Property.Column;
+import model.roulette.property.Property.Included;
+import model.roulette.property.Property.Parity;
+import model.roulette.property.Property.Row;
 
 public class BaseRouletteNumber implements RouletteNumber {
     
     private final int value;
     private final Color color;
-
-    
-    public enum Parity{
-        EVEN, ODD, NEUTRAL
-    }
-    
-    public enum Included{
-        _1_18_, _19_36_, NOT
-    }
-    
-    public enum Row{
-        FIRST, SECOND, THIRD, NOT
-    }
-    
-    public enum Column{
-        FIRST, SECOND, THIRD, NOT
-    }
     
     public BaseRouletteNumber(final int value, final Color color) {
         this.value = value;
@@ -34,62 +19,40 @@ public class BaseRouletteNumber implements RouletteNumber {
 
     @Override
     public Integer getValue() {
-        return Integer.valueOf(value); //provare l'autocast
+        return this.value;
     }
 
     @Override
     public Color getColor() {
-        return color;
+        return this.color;
     }
 
-    @Override
-    public String getNumber() {
-        return this.getValue().toString();
-    }
-    
-    public Parity getParity() {
+    protected Parity getParity() {
         return this.value == 0 ? Parity.NEUTRAL : this.value % 2 == 0 ? Parity.EVEN : Parity.ODD;
     }
     
-    public Included getIncluded() {
+    protected Included getIncluded() {
         return this.value == 0 ? Included.NOT : value >= 1 && value <= 18 ? Included._1_18_ : Included._19_36_;
     }
     
-    public Column getColumn() {
-        if (value == 0) {
+    protected Column getColumn() {
+        if (this.value == 0) {
             return Column.NOT;
         }
-        final int nColumn = value / 12;
+        final int nColumn = this.value / 12;
         return nColumn <= 1 ? Column.FIRST : (nColumn <= 2 ? Column.SECOND : Column.THIRD);
     }
     
-    public Row getRow() {
-        if (value == 0) {
+    protected Row getRow() {
+        if (this.value == 0) {
             return Row.NOT;
         }
-        final int nRow = value % 3;
+        final int nRow = this.value % 3;
         return nRow == 0 ? Row.FIRST : (nRow == 2 ? Row.SECOND : Row.THIRD);
     }
     
-//    public Object getProperty(final Class<?> classProperty) {
-//        if (classProperty == Integer.class) {
-//            return getValue();
-//        } else if (classProperty == Color.class) {
-//            return getColor();
-//        } else if (classProperty == Parity.class) {
-//            return getParity();
-//        } else if (classProperty == Included.class) {
-//            return getIncluded();
-//        } else if (classProperty == Column.class) {
-//            return getColumn();
-//        } else if (classProperty == Row.class) {
-//            return getRow();
-//        }
-//        return null;//cambiare, magari usare exception o gli optional
-//    }
-    
     @Override
-    public <P> boolean isProperty(P property) {
+    public <P> boolean isProperty(final P property) {
         if (property.equals(this.getValue())) {
             return true;
         } else if (property.equals(this.getColor())) {
@@ -108,7 +71,7 @@ public class BaseRouletteNumber implements RouletteNumber {
     
     @Override
     public String toString() {
-        return "RouletteNumber [value=" + value + ", color=" + color + "]";
+        return this.getValue().toString();
     }
 
     @Override
@@ -117,17 +80,18 @@ public class BaseRouletteNumber implements RouletteNumber {
     }
 
     @Override
-    public boolean equals(Object obj) {
-        if (this == obj)
+    public boolean equals(final Object obj) {
+        if (this == obj) {
             return true;
-        if (obj == null)
+        }
+        if (obj == null) {
             return false;
-        if (getClass() != obj.getClass())
+        }
+        if (getClass() != obj.getClass()) {
             return false;
-        BaseRouletteNumber other = (BaseRouletteNumber) obj;
-        return Objects.equals(color, other.color) && value == other.value;
+        }
+        final BaseRouletteNumber other = (BaseRouletteNumber) obj;
+        return Objects.equals(this.color, other.color) && this.value == other.value;
     }
 
-
-    
 }

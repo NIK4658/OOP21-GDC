@@ -1,7 +1,7 @@
 package model.account;
 
 /**
- * Interfaccia principale che definisce le funzioni utili alla gestione del saldo.
+ * Interface that defines the methods for managing the balance.
  */
 public interface BalanceManager {
 

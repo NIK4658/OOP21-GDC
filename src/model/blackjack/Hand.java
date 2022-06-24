@@ -1,7 +1,7 @@
 package model.blackjack;
 
 /**
- * ..
+ * Interface that manages the methods of managing the hands of the players and the dealer.
  */
 public interface Hand {
 
@@ -17,7 +17,9 @@ public interface Hand {
     
     Hand getHand();
     
-    int getPoints();
+    int getBaccaratPoints();
+    
+    int getBlackJackPoints();
     
     int size();
     

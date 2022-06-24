@@ -1,5 +1,6 @@
 package start;
 
+import controller.ViewControllerImpl;
 import view.gui.MainGui;
 
 /**
@@ -7,8 +8,7 @@ import view.gui.MainGui;
  */
 public final class ApplicationStart {
     public static void main(final String[] args) {
-        //new FedeProva();
+        //new ViewControllerImpl().StartGame();
         new MainGui();
     }
-    
 }

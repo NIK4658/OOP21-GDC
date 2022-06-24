@@ -3,7 +3,7 @@ package controller.blackjack;
 import model.blackjack.Hand;
 
 /**
- * Interfaccia principale gestione gioco blackjack.
+ * Interface that defines the main methods of the game "Blackjack".
  */
 public interface BlackJackLogic {
     

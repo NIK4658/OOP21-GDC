@@ -3,12 +3,11 @@ package model.blackjack;
 import java.awt.Image;
 import java.util.Objects;
 import java.util.Random;
-
 import utility.Pair;
 import view.Utilities;
 
 /**
- * Classe principale gestione Carte.
+ * Class that models the methods for handling a single card.
  */
 public class CardImpl implements Card {
 
@@ -17,31 +16,49 @@ public class CardImpl implements Card {
     private Image img;
     
     /**
-    * Genera una carta precisa.
-    */
+     * Generate a card with precise values.
+     * 
+     * @param s     Suit of the card.
+     * @param value Value of the card.
+     */
     public CardImpl(final Suits s, final int value) {
         this.card = new Pair<>(s, value);
-        this.img = Utilities.getImage("res/img/cards/" + this.card.getX() + "/" + this.card.getY() + ".png");
+        this.img = Utilities.getImage("img/cards/" + this.card.getX() + "/" + this.card.getY() + ".png");
         this.facedown = false;
     }
     
-    //Genera carta random
+    /**
+     * Generate a random card.
+     */
     public CardImpl() {
         this(getRandomSuit(), getRandomValue());
         this.facedown = false;
     }
     
-    //Genera carta random con seme preciso
+
+    /**
+     * Generate a card with a precise Suit.
+     * 
+     * @param s     Suit of the card.
+     */
     public CardImpl(final Suits s) {
         this(s, getRandomValue());
     }
     
-    //Genera carta random con valore preciso
+    /**
+     * Generate a card with a precise value.
+     * 
+     * @param value Value of the card.
+     */
     public CardImpl(final int value) {
         this(getRandomSuit(), value);
     }
     
-    //Genera carta girata random
+    /**
+     * Generate a random card face down.
+     * 
+     * @param isFacedown    True if the card should be face down, false otherwise.
+     */
     public CardImpl(final boolean isFacedown) {
         this(getRandomSuit(), getRandomValue());      
         this.facedown = isFacedown;
@@ -88,13 +105,13 @@ public class CardImpl implements Card {
     @Override
     public void turnOver() {
         if (this.facedown) {
-            this.img = Utilities.getImage("res/img/cards/" + this.card.getX() + "/" + this.card.getY() + ".png");
+            this.img = Utilities.getImage("img/cards/" + this.card.getX() + "/" + this.card.getY() + ".png");
             this.facedown = false;
         } else {
             if (isRedColored()) {
-                this.img = Utilities.getImage("res/img/cards/back/red.png");
+                this.img = Utilities.getImage("img/cards/back/red.png");
             } else {
-                this.img = Utilities.getImage("res/img/cards/back/black.png");
+                this.img = Utilities.getImage("img/cards/back/black.png");
             } 
             this.facedown = true;
         }

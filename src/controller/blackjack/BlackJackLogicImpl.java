@@ -7,7 +7,7 @@ import model.blackjack.Hand;
 import model.blackjack.HandImpl;
 
 /**
- * Classe principale gestione gioco blackjack.
+ * Class that presents the main methods of the game "Blackjack".
  */
 public class BlackJackLogicImpl implements BlackJackLogic {
     
@@ -18,6 +18,12 @@ public class BlackJackLogicImpl implements BlackJackLogic {
     private Hand player;
     private Hand dealer;
     
+    /**
+     * Main constructor of this class. Initialize the necessary field in order to start a game
+     * 
+     * @param account       is The BalanceManager required to perform balance change methods.
+     * 
+     */
     public BlackJackLogicImpl(final BalanceManager account) {
         this.deck = new DeckImpl(6);
         this.deck.generateDeck();
@@ -70,16 +76,16 @@ public class BlackJackLogicImpl implements BlackJackLogic {
 
     @Override
     public int checkWin() { 
-        if (this.player.getPoints() > 21) {
+        if (this.player.getBlackJackPoints() > 21) {
             return -1;
         }
-        if (this.dealer.getPoints() > 21) {
+        if (this.dealer.getBlackJackPoints() > 21) {
             return 1;
         }
-        if (this.player.getPoints() == this.dealer.getPoints()) {
+        if (this.player.getBlackJackPoints() == this.dealer.getBlackJackPoints()) {
             return 0;
         } 
-        if (this.player.getPoints() < this.dealer.getPoints()) {
+        if (this.player.getBlackJackPoints() < this.dealer.getBlackJackPoints()) {
             return -1;
         } else {
             return 1;
@@ -119,12 +125,12 @@ public class BlackJackLogicImpl implements BlackJackLogic {
 
     @Override
     public int getPlayerPoints() {
-        return this.player.getPoints();
+        return this.player.getBlackJackPoints();
     }
 
     @Override
     public int getDealerPoints() {
-        return this.dealer.getPoints();
+        return this.dealer.getBlackJackPoints();
     }
 
     @Override
@@ -134,7 +140,7 @@ public class BlackJackLogicImpl implements BlackJackLogic {
 
     @Override
     public boolean checkBlackjack(final Hand h) {
-        return (h.getPoints() == 21 && h.size() == 2);
+        return (h.getBlackJackPoints() == 21 && h.size() == 2);
     }
 
     @Override

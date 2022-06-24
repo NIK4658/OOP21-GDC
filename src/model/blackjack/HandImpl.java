@@ -3,7 +3,7 @@ package model.blackjack;
 import java.util.LinkedList;
 
 /**
- * ..
+ * Class that implements the methods of handling the hands of the players and the dealer.
  */
 public class HandImpl extends LinkedList<Card> implements Hand {
 
@@ -24,7 +24,6 @@ public class HandImpl extends LinkedList<Card> implements Hand {
         return this.remove(c);
     }
 
-    //da sistemare
     @Override
     public void calculatePoints() {
         this.points = 0;
@@ -43,6 +42,7 @@ public class HandImpl extends LinkedList<Card> implements Hand {
             }  
         }
     }
+    
 
     @Override
     public Card getCard(final int index) {
@@ -55,8 +55,13 @@ public class HandImpl extends LinkedList<Card> implements Hand {
     }
     
     @Override
-    public int getPoints() {
+    public int getBlackJackPoints() {
         return this.points;
+    }
+    
+    @Override
+    public int getBaccaratPoints() {
+        return this.points % 10;
     }
     
     

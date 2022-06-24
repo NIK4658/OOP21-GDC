@@ -1,8 +1,8 @@
 package baccarat;
-import model.blackjack.Card;
-import model.blackjack.CardImpl;
 
 import java.util.LinkedList;
+import model.blackjack.Card;
+
 
 /**
  * ..

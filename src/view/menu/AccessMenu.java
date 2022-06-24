@@ -31,7 +31,7 @@ public class AccessMenu extends JPanel implements Access, Menu {
         
         // Zona di destra
         final Dimension dimImg = new Dimension(frame.getWidthMenu() * 2 / 3, frame.getHeightMenu());
-        final Image img = Utilities.getImage("res/img/backgrounds/HQcasinoCroppedWithTitle.gif");
+        final Image img = Utilities.getImage("img/backgrounds/HQcasinoCroppedWithTitle.gif");
         final Image imgScaled = img.getScaledInstance(dimImg.width, dimImg.height, Image.SCALE_DEFAULT);
         this.add(new JLabel(new ImageIcon(imgScaled)), BorderLayout.EAST);
         

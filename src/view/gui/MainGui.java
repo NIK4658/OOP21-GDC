@@ -4,6 +4,7 @@ import java.awt.Dimension;
 import java.awt.Frame;
 import javax.swing.JFrame;
 
+import controller.ViewController;
 import model.account.AccountManager;
 import view.Utilities;
 import view.menu.AccessMenu;
@@ -19,28 +20,25 @@ import view.menu.games.GameImpl;
 //da settare this.frame.setResizable(false) appena aggiunto torna indietro nei giochi
 public class MainGui implements MenuManager {
 
+    private final ViewController viewController;
     private final JFrame frame;
     private final int widthMenu;
     private final int heightMenu;
     private final Dimension sizeMenu;
 
 
-    public MainGui() {
+    public MainGui(final ViewController viewController) {
+        this.viewController = viewController;
         this.frame = new JFrame();
-        final Utilities r = new Utilities();
-        this.widthMenu =  (r.resize(1.5f)).width;
-        this.heightMenu = (r.resize(1.5f)).height;
-        
-        System.out.println(this.widthMenu);
-        System.out.println(this.heightMenu);
+        this.widthMenu =  (Utilities.resize(1.5f)).width;
+        this.heightMenu = (Utilities.resize(1.5f)).height;
         this.sizeMenu = new Dimension(this.widthMenu, this.heightMenu);
         this.frame.setSize(this.sizeMenu);
         this.frame.setResizable(false);
         this.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.frame.setTitle("GIOCHI DEL COLOSSO");
-        this.frame.setIconImage(Utilities.getImage("res/img/logo/gdclogo3.png"));
+        this.frame.setIconImage(Utilities.getImage("img/logo/gdclogo3.png"));
         
-        //DA VERIFICARE SE TENERE
         this.setAccessMenu();
 
         this.frame.setLocationRelativeTo(null);

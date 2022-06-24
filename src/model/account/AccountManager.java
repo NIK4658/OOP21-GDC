@@ -1,12 +1,12 @@
 package model.account;
 
 /**
- * Interfaccia principale che definisce le funzioni utili alla gestione degli account.
+ * Interface that defines methods for managing accounts.
  */
 public interface AccountManager {
     
     /**
-     * Campi di ogni account.
+     * Fields of all users.
      */
     enum Fields {
         USERNAME, PASSWORD, BALANCE, AGE

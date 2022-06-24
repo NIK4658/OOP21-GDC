@@ -1,7 +1,7 @@
 package model.account;
 
 /**
- * Classe principale AVANZATA gestione balance.
+ * ADVANCED class for balance management, includes preventive checks in each method.
  */
 public class AdvancedBalanceManagerImpl extends SimpleBalanceManagerImpl implements BalanceManager {
     
@@ -16,7 +16,6 @@ public class AdvancedBalanceManagerImpl extends SimpleBalanceManagerImpl impleme
         if (isBalanceValid(getBalance() + amount) && amount > 0) {
             return super.deposit(amount);
         } else {
-            //Impossibile depositare "amount", numero non valido;
             return false;
         }
     }
@@ -26,12 +25,10 @@ public class AdvancedBalanceManagerImpl extends SimpleBalanceManagerImpl impleme
         if (isBalanceValid(getBalance() - amount) && amount > 0) {
             return super.withdraw(amount);
         } else {
-            //Impossibile ritirare "amount", non si dispone di tale cifra;
             return false;
         }
     }
     
-    //è necessaria sta funzione o basta quella semplice?
     @Override
     public boolean changeBalance(final double balancenew) {
         if (isBalanceValid(balancenew)) {

@@ -1,42 +1,46 @@
 package model.roulette.number;
 
 import java.awt.Color;
-
-import model.roulette.numbers.AmericanRouletteNumbers;
+import model.roulette.property.Property.Column;
+import model.roulette.property.Property.Included;
+import model.roulette.property.Property.Parity;
+import model.roulette.property.Property.Row;
 
 public class AmericanRouletteNumber extends BaseRouletteNumber {
+    
+    public static final int _00_ = 37;
 
     public AmericanRouletteNumber(final int value, final Color color) {
         super(value, color);
     }
     
-    public AmericanRouletteNumber(final BaseRouletteNumber baseRouletteNumber) {
-        super(baseRouletteNumber.getValue(), baseRouletteNumber.getColor());
-    }
-    
-    @Override
-    public String getNumber() {
-        return this.getValue() == AmericanRouletteNumbers._00_ ? "00" : super.getNumber();
+    public AmericanRouletteNumber(final RouletteNumber rouletteNumber) {
+        super(rouletteNumber.getValue(), rouletteNumber.getColor());
     }
     
     @Override
     public Parity getParity() {
-        return this.getValue() == AmericanRouletteNumbers._00_ ? Parity.NEUTRAL : super.getParity();
+        return this.getValue() == _00_ ? Parity.NEUTRAL : super.getParity();
     }
     
     @Override
     public Included getIncluded() {
-        return this.getValue() == AmericanRouletteNumbers._00_ ? Included.NOT : super.getIncluded();
+        return this.getValue() == _00_ ? Included.NOT : super.getIncluded();
     }
     
     @Override
     public Column getColumn() {
-        return this.getValue() == AmericanRouletteNumbers._00_ ? Column.NOT : super.getColumn();
+        return this.getValue() == _00_ ? Column.NOT : super.getColumn();
     }
     
     @Override
     public Row getRow() {
-        return this.getValue() == AmericanRouletteNumbers._00_ ? Row.NOT : super.getRow();
+        return this.getValue() == _00_ ? Row.NOT : super.getRow();
+    }
+    
+    @Override
+    public String toString() {
+        return this.getValue() == _00_ ? "00" : super.toString();
     }
 
 }
