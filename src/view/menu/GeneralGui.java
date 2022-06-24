@@ -1,6 +1,7 @@
 package view.menu;
 
 import baccarat.BaccaratGui;
+import controller.MenuController;
 import model.account.AccountManager;
 import model.account.AdvancedBalanceManagerImpl;
 import model.account.BalanceManager;
@@ -37,6 +38,7 @@ import view.menu.games.Game;
 
 public class GeneralGui extends JPanel implements Menu {
     
+    private final MenuController menuController;
     private final AccountManager account;
     private final BalanceManager Balanceaccount;
     private final MenuManager frame;
@@ -58,9 +60,10 @@ public class GeneralGui extends JPanel implements Menu {
     private final JLayeredPane winmsg = new JLayeredPane();
     private final JLabel winMessageText = new JLabel("");
     
-    public GeneralGui(final MenuManager frame, final AccountManager account, final Games game ){
+    public GeneralGui(final MenuManager frame, final AccountManager account, final Games game, final MenuController menuController ){
         this.frame = frame;
         this.account = account;
+        this.menuController = menuController;
         this.Balanceaccount = new AdvancedBalanceManagerImpl(this.account);
         setLayout(new BorderLayout());
         this.setPreferredSize(frame.getSizeMenu());
@@ -205,7 +208,7 @@ public class GeneralGui extends JPanel implements Menu {
             this.setBetValue(this.bet);
         });
         this.confirm.addActionListener(e -> this.g.confirmBet());
-        backToMenu.addActionListener(e -> frame.setMainMenu(account));
+        backToMenu.addActionListener(e -> this.menuController.setMainMenu());
         help.addActionListener(e -> new GuideGui(frame.getSizeMenu(), game));
         fiches1.addActionListener(e -> {
             setSelectedFiches(0);
