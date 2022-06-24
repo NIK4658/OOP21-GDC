@@ -2,11 +2,10 @@ package model.blackjack;
 
 import java.util.ArrayList;
 import java.util.Random;
-
 import model.blackjack.Card.Suits;
 
 /**
- * Classe principale gestione mazzi.
+ * Class that implements card deck management methods.
  */
 public class DeckImpl extends ArrayList<Card> implements Deck {
     

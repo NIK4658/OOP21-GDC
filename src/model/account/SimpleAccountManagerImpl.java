@@ -6,7 +6,7 @@ import java.util.Map;
 import org.json.simple.JSONObject;
 
 /**
- * Classe principale SEMPLICE gestione account.
+ * SIMPLE class for account management.
  */
 public class SimpleAccountManagerImpl implements AccountManager {
 

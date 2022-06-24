@@ -29,7 +29,7 @@ import view.menu.games.Game;
 import view.menu.games.component.BetButton;
 
 /**
- * GUI principale Blackjack.
+ * Main GUI for "Blackjack" game.
  */
 public class BlackJackGui extends JPanel implements Game {
     
@@ -54,7 +54,10 @@ public class BlackJackGui extends JPanel implements Game {
     private final JLayeredPane north;
     
     /**
-     * Costruttore.
+     * Constructor that generate the JPanel. 
+     * 
+     * @param account   Balance manager useful for carrying out movements in the balance.
+     * @param generalInterface      JPanel with shared items across all games.
      */
     public BlackJackGui(final BalanceManager account, final GeneralGui generalInterface) {
         this.generalInterface = generalInterface;

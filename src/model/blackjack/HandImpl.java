@@ -3,7 +3,7 @@ package model.blackjack;
 import java.util.LinkedList;
 
 /**
- * ..
+ * Class that implements the methods of handling the hands of the players and the dealer.
  */
 public class HandImpl extends LinkedList<Card> implements Hand {
 

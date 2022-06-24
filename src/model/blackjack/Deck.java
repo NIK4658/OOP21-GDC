@@ -1,7 +1,7 @@
 package model.blackjack;
 
 /**
- * Interfaccia per classe gestione mazzi.
+ * Interface for managing decks of cards.
  */
 public interface Deck {
     

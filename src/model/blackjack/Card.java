@@ -4,12 +4,12 @@ import java.awt.Image;
 import utility.Pair;
 
 /**
- * Interfaccia per classe gestione carte.
+ * Interface that models the methods for managing a single card.
  */
 public interface Card {
     
     /**
-     * Enum.
+     * Enum with the 4 suits of the cards.
      */
     enum Suits {
     CLUBS, DIAMONDS, HEARTS, SPADES

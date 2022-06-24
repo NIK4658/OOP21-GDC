@@ -1,9 +1,7 @@
 package model.account;
 
-import java.io.File;
-
 /**
- * Classe principale AVANZATA gestione account.
+ * ADVANCED class for account management, includes preventive checks in each method.
  */
 public class AdvancedAccountManagerImpl extends SimpleAccountManagerImpl implements AccountManager {
     

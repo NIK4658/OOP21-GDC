@@ -23,7 +23,7 @@ import view.menu.access.Access.AccessType;
 
 
 /**
- * //DA SISTEMARE I MAGIC NUMBERS.
+ * Initial login GUI.
  */
 public class AccessPanel extends JPanel {
 
@@ -38,9 +38,13 @@ public class AccessPanel extends JPanel {
     private static final int SPACINGTITLE = 60;
     private static final int SPACINGBTN = 5;
     
-    
     /**
-     * Main function.
+     * Constructor of the class that generates the JPanel.
+     * 
+     * @param access
+     * @param dim           Dimension of the window.
+     * @param accessType    Enum that defines whether access is login or registration.
+     * @param al
      */
     public AccessPanel(final Access access, final Dimension dim, final AccessType accessType, final ActionListener al) {
         this.setLayout(new GridBagLayout());

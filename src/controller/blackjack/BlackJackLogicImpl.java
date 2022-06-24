@@ -7,7 +7,7 @@ import model.blackjack.Hand;
 import model.blackjack.HandImpl;
 
 /**
- * Classe principale gestione gioco blackjack.
+ * Class that presents the main methods of the game "Blackjack".
  */
 public class BlackJackLogicImpl implements BlackJackLogic {
     
@@ -18,6 +18,12 @@ public class BlackJackLogicImpl implements BlackJackLogic {
     private Hand player;
     private Hand dealer;
     
+    /**
+     * Main constructor of this class. Initialize the necessary field in order to start a game
+     * 
+     * @param account       is The BalanceManager required to perform balance change methods.
+     * 
+     */
     public BlackJackLogicImpl(final BalanceManager account) {
         this.deck = new DeckImpl(6);
         this.deck.generateDeck();

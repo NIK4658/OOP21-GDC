@@ -1,7 +1,7 @@
 package model.account;
 
 /**
- * Classe principale AVANZATA gestione balance.
+ * ADVANCED class for balance management, includes preventive checks in each method.
  */
 public class AdvancedBalanceManagerImpl extends SimpleBalanceManagerImpl implements BalanceManager {
     

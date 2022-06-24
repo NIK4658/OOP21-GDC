@@ -14,7 +14,7 @@ import view.Utilities;
 
 
 /**
- * javadoc comment.
+ * Useful component to define the amount of money wagered by the user.
  */
 public class BetButton extends JButton {
     
@@ -23,7 +23,9 @@ public class BetButton extends JButton {
     private final Dimension dim;
     
     /**
-     * javadoc comment.
+     * Main Constructor of this class.
+     * 
+     * @param dim   Dimension of the main Window.
      */
     public BetButton(final Dimension dim) {
         super();
@@ -40,7 +42,9 @@ public class BetButton extends JButton {
     }
     
     /**
-     * javadoc comment.
+     * Assign a certain bet value to the component.
+     * 
+     * @param value Value to set.
      */
     public void setBet(final double value) {
         resetBet();
@@ -49,7 +53,7 @@ public class BetButton extends JButton {
     }
     
     /**
-     * javadoc comment.
+     * Reset the bet values.
      */
     public void resetBet() {
         this.value = 0;
@@ -59,7 +63,9 @@ public class BetButton extends JButton {
     }
     
     /**
-     * javadoc comment.
+     * It increases the values ​​of the bet and generates an image relating to the amount of the bet.
+     * 
+     * @param value Increment value.
      */
     public void incrementBet(final double value) {
         this.value += value;
@@ -78,7 +84,7 @@ public class BetButton extends JButton {
     }  
     
     /**
-     * javadoc comment.
+     * Confirm the user's bet. He will no longer be able to increase this bet until the start of the next game.
      */
     public void confirmBet() {
         this.setEnabled(false);

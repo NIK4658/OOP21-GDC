@@ -1,7 +1,7 @@
 package model.blackjack;
 
 /**
- * ..
+ * Interface that manages the methods of managing the hands of the players and the dealer.
  */
 public interface Hand {
 
