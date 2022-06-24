@@ -14,7 +14,10 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
-import model.account.BalanceManager;
+
+import controller.BalanceController;
+import controller.baccarat.BaccaratController;
+import controller.baccarat.BaccaratControllerImpl;
 import java.awt.Insets;
 import view.MyGridBagConstraints;
 import view.Utilities;
@@ -46,16 +49,19 @@ public class BaccaratGui extends JPanel implements Game {
   private final Image img = Utilities.getImage("img/backgrounds/bacTable.png");
   private List<JLabel> dealerCards;
   private List<JLabel> playerCards;
-  private final BaccaratLogic gameLogic;
+  private final BaccaratController controller;
     
     /**
      * Constructor.
      */
-  public BaccaratGui(final MenuManager frame, final BalanceManager account, final GeneralGui generalInterface) {
+  public BaccaratGui(final MenuManager frame, final BalanceController bController, final GeneralGui generalInterface) {
+	  
+	    
+
     this.generalInterface = generalInterface;
     this.setLayout(new BorderLayout());
     this.setPreferredSize(frame.getSizeMenu());	
-    gameLogic = new BaccaratLogicImpl(account);
+    controller = new BaccaratControllerImpl(bController);
     this.width = frame.getWidthMenu();
     this.next = new JButton();
     this.restart = new JButton();  
@@ -104,16 +110,16 @@ public class BaccaratGui extends JPanel implements Game {
   
     //codice ripetuto
     next.addActionListener(e -> {
-      gameLogic.nextMove();
-      setCards(dealerCards, gameLogic.getDealerHand(), north, DIRECTION_DEALER);
-      dealerPoints.setText(String.valueOf(gameLogic.getDealerPoints()));
-      setCards(playerCards, gameLogic.getPlayerHand(), center, DIRECTION_PLAYER);
-      playerPoints.setText(String.valueOf(gameLogic.getPlayerPoints()));
+      controller.NextMove();
+      setCards(dealerCards, controller.getDealerHand(), north, DIRECTION_DEALER);
+      dealerPoints.setText(String.valueOf(controller.getDealerPoints()));
+      setCards(playerCards, controller.getPlayerHand(), center, DIRECTION_PLAYER);
+      playerPoints.setText(String.valueOf(controller.getPlayerPoints()));
       //player wins
-      if (gameLogic.checkWin() == 1) {    	
+      if (controller.checkWin() == 1) {    	
         generalInterface.showWinMessage(bet.getBet() * 2);
       //tie
-      } else if (gameLogic.checkWin() == 0) {
+      } else if (controller.checkWin() == 0) {
         generalInterface.showWinMessage(bet.getBet());
       }
       //Dealer win
@@ -124,7 +130,7 @@ public class BaccaratGui extends JPanel implements Game {
         
         
     bet.addActionListener(e -> {  
-      if ((this.bet.getBet() + generalInterface.getFichesValue()) <= account.getBalance()) {
+      if ((this.bet.getBet() + generalInterface.getFichesValue()) <= bController.getBalance()) {
         bet.incrementBet(generalInterface.getFichesValue());
         generalInterface.showButtons(true);
       }
@@ -212,7 +218,7 @@ public class BaccaratGui extends JPanel implements Game {
   @Override
   public void confirmBet() {
     if (this.bet.getBet() != 0) {
-      this.gameLogic.startGame(this.bet.getBet());
+      this.controller.startGame(this.bet.getBet());
       this.bet.confirmBet();            
       this.generalInterface.showButtons(false);
       this.generalInterface.setBetValue(this.bet.getBet());
@@ -221,13 +227,13 @@ public class BaccaratGui extends JPanel implements Game {
       this.dealerPoints.setVisible(true);
       this.playerPoints.setVisible(true);
 
-      setCards(playerCards, gameLogic.getPlayerHand(), center, DIRECTION_PLAYER);
-      setCards(dealerCards, gameLogic.getDealerHand(), north, DIRECTION_DEALER);
+      setCards(playerCards, controller.getPlayerHand(), center, DIRECTION_PLAYER);
+      setCards(dealerCards, controller.getDealerHand(), north, DIRECTION_DEALER);
 
-      this.dealerPoints.setText(String.valueOf(gameLogic.getDealerHand().getCard(0).getValue()));
-      this.playerPoints.setText(String.valueOf(gameLogic.getPlayerPoints()));
+      this.dealerPoints.setText(String.valueOf(controller.getDealerHand().getCard(0).getValue()));
+      this.playerPoints.setText(String.valueOf(controller.getPlayerPoints()));
 
-      if (gameLogic.checkBaccarat(gameLogic.getPlayerHand())) {
+      if (controller.checkBaccarat(controller.getPlayerHand())) {
         next.doClick();
       }
     }

@@ -1,5 +1,6 @@
-package baccarat;
+package controller.baccarat;
 
+import controller.BalanceController;
 import model.account.BalanceManager;
 import model.blackjack.Hand;
 import model.blackjack.HandImpl;
@@ -11,21 +12,20 @@ import model.blackjack.DeckImpl;
  */
 public class BaccaratLogicImpl implements BaccaratLogic {
     
-  private final BalanceManager account;
-  private final Deck deck;
-  private double bet;
-  private Hand player;
-  private Hand dealer;
-  private int baccaratcard;
-
-  BaccaratLogicImpl(final BalanceManager account) {
-    this.deck = new DeckImpl(6);
-    this.deck.generateDeck();
-    this.account = account;
-    this.player = new HandImpl();
-    this.dealer = new HandImpl();
-    this.bet = 0;
+    private final BalanceController account;
+    private final Deck deck;
+    private double bet;
+    private Hand player;
+    private Hand dealer;
+    private int baccaratcard;
+  
+    public BaccaratLogicImpl(final BalanceController account) {
+      this.deck = new DeckImpl(6);
+      this.deck.generateDeck();
+      this.account = account;
+      this.bet = 0;
   }
+
     
   @Override
     public void startGame(final double bet) {

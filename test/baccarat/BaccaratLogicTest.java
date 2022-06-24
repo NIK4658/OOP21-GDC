@@ -9,6 +9,9 @@ import java.io.File;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+
+import controller.baccarat.BaccaratLogic;
+import controller.baccarat.BaccaratLogicImpl;
 import model.account.AccountManager;
 import model.account.AdvancedAccountManagerImpl;
 import model.account.AdvancedBalanceManagerImpl;

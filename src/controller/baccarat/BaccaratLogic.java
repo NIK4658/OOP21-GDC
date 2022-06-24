@@ -1,4 +1,4 @@
-package baccarat;
+package controller.baccarat;
 import model.blackjack.Hand;
 
 
