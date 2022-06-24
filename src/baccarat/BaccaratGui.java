@@ -14,21 +14,17 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
-
 import model.account.BalanceManager;
-
 import java.awt.Insets;
-
 import view.MyGridBagConstraints;
 import view.Utilities;
-
 import java.awt.Image;
 import java.awt.GridBagLayout;
 import view.gui.MenuManager;
 import view.menu.GeneralGui;
-import view.menu.Menu;
 import view.menu.games.Game;
 import view.menu.games.component.BetButtonImpl;
+import model.blackjack.Hand;
 
 /**
  * GUI principale Baccarat.

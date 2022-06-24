@@ -1,6 +1,8 @@
 package baccarat;
 
 import model.account.BalanceManager;
+import model.blackjack.Hand;
+import model.blackjack.HandImpl;
 import model.blackjack.Deck;
 import model.blackjack.DeckImpl;
 
@@ -122,23 +124,18 @@ public class BaccaratLogicImpl implements BaccaratLogic {
 
   @Override
   public int getPlayerPoints() {
-    if ((this.player.getPoints()) >= 10) {
-      return ((this.player.getPoints()) % 10);
-    } 
-    return this.player.getPoints();
+    return this.player.getBaccaratPoints();
+    
   }
 
   @Override
   public int getDealerPoints() {
-    if ((this.dealer.getPoints()) >= 10) {
-      return ((this.dealer.getPoints()) % 10);
-    }
-    return this.dealer.getPoints();
+    return this.dealer.getBaccaratPoints();
   }
 
   @Override
   public boolean checkBaccarat(final Hand h) {
-    return ((h.getPoints() == 8 || h.getPoints() == 9) && h.size() == 2);
+    return ((h.getBaccaratPoints() == 8 || h.getBaccaratPoints() == 9) && h.size() == 2);
   }
 
   @Override
