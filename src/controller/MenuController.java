@@ -16,24 +16,5 @@ public interface MenuController {
       
     void setBaccaratMenu();
 
-    boolean login(String username, final String password);
-    
-    boolean signup(String username, String password, String age);
-
-    double getBalance();
-    
-    boolean deposit(double deposit);
-    
-    boolean withdraw(double withdraw);
-
-    String getUsername();
-    
-    boolean changeUsername(String username);
-
-    boolean isPassword(String psw);
-
-    boolean setPassword(String password);
-
-    boolean deleteAccount();
 
 }
