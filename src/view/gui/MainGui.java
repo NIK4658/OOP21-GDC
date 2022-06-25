@@ -12,7 +12,7 @@ import view.menu.GeneralGui;
 import view.menu.MainMenu;
 import view.menu.Menu;
 import view.menu.games.Game.Games;
-import view.menu.games.GameImpl;
+import view.menu.games.MergedGame;
 
 
 
@@ -71,13 +71,13 @@ public class MainGui implements MenuManager {
     @Override
     public void setBlackjackMenu(final AccountManager account) {
         final GeneralGui g = new GeneralGui(this, account, Games.BLACKJACK);
-        this.updateMenu(new GameImpl(this, g, g.getGame()));
+        this.updateMenu(new MergedGame(this, g, g.getGame()));
     }
 
     @Override
     public void setBaccaratMenu(final AccountManager account) {
         final GeneralGui g = new GeneralGui(this, account, Games.BACCARAT);
-        this.updateMenu(new GameImpl(this, g, g.getGame()));
+        this.updateMenu(new MergedGame(this, g, g.getGame()));
         
     }
 
