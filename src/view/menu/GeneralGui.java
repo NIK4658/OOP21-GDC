@@ -8,6 +8,7 @@ import model.account.BalanceManager;
 import view.menu.games.Game.Games;
 import view.menu.games.blackjack.BlackJackGui;
 import view.menu.games.GuideGui;
+import view.menu.games.roulette.RouletteController;
 import view.menu.games.roulette.RouletteGame;
 
 import java.awt.BorderLayout;
@@ -91,10 +92,11 @@ public class GeneralGui extends JPanel implements Menu {
                 this.g = new BaccaratGui(frame, new AdvancedBalanceManagerImpl(account), this);
                 break;
             default: 
-                this.g = new RouletteGame(this, game);
+//                this.g = new RouletteGame(this, game);
                 center = (JPanel) this.g;
                 this.setOpaque(true);
                 this.setBackground(RouletteGame.BACKGROUND_COLOR);
+                new RouletteController(this, game);
         }
         north.setPreferredSize(new Dimension((int) (width / 12.8), (int) (height / 7.2)));
         final JButton backToMenu = new JButton("Back to Menu");
