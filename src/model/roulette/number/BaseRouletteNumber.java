@@ -7,11 +7,21 @@ import model.roulette.property.Property.Included;
 import model.roulette.property.Property.Parity;
 import model.roulette.property.Property.Row;
 
+/**
+ * A roulette number containing the parity, inclusion, column, row as well as the number and color.
+ */
 public class BaseRouletteNumber implements RouletteNumber {
     
     private final int value;
     private final Color color;
     
+    /**
+     * Create a roulette number with the specific value and color.
+     * 
+     * @param value
+     * 
+     * @param color
+     */
     public BaseRouletteNumber(final int value, final Color color) {
         this.value = value;
         this.color = color;
@@ -27,15 +37,30 @@ public class BaseRouletteNumber implements RouletteNumber {
         return this.color;
     }
 
-    protected Parity getParity() {
+    /**
+     * Return the parity of the roulette number.
+     * 
+     * @return return the parity of the roulette number
+     */
+    public Parity getParity() {
         return this.value == 0 ? Parity.NEUTRAL : this.value % 2 == 0 ? Parity.EVEN : Parity.ODD;
     }
     
-    protected Included getIncluded() {
+    /**
+     * Return the included of the roulette number.
+     * 
+     * @return return the included of the roulette number
+     */
+    public Included getIncluded() {
         return this.value == 0 ? Included.NOT : value >= 1 && value <= 18 ? Included._1_18_ : Included._19_36_;
     }
     
-    protected Column getColumn() {
+    /**
+     * Return the column of the roulette number.
+     * 
+     * @return return the column of the roulette number
+     */
+    public Column getColumn() {
         if (this.value == 0) {
             return Column.NOT;
         }
@@ -43,7 +68,12 @@ public class BaseRouletteNumber implements RouletteNumber {
         return nColumn <= 1 ? Column.FIRST : (nColumn <= 2 ? Column.SECOND : Column.THIRD);
     }
     
-    protected Row getRow() {
+    /**
+     * Return the row of the roulette number.
+     * 
+     * @return row the parity of the roulette number
+     */
+    public Row getRow() {
         if (this.value == 0) {
             return Row.NOT;
         }

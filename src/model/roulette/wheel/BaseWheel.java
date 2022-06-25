@@ -7,10 +7,16 @@ import java.util.List;
 import model.roulette.number.BaseRouletteNumber;
 import model.roulette.number.RouletteNumber;
 
+/**
+ * The basic roulette wheel.
+ */
 public class BaseWheel implements Wheel {
     
     private final List<BaseRouletteNumber> rouletteNumbers;
     
+    /**
+     * Builds a basic roulette wheel with 37 numbers, 1 number green (0), 18 numbers red and 18 numbers black.
+     */
     public BaseWheel() {
         this.rouletteNumbers = new ArrayList<>();
         this.rouletteNumbers.add(new BaseRouletteNumber(0, Color.GREEN));
@@ -52,6 +58,11 @@ public class BaseWheel implements Wheel {
         this.rouletteNumbers.add(new BaseRouletteNumber(36, Color.RED));
     }
 
+    /**
+     * Return the unmodifiableList of the roulette numbers.
+     * 
+     * @return the unmodifiableList list of the roulette numbers
+     */
     @Override
     public List<RouletteNumber> getList() {
         return Collections.unmodifiableList(this.rouletteNumbers);

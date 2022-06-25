@@ -5,7 +5,7 @@ import java.util.Objects;
 import model.roulette.number.RouletteNumber;
 import model.roulette.property.Property.Sector;
 
-public abstract class SectorRoulette extends PropertyDecorator { //da camb nome
+public abstract class SectorRoulette extends PropertyDecorator {
     
     private final Sector sector;
     

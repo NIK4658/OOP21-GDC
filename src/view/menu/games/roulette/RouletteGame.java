@@ -6,17 +6,20 @@ import java.awt.Dimension;
 import java.util.List;
 import javax.swing.JPanel;
 import model.roulette.Roulette;
+import model.roulette.RouletteFactory;
+import model.roulette.RouletteFactoryImpl;
 import model.roulette.number.RouletteNumber;
 import model.roulette.win.Wins;
 import utility.Pair;
 import view.menu.GeneralGui;
 import view.menu.games.Game;
-import model.roulette.RouletteFactory;
-import model.roulette.RouletteFactoryImpl;
 
-
+/**
+ * A panel that manages the roulette game.
+ */
 public class RouletteGame extends JPanel implements Game {
   
+    private static final long serialVersionUID = 1L;
     public static final Color BACKGROUND_COLOR = new Color(0, 118, 58);
     private static final int SCALE_HEIGHT_WINNINGNUMBERS = 10;
     private final GeneralGui generalInterface;
@@ -25,7 +28,16 @@ public class RouletteGame extends JPanel implements Game {
     private final Table table;
     private final Wins win;
     
-    public RouletteGame(final GeneralGui generalInterface, final Games game) {//dire nella JavaDoc che può mandare eccezione
+    /**
+     * Creates a panel that manages the roulette game. The game specified will be the roulette that will be used.
+     * 
+     * @param generalInterface
+     * 
+     * @param game
+     * 
+     * @exception IllegalArgumentException if game is not valid.
+     */
+    public RouletteGame(final GeneralGui generalInterface, final Games game) throws IllegalArgumentException {//dire nella JavaDoc che può mandare eccezione
         this.setOpaque(false);
         this.setLayout(new BorderLayout());
         this.generalInterface = generalInterface;
@@ -60,10 +72,6 @@ public class RouletteGame extends JPanel implements Game {
         final List<Pair<Object, Double>> bets = table.confirmBet();
         winningNumbers.update(rouletteNumber);
         generalInterface.showWinMessage(this.win.win(bets, rouletteNumber));
-    }
-    
-    public List<Pair<Object, Double>> getBets() {
-        return this.table.confirmBet();
     }
 
     @Override

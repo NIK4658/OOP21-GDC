@@ -9,11 +9,17 @@ import model.roulette.property.SectorRoulette;
 import model.roulette.wheel.WheelFactory;
 import model.roulette.wheel.WheelFactoryImpl;
 
+/**
+ * Roulette's factory.
+ */
 public class RouletteFactoryImpl implements RouletteFactory {
     
     private final WheelFactory wheelFactory;
     private final Random random;
     
+    /**
+     * Create a roulette's factory.
+     */
     public RouletteFactoryImpl() {
         this.wheelFactory = new WheelFactoryImpl();
         this.random = new Random();

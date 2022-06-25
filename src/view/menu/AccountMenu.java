@@ -20,7 +20,10 @@ import view.menu.account.ConfirmPassword;
 import view.menu.account.PasswordPanel;
 import view.menu.account.UsernamePanel;
 
-
+/**
+ * Account menu manages account-related iterations such as withdrawals, deposits, 
+ * username change, password and account deletion.
+ */
 public class AccountMenu implements Menu {
 
     private static final int SCALE_TITLE = 7;
@@ -35,7 +38,14 @@ public class AccountMenu implements Menu {
     private final ActionListener backMenuAl;
     private ActionListener backPanelAl;
     
-    
+    /**
+     * Create an account menu which manages operation about the specif account passed as an argument.
+     * 
+     * @param menuManager 
+     * 
+     * @param account
+     * 
+     */
     public AccountMenu(final MenuManager menuManager, final AccountManager account) {
         final int width = menuManager.getWidthMenu();
         final int height = menuManager.getHeightMenu();

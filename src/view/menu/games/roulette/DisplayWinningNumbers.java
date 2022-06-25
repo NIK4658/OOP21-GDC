@@ -13,6 +13,7 @@ import view.MyGridBagConstraints;
 
 public class DisplayWinningNumbers extends JPanel {
     
+    private static final long serialVersionUID = 1L;
     private static final int DISPLAYED_NUMBERS = 12;
     private static final int SCALE_SPACE_HEIGHT_NUMBERS = 8;
     private static final int SCALE_SPACE_WIDTH_NUMBERS = 200;

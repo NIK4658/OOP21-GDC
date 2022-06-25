@@ -6,17 +6,32 @@ import model.roulette.property.Property.Included;
 import model.roulette.property.Property.Parity;
 import model.roulette.property.Property.Row;
 
+/**
+ * An american roulette number, it contains 00 besides the traditional 37 numbers.
+ */
 public class AmericanRouletteNumber extends BaseRouletteNumber {
     
+    /**
+     * The effective value of 00
+     */
     public static final int _00_ = 37;
 
+    /**
+     * Create an american roulette number with the specif parameters.
+     * 
+     * @param value
+     * 
+     * @param color
+     */
     public AmericanRouletteNumber(final int value, final Color color) {
         super(value, color);
     }
     
-    public AmericanRouletteNumber(final RouletteNumber rouletteNumber) {
-        super(rouletteNumber.getValue(), rouletteNumber.getColor());
-    }
+    /**
+     * Create an american roulette number with the specif parameters.
+     * @param rouletteNumber
+     */
+
     
     @Override
     public Parity getParity() {

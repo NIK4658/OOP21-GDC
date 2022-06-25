@@ -9,6 +9,8 @@ import java.awt.Image;
 import java.util.LinkedList;
 import java.util.List;
 import javax.swing.JPanel;
+import model.roulette.number.AmericanRouletteNumber;
+import model.roulette.number.RouletteNumber;
 import model.roulette.property.Property.Column;
 import model.roulette.property.Property.Included;
 import model.roulette.property.Property.Parity;
@@ -16,16 +18,18 @@ import model.roulette.property.Property.Row;
 import model.roulette.property.Property.Sector;
 import model.roulette.wheel.BaseWheel;
 import model.roulette.wheel.WheelFactoryImpl;
-import model.roulette.number.AmericanRouletteNumber;
-import model.roulette.number.RouletteNumber;
 import utility.Pair;
 import view.MyGridBagConstraints;
 import view.Utilities;
 import view.menu.GeneralGui;
 import view.menu.games.Game.Games;
 
+/**
+ * Table of the roulette
+ */
 public class Table extends JPanel {
     
+    private static final long serialVersionUID = 1L;
     private final GeneralGui generalInterface;
     private final Games game;
     private final Image img;
@@ -39,7 +43,14 @@ public class Table extends JPanel {
     private RouletteBetButton button;
     private Dimension dim;
     
-    
+    /**
+     * Create a table for the roulette specified as argument which relates to the generalgui.
+     * 
+     * @param generalInterface
+     * 
+     * @param game
+     * 
+     */
     public Table(final GeneralGui generalInterface, final Games game) {
         this.dimBut = generalInterface.getMenu().getPreferredSize();
         width = this.getPreferredSize().width;
@@ -75,6 +86,10 @@ public class Table extends JPanel {
         
     }
 
+    /**
+     * Returns the bets and remove the chips from the table.
+     * @return returns the bets
+     */
     public List<Pair<Object, Double>> confirmBet() {
         final List<Pair<Object, Double>> bets = new LinkedList<>();
         for (final var b : buttons) {
@@ -84,6 +99,9 @@ public class Table extends JPanel {
         return bets;
     }
     
+    /**
+     * Remove the chips from the table.
+     */
     public void resetBet() {
         buttons.forEach(b -> {
             b.resetBet();
@@ -121,9 +139,9 @@ public class Table extends JPanel {
         
         final List<RouletteNumber> list;
         if (this.game == Games.ROULETTE_AMERICAN) {
-            list = new WheelFactoryImpl().createAmericanWheel().getList();//
+            list = new WheelFactoryImpl().createAmericanWheel().getList();
         } else {
-            list = new BaseWheel().getList();//
+            list = new BaseWheel().getList();
         }
         for (final RouletteNumber n : list) {
             final Integer value = n.getValue();

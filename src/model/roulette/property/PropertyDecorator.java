@@ -1,8 +1,8 @@
 package model.roulette.property;
 
 import java.awt.Color;
-
 import model.roulette.number.RouletteNumber;
+
 
 public abstract class PropertyDecorator implements RouletteNumber {
     

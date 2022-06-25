@@ -10,8 +10,11 @@ import model.roulette.property.Property.Row;
 import model.roulette.property.Property.Sector;
 import utility.Pair;
 
-
+/**
+ * Calculate the win of roulette game.
+ */
 public class Wins {
+    
     public static final double NUMBER_PAYOUT = 36.0;
     public static final double COLOR_PAYOUT = 2.0;
     public static final double PARITY_PAYOUT = 2.0;
@@ -23,6 +26,15 @@ public class Wins {
     public static final double TIER_PAYOUT = 36.0 / 12;
     public static final double ORPHELINS_PAYOUT = 36.0 / 8;
     
+    /**
+     * Calculates the payout given a list of bets (a pair of object(property) and double(bet) and the winning number.
+     * 
+     * @param bets
+     * 
+     * @param winningNumber
+     * 
+     * @return the win's value
+     */
     public double win(final List<Pair<Object, Double>> bets, final RouletteNumber winningNumber) {
         double win = 0.0;
         for (final Pair<Object, Double> p : bets) {
