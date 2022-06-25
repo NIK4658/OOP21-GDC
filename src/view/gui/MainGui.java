@@ -16,7 +16,11 @@ import view.menu.games.GameImpl;
 
 
 
-//forse meglio usare un unico metodo setMenu(Menu menu, AccountManager account);
+/**
+ * 
+ * Main menu gui 
+ *
+ */
 public class MainGui implements MenuManager {
 
     private final JFrame frame;
@@ -24,7 +28,9 @@ public class MainGui implements MenuManager {
     private final int heightMenu;
     private final Dimension sizeMenu;
 
-
+/**
+ * Constructor
+ */
     public MainGui() {
         this.frame = new JFrame();
         this.widthMenu =  (Utilities.resize(1.5f)).width;
@@ -56,7 +62,7 @@ public class MainGui implements MenuManager {
         this.updateMenu(new AccountMenu(this, account));
     }
 
-    //CAMBIARE DA ACCOUNT MANAGER A BALANCE MANAGER (SEMPRE ADVANCED)
+
     @Override
     public void setRouletteMenu(final AccountManager account, final Games game) {
         this.updateMenu(new GeneralGui(this, account,  game));
@@ -68,7 +74,6 @@ public class MainGui implements MenuManager {
         this.updateMenu(new GameImpl(this, g, g.getGame()));
     }
 
-    //CAMBIARE DA ACCOUNT MANAGER A BALANCE MANAGER (SEMPRE ADVANCED)
     @Override
     public void setBaccaratMenu(final AccountManager account) {
         final GeneralGui g = new GeneralGui(this, account, Games.BACCARAT);

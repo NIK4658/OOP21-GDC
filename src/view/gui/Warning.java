@@ -1,6 +1,7 @@
 package view.gui;
 
 import java.awt.BorderLayout;
+
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -18,10 +19,16 @@ import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
 import view.Utilities;
 
+
 public class Warning extends JDialog {
+	/**
+	 * Class Warning 
+	 */
 
     private static final long serialVersionUID = 1L;
-
+    /**
+     * Constructor
+     */
     public Warning() {
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         this.setTitle("WARNING");
