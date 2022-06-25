@@ -3,11 +3,16 @@ package model.roulette.property;
 import java.awt.Color;
 import model.roulette.number.RouletteNumber;
 
-
+/**
+ * Property decorator of a number roulette.
+ */
 public abstract class PropertyDecorator implements RouletteNumber {
     
     private final RouletteNumber decorated;
     
+    /**
+     * Property decorator of a number roulette specified.
+     */
     protected PropertyDecorator(final RouletteNumber decorated) {
         this.decorated = decorated;
     }

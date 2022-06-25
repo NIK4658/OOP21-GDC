@@ -7,13 +7,19 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 import model.account.AccountManager;
 
-//pannello CAMBIO PASSWORD, sistemare ripetizioni
+/**
+ * Panel which manages account password.
+ */
 public class PasswordPanel extends AccountPanel {
     
+    private static final long serialVersionUID = 1L;
     private final AccountManager account;
     private final JTextField passwordField;
     private final JTextField newPasswordField;
 
+    /**
+     * Create a panel which manages account password.
+     */
     public PasswordPanel(final Frame frame, final AccountManager account, final int minSize) {
         super(minSize);
         this.account = account;

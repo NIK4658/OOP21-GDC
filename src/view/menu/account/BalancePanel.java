@@ -13,14 +13,25 @@ import model.account.AccountManager;
 import model.account.AdvancedBalanceManagerImpl;
 import model.account.BalanceManager;
 
+/**
+ * Panel which manages the balance.
+ */
 public class BalancePanel extends AccountPanel {
     
-    private static final Locale LOCALE = Locale.ITALY; //vedere se metterla in comune tra altre classi o se togliere la constante e usare locale.italy direttamente
+    private static final long serialVersionUID = 1L;
+    private static final Locale LOCALE = Locale.ITALY;
     private static final int N_FRACTION_DIGITS = 2;
     private static final int N_MAX_INTEGER_DIGITS = 6;
     private final BalanceManager account;
     private final JFormattedTextField importField;
     
+    /**
+     * Create a panel which manages the balance of the account passed as argument.
+     * 
+     * @param account
+     * 
+     * @param minSize
+     */
     public BalancePanel(final AccountManager account, final int minSize) {
         super(minSize);
         this.account = new AdvancedBalanceManagerImpl(account);

@@ -7,7 +7,8 @@ import java.awt.GridBagLayout;
 import javax.swing.JPanel;
 
 /**
- * Panel which manages the account menu
+ * Panel for account menu with background color already set.
+ * A font will be automatically set to the components that will be added.
  */
 public class AccountPanel extends JPanel {
 
@@ -18,7 +19,8 @@ public class AccountPanel extends JPanel {
     private final Font font;
     
     /**
-     * Create an account panel 
+     * Create an account panel with a default background color.
+     * 
      * @param minSize
      */
     public AccountPanel(final int minSize) {
@@ -27,7 +29,9 @@ public class AccountPanel extends JPanel {
         this.setBackground(COLOR_BACKGROUND);
         this.font = new Font("Arial", Font.PLAIN, minSize / SCALE_COMPONENT);
     }
-
+    /**
+     * Adds the component to the panel and automatically sets a font.
+     */
     @Override
     public void add(final Component comp, final Object constraints) {
         comp.setFont(this.font);

@@ -11,6 +11,9 @@ import javax.swing.JPanel;
 import model.roulette.number.RouletteNumber;
 import view.MyGridBagConstraints;
 
+/**
+ * Display the winning numbers of the roulette.
+ */
 public class DisplayWinningNumbers extends JPanel {
     
     private static final long serialVersionUID = 1L;
@@ -19,6 +22,11 @@ public class DisplayWinningNumbers extends JPanel {
     private static final int SCALE_SPACE_WIDTH_NUMBERS = 200;
     private final List<JButton> winningNumbers;
     
+    /**
+     * Display the winning numbers of the roulette in a panel with spesific dimension.
+     * 
+     * @param dimension
+     */
     public DisplayWinningNumbers(final Dimension dimension) {
         this.setLayout(new GridBagLayout());
         this.setBackground(RouletteGame.BACKGROUND_COLOR);
@@ -39,6 +47,11 @@ public class DisplayWinningNumbers extends JPanel {
         }
     }
     
+    /**
+     * Adds the spesific roulette number at the display number. 
+     * 
+     * @param rouletteNumber
+     */
     public void update(final RouletteNumber rouletteNumber) {
         for (int i = DISPLAYED_NUMBERS - 2; i >= 0; i--) {
             winningNumbers.get(i + 1).setText(winningNumbers.get(i).getText());

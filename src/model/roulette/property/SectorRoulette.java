@@ -1,19 +1,33 @@
 package model.roulette.property;
 
 import java.util.Objects;
-
 import model.roulette.number.RouletteNumber;
 import model.roulette.property.Property.Sector;
 
+/**
+ * Decorator of sector.
+ */
 public abstract class SectorRoulette extends PropertyDecorator {
     
     private final Sector sector;
     
+    /**
+     * Decorate the specified roulette number with sector property to define.
+     * 
+     * @param rouletteNumber
+     */
     public SectorRoulette(final RouletteNumber rouletteNumber) {
         super(rouletteNumber);
         this.sector = this.getSector(rouletteNumber);
     }
     
+    /**
+     * Returns the sector given a roulette number according to the implementation.
+     * 
+     * @param rouletteNumber
+     * 
+     * @return
+     */
     protected abstract Sector getSector(final RouletteNumber rouletteNumber);
     
     private Sector getSector() {

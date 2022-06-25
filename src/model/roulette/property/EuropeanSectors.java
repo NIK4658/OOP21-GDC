@@ -2,14 +2,19 @@ package model.roulette.property;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import model.roulette.property.Property.Sector;;
 
-public class EuropeanSectors {//SISTEMARE
+/**
+ * Collection that associates a sector to each property.
+ */
+public class EuropeanSectors {
     
     private final List<Sector> list;
     
-    public EuropeanSectors(){
+    /**
+     * Create the collection that associates a sector to each property.
+     */
+    public EuropeanSectors() {
         list = new ArrayList<>();
         list.add(Sector.ZERO);
         list.add(Sector.ORPHELINS);
@@ -50,6 +55,10 @@ public class EuropeanSectors {//SISTEMARE
         list.add(Sector.TIER);
     }
     
+    /**
+     * Returns a list of sectors.
+     * @return returns a list of sectors.
+     */
     public List<Sector> getList() {
         return this.list;
     }

@@ -11,12 +11,23 @@ import javax.swing.JTextField;
 import javax.swing.Timer;
 import model.account.AccountManager;
 
-
+/**
+ * A window asking for password confirmation.
+ */
 public class ConfirmPassword {
     
     private static final int CLOSING_DELAY = 2000;
     private boolean isValid;
     
+    /**
+     * Creates a new window asking for password confirmation.
+     * 
+     * @param frame
+     * 
+     * @param account
+     * 
+     * @param minSize
+     */
     public ConfirmPassword(final Frame frame, final AccountManager account, final int minSize) {
         final JDialog confirmDialog = new JDialog(frame, true);
         final JPanel confirmPanel = new AccountPanel(minSize);
@@ -53,6 +64,11 @@ public class ConfirmPassword {
         confirmDialog.setVisible(true);
     }
     
+    /**
+     * Returns if password is confirmed.
+     * 
+     * @return  returns if password is confirmed.
+     */
     public boolean isConfirmed() {
         return this.isValid;
     }

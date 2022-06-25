@@ -7,13 +7,19 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 import model.account.AccountManager;
 
-
+/**
+ * Panel which manages account username.
+ */
 public class UsernamePanel extends AccountPanel {
     
+    private static final long serialVersionUID = 1L;
     private final AccountManager account;
     private final JTextField usernameField;
     private final JTextField newUsernameField;
     
+    /**
+     * Create a panel which manages account username.
+     */
     public UsernamePanel(final Frame frame, final AccountManager account, final int minSize) {
         super(minSize);
         this.account = account;

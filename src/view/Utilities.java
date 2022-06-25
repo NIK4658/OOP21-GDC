@@ -21,7 +21,7 @@ public class Utilities {
     /**
      * Method that returns the screen resolution scaled by a certain factor.
      * 
-     * @param       factor that divides the screen resolution.  
+     * @param       factor that divides the screen resolution.
      * @return      a dimension with the correct values.
      */
     public static Dimension resize(final float factor) {
