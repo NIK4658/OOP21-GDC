@@ -171,7 +171,7 @@ public class BlackJackGui extends JPanel implements Game {
         south.add(buttonsArea);
         this.draw.setName("draw");
         this.stand.setName("stand");
-        this.doubleUp.setName("Double");
+        this.doubleUp.setName("double");
         this.restart.setName("restart");
         final List<JButton> buttonList = new ArrayList<>();
         buttonList.add(this.restart); 
