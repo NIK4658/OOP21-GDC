@@ -187,4 +187,8 @@ public class BlackJackLogicImpl implements BlackJackLogic {
     public boolean canInsurance() {
         return (account.getBalance() >= (this.bet / 2));
     }
+
+    public void setBet(final double bet2) {
+        this.bet = bet2;
+    }
 }
