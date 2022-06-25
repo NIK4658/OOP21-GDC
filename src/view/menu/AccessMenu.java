@@ -38,8 +38,6 @@ public class AccessMenu extends JPanel implements Access, Menu {
         final Image img = Utilities.getImage("img/backgrounds/HQcasinoCroppedWithTitle.gif");
         final Image imgScaled = img.getScaledInstance(dimImg.width, dimImg.height, Image.SCALE_DEFAULT);
         this.add(new JLabel(new ImageIcon(imgScaled)), BorderLayout.EAST);
-        
-        
         // Zona di sinistra
         final CardLayout cl = new CardLayout();
         final JPanel west = new JPanel(cl);
