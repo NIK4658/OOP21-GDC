@@ -28,6 +28,9 @@ public class Warning extends JDialog {
 
     private static final long serialVersionUID = 1L;
 
+    /**
+     *  Warning constructor 
+     */
     public Warning() {
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         this.setTitle("WARNING");
@@ -54,10 +57,10 @@ public class Warning extends JDialog {
         scrollText.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
         scrollText.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         //Definition of a ceckbox and button for confirm terms and conditions
-        final JCheckBox ceckbox = new JCheckBox("Sono consapevole"); // accepts upto 10 characters
-        final JButton accept = new JButton("Avanti");
+        final JCheckBox ceckbox = new JCheckBox("I'm aware"); // accepts upto 10 characters
+        final JButton accept = new JButton("Accept");
         accept.setEnabled(false);
-        //Adding action listener for the checkbox the button "avanti" is unavaiable 
+        //Adding action listener for the checkbox the button "accept" is unavaiable 
         //the button "avanti" is not enabled until the checkbox is selected
         final ActionListener actionListener = new ActionListener() {
             public void actionPerformed(final ActionEvent actionEvent) {
