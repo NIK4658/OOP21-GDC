@@ -35,7 +35,7 @@ public class AccountControllerImpl implements AccountController {
     
     @Override
     public boolean setPassword(final String password) {
-        return this.account.changePass(password);//cambiare nome metodo NICO in setPsw
+        return this.account.changePass(password);
     }
     
     @Override

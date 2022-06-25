@@ -6,6 +6,7 @@ import javax.swing.JFrame;
 
 import controller.MenuController;
 import model.account.AccountManager;
+import model.account.BalanceManager;
 import view.Utilities;
 import view.menu.AccessMenu;
 import view.menu.AccountMenu;
@@ -16,19 +17,17 @@ import view.menu.games.Game.Games;
 import view.menu.games.GameImpl;
 
 
+
 //forse meglio usare un unico metodo setMenu(Menu menu, AccountManager account);
-//da settare this.frame.setResizable(false) appena aggiunto torna indietro nei giochi
 public class MainGui implements MenuManager {
 
-    private final MenuController menuController;
     private final JFrame frame;
     private final int widthMenu;
     private final int heightMenu;
     private final Dimension sizeMenu;
 
 
-    public MainGui(final MenuController menuController) {
-        this.menuController = menuController;
+    public MainGui() {
         this.frame = new JFrame();
         this.widthMenu =  (Utilities.resize(1.5f)).width;
         this.heightMenu = (Utilities.resize(1.5f)).height;
@@ -42,42 +41,36 @@ public class MainGui implements MenuManager {
         this.frame.setVisible(true);
     }
 
-    private void updateMenu(final Menu menu) {
-        this.frame.setContentPane(menu.getMenu());
-        this.frame.pack();
-        this.frame.revalidate();
-    }
-
     @Override
     public void setAccessMenu() {
-        this.updateMenu(new AccessMenu(this, this.menuController));
+        this.updateMenu(new AccessMenu(this));
     }
 
     @Override
-    public void setMainMenu() {
-        this.updateMenu(new MainMenu(this, this.menuController));
+    public void setMainMenu(final AdvancedAccountManager account) {
+        this.updateMenu(new MainMenu(this, account));
     }
 
     @Override
-    public void setAccountMenu() {
-        this.updateMenu(new AccountMenu(this, this.menuController));
+    public void setAccountMenu(final AdvancedAccountManager account) {
+        this.updateMenu(new AccountMenu(this, account));
     }
 
     //CAMBIARE DA ACCOUNT MANAGER A BALANCE MANAGER (SEMPRE ADVANCED)
     @Override
-    public void setRouletteMenu(final AccountManager account, final Games game, final MenuController menuController) {
-        this.updateMenu(new GeneralGui(this, account, game, menuController));
+    public void setRouletteMenu(final AdvancedBalanceManager account, final Games game) {
+        this.updateMenu(new GeneralGui(this, account, game));
     }
 
     @Override
-    public void setBlackjackMenu(final AccountManager account, final MenuController menuController) {
-        final GeneralGui g = new GeneralGui(this, account, Games.BLACKJACK, menuController);
+    public void setBlackjackMenu(final AdvancedBalanceManager account) {
+        final GeneralGui g = new GeneralGui(this, account, Games.BLACKJACK, account);
         this.updateMenu(new GameImpl(this, g, g.getGame()));
     }
 
     //CAMBIARE DA ACCOUNT MANAGER A BALANCE MANAGER (SEMPRE ADVANCED)
     @Override
-    public void setBaccaratMenu(final AccountManager account, final MenuController menuController) {
+    public void setBaccaratMenu(final AdvancedBalanceManager account, final MenuController menuController) {
         final GeneralGui g = new GeneralGui(this, account, Games.BACCARAT, menuController);
         this.updateMenu(new GameImpl(this, g, g.getGame()));
         
@@ -101,6 +94,13 @@ public class MainGui implements MenuManager {
     @Override
     public Dimension getSizeMenu() {
         return this.sizeMenu;
+    }
+    
+
+    private void updateMenu(final Menu menu) {
+        this.frame.setContentPane(menu.getMenu());
+        this.frame.pack();
+        this.frame.revalidate();
     }
 
 }

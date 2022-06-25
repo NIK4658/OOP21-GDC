@@ -11,15 +11,16 @@ public interface MenuManager {
     
     void setAccessMenu();
 
-    void setMainMenu();
+    void setMainMenu(AccountManager account);
     
-    void setAccountMenu();
-    //setAccountMenu, roulette, bj come unico metodo setMenu?
-    void setRouletteMenu(final AccountManager account, Games game, MenuController menuController);//serve il final nell'interfaccia? controllare
+    void setAccountMenu(AccountManager account);
     
-    void setBlackjackMenu(final AccountManager accountfinal, MenuController menuController);
+    //setGameMenu, roulette, bj come unico metodo setMenu?
+    void setRouletteMenu(final AccountManager account, Games game);
     
-    void setBaccaratMenu(AccountManager account, MenuController menuController);
+    void setBlackjackMenu(AccountManager account);
+    
+    void setBaccaratMenu(AccountManager account);
     
     Frame getFrame();
  
@@ -27,6 +28,8 @@ public interface MenuManager {
     
     int getHeightMenu();
     
-    Dimension getSizeMenu();    
+    Dimension getSizeMenu();
+
+    void setAccountMenu();    
     
 }
