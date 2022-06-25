@@ -1,66 +1,75 @@
 package view.menu.account;
 
-import java.awt.Color;
 import java.awt.Frame;
-import java.awt.Dimension;
 import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.Insets;
 import javax.swing.JButton;
 import javax.swing.JLabel;
-import javax.swing.JPanel;
 import javax.swing.JTextField;
+import model.account.AccountManager;
 
-import account.SimpleAccountManager;
-import view.GridBagConstraintsConstructor;
-
-//pannello CAMBIO USERNAME, sistemare ripetizioni
-public class UsernamePanel extends JPanel {
+/**
+ * Panel which manages account username.
+ */
+public class UsernamePanel extends AccountPanel {
     
-    private final SimpleAccountManager account;
+    private static final long serialVersionUID = 1L;
+    private final AccountManager account;
+    private final JTextField usernameField;
+    private final JTextField newUsernameField;
     
-    public UsernamePanel(final Frame frame, final SimpleAccountManager account) {
+    /**
+     * Create a panel which manages account username.
+     */
+    public UsernamePanel(final Frame frame, final AccountManager account, final int minSize) {
+        super(minSize);
         this.account = account;
-        this.setLayout(new GridBagLayout());
-        this.setBackground(new Color(68, 87, 96));
+        final JLabel usernameLabel = new JLabel("Username: ");
+        final JLabel newUsernameLabel = new JLabel("New Username: ");
+        usernameField = new JTextField(this.getUsername(), N_COLUMNS_FIELD);
+        newUsernameField = new JTextField(N_COLUMNS_FIELD);
+        usernameField.setEditable(false);
+        final JLabel alertLabel = new JLabel();
         
-        final JLabel labelUsername = new JLabel("Username: ");
-        final JLabel labelNewUsername = new JLabel("New Username: ");
-        final JTextField fieldUsername = new JTextField(this.getUsername(), 10);
-        final JTextField fieldNewUsername = new JTextField(10);
-        fieldUsername.setEditable(false);
-        final JLabel labelAlert = new JLabel();
-        
-        final JButton buttonUsername = new JButton("Change");
-        buttonUsername.addActionListener(e -> {//aggiungere username non valido/già presente
-            if (new ConfirmPassword(frame, account, " to change Username").isPasswordConfirmed()) {
-                if (this.setUsername(fieldNewUsername.getText())) {
-                    fieldUsername.setText(this.getUsername());
-                    fieldNewUsername.setText("");
-                    labelAlert.setText("Username changed");
-                }
-                else {
-                    labelAlert.setText("Username not valid");
+        final JButton changeButton = new JButton("Change");
+        changeButton.addActionListener(e -> {
+            if (new ConfirmPassword(frame, this.account, minSize).isConfirmed()) {
+                if (this.setUsername(newUsernameField.getText())) {
+                    this.updateUsernameFields();
+                    alertLabel.setText("Username changed");
+                } else {
+                    alertLabel.setText("Username not valid");
                 }
             }
         });
         
-        this.add(labelUsername, GridBagConstraintsConstructor.get(0, 0, 0));
-        this.add(fieldUsername, GridBagConstraintsConstructor.get(1, 0, 0));
-        this.add(labelNewUsername, GridBagConstraintsConstructor.get(0, 1, 0));
-        this.add(fieldNewUsername, GridBagConstraintsConstructor.get(1, 1, 0));
-        this.add(buttonUsername, GridBagConstraintsConstructor.get(2, 2, 0));
-        this.add(labelAlert, GridBagConstraintsConstructor.get(2, 3, 0));
+        final var c = new GridBagConstraints();
+        c.gridx = 0;
+        c.gridy = 0;
+        this.add(usernameLabel, c);
+        c.gridx++;
+        this.add(usernameField, c);
+        c.gridx = 0;
+        c.gridy++;
+        this.add(newUsernameLabel, c);
+        c.gridx++;
+        this.add(newUsernameField, c);
+        c.gridy++;
+        this.add(changeButton, c);
+        c.gridy++;
+        c.gridwidth = 3;
+        this.add(alertLabel, c);
     }
     
+    private void updateUsernameFields() {
+        this.usernameField.setText(this.getUsername());
+        this.newUsernameField.setText("");
+    }
+
     private String getUsername() {
-        return account.getUsr();
+        return this.account.getUsr();
     }
     
     private boolean setUsername(final String username) {
-        return account.changeUsr(username);
+        return this.account.changeUsr(username);
     }
-
-
-
 }

@@ -1,0 +1,43 @@
+The Base and European roulette wheel have 37 divisions, where numbers from 0 to 36 can be found:
+numbers from 1 to 36 are alternately colored red and black, while the single zero is marked in green. 
+In American roulette we have in addition a double zero (00) marked green.
+The main objective, which any player pursues, is to predict which numbered pocket the roulette ball is going to settle into.
+
+
+HOW TO BET
+When playing roulette one will find out the betting process is relatively easy.
+Select the chips you want to bet then place it on the desired bet with a click on the table and press the ”Conferm” button. 
+In case to delete the bets press ”Clear Bets” button.
+
+
+TYPES OF BETS
+Straight-Up Bet
+It is placed on any single number and directly on the number.
+Its payout is 35 to 1.
+
+Column Bet
+It features an entire column and is placed on the ”2-1” box at the end of a column.
+Its payout is 2 to 1.
+
+Dozen Bet
+It features a group of 12 numbers and can be placed on the ”1st 12” box (1 to 12), the ”2nd 12” box (13 to 24), or the ”3rd 12” box (25 to 36).
+Its payout is 2 to 1.
+
+Bet on Color
+It features all of the red numbers or all of the black numbers on the layout and is placed on the ”Red” box (all red numbers) or the ”Black” box (all black numbers). 
+Its payout is 1 to 1.
+
+Bet on Odd/Even
+It features all even numbers or all odd numbers on the layout and is placed on the ”Even” box (all even numbers) or the ”Odd” box (all odd numbers).
+Its payout is 1 to 1.
+
+Bet on Low/High
+It features all low numbers or all high numbers and is placed on the ”Low” box (numbers 1 to 18) or the ”High” box (numbers 19 to 36). 
+Its payout is 1 to 1.
+
+In European roulette we also have the possibility to play the sectors (in a simplified version compared to the traditional one), we have:
+Zero: 12, 35, 3, 26, 0, 32, 15
+Voisins: 22, 18, 29, 7, 28, 12, 35, 3, 26, 0, 32, 15, 19, 4, 21, 2, 25
+Orphelins: 17, 34, 6, 1, 20, 14, 31, 9
+Tier: 27, 13, 36, 11, 30, 8, 23, 10, 5, 24, 16, 33
+Playing in a sector is like betting on the set of numbers of that sector.

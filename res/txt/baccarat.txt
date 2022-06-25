@@ -1,0 +1,29 @@
+The rules of baccarat instead see only two protagonists: the dealer and the player.
+In general, the rules of baccarat are rather schematic.
+The dealer, after shuffling the decks, deals two cards to the player and two to himself.
+At this point the sum of the two cards is calculated: the figures are worth 10, while the 
+other cards have their face value.
+Only unity should be extrapolated from the sum.
+For example, if the cards held by the dealer are for example a 9 and a 6, the result is
+9 + 6 = 15 and therefore we consider 5, removing the ten.
+If the cards are a 7 and a 3, the result is 10 = 0.
+If one of the dealer and the player has a total of 8 or 9 (called baccarat), the hands 
+come discoveries and whoever has the highest score wins:
+in the case of an identity score, the hand is considered a tie.
+If baccarat has not been reached, it proceeds according to other rules.
+If the player has rolled a 6 or a 7, he draws no cards.
+If, on the other hand, his result is lower, he will receive another card.
+At this point it is the dealer's turn, who acts according to the value of his cards:
+
+- If he has totaled 7, he "stands" and does not draw any cards;
+
+- If he has a total of 6, he draws a card if the last player's card is a 6 or a 7;
+
+- If he has a total of 5, he draws a card if the last player's card is 4, 5, 6 or 7;
+
+- If he has a total of 4, he draws a card if the last player's card has a value between 
+  2 and 7;
+
+- If he has a total of 3, he draws a card unless the last card of the player is 8 or 9;
+
+- If he has totaled 2, 1 or baccarat, he always draws a card.

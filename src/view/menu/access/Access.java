@@ -1,14 +1,19 @@
 package view.menu.access;
 
-import account.AdvancedAccountManager;
-import account.SimpleAccountManager;
-
+/**
+ * Interface of the login-register GUI.
+ *
+ */
 public interface Access {
     
+    /**
+     * Enum with two types of operations.
+     *
+     */
     enum AccessType { 
         LOGIN, REGISTER 
     } 
     
-    void successfullyAccessed(AdvancedAccountManager account);
+    void successfullyAccessed();
 
 }
