@@ -18,7 +18,7 @@ public class BaccaratControllerImpl implements BaccaratController {
 	}
 
 	@Override
-	public void NextMove() {
+	public void nextMove() {
 		this.game.nextMove();
 
 	}

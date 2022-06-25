@@ -110,7 +110,7 @@ public class BaccaratGui extends JPanel implements Game {
   
     //codice ripetuto
     next.addActionListener(e -> {
-      controller.NextMove();
+      controller.nextMove();
       setCards(dealerCards, controller.getDealerHand(), north, DIRECTION_DEALER);
       dealerPoints.setText(String.valueOf(controller.getDealerPoints()));
       setCards(playerCards, controller.getPlayerHand(), center, DIRECTION_PLAYER);

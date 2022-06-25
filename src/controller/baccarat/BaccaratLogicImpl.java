@@ -152,7 +152,6 @@ public class BaccaratLogicImpl implements BaccaratLogic {
 
 @Override
 public double getBet() {
-	// TODO Auto-generated method stub
 	return this.bet;
 }	
 }

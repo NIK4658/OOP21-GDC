@@ -1,6 +1,7 @@
 package start;
 
 import java.awt.BorderLayout;
+
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -16,6 +17,12 @@ import javax.swing.ScrollPaneConstants;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
 import view.Utilities;
+
+/**
+ * 
+ * JDialog warning about responsible game
+ *
+ */
 
 public class Warning extends JDialog {
 
