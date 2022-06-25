@@ -19,7 +19,7 @@ import model.account.SimpleAccountManagerImpl;
 public class SimpleAccountManagerTest {
     
     private AccountManager simpleAccount;
-    private static final String DIRECTORYPATH = "res/json/users/";
+    private static final String DIRECTORYPATH = "users/";
     private File file;
     private String username; 
     private String usernamenew; 

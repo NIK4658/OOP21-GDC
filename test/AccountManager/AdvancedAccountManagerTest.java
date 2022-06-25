@@ -18,7 +18,7 @@ public class AdvancedAccountManagerTest {
 
     private AccountManager advancedAccount;
     private static final String LONGSTRING = "abcdefghilmnopqrstuvz";
-    private static final String DIRECTORYPATH = "res/json/users/";
+    private static final String DIRECTORYPATH = "users/";
     private File file;
     private String username; 
     private String usernamenew; 
