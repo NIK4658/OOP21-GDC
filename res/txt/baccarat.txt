@@ -16,8 +16,14 @@ If, on the other hand, his result is lower, he will receive another card.
 At this point it is the dealer's turn, who acts according to the value of his cards:
 
 - If he has totaled 7, he "stands" and does not draw any cards;
+
 - If he has a total of 6, he draws a card if the last player's card is a 6 or a 7;
+
 - If he has a total of 5, he draws a card if the last player's card is 4, 5, 6 or 7;
-- If he has a total of 4, he draws a card if the last player's card has a value between 2 and 7;
+
+- If he has a total of 4, he draws a card if the last player's card has a value between 
+  2 and 7;
+
 - If he has a total of 3, he draws a card unless the last card of the player is 8 or 9;
+
 - If he has totaled 2, 1 or baccarat, he always draws a card.
