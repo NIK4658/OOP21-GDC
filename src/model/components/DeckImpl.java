@@ -2,7 +2,6 @@ package model.components;
 
 import java.util.ArrayList;
 import java.util.Random;
-
 import model.components.Card.Suits;
 
 /**

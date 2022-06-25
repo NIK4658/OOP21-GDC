@@ -3,7 +3,6 @@ package model.components;
 import java.awt.Image;
 import java.util.Objects;
 import java.util.Random;
-
 import utility.Pair;
 import view.Utilities;
 
