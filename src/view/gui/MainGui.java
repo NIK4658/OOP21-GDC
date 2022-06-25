@@ -14,17 +14,8 @@ import view.menu.Menu;
 import view.menu.games.Game.Games;
 import view.menu.games.MergedGame;
 
-<<<<<<< Updated upstream
-
-
-/**
- * 
- * Main menu gui 
- *
-=======
 /**
  * The main gui that manages the menu.
->>>>>>> Stashed changes
  */
 public class MainGui implements MenuManager {
 
@@ -33,15 +24,9 @@ public class MainGui implements MenuManager {
     private final int heightMenu;
     private final Dimension sizeMenu;
 
-<<<<<<< Updated upstream
-/**
- * Constructor
- */
-=======
     /**
      * Create the main gui that manages the menu.
      */
->>>>>>> Stashed changes
     public MainGui() {
         this.frame = new JFrame();
         this.widthMenu =  (Utilities.resize(1.5f)).width;
@@ -72,10 +57,6 @@ public class MainGui implements MenuManager {
         this.updateMenu(new AccountMenu(this, account));
     }
 
-<<<<<<< Updated upstream
-
-=======
->>>>>>> Stashed changes
     @Override
     public void setRouletteMenu(final AccountManager account, final Games game) {
         this.updateMenu(new GeneralGui(this, account,  game));
