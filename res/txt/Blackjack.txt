@@ -1,6 +1,6 @@
 What's Blackjack:
 Blackjack is a casino banking game. The most widely played casino banking game in the world, it uses 6 decks of 52 cards and descends from a global family of casino banking games known as Twenty-One.
-The game is a comparing card game where the player competes against the dealer.
+The game is a comparing card game where the player competes against the dealer. 
 
 Starting game:
 To start each round, player need to place bet in the "betting box".

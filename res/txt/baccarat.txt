@@ -20,4 +20,4 @@ A questo punto è il turno del banco, che agisce in base al valore delle proprie
 - Se ha totalizzato 5, pesca una carta se la carta scoperta del giocatore è 4, 5, 6 o 7;
 - Se ha totalizzato 4, pesca una carta se quella scoperta del giocatore ha un valore tra 2 e 7;
 - Se ha totalizzato 3, pesca una carta a meno che quella scoperta dal giocatore sia 8 o 9;
-- Se ha totalizzato 2, 1 o baccarat, pesca sempre una carta.
+- Se ha totalizzato 2, 1 o baccarat, pesca sempre una carta. 
