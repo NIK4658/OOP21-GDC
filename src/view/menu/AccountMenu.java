@@ -12,8 +12,6 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
-
-import controller.MenuController;
 import model.account.AccountManager;
 import view.gui.MenuManager;
 import view.menu.account.AccountPanel;
@@ -29,7 +27,8 @@ public class AccountMenu implements Menu {
     private static final int SPACE_TITLE = 15;
     private static final int SCALE_BUTTON = 15;
     private static final int SPACE_BUTTON = 30;
-    private final MenuController menuController;
+    private final MenuManager menuManager;
+    private final AccountManager account;
     private final JPanel panel;
     private final JPanel accountPanel;
     private final JButton backButton;
@@ -37,11 +36,12 @@ public class AccountMenu implements Menu {
     private ActionListener backPanelAl;
     
     
-    public AccountMenu(final MenuManager menuManager, final MenuController menuController) {
-        this.menuController = menuController;
+    public AccountMenu(final MenuManager menuManager, final AccountManager account) {
         final int width = menuManager.getWidthMenu();
         final int height = menuManager.getHeightMenu();
         final int minSize = Math.min(width, height);
+        this.account = account;
+        this.menuManager = menuManager;
         this.panel = new JPanel(new BorderLayout());
         this.panel.setPreferredSize(menuManager.getSizeMenu());
         this.backButton = new JButton("BACK");
@@ -121,7 +121,7 @@ public class AccountMenu implements Menu {
     }
 
     private ActionListener getActionListenerBackMenu() {
-        return e -> menuController.setMainMenu();
+        return e -> this.menuManager.setMainMenu(this.account);
     }
     
     private GridBagConstraints gridBagConstraints(final int gridy, final int spacedown) {

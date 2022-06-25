@@ -3,10 +3,7 @@ package view.gui;
 import java.awt.Dimension;
 import java.awt.Frame;
 import javax.swing.JFrame;
-
-import controller.MenuController;
 import model.account.AccountManager;
-import model.account.BalanceManager;
 import view.Utilities;
 import view.menu.AccessMenu;
 import view.menu.AccountMenu;
@@ -42,36 +39,36 @@ public class MainGui implements MenuManager {
     }
 
     @Override
-    public void setAccessMenu() {
-        this.updateMenu(new AccessMenu(this));
+    public void setAccessMenu(final AccountManager account) {
+        this.updateMenu(new AccessMenu(this, account));
     }
 
     @Override
-    public void setMainMenu(final AdvancedAccountManager account) {
+    public void setMainMenu(final AccountManager account) {
         this.updateMenu(new MainMenu(this, account));
     }
 
     @Override
-    public void setAccountMenu(final AdvancedAccountManager account) {
+    public void setAccountMenu(final AccountManager account) {
         this.updateMenu(new AccountMenu(this, account));
     }
 
     //CAMBIARE DA ACCOUNT MANAGER A BALANCE MANAGER (SEMPRE ADVANCED)
     @Override
-    public void setRouletteMenu(final AdvancedBalanceManager account, final Games game) {
-        this.updateMenu(new GeneralGui(this, account, game));
+    public void setRouletteMenu(final AccountManager account, final Games game) {
+        this.updateMenu(new GeneralGui(this, game,  account));
     }
 
     @Override
-    public void setBlackjackMenu(final AdvancedBalanceManager account) {
-        final GeneralGui g = new GeneralGui(this, account, Games.BLACKJACK, account);
+    public void setBlackjackMenu(final AccountManager account) {
+        final GeneralGui g = new GeneralGui(this, Games.BLACKJACK, account);
         this.updateMenu(new GameImpl(this, g, g.getGame()));
     }
 
     //CAMBIARE DA ACCOUNT MANAGER A BALANCE MANAGER (SEMPRE ADVANCED)
     @Override
-    public void setBaccaratMenu(final AdvancedBalanceManager account, final MenuController menuController) {
-        final GeneralGui g = new GeneralGui(this, account, Games.BACCARAT, menuController);
+    public void setBaccaratMenu(final AccountManager account) {
+        final GeneralGui g = new GeneralGui(this, Games.BACCARAT, account);
         this.updateMenu(new GameImpl(this, g, g.getGame()));
         
     }

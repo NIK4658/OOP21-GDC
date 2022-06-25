@@ -15,8 +15,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
-
-import controller.MenuController;
+import model.account.AccountManager;
 import view.menu.access.Access.AccessType;
 
 
@@ -44,7 +43,7 @@ public class AccessPanel extends JPanel {
      * @param accessType    Enum that defines whether access is login or registration.
      * @param al
      */
-    public AccessPanel(final Access access, final Dimension dim, final AccessType accessType, final ActionListener al, final MenuController menuController) {
+    public AccessPanel(final Access access, final Dimension dim, final AccessType accessType, final ActionListener al, final AccountManager account) {
         this.setLayout(new GridBagLayout());
         this.setBackground(new Color(68, 87, 96));
         this.setPreferredSize(dim);
@@ -166,7 +165,7 @@ public class AccessPanel extends JPanel {
             registerButton.setPreferredSize(new Dimension(dimX / RATIOBTNACCESSAREAX, dimY / RATIOBTNACCESSAREAY));
             
             loginButton.addActionListener(e -> {
-                if (menuController.login(username.getText(), password.getText())) {
+                if (account.logger(username.getText(), password.getText())) {
                     access.successfullyAccessed();
                 } else {
                     warning.setText("Wrong Credentials");
@@ -177,7 +176,7 @@ public class AccessPanel extends JPanel {
             loginButton.addActionListener(al);
             loginButton.setPreferredSize(new Dimension(dimX / RATIOBTNACCESSAREAX, dimY / RATIOBTNACCESSAREAY));
             registerButton.addActionListener(e -> {
-                if (menuController.signup(username.getText(), password.getText(), age.getText())) {
+                if (account.register(username.getText(), password.getText(), age.getText())) {
                     warning.setText("Signed up");
                 } else {
                     warning.setText("Unable to sign up");

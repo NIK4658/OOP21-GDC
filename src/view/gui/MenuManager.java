@@ -2,14 +2,13 @@ package view.gui;
 
 import java.awt.Dimension;
 import java.awt.Frame;
-
-import controller.MenuController;
 import model.account.AccountManager;
+import model.account.BalanceManager;
 import view.menu.games.Game.Games;//cambiare nome classe Games
 
 public interface MenuManager {
     
-    void setAccessMenu();
+    void setAccessMenu(AccountManager account);
 
     void setMainMenu(AccountManager account);
     
@@ -29,7 +28,5 @@ public interface MenuManager {
     int getHeightMenu();
     
     Dimension getSizeMenu();
-
-    void setAccountMenu();    
     
 }

@@ -1,6 +1,5 @@
 package controller.blackjack;
 
-import controller.BalanceController;
 import model.account.BalanceManager;
 import model.blackjack.Deck;
 import model.blackjack.DeckImpl;
@@ -12,7 +11,7 @@ import model.blackjack.HandImpl;
  */
 public class BlackJackLogicImpl implements BlackJackLogic {
     
-    private final BalanceController account;
+    private final BalanceManager account;
     private final Deck deck;
     private double bet;
     private double lastwin;
@@ -25,7 +24,7 @@ public class BlackJackLogicImpl implements BlackJackLogic {
      * @param account       is The BalanceManager required to perform balance change methods.
      * 
      */
-    public BlackJackLogicImpl(final BalanceController account) {
+    public BlackJackLogicImpl(final BalanceManager account) {
         this.deck = new DeckImpl(6);
         this.deck.generateDeck();
         this.account = account;

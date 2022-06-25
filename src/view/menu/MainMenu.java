@@ -17,8 +17,6 @@ import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
-
-import controller.MenuController;
 import model.account.AccountManager;
 import view.MyGridBagConstraints;
 import view.Utilities;
@@ -35,8 +33,8 @@ public class MainMenu extends JPanel implements Menu {
 	
 
     private static final long serialVersionUID = 1L;
-//    private final MenuManager frame;
-//    private final AccountManager account;
+    private final MenuManager frame;
+    private final AccountManager account;
     
     
     private final Image img = Utilities.getImage("img/backgrounds/MainBG.jpg");
@@ -44,9 +42,9 @@ public class MainMenu extends JPanel implements Menu {
     /**
      * Costruttore.
      */
-    public MainMenu(final MenuManager frame, final MenuController menuController) {
-//        this.frame = frame;
-//        this.account = account;
+    public MainMenu(final MenuManager frame, final AccountManager account) {
+        this.frame = frame;
+        this.account = account;
         this.setLayout(new BorderLayout());
         this.setPreferredSize(frame.getSizeMenu());
         final int width = frame.getWidthMenu();
@@ -95,12 +93,12 @@ public class MainMenu extends JPanel implements Menu {
         final JButton rouletteAmerican = new JButton();
         final JButton bacarat = new JButton();
         
-        rouletteBase.addActionListener(e -> menuController.setRouletteMenu(Games.ROULETTE_BASE));
-        rouletteEuropean.addActionListener(e -> menuController.setRouletteMenu(Games.ROULETTE_EUROPEAN));
-        rouletteAmerican.addActionListener(e -> menuController.setRouletteMenu(Games.ROULETTE_AMERICAN));
-        blackjack.addActionListener(e -> menuController.setBlackjackMenu());
-        bacarat.addActionListener(e -> menuController.setBaccaratMenu());
-        accountman.addActionListener(e -> menuController.setAccountMenu());
+        rouletteBase.addActionListener(e -> this.frame.setRouletteMenu(this.account, Games.ROULETTE_BASE));
+        rouletteEuropean.addActionListener(e -> this.frame.setRouletteMenu(this.account,Games.ROULETTE_EUROPEAN));
+        rouletteAmerican.addActionListener(e -> this.frame.setRouletteMenu(this.account,Games.ROULETTE_AMERICAN));
+        blackjack.addActionListener(e -> this.frame.setBlackjackMenu(this.account));
+        bacarat.addActionListener(e -> this.frame.setBaccaratMenu(this.account));
+        accountman.addActionListener(e -> this.frame.setAccountMenu(this.account));
         
 
         

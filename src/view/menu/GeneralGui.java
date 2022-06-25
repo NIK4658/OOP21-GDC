@@ -3,8 +3,6 @@ package view.menu;
 import baccarat.BaccaratGui;
 import controller.BlackJackControllerImpl2;
 import controller.GeneralGameController;
-import controller.MenuController;
-import controller.blackjack.BlackJackController;
 import model.account.AccountManager;
 import model.account.AdvancedBalanceManagerImpl;
 import model.account.BalanceManager;
@@ -42,9 +40,7 @@ import view.menu.games.Game;
 
 public class GeneralGui extends JPanel implements Menu {
     
-    private final MenuController menuController;
     private final AccountManager account;
-    private final BalanceManager Balanceaccount;
     private final MenuManager frame;
     private double bet;
     private int fichesvalue = 1;
@@ -64,13 +60,12 @@ public class GeneralGui extends JPanel implements Menu {
     private final JLayeredPane winmsg = new JLayeredPane();
     private final JLabel winMessageText = new JLabel("");
     
-    public GeneralGui(final MenuManager frame, final Games game, final MenuController menuController ){
+    public GeneralGui(final MenuManager frame, final Games game, final AccountManager account ) {
         this.frame = frame;
         this.account = account;
         final GeneralGameController GeneralController = new GeneralGameController(this);
         //final BlackJackControllerImpl2 GameController = new BlackJackControllerImpl2(this, new BlackJackGui());
-        this.menuController = menuController;
-        this.Balanceaccount = new AdvancedBalanceManagerImpl(this.account);
+        //this.Balanceaccount = new AdvancedBalanceManagerImpl(this.account);
         setLayout(new BorderLayout());
         this.setPreferredSize(frame.getSizeMenu());
         this.width = frame.getWidthMenu();
@@ -91,7 +86,6 @@ public class GeneralGui extends JPanel implements Menu {
         switch (game) {
             case BLACKJACK: 
                 this.g = new BlackJackGui(this);
-                gameController = ()this.g.getController();
                 showButtons(false);
                 break;
             case BACCARAT: 

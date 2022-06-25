@@ -7,8 +7,6 @@ import java.awt.Image;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-
-import controller.MenuController;
 import model.account.AccountManager;
 import start.Warning;
 import view.Utilities;
@@ -22,15 +20,16 @@ import view.menu.access.AccessPanel;
 public class AccessMenu extends JPanel implements Access, Menu {
 
     private static final long serialVersionUID = 1L;
-    private final MenuController viewController;
+    private final MenuManager frame;
+    private final AccountManager account;
     
     /**
      * //DA SISTEMARE I MAGIC NUMBERS.
      */
-    public AccessMenu(final MenuManager frame, final MenuController menuController) {
-        this.viewController = menuController;
+    public AccessMenu(final MenuManager frame, final AccountManager account) {
         this.setLayout(new BorderLayout());
-        
+        this.frame = frame;
+        this.account = account;
         // Zona di destra
         final Dimension dimImg = new Dimension(frame.getWidthMenu() * 2 / 3, frame.getHeightMenu());
         final Image img = Utilities.getImage("img/backgrounds/HQcasinoCroppedWithTitle.gif");
@@ -43,9 +42,9 @@ public class AccessMenu extends JPanel implements Access, Menu {
         final JPanel west = new JPanel(cl);
         final Dimension dimAccessPanel = new Dimension(frame.getWidthMenu() * 1 / 3, frame.getHeightMenu());
         final AccessPanel login = new AccessPanel(this, dimAccessPanel, AccessType.LOGIN,
-                e -> cl.show(west, AccessType.REGISTER.toString()), menuController);
+                e -> cl.show(west, AccessType.REGISTER.toString()), account);
         final AccessPanel register = new AccessPanel(this, dimAccessPanel, AccessType.REGISTER, 
-                e -> cl.show(west, AccessType.LOGIN.toString()), menuController);
+                e -> cl.show(west, AccessType.LOGIN.toString()), account);
         west.add(login, AccessType.LOGIN.toString());
         west.add(register, AccessType.REGISTER.toString());
         cl.show(west, AccessType.LOGIN.toString());
@@ -55,7 +54,7 @@ public class AccessMenu extends JPanel implements Access, Menu {
     
     @Override
     public void successfullyAccessed() {
-        viewController.setMainMenu();
+        frame.setMainMenu(this.account);
         new Warning();
     }
     
