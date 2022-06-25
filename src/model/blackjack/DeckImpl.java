@@ -29,11 +29,8 @@ public class DeckImpl extends ArrayList<Card> implements Deck {
     
     @Override
     public void shuffle() {
-        System.out.println(this.size());
-        System.out.println("RIGENERO IL MAZZO");
         this.removeAll(this);
         generateDeck();
-        System.out.println(this.size());
     }
 
     @Override
