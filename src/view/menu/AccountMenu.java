@@ -75,21 +75,21 @@ public class AccountMenu implements Menu {
         }
         
         balanceButton.addActionListener(e -> {
-            this.updatePanel(new BalancePanel(this.menuController, minSize));
+            this.updatePanel(new BalancePanel(this.account, minSize));
         });
 
         usernameButton.addActionListener(e -> {
-            this.updatePanel(new UsernamePanel(menuManager.getFrame(), this.menuController, minSize));
+            this.updatePanel(new UsernamePanel(menuManager.getFrame(), this.account, minSize));
         });        
 
         passwordButton.addActionListener(e -> {
-            this.updatePanel(new PasswordPanel(menuManager.getFrame(), this.menuController, minSize));
+            this.updatePanel(new PasswordPanel(menuManager.getFrame(), this.account, minSize));
         });
         
         accountButton.addActionListener(e -> {
-            if (new ConfirmPassword(menuManager.getFrame(), this.menuController, minSize).isConfirmed()) {
-                this.menuController.deleteAccount();
-                this.menuController.setAccessMenu();
+            if (new ConfirmPassword(menuManager.getFrame(), this.account, minSize).isConfirmed()) {
+                this.account.deleteAcc(this.account.getUsr());
+                this.menuManager.setAccessMenu(this.account);
             }
         });
         

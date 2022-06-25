@@ -9,8 +9,6 @@ import java.util.Locale;
 import javax.swing.JButton;
 import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
-
-import controller.MenuController;
 import model.account.AccountManager;
 import model.account.AdvancedBalanceManagerImpl;
 import model.account.BalanceManager;
@@ -20,14 +18,12 @@ public class BalancePanel extends AccountPanel {
     private static final Locale LOCALE = Locale.ITALY; //vedere se metterla in comune tra altre classi o se togliere la constante e usare locale.italy direttamente
     private static final int N_FRACTION_DIGITS = 2;
     private static final int N_MAX_INTEGER_DIGITS = 6;
-    private final MenuController menuController;
-//    private final BalanceManager account;
+    private final BalanceManager account;
     private final JFormattedTextField importField;
     
-    public BalancePanel(final MenuController menuController, final int minSize) {
+    public BalancePanel(final AccountManager account, final int minSize) {
         super(minSize);
-//        this.account = new AdvancedBalanceManagerImpl(account);
-        this.menuController = menuController;
+        this.account = new AdvancedBalanceManagerImpl(account);
         final JLabel importLabel = new JLabel(Currency.getInstance(LOCALE).getSymbol());
         final JLabel balanceLabel = new JLabel("Balance: ");
         final JLabel alertLabel = new JLabel();
@@ -93,15 +89,15 @@ public class BalancePanel extends AccountPanel {
     }
 
     private double getBalance() {
-        return this.menuController.getBalance();
+        return this.account.getBalance();
     }
     
     private boolean setDeposit(final double deposit) {
-        return this.menuController.deposit(deposit);
+        return this.account.deposit(deposit);
     }
     
     private boolean setWithdraw(final double withdraw) {
-        return this.menuController.withdraw(withdraw);
+        return this.account.withdraw(withdraw);
     }
 
 }

@@ -14,10 +14,9 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
+import controller.baccarat.BaccaratLogic;
+import controller.baccarat.BaccaratLogicImpl;
 
-import controller.BalanceController;
-import controller.baccarat.BaccaratController;
-import controller.baccarat.BaccaratControllerImpl;
 import java.awt.Insets;
 import view.MyGridBagConstraints;
 import view.Utilities;
@@ -27,6 +26,7 @@ import view.gui.MenuManager;
 import view.menu.GeneralGui;
 import view.menu.games.Game;
 import view.menu.games.component.BetButtonImpl;
+import model.account.BalanceManager;
 import model.blackjack.Hand;
 
 /**
@@ -49,22 +49,25 @@ public class BaccaratGui extends JPanel implements Game {
   private final Image img = Utilities.getImage("img/backgrounds/bacTable.png");
   private List<JLabel> dealerCards;
   private List<JLabel> playerCards;
-  private final BaccaratController controller;
+  private final BalanceManager account;
+  private final BaccaratLogic controller;
+
     
     /**
      * Constructor.
      */
-  public BaccaratGui(final MenuManager frame, final BalanceController bController, final GeneralGui generalInterface) {
+  public BaccaratGui(final MenuManager frame, final BalanceManager account, final GeneralGui generalInterface) {
 	  
 	    
 
     this.generalInterface = generalInterface;
     this.setLayout(new BorderLayout());
     this.setPreferredSize(frame.getSizeMenu());	
-    controller = new BaccaratControllerImpl(bController);
+    this.account = account;
     this.width = frame.getWidthMenu();
     this.next = new JButton();
     this.restart = new JButton();  
+    this.controller = new BaccaratLogicImpl(account);
     
     //Add button panel to south panel
     add(generateSouth(next, restart), BorderLayout.SOUTH);
@@ -110,7 +113,7 @@ public class BaccaratGui extends JPanel implements Game {
   
     //codice ripetuto
     next.addActionListener(e -> {
-      controller.NextMove();
+      controller.nextMove();
       setCards(dealerCards, controller.getDealerHand(), north, DIRECTION_DEALER);
       dealerPoints.setText(String.valueOf(controller.getDealerPoints()));
       setCards(playerCards, controller.getPlayerHand(), center, DIRECTION_PLAYER);
@@ -130,7 +133,7 @@ public class BaccaratGui extends JPanel implements Game {
         
         
     bet.addActionListener(e -> {  
-      if ((this.bet.getBet() + generalInterface.getFichesValue()) <= bController.getBalance()) {
+      if ((this.bet.getBet() + generalInterface.getFichesValue()) <= this.account.getBalance()) {
         bet.incrementBet(generalInterface.getFichesValue());
         generalInterface.showButtons(true);
       }

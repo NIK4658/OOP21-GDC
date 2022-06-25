@@ -5,20 +5,18 @@ import java.awt.GridBagConstraints;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
-
-import controller.MenuController;
 import model.account.AccountManager;
 
 //pannello CAMBIO PASSWORD, sistemare ripetizioni
 public class PasswordPanel extends AccountPanel {
     
-    private final MenuController menuController;
+    private final AccountManager account;
     private final JTextField passwordField;
     private final JTextField newPasswordField;
 
-    public PasswordPanel(final Frame frame, final MenuController menuController, final int minSize) {
+    public PasswordPanel(final Frame frame, final AccountManager account, final int minSize) {
         super(minSize);
-        this.menuController = menuController;
+        this.account = account;
         final JLabel passwordLabel = new JLabel("Insert new Password: ");
         final JLabel newPasswordLabel = new JLabel("Confirm new Password: ");
         passwordField = new JTextField(10);
@@ -28,7 +26,7 @@ public class PasswordPanel extends AccountPanel {
         
         buttonPassword.addActionListener(e -> {
             if (passwordField.getText().equals(newPasswordField.getText())) {
-                if (new ConfirmPassword(frame, menuController, minSize).isConfirmed()) {
+                if (new ConfirmPassword(frame, account, minSize).isConfirmed()) {
                     if (this.setPassword(newPasswordField.getText())) {
                         labelAlert.setText("Password changed");
                         this.updatePasswordFields();
@@ -66,7 +64,7 @@ public class PasswordPanel extends AccountPanel {
     }
 
     private boolean setPassword(final String password) {
-        return this.menuController.setPassword(password);
+        return this.account.changePass(password);
     }
     
 }

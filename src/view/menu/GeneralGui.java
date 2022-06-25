@@ -1,15 +1,12 @@
 package view.menu;
 
 import baccarat.BaccaratGui;
-import controller.BlackJackControllerImpl2;
-import controller.GeneralGameController;
 import model.account.AccountManager;
 import model.account.AdvancedBalanceManagerImpl;
 import model.account.BalanceManager;
 import view.menu.games.Game.Games;
 import view.menu.games.blackjack.BlackJackGui;
 import view.menu.games.GuideGui;
-import view.menu.games.roulette.RouletteController;
 import view.menu.games.roulette.RouletteGame;
 
 import java.awt.BorderLayout;
@@ -41,6 +38,7 @@ import view.menu.games.Game;
 public class GeneralGui extends JPanel implements Menu {
     
     private final AccountManager account;
+    private final BalanceManager Balanceaccount;
     private final MenuManager frame;
     private double bet;
     private int fichesvalue = 1;
@@ -60,12 +58,10 @@ public class GeneralGui extends JPanel implements Menu {
     private final JLayeredPane winmsg = new JLayeredPane();
     private final JLabel winMessageText = new JLabel("");
     
-    public GeneralGui(final MenuManager frame, final Games game, final AccountManager account ) {
+    public GeneralGui(final MenuManager frame, final AccountManager account, final Games game ){
         this.frame = frame;
         this.account = account;
-        final GeneralGameController GeneralController = new GeneralGameController(this);
-        //final BlackJackControllerImpl2 GameController = new BlackJackControllerImpl2(this, new BlackJackGui());
-        //this.Balanceaccount = new AdvancedBalanceManagerImpl(this.account);
+        this.Balanceaccount = new AdvancedBalanceManagerImpl(this.account);
         setLayout(new BorderLayout());
         this.setPreferredSize(frame.getSizeMenu());
         this.width = frame.getWidthMenu();
@@ -85,18 +81,17 @@ public class GeneralGui extends JPanel implements Menu {
         this.setOpaque(false);
         switch (game) {
             case BLACKJACK: 
-                this.g = new BlackJackGui(this);
+                this.g = new BlackJackGui(new AdvancedBalanceManagerImpl(account), this);
                 showButtons(false);
                 break;
             case BACCARAT: 
-                //this.g = new BaccaratGui(frame, new AdvancedBalanceManagerImpl(account), this);
+                this.g = new BaccaratGui(frame, new AdvancedBalanceManagerImpl(account), this);
                 break;
             default: 
-//                this.g = new RouletteGame(this, game);
+                this.g = new RouletteGame(this, game);
                 center = (JPanel) this.g;
                 this.setOpaque(true);
                 this.setBackground(RouletteGame.BACKGROUND_COLOR);
-                //new RouletteController(this, game);
         }
         north.setPreferredSize(new Dimension((int) (width / 12.8), (int) (height / 7.2)));
         final JButton backToMenu = new JButton("Back to Menu");
@@ -203,31 +198,34 @@ public class GeneralGui extends JPanel implements Menu {
             i++;
         }
         this.reset.addActionListener(e -> {
-            GeneralController.reset();
-            GameController.resetBet();
+            Balanceaccount.deposit(this.bet);
+            this.g.resetBet();
+            this.bet = 0;
+            updateBalanceValue();
+            this.setBetValue(this.bet);
         });
-        this.confirm.addActionListener(e -> GameController.confirmBet());
-        backToMenu.addActionListener(e -> this.menuController.setMainMenu());
+        this.confirm.addActionListener(e -> this.g.confirmBet());
+        backToMenu.addActionListener(e -> frame.setMainMenu(account));
         help.addActionListener(e -> new GuideGui(frame.getSizeMenu(), game));
         fiches1.addActionListener(e -> {
             setSelectedFiches(0);
-            GameController.setFichesValue(1);
+            fichesvalue = 1;
         });
         fiches5.addActionListener(e -> {
             setSelectedFiches(1);
-            GameController.setFichesValue(5);
+            fichesvalue = 5;
         });
         fiches25.addActionListener(e -> {
             setSelectedFiches(2);
-            GameController.setFichesValue(25);
+            fichesvalue = 25;
         });
         fiches100.addActionListener(e -> {
             setSelectedFiches(3);
-            GameController.setFichesValue(100);
+            fichesvalue = 100;
         });
         fiches500.addActionListener(e -> {
             setSelectedFiches(4);
-            GameController.setFichesValue(500);
+            fichesvalue = 500;
         });
         final JLayeredPane southtotal = new JLayeredPane();
         southtotal.setPreferredSize(new Dimension((int) (width / 3.5) + width / 60, height / 10));
@@ -243,9 +241,23 @@ public class GeneralGui extends JPanel implements Menu {
         south.add(southright, BorderLayout.EAST);
         add(south, BorderLayout.SOUTH);
         setSelectedFiches(0);
-        GeneralController.updateBalanceValue();
+        updateBalanceValue();
         this.setMinimumSize(this.getPreferredSize());
         setVisible(true);
+    }
+
+    public final int getFichesValue() {
+        return this.fichesvalue;
+    }
+    
+    public boolean addBetValue(final double value) {
+        if (Balanceaccount.withdraw(value)) {
+            this.bet += value;
+            setBetValue(this.bet);
+            updateBalanceValue();
+            return true;
+        }
+        return false;
     }
     
     public void setBetValue(final double value) {
@@ -279,20 +291,29 @@ public class GeneralGui extends JPanel implements Menu {
         this.confirm.setVisible(val);
     }
 
-    public void updateBalanceValue(final double value) {
-        balanceValue.setText(valueToText(value) + "€");
+    public void updateBalanceValue() {
+        balanceValue.setText(valueToText(Balanceaccount.getBalance()) + "€");
+    }
+    
+    public void showWinMessage(final double value) {
+        if (value > 0) {
+            setWinMessage(value);
+            Balanceaccount.deposit(value);
+            this.updateBalanceValue();
+        } else {
+            winMessageText.setText("");
+        }
+        setWinValue(value);
+        this.bet = 0;
+        this.setBetValue(this.bet);
     }
     
     public void setWinValue(final double value) {
         winValue.setText(valueToText(value) + "€");
     }
     
-    public void setWinMessage(final double value) {
+    private void setWinMessage(final double value) {
         winMessageText.setText("YOU WON " + valueToText(value) + "€!");
-    }
-    
-    public void removeWinMessage() {
-        winMessageText.setText("");
     }
     
     private String valueToText(final double value) {

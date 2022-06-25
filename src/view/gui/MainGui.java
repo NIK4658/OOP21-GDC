@@ -4,6 +4,7 @@ import java.awt.Dimension;
 import java.awt.Frame;
 import javax.swing.JFrame;
 import model.account.AccountManager;
+import model.account.AdvancedAccountManagerImpl;
 import view.Utilities;
 import view.menu.AccessMenu;
 import view.menu.AccountMenu;
@@ -29,6 +30,7 @@ public class MainGui implements MenuManager {
         this.widthMenu =  (Utilities.resize(1.5f)).width;
         this.heightMenu = (Utilities.resize(1.5f)).height;
         this.sizeMenu = new Dimension(this.widthMenu, this.heightMenu);
+        this.setAccessMenu(new AdvancedAccountManagerImpl());
         this.frame.setSize(this.sizeMenu);
         this.frame.setResizable(false);
         this.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -36,6 +38,7 @@ public class MainGui implements MenuManager {
         this.frame.setIconImage(Utilities.getImage("img/logo/gdclogo3.png"));
         this.frame.setLocationRelativeTo(null);
         this.frame.setVisible(true);
+        
     }
 
     @Override
@@ -56,19 +59,19 @@ public class MainGui implements MenuManager {
     //CAMBIARE DA ACCOUNT MANAGER A BALANCE MANAGER (SEMPRE ADVANCED)
     @Override
     public void setRouletteMenu(final AccountManager account, final Games game) {
-        this.updateMenu(new GeneralGui(this, game,  account));
+        this.updateMenu(new GeneralGui(this, account,  game));
     }
 
     @Override
     public void setBlackjackMenu(final AccountManager account) {
-        final GeneralGui g = new GeneralGui(this, Games.BLACKJACK, account);
+        final GeneralGui g = new GeneralGui(this, account, Games.BLACKJACK);
         this.updateMenu(new GameImpl(this, g, g.getGame()));
     }
 
     //CAMBIARE DA ACCOUNT MANAGER A BALANCE MANAGER (SEMPRE ADVANCED)
     @Override
     public void setBaccaratMenu(final AccountManager account) {
-        final GeneralGui g = new GeneralGui(this, Games.BACCARAT, account);
+        final GeneralGui g = new GeneralGui(this, account, Games.BACCARAT);
         this.updateMenu(new GameImpl(this, g, g.getGame()));
         
     }
