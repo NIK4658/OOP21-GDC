@@ -25,10 +25,26 @@ public class RouletteGame extends JPanel implements Game {
     private final Table table;
     private final Wins win;
     
-    public RouletteGame(final GeneralGui generalInterface, final Games game) {
+    public RouletteGame(final GeneralGui generalInterface, final Games game) {//dire nella JavaDoc che può mandare eccezione
         this.setOpaque(false);
         this.setLayout(new BorderLayout());
         this.generalInterface = generalInterface;
+        this.win = new Wins();
+        final RouletteFactory rouletteFactory = new RouletteFactoryImpl();
+        
+        switch (game) {
+            case ROULETTE_BASE: 
+                this.roulette = rouletteFactory.createBaseRoulette();
+                break;
+            case ROULETTE_EUROPEAN: 
+                this.roulette = rouletteFactory.createEuropeanRoulette();
+                break;
+            case ROULETTE_AMERICAN: 
+                this.roulette = rouletteFactory.createAmericanRoulette();
+                break;
+            default:
+                throw new IllegalArgumentException();
+        }
         
         final Dimension dimension = generalInterface.getMenu().getPreferredSize();
         this.winningNumbers = new DisplayWinningNumbers(new Dimension(dimension.width, 

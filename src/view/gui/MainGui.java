@@ -30,13 +30,13 @@ public class MainGui implements MenuManager {
         this.widthMenu =  (Utilities.resize(1.5f)).width;
         this.heightMenu = (Utilities.resize(1.5f)).height;
         this.sizeMenu = new Dimension(this.widthMenu, this.heightMenu);
-        this.setAccessMenu(new AdvancedAccountManagerImpl());
         this.frame.setSize(this.sizeMenu);
         this.frame.setResizable(false);
         this.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.frame.setTitle("GIOCHI DEL COLOSSO");
         this.frame.setIconImage(Utilities.getImage("img/logo/gdclogo3.png"));
         this.frame.setLocationRelativeTo(null);
+        this.setAccessMenu(new AdvancedAccountManagerImpl());
         this.frame.setVisible(true);
         
     }
