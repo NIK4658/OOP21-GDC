@@ -17,7 +17,7 @@ import model.account.BalanceManager;
 public class AdvancedBalanceManagerTest {
 
     private static final  int LONGINT = 123456789;
-    private static final String DIRECTORYPATH = "res/json/users/";
+    private static final String DIRECTORYPATH = "users/";
     private AccountManager account;
     private BalanceManager advancedAccount;
     private File file;

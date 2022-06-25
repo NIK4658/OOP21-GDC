@@ -15,7 +15,7 @@ import model.account.SimpleBalanceManagerImpl;
 
 public class SimpleBalanceManagerTest {
 
-    private static final String DIRECTORYPATH = "res/json/users/";
+    private static final String DIRECTORYPATH = "users/";
     private AccountManager account;
     private BalanceManager simpleAccount;
     private File file;
