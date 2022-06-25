@@ -37,7 +37,11 @@ import view.menu.games.Game;
 
 public class GeneralGui extends JPanel implements Menu {
     
-    private final AccountManager account;
+    /**
+	 * General gui implemented by all games
+	 */
+	private static final long serialVersionUID = 1L;
+	private final AccountManager account;
     private final BalanceManager Balanceaccount;
     private final MenuManager frame;
     private double bet;
@@ -58,6 +62,12 @@ public class GeneralGui extends JPanel implements Menu {
     private final JLayeredPane winmsg = new JLayeredPane();
     private final JLabel winMessageText = new JLabel("");
     
+    /**
+     * Constructor
+     * @param frame
+     * @param account
+     * @param game
+     */
     public GeneralGui(final MenuManager frame, final AccountManager account, final Games game ){
         this.frame = frame;
         this.account = account;

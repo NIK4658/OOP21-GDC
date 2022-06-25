@@ -22,14 +22,14 @@ import view.Utilities;
 import view.menu.games.Game.Games;
 
 /**
- * Javadoc Comment.
+ * class Guide for games
  */
 public class GuideGui extends JDialog {
     
     private static final long serialVersionUID = 1L;
 
     /**
-     * Javadoc Comment.
+     * Constructor
      */
     public GuideGui(final Dimension dim, final Games game) {
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
