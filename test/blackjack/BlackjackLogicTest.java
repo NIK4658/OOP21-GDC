@@ -10,12 +10,12 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import controller.blackjack.BlackJackLogic;
-import controller.blackjack.BlackJackLogicImpl;
 import model.account.AccountManager;
 import model.account.AdvancedAccountManagerImpl;
 import model.account.AdvancedBalanceManagerImpl;
 import model.account.BalanceManager;
+import model.blackjack.BlackJackLogic;
+import model.blackjack.BlackJackLogicImpl;
 
 
 public class BlackjackLogicTest {

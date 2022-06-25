@@ -1,6 +1,6 @@
-package controller.blackjack;
+package model.blackjack;
 
-import model.blackjack.Hand;
+import model.components.Hand;
 
 /**
  * Interface that defines the main methods of the game "Blackjack".

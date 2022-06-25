@@ -10,11 +10,11 @@ import java.util.ArrayList;
 import org.junit.Before;
 import org.junit.Test;
 
-import model.blackjack.Card;
-import model.blackjack.CardImpl;
-import model.blackjack.Deck;
-import model.blackjack.DeckImpl;
-import model.blackjack.Card.Suits;
+import model.components.Card;
+import model.components.CardImpl;
+import model.components.Deck;
+import model.components.DeckImpl;
+import model.components.Card.Suits;
 import utility.Pair;
 
 

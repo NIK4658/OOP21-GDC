@@ -6,7 +6,7 @@
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry excluding="view/menu/GameMenu.java|view/menu/account/PasswordConfirmed.java" kind="src" output="target/classes" path="src">
+	<classpathentry excluding="view/menu/GameMenu.java|view/menu/account/PasswordConfirmed.java|view/menu/games/roulette/RouletteController.java" kind="src" output="target/classes" path="src">
 		<attributes>
 			<attribute name="optional" value="true"/>
 			<attribute name="maven.pomderived" value="true"/>

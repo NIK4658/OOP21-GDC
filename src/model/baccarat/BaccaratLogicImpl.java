@@ -1,10 +1,10 @@
-package controller.baccarat;
+package model.baccarat;
 
 import model.account.BalanceManager;
-import model.blackjack.Hand;
-import model.blackjack.HandImpl;
-import model.blackjack.Deck;
-import model.blackjack.DeckImpl;
+import model.components.Deck;
+import model.components.DeckImpl;
+import model.components.Hand;
+import model.components.HandImpl;
 
 /**
  * baccarat logic implementation

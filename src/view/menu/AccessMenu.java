@@ -8,9 +8,9 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import model.account.AccountManager;
-import start.Warning;
 import view.Utilities;
 import view.gui.MenuManager;
+import view.gui.Warning;
 import view.menu.access.Access;
 import view.menu.access.AccessPanel;
 

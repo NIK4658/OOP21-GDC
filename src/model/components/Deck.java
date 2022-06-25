@@ -1,4 +1,4 @@
-package model.blackjack;
+package model.components;
 
 /**
  * Interface for managing decks of cards.

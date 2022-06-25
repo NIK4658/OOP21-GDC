@@ -13,9 +13,9 @@ import org.junit.Before;
 import org.junit.Test;
 
 import model.account.AccountManager;
-import model.blackjack.Card;
-import model.blackjack.CardImpl;
-import model.blackjack.Card.Suits;
+import model.components.Card;
+import model.components.CardImpl;
+import model.components.Card.Suits;
 
 public class CardTest {
 

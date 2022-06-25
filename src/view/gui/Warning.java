@@ -1,10 +1,11 @@
-package start;
+package view.gui;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.AbstractButton;
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JDialog;
@@ -39,8 +40,11 @@ public class Warning extends JDialog {
         textArea.setBackground(new Color(247, 99, 79));
         //file lecture
         textArea.append(Utilities.getFileText("txt/WarningTest.txt"));
+        textArea.setCaretPosition(0);
         // set textArea non-editable
         textArea.setEditable(false); 
+        this.getRootPane().setBorder(BorderFactory
+                .createMatteBorder(3, 3, 3, 3, Color.BLACK));
         //Putting the Text area on a scroll panel
         final JScrollPane scrollText = new JScrollPane(textArea);
         //Setting scroll option only vertical

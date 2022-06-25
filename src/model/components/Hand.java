@@ -1,4 +1,4 @@
-package model.blackjack;
+package model.components;
 
 /**
  * Interface that manages the methods of managing the hands of the players and the dealer.

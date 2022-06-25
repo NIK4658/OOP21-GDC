@@ -1,10 +1,10 @@
 package view.menu;
 
-import baccarat.BaccaratGui;
 import model.account.AccountManager;
 import model.account.AdvancedBalanceManagerImpl;
 import model.account.BalanceManager;
 import view.menu.games.Game.Games;
+import view.menu.games.baccarat.BaccaratGui;
 import view.menu.games.blackjack.BlackJackGui;
 import view.menu.games.GuideGui;
 import view.menu.games.roulette.RouletteGame;

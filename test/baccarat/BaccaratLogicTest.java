@@ -10,12 +10,12 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import controller.baccarat.BaccaratLogic;
-import controller.baccarat.BaccaratLogicImpl;
 import model.account.AccountManager;
 import model.account.AdvancedAccountManagerImpl;
 import model.account.AdvancedBalanceManagerImpl;
 import model.account.BalanceManager;
+import model.baccarat.BaccaratLogic;
+import model.baccarat.BaccaratLogicImpl;
 
 public class BaccaratLogicTest {
 	 private static final String DIRECTORYPATH = "res/json/users/";

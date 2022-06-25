@@ -1,4 +1,4 @@
-package model.blackjack;
+package model.components;
 
 import java.awt.Image;
 import utility.Pair;

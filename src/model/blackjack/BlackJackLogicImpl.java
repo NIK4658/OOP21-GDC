@@ -1,10 +1,10 @@
-package controller.blackjack;
+package model.blackjack;
 
 import model.account.BalanceManager;
-import model.blackjack.Deck;
-import model.blackjack.DeckImpl;
-import model.blackjack.Hand;
-import model.blackjack.HandImpl;
+import model.components.Deck;
+import model.components.DeckImpl;
+import model.components.Hand;
+import model.components.HandImpl;
 
 /**
  * Class that presents the main methods of the game "Blackjack".

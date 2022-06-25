@@ -1,8 +1,9 @@
-package model.blackjack;
+package model.components;
 
 import java.util.ArrayList;
 import java.util.Random;
-import model.blackjack.Card.Suits;
+
+import model.components.Card.Suits;
 
 /**
  * Class that implements card deck management methods.

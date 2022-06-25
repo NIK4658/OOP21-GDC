@@ -1,4 +1,4 @@
-package baccarat;
+package view.menu.games.baccarat;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -14,8 +14,6 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
-import controller.baccarat.BaccaratLogic;
-import controller.baccarat.BaccaratLogicImpl;
 
 import java.awt.Insets;
 import view.MyGridBagConstraints;
@@ -27,7 +25,9 @@ import view.menu.GeneralGui;
 import view.menu.games.Game;
 import view.menu.games.component.BetButtonImpl;
 import model.account.BalanceManager;
-import model.blackjack.Hand;
+import model.baccarat.BaccaratLogic;
+import model.baccarat.BaccaratLogicImpl;
+import model.components.Hand;
 
 /**
  * GUI principale Baccarat.
@@ -46,7 +46,7 @@ public class BaccaratGui extends JPanel implements Game {
   private final JLabel dealerPoints;
   private final JLayeredPane center;
   private final JLayeredPane north;
-  private final Image img = Utilities.getImage("img/backgrounds/bacTable.png");
+  private final Image img = Utilities.getImage("img/backgrounds/BacTable.png");
   private List<JLabel> dealerCards;
   private List<JLabel> playerCards;
   private final BalanceManager account;
@@ -233,7 +233,7 @@ public class BaccaratGui extends JPanel implements Game {
       setCards(playerCards, controller.getPlayerHand(), center, DIRECTION_PLAYER);
       setCards(dealerCards, controller.getDealerHand(), north, DIRECTION_DEALER);
 
-      this.dealerPoints.setText(String.valueOf(controller.getDealerHand().getCard(0).getValue()));
+      this.dealerPoints.setText(String.valueOf(controller.getDealerPoints()));
       this.playerPoints.setText(String.valueOf(controller.getPlayerPoints()));
 
       if (controller.checkBaccarat(controller.getPlayerHand())) {

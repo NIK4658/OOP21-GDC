@@ -1,5 +1,5 @@
-package controller.baccarat;
-import model.blackjack.Hand;
+package model.baccarat;
+import model.components.Hand;
 
 
 /**

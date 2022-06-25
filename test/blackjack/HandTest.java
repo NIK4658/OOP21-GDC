@@ -6,11 +6,11 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Before;
 import org.junit.Test;
 
-import model.blackjack.Card;
-import model.blackjack.CardImpl;
-import model.blackjack.Hand;
-import model.blackjack.HandImpl;
-import model.blackjack.Card.Suits;
+import model.components.Card;
+import model.components.CardImpl;
+import model.components.Hand;
+import model.components.HandImpl;
+import model.components.Card.Suits;
 
 
 public class HandTest {

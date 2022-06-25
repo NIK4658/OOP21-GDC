@@ -1,7 +1,5 @@
 package view.menu.games.blackjack;
 
-import controller.blackjack.BlackJackLogic;
-import controller.blackjack.BlackJackLogicImpl;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -20,7 +18,9 @@ import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
 import model.account.BalanceManager;
-import model.blackjack.Hand;
+import model.blackjack.BlackJackLogic;
+import model.blackjack.BlackJackLogicImpl;
+import model.components.Hand;
 import view.MyGridBagConstraints;
 import view.Utilities;
 import view.gui.MenuManager;
