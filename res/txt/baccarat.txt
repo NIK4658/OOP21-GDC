@@ -1,23 +1,23 @@
-Le regole del baccarat vedono sostanzialmente solo due protagonisti: il banco e il giocatore.
-In generale le regole del baccarat sono piuttosto schematiche. 
-Il croupier, dopo aver mischiato i mazzi, distribuisce due carte al giocatore e due a sé. 
-A questo punto si calcola la somma delle due carte: le figure valgono 10, mentre le altre carte
-hanno il loro valore nominale.
-Dalla somma va estrapolata soltanto l’unità. 
-Ad esempio, se le carte in possesso del banco sono ad esempio un 9 e un 6, il risultato è 
-9+6=15 e quindi si considera 5, rimuovendo la decina. 
-Se le carte sono un 7 e un 3, il risultato è 10=0.
-Se uno tra banco e giocatore ha totalizzato 8 o 9 (detto baccarat), le mani vengono 
-scoperte e chi dei due ha totalizzato il punteggio più alto vince: 
-in caso di punteggio identico, la mano viene considerata in parità.
-Se non è stato raggiunto un baccarat, si procede secondo altre regole. 
-Se il giocatore ha realizzato un 6 o un 7, non pesca nessuna carta. 
-Se invece il suo risultato è inferiore, ne riceverà un’altra scoperta.
-A questo punto è il turno del banco, che agisce in base al valore delle proprie carte:
+The rules of baccarat instead see only two protagonists: the dealer and the player.
+In general, the rules of baccarat are rather schematic.
+The dealer, after shuffling the decks, deals two cards to the player and two to himself.
+At this point the sum of the two cards is calculated: the figures are worth 10, while the 
+other cards have their face value.
+Only unity should be extrapolated from the sum.
+For example, if the cards held by the dealer are for example a 9 and a 6, the result is
+9 + 6 = 15 and therefore we consider 5, removing the ten.
+If the cards are a 7 and a 3, the result is 10 = 0.
+If one of the dealer and the player has a total of 8 or 9 (called baccarat), the hands 
+come discoveries and whoever has the highest score wins:
+in the case of an identity score, the hand is considered a tie.
+If baccarat has not been reached, it proceeds according to other rules.
+If the player has rolled a 6 or a 7, he draws no cards.
+If, on the other hand, his result is lower, he will receive another card.
+At this point it is the dealer's turn, who acts according to the value of his cards:
 
-- Se ha totalizzato 7, “sta” e non pesca nessuna carta;
-- Se ha totalizzato 6, pesca una carta se la carta scoperta del giocatore è un 6 o un 7;
-- Se ha totalizzato 5, pesca una carta se la carta scoperta del giocatore è 4, 5, 6 o 7;
-- Se ha totalizzato 4, pesca una carta se quella scoperta del giocatore ha un valore tra 2 e 7;
-- Se ha totalizzato 3, pesca una carta a meno che quella scoperta dal giocatore sia 8 o 9;
-- Se ha totalizzato 2, 1 o baccarat, pesca sempre una carta.
+- If he has totaled 7, he "stands" and does not draw any cards;
+- If he has a total of 6, he draws a card if the last player's card is a 6 or a 7;
+- If he has a total of 5, he draws a card if the last player's card is 4, 5, 6 or 7;
+- If he has a total of 4, he draws a card if the last player's card has a value between 2 and 7;
+- If he has a total of 3, he draws a card unless the last card of the player is 8 or 9;
+- If he has totaled 2, 1 or baccarat, he always draws a card.
