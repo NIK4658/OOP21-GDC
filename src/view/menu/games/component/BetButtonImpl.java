@@ -16,7 +16,7 @@ import view.Utilities;
 /**
  * Useful component to define the amount of money wagered by the user.
  */
-public class BetButtonImpl extends JButton implements BetButton {
+public class BetButtonImpl extends JButton implements BetButton{
     
     private static final long serialVersionUID = 1L;
     private double value;

@@ -5,20 +5,18 @@ import java.awt.GridBagConstraints;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
-import controller.MenuController;
 import model.account.AccountManager;
 
 
 public class UsernamePanel extends AccountPanel {
     
-    private final MenuController menuController;
+    private final AccountManager account;
     private final JTextField usernameField;
     private final JTextField newUsernameField;
     
-    public UsernamePanel(final Frame frame, final MenuController menuController, final int minSize) {
+    public UsernamePanel(final Frame frame, final AccountManager account, final int minSize) {
         super(minSize);
-        this.menuController = menuController;
-        
+        this.account = account;
         final JLabel usernameLabel = new JLabel("Username: ");
         final JLabel newUsernameLabel = new JLabel("New Username: ");
         usernameField = new JTextField(this.getUsername(), N_COLUMNS_FIELD);
@@ -28,7 +26,7 @@ public class UsernamePanel extends AccountPanel {
         
         final JButton changeButton = new JButton("Change");
         changeButton.addActionListener(e -> {
-            if (new ConfirmPassword(frame, this.menuController, minSize).isConfirmed()) {
+            if (new ConfirmPassword(frame, this.account, minSize).isConfirmed()) {
                 if (this.setUsername(newUsernameField.getText())) {
                     this.updateUsernameFields();
                     alertLabel.setText("Username changed");
@@ -62,10 +60,10 @@ public class UsernamePanel extends AccountPanel {
     }
 
     private String getUsername() {
-        return this.menuController.getUsername();
+        return this.account.getUsr();
     }
     
     private boolean setUsername(final String username) {
-        return this.menuController.changeUsername(username);
+        return this.account.changeUsr(username);
     }
 }

@@ -9,8 +9,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.Timer;
-
-import controller.MenuController;
 import model.account.AccountManager;
 
 
@@ -19,7 +17,7 @@ public class ConfirmPassword {
     private static final int CLOSING_DELAY = 2000;
     private boolean isValid;
     
-    public ConfirmPassword(final Frame frame, final MenuController menuController, final int minSize) {
+    public ConfirmPassword(final Frame frame, final AccountManager account, final int minSize) {
         final JDialog confirmDialog = new JDialog(frame, true);
         final JPanel confirmPanel = new AccountPanel(minSize);
         confirmPanel.setPreferredSize(new Dimension(frame.getWidth() / 2, frame.getHeight() / 2));
@@ -29,7 +27,7 @@ public class ConfirmPassword {
         final ActionListener closeDialog = e -> confirmDialog.dispose();
         
         passwordField.addActionListener(e -> {
-            if (menuController.isPassword(passwordField.getText())) {
+            if (account.isPsw(passwordField.getText())) {
                 this.isValid = true;
                 validLabel.setText("Password confirmed");
                 new Timer(CLOSING_DELAY, closeDialog).start();
