@@ -1,9 +1,15 @@
 package view.menu.access;
 
-import model.account.AccountManager;
-
+/**
+ * Interface of the login-register GUI.
+ *
+ */
 public interface Access {
     
+    /**
+     * Enum with two types of operations.
+     *
+     */
     enum AccessType { 
         LOGIN, REGISTER 
     } 
