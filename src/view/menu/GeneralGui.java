@@ -1,7 +1,10 @@
 package view.menu;
 
 import baccarat.BaccaratGui;
+import controller.BlackJackControllerImpl2;
+import controller.GeneralGameController;
 import controller.MenuController;
+import controller.blackjack.BlackJackController;
 import model.account.AccountManager;
 import model.account.AdvancedBalanceManagerImpl;
 import model.account.BalanceManager;
@@ -61,9 +64,11 @@ public class GeneralGui extends JPanel implements Menu {
     private final JLayeredPane winmsg = new JLayeredPane();
     private final JLabel winMessageText = new JLabel("");
     
-    public GeneralGui(final MenuManager frame, final AccountManager account, final Games game, final MenuController menuController ){
+    public GeneralGui(final MenuManager frame, final Games game, final MenuController menuController ){
         this.frame = frame;
         this.account = account;
+        final GeneralGameController GeneralController = new GeneralGameController(this);
+        //final BlackJackControllerImpl2 GameController = new BlackJackControllerImpl2(this, new BlackJackGui());
         this.menuController = menuController;
         this.Balanceaccount = new AdvancedBalanceManagerImpl(this.account);
         setLayout(new BorderLayout());
@@ -85,18 +90,19 @@ public class GeneralGui extends JPanel implements Menu {
         this.setOpaque(false);
         switch (game) {
             case BLACKJACK: 
-                this.g = new BlackJackGui(new AdvancedBalanceManagerImpl(account), this);
+                this.g = new BlackJackGui(this);
+                gameController = ()this.g.getController();
                 showButtons(false);
                 break;
             case BACCARAT: 
-                this.g = new BaccaratGui(frame, new AdvancedBalanceManagerImpl(account), this);
+                //this.g = new BaccaratGui(frame, new AdvancedBalanceManagerImpl(account), this);
                 break;
             default: 
 //                this.g = new RouletteGame(this, game);
                 center = (JPanel) this.g;
                 this.setOpaque(true);
                 this.setBackground(RouletteGame.BACKGROUND_COLOR);
-                new RouletteController(this, game);
+                //new RouletteController(this, game);
         }
         north.setPreferredSize(new Dimension((int) (width / 12.8), (int) (height / 7.2)));
         final JButton backToMenu = new JButton("Back to Menu");
@@ -203,34 +209,31 @@ public class GeneralGui extends JPanel implements Menu {
             i++;
         }
         this.reset.addActionListener(e -> {
-            Balanceaccount.deposit(this.bet);
-            this.g.resetBet();
-            this.bet = 0;
-            updateBalanceValue();
-            this.setBetValue(this.bet);
+            GeneralController.reset();
+            GameController.resetBet();
         });
-        this.confirm.addActionListener(e -> this.g.confirmBet());
+        this.confirm.addActionListener(e -> GameController.confirmBet());
         backToMenu.addActionListener(e -> this.menuController.setMainMenu());
         help.addActionListener(e -> new GuideGui(frame.getSizeMenu(), game));
         fiches1.addActionListener(e -> {
             setSelectedFiches(0);
-            fichesvalue = 1;
+            GameController.setFichesValue(1);
         });
         fiches5.addActionListener(e -> {
             setSelectedFiches(1);
-            fichesvalue = 5;
+            GameController.setFichesValue(5);
         });
         fiches25.addActionListener(e -> {
             setSelectedFiches(2);
-            fichesvalue = 25;
+            GameController.setFichesValue(25);
         });
         fiches100.addActionListener(e -> {
             setSelectedFiches(3);
-            fichesvalue = 100;
+            GameController.setFichesValue(100);
         });
         fiches500.addActionListener(e -> {
             setSelectedFiches(4);
-            fichesvalue = 500;
+            GameController.setFichesValue(500);
         });
         final JLayeredPane southtotal = new JLayeredPane();
         southtotal.setPreferredSize(new Dimension((int) (width / 3.5) + width / 60, height / 10));
@@ -246,23 +249,9 @@ public class GeneralGui extends JPanel implements Menu {
         south.add(southright, BorderLayout.EAST);
         add(south, BorderLayout.SOUTH);
         setSelectedFiches(0);
-        updateBalanceValue();
+        GeneralController.updateBalanceValue();
         this.setMinimumSize(this.getPreferredSize());
         setVisible(true);
-    }
-
-    public final int getFichesValue() {
-        return this.fichesvalue;
-    }
-    
-    public boolean addBetValue(final double value) {
-        if (Balanceaccount.withdraw(value)) {
-            this.bet += value;
-            setBetValue(this.bet);
-            updateBalanceValue();
-            return true;
-        }
-        return false;
     }
     
     public void setBetValue(final double value) {
@@ -296,29 +285,20 @@ public class GeneralGui extends JPanel implements Menu {
         this.confirm.setVisible(val);
     }
 
-    public void updateBalanceValue() {
-        balanceValue.setText(valueToText(Balanceaccount.getBalance()) + "€");
-    }
-    
-    public void showWinMessage(final double value) {
-        if (value > 0) {
-            setWinMessage(value);
-            Balanceaccount.deposit(value);
-            this.updateBalanceValue();
-        } else {
-            winMessageText.setText("");
-        }
-        setWinValue(value);
-        this.bet = 0;
-        this.setBetValue(this.bet);
+    public void updateBalanceValue(final double value) {
+        balanceValue.setText(valueToText(value) + "€");
     }
     
     public void setWinValue(final double value) {
         winValue.setText(valueToText(value) + "€");
     }
     
-    private void setWinMessage(final double value) {
+    public void setWinMessage(final double value) {
         winMessageText.setText("YOU WON " + valueToText(value) + "€!");
+    }
+    
+    public void removeWinMessage() {
+        winMessageText.setText("");
     }
     
     private String valueToText(final double value) {
