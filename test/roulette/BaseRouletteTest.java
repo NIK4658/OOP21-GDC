@@ -6,10 +6,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.awt.Color;
 import java.util.LinkedList;
 import java.util.List;
-
-import org.junit.Before;
-import org.junit.Test;
-
 import model.roulette.Roulette;
 import model.roulette.RouletteFactoryImpl;
 import model.roulette.number.RouletteNumber;
@@ -20,8 +16,13 @@ import model.roulette.property.Property.Row;
 import model.roulette.wheel.Wheel;
 import model.roulette.wheel.WheelFactoryImpl;
 import model.roulette.win.Wins;
+import org.junit.Before;
+import org.junit.Test;
 import utility.Pair;
 
+/**
+ * JTest for base roulette.
+ */
 public class BaseRouletteTest {
     
     private static final int TESTCASE = 1000;
@@ -38,8 +39,7 @@ public class BaseRouletteTest {
     }
     
     
-    //testa se la roulette ritorna un numero compreso tra 0 e 36 in 1000 casi
-
+    // test if the roulette returns a number between 0 and 36 in 1000 cases
     @Test
     public void testValidWinningNumber() {
         for (int i = 0; i < TESTCASE; i++) {
@@ -49,8 +49,7 @@ public class BaseRouletteTest {
         
     }
 
-    //testa se la roulette ritorna tutti e 38 i numeri in 1000 casi
-    
+    // test if roulette returns all 37 numbers in 1000 cases
     @Test
     public void testValidIntervalWinningNumber() {
         final List<Integer> valuesWinningNumbers = new LinkedList<>();
@@ -64,25 +63,24 @@ public class BaseRouletteTest {
     }
     
     
-    //testa la paga sul numero
-    
+    // test the pay on the number
     @Test
     public void testNumberBet() {
-        //Scommetto sullo 0 e il numero vincente è lo zero, vinco 36eur
+        // I bet on 0 and the winning number is zero, I win 36
         Integer betNumber = 0;
         bets.add(new Pair<>(betNumber, amountBet));
         assertEquals(amountBet * 36, wins.win(bets, wheel.getList().get(0)));
         
-        //Scommetto sullo 0 e il numero vincente è l'1, perdo la scommessa
+        // I bet on 0 and the winning number is 1, I lose the bet
         assertEquals(0, wins.win(bets, wheel.getList().get(1)));
         
-        //Scommetto tutti i numeri ma solo lo 0 sarà vincente vinco una volta la bet * 36
+        // I bet all the numbers but only 0 will win I win once the bet * 36
         for (betNumber++; betNumber < 38; betNumber++) {
             bets.add(new Pair<Object, Double>(betNumber, amountBet)); 
         }
         assertEquals(36, wins.win(bets, wheel.getList().get(0)));
         
-        //Scommetto 2.22eur sul numero vincente
+        // I bet 2.22eur on the winning number
         betNumber = 0;
         amountBet = 2.22;
         bets = new LinkedList<Pair<Object, Double>>();
@@ -91,11 +89,10 @@ public class BaseRouletteTest {
     }
     
     
-    //testa la paga sul colore
-
+    // test the pay on the color
     @Test
     public void testColorBet() {
-        //scommetto sul rosso e testo la vincita su tutti i numeri rossi e la perdita su tutti gli altri
+        // I bet on red and text win on all red numbers and loss on all others
         final Color winProperty = Color.BLACK;
         bets.add(new Pair<Object, Double>(winProperty, amountBet));
         for (final RouletteNumber rouletteNumber : wheel.getList()) {
@@ -106,17 +103,16 @@ public class BaseRouletteTest {
             }
         }
         
-        //scommetto sul rosso e sul nero ma esce lo zero(neutro)
+        // I bet on red and black but zero comes out (neutral)
         bets.add(new Pair<Object, Double>(Color.RED, amountBet));
         assertEquals(0, wins.win(bets, wheel.getList().get(0)));
     }    
     
 
-    //testa la paga sulla parità
-    
+    // test the pay on parity
     @Test
     public void testParityBet() {
-        //scommetto sul pari e testo la vincita su tutti i numeri pari e la perdita su tutti gli altri
+        // I bet on even numbers and test the win on all even numbers and the loss on all others
         final Parity winProperty = Parity.EVEN;
         bets.add(new Pair<Object, Double>(winProperty, amountBet));
         for (final RouletteNumber rouletteNumber : wheel.getList()) {
@@ -127,17 +123,17 @@ public class BaseRouletteTest {
             }
         }
         
-        //scommetto sul pari e sul dispari ma esce lo zero(neutro)
+        // I bet on even and odd but zero comes out (neutral)
         bets.add(new Pair<Object, Double>(Parity.ODD, amountBet));
         assertEquals(0, wins.win(bets, wheel.getList().get(0)));
     }
     
     
-    //testa la paga se numeri compresi 
+    // test the pay if numbers are included
     @Test
     public void testNumberIncludedBet() {
         
-        //scommetto sull'intervallo 1.18 e testo le vincite e perdite di tutti i numeri
+        // I bet on the range 1.18 and test the winnings and losses of all numbers
         final Included winProperty = Included._1_18_;
         bets.add(new Pair<Object, Double>(winProperty, amountBet));
         for (final RouletteNumber rouletteNumber : wheel.getList()) {
@@ -148,18 +144,18 @@ public class BaseRouletteTest {
             }
         }
         
-        //scommetto sull'intervallo 1-18 e 19-36 ma esce lo zero(neutro)
+        // I bet on the interval 1-18 and 19-36 but zero comes out (neutral)
         bets.add(new Pair<Object, Double>(Included._19_36_, amountBet));
         assertEquals(0, wins.win(bets, wheel.getList().get(0)));
     }
     
    
     
-    //testa la paga sulla colonna
+    // test the pay on the column
     @Test
     public void testColumnBet() {        
 
-        //scommetto sulla prima colonna e testo le vincite e perdite su tutti i numeri
+        // I bet on the first column and text the winnings and losses on all numbers
         final List<RouletteNumber> numbers = wheel.getList();
         final Column winProperty = Column.FIRST;
         bets.add(new Pair<Object, Double>(winProperty, amountBet));
@@ -171,17 +167,16 @@ public class BaseRouletteTest {
             }
         }
     
-        //scommetto sulle tre proprietà ma esce lo zero(neutro)
+        // I bet on the three properties but zero comes out (neutral)
         bets.add(new Pair<Object, Double>(Column.SECOND, amountBet));
         bets.add(new Pair<Object, Double>(Column.THIRD, amountBet));
         assertEquals(0, wins.win(bets, numbers.get(0)));
     }
     
-    //testa la paga sulla riga
+    // test the pay on the line
     @Test
     public void testRowBet() {
-        
-        //scommetto sulla prima riga e testo le vincite e perdite su tutti i numeri
+        // I bet on the first line and text the winnings and losses on all numbers
         final List<RouletteNumber> numbers = wheel.getList();
         final Row winProperty = Row.FIRST;
         bets.add(new Pair<Object, Double>(winProperty, amountBet));
@@ -193,7 +188,7 @@ public class BaseRouletteTest {
             }
         }
     
-        //scommetto sulle tre proprietà ma esce lo zero(neutro)
+        // I bet on the three properties but zero comes out (neutral)
         bets.add(new Pair<Object, Double>(Row.SECOND, amountBet));
         bets.add(new Pair<Object, Double>(Row.THIRD, amountBet));
         assertEquals(0, wins.win(bets, numbers.get(0)));

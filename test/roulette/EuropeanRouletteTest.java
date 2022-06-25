@@ -23,7 +23,9 @@ import org.junit.Before;
 import org.junit.Test;
 import utility.Pair;
 
-
+/**
+ * JTest for european roulette.
+ */
 public class EuropeanRouletteTest {
     
 
@@ -43,8 +45,8 @@ public class EuropeanRouletteTest {
     }
     
     
-    //testa se la roulette ritorna un numero compreso tra 0 e 36 in 1000 casi
-
+    
+    // test if the roulette returns a number between 0 and 36 in 1000 cases
     @Test
     public void testValidWinningNumber() {
         for (int i = 0; i < TESTCASE; i++) {
@@ -54,8 +56,8 @@ public class EuropeanRouletteTest {
         
     }
 
-    //testa se la roulette ritorna tutti e 37 i numeri in 1000 casi
     
+    // test if roulette returns all 38 numbers in 1000 cases
     @Test
     public void testValidIntervalWinningNumber() {
         final List<Integer> valuesWinningNumbers = new LinkedList<>();
@@ -69,25 +71,24 @@ public class EuropeanRouletteTest {
     }
     
     
-    //testa la paga sul numero
-    
+    // test the pay on the number
     @Test
     public void testNumberBet() {
-        //Scommetto sullo 0 e il numero vincente è lo zero, vinco 36eur
+        // I bet on 0 and the winning number is zero, I win 36eur
         Integer betNumber = Integer.valueOf(0);
         bets.add(new Pair<>(betNumber, amountBet));
         assertEquals(amountBet * 36, wins.win(bets, rouletteNumbers.get(0)));
         
-        //Scommetto sullo 0 e il numero vincente è l'1, perdo la scommessa
+        // I bet on 0 and the winning number is 1, I lose the bet
         assertEquals(0, wins.win(bets, rouletteNumbers.get(1)));
         
-        //Scommetto tutti i numeri ma solo lo 0 sarà vincente, perdo la bet 36 volte e vinco una volta la bet * 36
+        // I bet all the numbers but only 0 will win I win once the bet * 36
         for (betNumber++; betNumber < 37; betNumber++) {
             bets.add(new Pair<Object, Double>(betNumber, amountBet)); 
         }
         assertEquals(36, wins.win(bets, rouletteNumbers.get(0)));
         
-        //Scommetto 2.22eur sul numero vincente
+        // I bet 2.22eur on the winning number
         betNumber = 0;
         amountBet = 2.22;
         bets = new LinkedList<Pair<Object, Double>>();
@@ -96,11 +97,10 @@ public class EuropeanRouletteTest {
     }
     
     
-    //testa la paga sul colore
-
+    // test the pay on the color
     @Test
     public void testColorBet() {
-        //scommetto sul rosso e testo la vincita su tutti i numeri rossi e la perdita su tutti gli altri
+        // I bet on red and text win on all red numbers and loss on all others
         final Color winProperty = Color.BLACK;
         bets.add(new Pair<Object, Double>(winProperty, amountBet));
         for (final RouletteNumber rouletteNumber : wheel.getList()) {
@@ -111,17 +111,16 @@ public class EuropeanRouletteTest {
             }
         }
         
-        //scommetto sul rosso e sul nero ma esce lo zero(neutro)
+        // I bet on red and black but zero comes out (neutral)
         bets.add(new Pair<Object, Double>(Color.RED, amountBet));
         assertEquals(0, wins.win(bets, wheel.getList().get(0)));
     }    
     
 
-    //testa la paga sulla parità
-    
+    // test the pay on parity
     @Test
     public void testParityBet() {
-        //scommetto sul pari e testo la vincita su tutti i numeri pari e la perdita su tutti gli altri
+        // I bet on even numbers and test the win on all even numbers and the loss on all others
         final Parity winProperty = Parity.EVEN;
         bets.add(new Pair<Object, Double>(winProperty, amountBet));
         for (final RouletteNumber rouletteNumber : wheel.getList()) {
@@ -132,17 +131,17 @@ public class EuropeanRouletteTest {
             }
         }
         
-        //scommetto sul pari e sul dispari ma esce lo zero(neutro)
+        // I bet on even and odd but zero comes out (neutral)
         bets.add(new Pair<Object, Double>(Parity.ODD, amountBet));
         assertEquals(0, wins.win(bets, wheel.getList().get(0)));
     }
     
     
-    //testa la paga sulla colonna
+    // test the pay on the column
     @Test
     public void testColumnBet() {        
 
-        //scommetto sulla prima colonna e testo le vincite e perdite su tutti i numeri
+        // I bet on the first column and text the winnings and losses on all numbers
         final List<RouletteNumber> numbers = wheel.getList();
         final Column winProperty = Column.FIRST;
         bets.add(new Pair<Object, Double>(winProperty, amountBet));
@@ -160,12 +159,10 @@ public class EuropeanRouletteTest {
         assertEquals(0, wins.win(bets, numbers.get(0)));
     }
     
-    //testa la paga sulla riga
+    // test the pay on the line
     @Test
     public void testRowBet() {
-        
-        
-        //scommetto sulla prima riga e testo le vincite e perdite su tutti i numeri
+        // I bet on the first line and text the winnings and losses on all numbers
         final List<RouletteNumber> numbers = wheel.getList();
         final Row winProperty = Row.FIRST;
         bets.add(new Pair<Object, Double>(winProperty, amountBet));
@@ -177,46 +174,46 @@ public class EuropeanRouletteTest {
             }
         }
     
-        //scommetto sulle tre proprietà ma esce lo zero(neutro)
+        // I bet on the three properties but zero comes out (neutral)
         bets.add(new Pair<Object, Double>(Row.SECOND, amountBet));
         bets.add(new Pair<Object, Double>(Row.THIRD, amountBet));
         assertEquals(0, wins.win(bets, numbers.get(0)));
     }
     
-    //testa la paga sul settore
+    // test the pay on the sector
     @Test
     public void testSectorBet() {
-        //scommetto sul settore zero ed esce il 3, vinco 36/7 volte la bet
+        // I bet on sector zero and it comes out on 3, I win the bet 36/7 times
         bets.add(new Pair<Object, Double>(Sector.ZERO, amountBet));
         RouletteNumber rouletteNumber = getEuropeanRouletteNumber(rouletteNumbers.get(3));
         assertEquals(rounding(amountBet * 36.0 / 7), wins.win(bets, rouletteNumber));
         
-        //scommetto sul settore zero ed esce il 36, perdo la bet
+        // I bet on sector zero and 36 comes out, I lose the bet
         rouletteNumber = rouletteNumbers.get(36);
         assertEquals(0, wins.win(bets, rouletteNumber));
         
-        //scommetto sul settore tier ed esce il 5, vinco la bet
+        // I bet on the tier sector and it comes out on 5, I win the bet
         bets = new LinkedList<>();
         bets.add(new Pair<>(Sector.TIER, amountBet));
-        rouletteNumber = getEuropeanRouletteNumber(rouletteNumbers.get(5));;
+        rouletteNumber = getEuropeanRouletteNumber(rouletteNumbers.get(5));
         assertEquals(rounding(amountBet * (36.0 / 12)), wins.win(bets, rouletteNumber));
         
-        //scommetto sul settore orphelins ed esce il 34, vinco la bet
+        // I bet on the orphelins sector and it comes out on 34, I win the bet
         bets = new LinkedList<>();
         bets.add(new Pair<>(Sector.ORPHELINS, amountBet));
-        rouletteNumber = getEuropeanRouletteNumber(rouletteNumbers.get(34));;
+        rouletteNumber = getEuropeanRouletteNumber(rouletteNumbers.get(34));
         assertEquals(rounding(amountBet * (36.0 / 8)), wins.win(bets, rouletteNumber));
         
-        //scommetto sul settore voisins ed esce il 22, vinco la bet
+        // I bet on the voisins sector and it comes out on the 22nd, I win the bet
         bets = new LinkedList<>();
         bets.add(new Pair<>(Sector.VOISINS, amountBet));
-        rouletteNumber = getEuropeanRouletteNumber(rouletteNumbers.get(22));;
+        rouletteNumber = getEuropeanRouletteNumber(rouletteNumbers.get(22));
         assertEquals(rounding(amountBet * (36.0 / 17)), wins.win(bets, rouletteNumber));
         
-        //scommetto sul settore voisins ed esce lo 0, vinco la bet
+        // I bet on the voisins sector and 0 comes out, I win the bet
         bets = new LinkedList<>();
         bets.add(new Pair<>(Sector.VOISINS, amountBet));
-        rouletteNumber = getEuropeanRouletteNumber(rouletteNumbers.get(0));;
+        rouletteNumber = getEuropeanRouletteNumber(rouletteNumbers.get(0));
         assertEquals(rounding(amountBet * (36.0 / 17)), wins.win(bets, rouletteNumber));
     }
     
@@ -235,4 +232,3 @@ public class EuropeanRouletteTest {
     }
     
 }
-
