@@ -81,13 +81,24 @@ public class BaccaratLogicTest {
 	        
 	    }
 	    
+	    public void testEndGame() {
+	    	this.game.startGame(5);
+	        this.game.nextMove();
+	        this.game.endGame();
+	        assertTrue(this.game.getDealerHand().size() <= 3);
+	        assertTrue(this.game.getPlayerHand().size() <= 3);
+	        assertFalse( this.game.getPlayerPoints() > 9);
+	        assertFalse( this.game.getDealerPoints() > 9);
+	        
+	        }
+	        
+	    
 	    @After
 	    public void deleteFiles() {
 	        if (this.file.exists() && !this.file.isDirectory()) {
 	            this.file.delete();
 	        }
-	    } 
-	    
+	    }	    
 	}
 
 
