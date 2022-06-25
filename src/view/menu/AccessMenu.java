@@ -15,7 +15,7 @@ import view.menu.access.Access;
 import view.menu.access.AccessPanel;
 
 /**
- * //DA SISTEMARE I MAGIC NUMBERS.
+ * Starting panel of the program.
  */
 public class AccessMenu extends JPanel implements Access, Menu {
 
@@ -24,7 +24,10 @@ public class AccessMenu extends JPanel implements Access, Menu {
     private final AccountManager account;
     
     /**
-     * //DA SISTEMARE I MAGIC NUMBERS.
+     * Main Costructor.
+     * 
+     * @param frame Frame of the window.
+     * @param account AccountManager useful to manage user data.
      */
     public AccessMenu(final MenuManager frame, final AccountManager account) {
         this.setLayout(new BorderLayout());
